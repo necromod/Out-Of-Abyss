@@ -1,16 +1,14 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sessão - Out of the Abyss</title>
-    
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/sessao.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/widgets.css') }}">
-</head>
-<body class="tema-abyss sessao-mode">
-    
+{% extends "base.html" %}
+
+{% block title %}Sessão - Out of the Abyss{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/sessao.css') }}">
+{% endblock %}
+
+{% block content %}
+</main><!-- Fecha o container do base.html -->
+
     <!-- Barra de ferramentas flutuante -->
     <div class="toolbar">
         <button class="toolbar-btn" onclick="abrirSeletorMapa()" title="Trocar Mapa">🗺️</button>
@@ -65,9 +63,12 @@
             </div>
         </div>
     </div>
-    
-    <script src="{{ url_for('static', filename='js/base.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/widgets.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/sessao.js') }}"></script>
-</body>
-</html>
+
+<main style="display:none;"><!-- Reabre para fechar no base.html -->
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/widgets.js') }}"></script>
+<script src="{{ url_for('static', filename='js/sessao.js') }}"></script>
+<script>document.body.classList.add('sessao-mode');</script>
+{% endblock %}

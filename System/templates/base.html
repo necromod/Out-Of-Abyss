@@ -8,6 +8,7 @@
     <!-- CSS Base -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/widgets.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/fichas.css') }}">
     
     {% block extra_css %}{% endblock %}
 </head>
@@ -17,10 +18,50 @@
             <a href="{{ url_for('main.index') }}">⚔️ Out of the Abyss</a>
         </div>
         <div class="navbar-menu">
-            <a href="{{ url_for('sessao.tela_sessao') }}" class="nav-link">Sessão</a>
-            <a href="{{ url_for('main.configuracoes') }}" class="nav-link">Configurações</a>
+            <!-- Dropdown Fichas -->
+            <div class="nav-dropdown">
+                <button class="nav-link nav-dropdown-toggle">
+                    📋 Fichas <span class="dropdown-arrow">▼</span>
+                </button>
+                <div class="nav-dropdown-menu">
+                    <a href="{{ url_for('fichas.lista_personagens') }}" class="dropdown-item">
+                        👤 Personagens
+                    </a>
+                    <a href="{{ url_for('fichas.lista_monstros') }}" class="dropdown-item">
+                        👹 Bestiário
+                    </a>
+                    <a href="{{ url_for('fichas.lista_npcs') }}" class="dropdown-item">
+                        🎭 NPCs
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="{{ url_for('fichas.novo_personagem') }}" class="dropdown-item text-accent">
+                        ➕ Novo Personagem
+                    </a>
+                    <a href="{{ url_for('fichas.novo_monstro') }}" class="dropdown-item text-accent">
+                        ➕ Novo Monstro
+                    </a>
+                    <a href="{{ url_for('fichas.novo_npc') }}" class="dropdown-item text-accent">
+                        ➕ Novo NPC
+                    </a>
+                </div>
+            </div>
+            
+            <a href="{{ url_for('sessao.tela_sessao') }}" class="nav-link">🎲 Sessão</a>
+            <a href="{{ url_for('main.configuracoes') }}" class="nav-link">⚙️ Config</a>
         </div>
+        
+        <!-- Menu mobile -->
+        <button class="navbar-toggle" onclick="toggleMobileMenu()">☰</button>
     </nav>
+    
+    <!-- Menu mobile expandido -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="{{ url_for('fichas.lista_personagens') }}" class="mobile-link">👤 Personagens</a>
+        <a href="{{ url_for('fichas.lista_monstros') }}" class="mobile-link">👹 Bestiário</a>
+        <a href="{{ url_for('fichas.lista_npcs') }}" class="mobile-link">🎭 NPCs</a>
+        <a href="{{ url_for('sessao.tela_sessao') }}" class="mobile-link">🎲 Sessão</a>
+        <a href="{{ url_for('main.configuracoes') }}" class="mobile-link">⚙️ Config</a>
+    </div>
     
     <main class="container">
         {% block content %}{% endblock %}
@@ -28,6 +69,7 @@
     
     <!-- JavaScript Base -->
     <script src="{{ url_for('static', filename='js/base.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/fichas.js') }}"></script>
     {% block extra_js %}{% endblock %}
 </body>
 </html>

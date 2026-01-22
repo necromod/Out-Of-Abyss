@@ -1,0 +1,249 @@
+{% extends "base.html" %}
+
+{% block title %}NPCs - Out of the Abyss{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/fichas.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="lista-container">
+    <header class="lista-header">
+        <h1>🎭 NPCs do Underdark</h1>
+        <div class="lista-acoes">
+            <button class="btn-principal" onclick="window.location.href='{{ url_for('fichas.novo_npc') }}'">
+                ➕ Novo NPC
+            </button>
+        </div>
+    </header>
+
+    <div class="filtros">
+        <input type="text" id="filtro-nome" placeholder="🔍 Buscar por nome..." oninput="filtrarLista()">
+        <select id="filtro-status" onchange="filtrarLista()">
+            <option value="">Todos</option>
+            <option value="amigavel">Amigáveis</option>
+            <option value="neutro">Neutros</option>
+            <option value="hostil">Hostis</option>
+        </select>
+        <select id="filtro-local" onchange="filtrarLista()">
+            <option value="">Todas as Localizações</option>
+            <option value="velkynvelve">Velkynvelve</option>
+            <option value="gracklstugh">Gracklstugh</option>
+            <option value="neverlight">Neverlight Grove</option>
+            <option value="blingdenstone">Blingdenstone</option>
+            <option value="menzoberranzan">Menzoberranzan</option>
+        </select>
+        <label class="checkbox-label">
+            <input type="checkbox" id="filtro-vivo" checked onchange="filtrarLista()">
+            Apenas vivos
+        </label>
+        <label class="checkbox-label">
+            <input type="checkbox" id="filtro-conhecido" checked onchange="filtrarLista()">
+            Apenas conhecidos
+        </label>
+    </div>
+
+    <div class="lista-grid lista-npcs" id="lista-npcs">
+        <div class="loading">Carregando NPCs...</div>
+    </div>
+</div>
+
+<!-- Template Card NPC -->
+<template id="template-card-npc">
+    <div class="card-npc" data-id="" data-status="" data-local="" data-vivo="" data-conhecido="">
+        <div class="card-status-indicator"></div>
+        <div class="card-header-npc">
+            <h3 class="card-nome"></h3>
+            <span class="card-raca"></span>
+        </div>
+        <div class="card-body-npc">
+            <p class="card-classe"></p>
+            <p class="card-local">📍 <span class="local-valor"></span></p>
+            <p class="card-descricao"></p>
+        </div>
+        <div class="card-tags">
+            <span class="tag tag-status"></span>
+            <span class="tag tag-vivo"></span>
+        </div>
+        <div class="card-acoes">
+            <button class="btn-card btn-ver" onclick="verNPC(this)">👁️ Ver</button>
+            <button class="btn-card btn-editar" onclick="editarNPC(this)">✏️ Editar</button>
+            <button class="btn-card btn-notas" onclick="verNotas(this)">📝 Notas</button>
+        </div>
+    </div>
+</template>
+
+<!-- Modal Notas -->
+<div id="modal-notas" class="modal">
+    <div class="modal-content modal-notas">
+        <h3>📝 Notas do Mestre</h3>
+        <input type="hidden" id="notas-npc-id">
+        <textarea id="notas-texto" placeholder="Notas secretas sobre o NPC..."></textarea>
+        <div class="modal-buttons">
+            <button onclick="salvarNotas()">Salvar</button>
+            <button onclick="fecharModal('modal-notas')">Fechar</button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', carregarNPCs);
+
+async function carregarNPCs() {
+    const container = document.getElementById('lista-npcs');
+    const apenasConhecidos = document.getElementById('filtro-conhecido').checked;
+    
+    try {
+        const url = apenasConhecidos ? '/api/npcs?conhecidos=1' : '/api/npcs?conhecidos=0';
+        const response = await fetch(url);
+        const npcs = await response.json();
+        
+        container.innerHTML = '';
+        
+        if (npcs.length === 0) {
+            container.innerHTML = `
+                <div class="lista-vazia">
+                    <p>Nenhum NPC encontrado.</p>
+                    <button class="btn-principal" onclick="window.location.href='{{ url_for('fichas.novo_npc') }}'">
+                        Adicionar Primeiro NPC
+                    </button>
+                </div>
+            `;
+            return;
+        }
+        
+        const template = document.getElementById('template-card-npc');
+        
+        npcs.forEach(npc => {
+            const card = template.content.cloneNode(true);
+            const cardEl = card.querySelector('.card-npc');
+            
+            cardEl.dataset.id = npc.id;
+            cardEl.dataset.status = npc.alinhamento || 'neutro';
+            cardEl.dataset.local = (npc.localizacao || '').toLowerCase();
+            cardEl.dataset.vivo = npc.vivo ? '1' : '0';
+            cardEl.dataset.conhecido = npc.conhecido ? '1' : '0';
+            
+            cardEl.querySelector('.card-nome').textContent = npc.nome;
+            cardEl.querySelector('.card-raca').textContent = npc.raca || '';
+            cardEl.querySelector('.card-classe').textContent = npc.classe || npc.ocupacao || '';
+            cardEl.querySelector('.local-valor').textContent = npc.localizacao || 'Desconhecido';
+            cardEl.querySelector('.card-descricao').textContent = (npc.descricao || '').substring(0, 100) + (npc.descricao && npc.descricao.length > 100 ? '...' : '');
+            
+            // Tags de status
+            const tagStatus = cardEl.querySelector('.tag-status');
+            if (npc.alinhamento === 'amigavel' || npc.aliado) {
+                tagStatus.textContent = '💚 Aliado';
+                tagStatus.classList.add('tag-aliado');
+            } else if (npc.alinhamento === 'hostil' || npc.hostil) {
+                tagStatus.textContent = '❤️ Hostil';
+                tagStatus.classList.add('tag-hostil');
+            } else {
+                tagStatus.textContent = '💛 Neutro';
+                tagStatus.classList.add('tag-neutro');
+            }
+            
+            // Tag de vida
+            const tagVivo = cardEl.querySelector('.tag-vivo');
+            if (!npc.vivo) {
+                tagVivo.textContent = '💀 Morto';
+                tagVivo.classList.add('tag-morto');
+                cardEl.classList.add('npc-morto');
+            } else {
+                tagVivo.style.display = 'none';
+            }
+            
+            // Indicador de status (borda colorida)
+            cardEl.classList.add(`status-${npc.alinhamento || 'neutro'}`);
+            
+            container.appendChild(card);
+        });
+        
+        // Aplica filtros atuais
+        filtrarLista();
+        
+    } catch (error) {
+        console.error('Erro ao carregar NPCs:', error);
+        container.innerHTML = '<div class="erro">Erro ao carregar NPCs</div>';
+    }
+}
+
+function filtrarLista() {
+    const filtroNome = document.getElementById('filtro-nome').value.toLowerCase();
+    const filtroStatus = document.getElementById('filtro-status').value;
+    const filtroLocal = document.getElementById('filtro-local').value.toLowerCase();
+    const apenasVivo = document.getElementById('filtro-vivo').checked;
+    const apenasConhecido = document.getElementById('filtro-conhecido').checked;
+    
+    document.querySelectorAll('.card-npc').forEach(card => {
+        const nome = card.querySelector('.card-nome').textContent.toLowerCase();
+        const status = card.dataset.status;
+        const local = card.dataset.local;
+        const vivo = card.dataset.vivo === '1';
+        const conhecido = card.dataset.conhecido === '1';
+        
+        const matchNome = nome.includes(filtroNome);
+        const matchStatus = !filtroStatus || status === filtroStatus;
+        const matchLocal = !filtroLocal || local.includes(filtroLocal);
+        const matchVivo = !apenasVivo || vivo;
+        const matchConhecido = !apenasConhecido || conhecido;
+        
+        card.style.display = (matchNome && matchStatus && matchLocal && matchVivo && matchConhecido) ? '' : 'none';
+    });
+}
+
+function verNPC(btn) {
+    const id = btn.closest('.card-npc').dataset.id;
+    window.location.href = `/fichas/npc/${id}`;
+}
+
+function editarNPC(btn) {
+    const id = btn.closest('.card-npc').dataset.id;
+    window.location.href = `/fichas/npc/${id}/editar`;
+}
+
+async function verNotas(btn) {
+    const card = btn.closest('.card-npc');
+    const id = card.dataset.id;
+    
+    try {
+        const response = await fetch(`/api/npcs/${id}`);
+        const npc = await response.json();
+        
+        document.getElementById('notas-npc-id').value = id;
+        document.getElementById('notas-texto').value = npc.notas || '';
+        document.getElementById('modal-notas').classList.add('ativo');
+        
+    } catch (error) {
+        console.error('Erro ao carregar notas:', error);
+    }
+}
+
+async function salvarNotas() {
+    const id = document.getElementById('notas-npc-id').value;
+    const notas = document.getElementById('notas-texto').value;
+    
+    try {
+        await fetch(`/api/npcs/${id}`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ notas: notas })
+        });
+        
+        fecharModal('modal-notas');
+        
+    } catch (error) {
+        console.error('Erro ao salvar notas:', error);
+    }
+}
+
+function fecharModal(modalId) {
+    document.getElementById(modalId).classList.remove('ativo');
+}
+
+// Recarrega quando muda o filtro de conhecidos
+document.getElementById('filtro-conhecido').addEventListener('change', carregarNPCs);
+</script>
+{% endblock %}

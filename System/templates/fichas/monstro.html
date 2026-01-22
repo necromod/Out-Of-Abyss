@@ -1,0 +1,269 @@
+{% extends "base.html" %}
+
+{% block title %}{{ monstro.nome if monstro else 'Novo Monstro' }} - Bestiário{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/fichas.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/monstros.css') }}">
+{% endblock %}
+
+{% block content %}
+{% set m = monstro %}
+
+<div class="ficha-monstro-compacta" data-id="{{ m.id if m else '' }}">
+    <!-- LINHA PRINCIPAL: Nome | PV | CA | ND | Deslocamento -->
+    <div class="monstro-header-row">
+        <input type="text" class="monstro-nome-input" data-campo="nome" 
+               value="{{ m.nome if m else '' }}" placeholder="Nome do Monstro">
+        
+        <div class="stat-mini">
+            <label>PV</label>
+            <input type="number" data-campo="hp_medio" value="{{ m.hp_medio if m else 10 }}">
+        </div>
+        
+        <div class="stat-mini">
+            <label>CA</label>
+            <input type="number" data-campo="ca" value="{{ m.ca if m else 10 }}">
+        </div>
+        
+        <div class="stat-mini">
+            <label>ND</label>
+            <input type="text" data-campo="nd" value="{{ m.nd if m else '0' }}" style="width: 40px;">
+        </div>
+        
+        <div class="stat-mini">
+            <label>Desloc.</label>
+            {% set vel = m.velocidade if m and m.velocidade else {'terrestre': 9} %}
+            {% set vel_str = vel.get('terrestre', 9) ~ 'm' if vel is mapping else '9m' %}
+            <input type="text" data-campo="velocidade_str" value="{{ vel_str }}" style="width: 55px;">
+        </div>
+    </div>
+
+    <!-- SUB-INFO: Tamanho, Tipo, Alinhamento, Fórmula HP -->
+    <div class="monstro-sub-info">
+        <input type="text" data-campo="tamanho" value="{{ m.tamanho if m else 'Médio' }}" placeholder="Tamanho" style="width: 60px;">
+        <input type="text" data-campo="tipo" value="{{ m.tipo if m else '' }}" placeholder="Tipo (humanóide, besta...)" style="width: 130px;">
+        <input type="text" data-campo="alinhamento" value="{{ m.alinhamento if m else '' }}" placeholder="Alinhamento" style="width: 100px;">
+        <input type="text" data-campo="hp_formula" value="{{ m.hp_formula if m else '2d8' }}" placeholder="(2d8+2)" style="width: 70px;">
+    </div>
+
+    <!-- ATRIBUTOS - Modificador grande, valor pequeno editável -->
+    {% set attrs = m.atributos if m and m.atributos else {'forca': 10, 'destreza': 10, 'constituicao': 10, 'inteligencia': 10, 'sabedoria': 10, 'carisma': 10} %}
+    <div class="atributos-monstro-row">
+        {% for attr, sigla in [('forca', 'FOR'), ('destreza', 'DES'), ('constituicao', 'CON'), ('inteligencia', 'INT'), ('sabedoria', 'SAB'), ('carisma', 'CAR')] %}
+        {% set valor = attrs.get(attr, 10) if attrs is mapping else 10 %}
+        {% set mod = ((valor - 10) // 2) %}
+        <div class="attr-monstro-box">
+            <span class="attr-sigla">{{ sigla }}</span>
+            <span class="attr-mod-grande" data-mod="{{ attr }}">{{ '+' if mod >= 0 else '' }}{{ mod }}</span>
+            <input type="number" class="attr-valor-input" data-campo="atributos.{{ attr }}" value="{{ valor }}" min="1" max="30">
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- CARACTERÍSTICAS (INLINE) - usa campo notas -->
+    <div class="caracteristicas-inline">
+        <textarea class="auto-expand" data-campo="notas" 
+                  placeholder="Percepção passiva 12. Visão no escuro 18m. Resistência a fogo. Idiomas: Comum, Goblin">{{ m.notas if m else '' }}</textarea>
+    </div>
+
+    <!-- AÇÕES -->
+    <div class="acoes-compactas">
+        <h4>Ações</h4>
+        <div id="lista-acoes-monstro">
+            {% if m and m.acoes %}
+                {% for acao in m.acoes %}
+                <div class="acao-linha">
+                    <input type="text" data-campo="acoes.{{ loop.index0 }}.nome" value="{{ acao.nome }}" placeholder="Nome da ação">
+                    <input type="text" data-campo="acoes.{{ loop.index0 }}.ataque" value="{{ acao.ataque if acao.ataque else '' }}" placeholder="+5">
+                    <input type="text" data-campo="acoes.{{ loop.index0 }}.dano" value="{{ acao.dano if acao.dano else '' }}" placeholder="1d8+3 cort.">
+                    <button type="button" class="btn-remover-acao" onclick="removerAcaoMonstro(this)">×</button>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="acao-linha">
+                    <input type="text" data-campo="acoes.0.nome" placeholder="Nome da ação">
+                    <input type="text" data-campo="acoes.0.ataque" placeholder="+5">
+                    <input type="text" data-campo="acoes.0.dano" placeholder="1d8+3 cort.">
+                    <button type="button" class="btn-remover-acao" onclick="removerAcaoMonstro(this)">×</button>
+                </div>
+            {% endif %}
+        </div>
+        <button type="button" class="btn-adicionar-acao" onclick="adicionarAcaoMonstro()">+ Ação</button>
+    </div>
+
+    <!-- HABILIDADES ESPECIAIS (OPCIONAL) - usa campo fonte para notas adicionais -->
+    <div class="caracteristicas-inline" style="margin-top: 0.5rem; border-bottom: none;">
+        <textarea class="auto-expand" data-campo="fonte" 
+                  placeholder="Habilidades especiais ou fonte (ex: Multitataque, Livro do Mestre pg.123)">{{ m.fonte if m else '' }}</textarea>
+    </div>
+
+    <!-- BOTÕES -->
+    <div class="monstro-acoes-footer">
+        <button type="button" class="btn-voltar-monstro" onclick="window.location.href='/fichas/monstros'">← Voltar</button>
+        {% if m and m.id %}
+        <button type="button" class="btn-salvar-monstro" onclick="salvarMonstro()">💾 Salvar</button>
+        {% else %}
+        <button type="button" class="btn-adicionar-monstro" onclick="criarMonstro()">✅ Criar</button>
+        {% endif %}
+    </div>
+</div>
+
+<input type="hidden" id="monstro-id" value="{{ m.id if m else '' }}">
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/fichas.js') }}"></script>
+<script>
+// Adicionar nova ação ao monstro
+function adicionarAcaoMonstro() {
+    const container = document.getElementById('lista-acoes-monstro');
+    const linhas = container.querySelectorAll('.acao-linha');
+    const index = linhas.length;
+    
+    const novaLinha = document.createElement('div');
+    novaLinha.className = 'acao-linha';
+    novaLinha.innerHTML = `
+        <input type="text" data-campo="acoes.${index}.nome" placeholder="Nome da ação">
+        <input type="text" data-campo="acoes.${index}.ataque" placeholder="+5">
+        <input type="text" data-campo="acoes.${index}.dano" placeholder="1d8+3 cort.">
+        <button type="button" class="btn-remover-acao" onclick="removerAcaoMonstro(this)">×</button>
+    `;
+    container.appendChild(novaLinha);
+}
+
+// Remover ação
+function removerAcaoMonstro(btn) {
+    btn.closest('.acao-linha').remove();
+}
+
+// Coletar dados do monstro
+function coletarDadosMonstro() {
+    const dados = {
+        atributos: {},
+        acoes: [],
+        velocidade: {}
+    };
+    
+    // Coleta ações
+    document.querySelectorAll('#lista-acoes-monstro .acao-linha').forEach((linha, index) => {
+        const nome = linha.querySelector('[data-campo*=".nome"]')?.value || '';
+        const ataque = linha.querySelector('[data-campo*=".ataque"]')?.value || '';
+        const dano = linha.querySelector('[data-campo*=".dano"]')?.value || '';
+        
+        if (nome) {
+            dados.acoes.push({ nome, ataque, dano });
+        }
+    });
+    
+    // Coleta outros campos
+    document.querySelectorAll('[data-campo]').forEach(campo => {
+        const nomeCampo = campo.dataset.campo;
+        
+        // Pula ações (já coletadas)
+        if (nomeCampo.startsWith('acoes.')) return;
+        
+        if (nomeCampo.startsWith('atributos.')) {
+            const attr = nomeCampo.replace('atributos.', '');
+            dados.atributos[attr] = parseInt(campo.value) || 10;
+        } else if (nomeCampo === 'velocidade_str') {
+            // Converte "9m" para {terrestre: 9}
+            const match = campo.value.match(/(\d+)/);
+            dados.velocidade.terrestre = match ? parseInt(match[1]) : 9;
+        } else if (campo.type === 'number') {
+            dados[nomeCampo] = parseFloat(campo.value) || 0;
+        } else {
+            dados[nomeCampo] = campo.value;
+        }
+    });
+    
+    return dados;
+}
+
+// Salvar monstro existente
+async function salvarMonstro() {
+    const id = document.getElementById('monstro-id').value;
+    if (!id) return;
+    
+    const dados = coletarDadosMonstro();
+    console.log('📤 Salvando monstro:', dados);
+    
+    try {
+        const response = await fetch(`/fichas/api/monstro/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(dados)
+        });
+        
+        if (response.ok) {
+            mostrarNotificacao('💾 Monstro salvo!', 'success');
+        } else {
+            mostrarNotificacao('❌ Erro ao salvar', 'danger');
+        }
+    } catch (error) {
+        console.error('Erro:', error);
+        mostrarNotificacao('❌ Erro de conexão', 'danger');
+    }
+}
+
+// Criar novo monstro
+async function criarMonstro() {
+    const dados = coletarDadosMonstro();
+    
+    // Valida dados obrigatórios
+    if (!dados.nome || dados.nome.trim() === '') {
+        mostrarNotificacao('❌ Nome é obrigatório', 'danger');
+        return;
+    }
+    
+    console.log('📤 Criando monstro:', dados);
+    
+    try {
+        const response = await fetch('/fichas/api/monstro', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(dados)
+        });
+        
+        const resultado = await response.json();
+        
+        if (response.ok && resultado.id) {
+            mostrarNotificacao('✅ Monstro criado!', 'success');
+            window.location.href = `/fichas/monstro/${resultado.id}`;
+        } else {
+            console.error('Erro da API:', resultado);
+            mostrarNotificacao('❌ Erro ao criar: ' + (resultado.erro || 'verifique o console'), 'danger');
+        }
+    } catch (error) {
+        console.error('Erro:', error);
+        mostrarNotificacao('❌ Erro de conexão: ' + error.message, 'danger');
+    }
+}
+
+// Inicializa auto-expand e listeners de atributos
+document.addEventListener('DOMContentLoaded', function() {
+    // Auto-expand textareas
+    document.querySelectorAll('.auto-expand').forEach(textarea => {
+        const autoExpand = () => {
+            textarea.style.height = 'auto';
+            textarea.style.height = Math.max(40, textarea.scrollHeight) + 'px';
+        };
+        autoExpand();
+        textarea.addEventListener('input', autoExpand);
+    });
+    
+    // Listener para atualizar modificadores quando atributo muda
+    document.querySelectorAll('.attr-valor-input').forEach(input => {
+        input.addEventListener('input', function() {
+            const valor = parseInt(this.value) || 10;
+            const mod = Math.floor((valor - 10) / 2);
+            const attrName = this.dataset.campo.replace('atributos.', '');
+            const modSpan = document.querySelector(`[data-mod="${attrName}"]`);
+            if (modSpan) {
+                modSpan.textContent = (mod >= 0 ? '+' : '') + mod;
+            }
+        });
+    });
+});
+</script>
+{% endblock %}

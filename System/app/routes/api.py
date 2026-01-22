@@ -104,6 +104,233 @@ def rolar_dados():
     return jsonify(resultado)
 
 
+# ==================== REGRAS D&D 5e ====================
+
+@api_bp.route('/dnd/racas')
+def listar_racas():
+    """Lista todas as raças disponíveis"""
+    from ..modulos.database import get_connection, json_loads_safe
+    
+    with get_connection() as conn:
+        cursor = conn.execute("""
+            SELECT * FROM racas WHERE ativo = 1 ORDER BY categoria, nome
+        """)
+        racas = []
+        for row in cursor.fetchall():
+            raca = dict(row)
+            # Parse JSON fields
+            raca['bonus_atributos'] = json_loads_safe(raca['bonus_atributos'], {})
+            raca['idiomas'] = json_loads_safe(raca['idiomas'], [])
+            raca['proficiencias_armas'] = json_loads_safe(raca['proficiencias_armas'], [])
+            raca['proficiencias_armaduras'] = json_loads_safe(raca['proficiencias_armaduras'], [])
+            raca['proficiencias_ferramentas'] = json_loads_safe(raca['proficiencias_ferramentas'], [])
+            raca['pericias_bonus'] = json_loads_safe(raca['pericias_bonus'], [])
+            raca['caracteristicas'] = json_loads_safe(raca['caracteristicas'], [])
+            raca['resistencias'] = json_loads_safe(raca['resistencias'], [])
+            raca['imunidades'] = json_loads_safe(raca['imunidades'], [])
+            raca['pericias_opcoes'] = json_loads_safe(raca['pericias_opcoes'], [])
+            racas.append(raca)
+    
+    return jsonify(racas)
+
+
+@api_bp.route('/dnd/racas/<int:id>')
+def obter_raca(id):
+    """Obtém uma raça específica"""
+    from ..modulos.database import get_connection, json_loads_safe
+    
+    with get_connection() as conn:
+        cursor = conn.execute("SELECT * FROM racas WHERE id = ?", (id,))
+        row = cursor.fetchone()
+        
+        if not row:
+            return jsonify({'erro': 'Raça não encontrada'}), 404
+        
+        raca = dict(row)
+        raca['bonus_atributos'] = json_loads_safe(raca['bonus_atributos'], {})
+        raca['idiomas'] = json_loads_safe(raca['idiomas'], [])
+        raca['proficiencias_armas'] = json_loads_safe(raca['proficiencias_armas'], [])
+        raca['proficiencias_armaduras'] = json_loads_safe(raca['proficiencias_armaduras'], [])
+        raca['proficiencias_ferramentas'] = json_loads_safe(raca['proficiencias_ferramentas'], [])
+        raca['pericias_bonus'] = json_loads_safe(raca['pericias_bonus'], [])
+        raca['caracteristicas'] = json_loads_safe(raca['caracteristicas'], [])
+        raca['resistencias'] = json_loads_safe(raca['resistencias'], [])
+        raca['imunidades'] = json_loads_safe(raca['imunidades'], [])
+        raca['pericias_opcoes'] = json_loads_safe(raca['pericias_opcoes'], [])
+    
+    return jsonify(raca)
+
+
+@api_bp.route('/dnd/classes')
+def listar_classes():
+    """Lista todas as classes disponíveis"""
+    from ..modulos.database import get_connection, json_loads_safe
+    
+    with get_connection() as conn:
+        cursor = conn.execute("SELECT * FROM classes WHERE ativo = 1 ORDER BY nome")
+        classes = []
+        for row in cursor.fetchall():
+            classe = dict(row)
+            classe['salvaguardas_proficientes'] = json_loads_safe(classe['salvaguardas_proficientes'], [])
+            classe['armaduras'] = json_loads_safe(classe['armaduras'], [])
+            classe['armas'] = json_loads_safe(classe['armas'], [])
+            classe['ferramentas'] = json_loads_safe(classe['ferramentas'], [])
+            classe['pericias_disponiveis'] = json_loads_safe(classe['pericias_disponiveis'], [])
+            classe['caracteristicas_nivel_1'] = json_loads_safe(classe['caracteristicas_nivel_1'], [])
+            classes.append(classe)
+    
+    return jsonify(classes)
+
+
+@api_bp.route('/dnd/classes/<int:id>')
+def obter_classe(id):
+    """Obtém uma classe específica"""
+    from ..modulos.database import get_connection, json_loads_safe
+    
+    with get_connection() as conn:
+        cursor = conn.execute("SELECT * FROM classes WHERE id = ?", (id,))
+        row = cursor.fetchone()
+        
+        if not row:
+            return jsonify({'erro': 'Classe não encontrada'}), 404
+        
+        classe = dict(row)
+        classe['salvaguardas_proficientes'] = json_loads_safe(classe['salvaguardas_proficientes'], [])
+        classe['armaduras'] = json_loads_safe(classe['armaduras'], [])
+        classe['armas'] = json_loads_safe(classe['armas'], [])
+        classe['ferramentas'] = json_loads_safe(classe['ferramentas'], [])
+        classe['pericias_disponiveis'] = json_loads_safe(classe['pericias_disponiveis'], [])
+        classe['caracteristicas_nivel_1'] = json_loads_safe(classe['caracteristicas_nivel_1'], [])
+    
+    return jsonify(classe)
+
+
+@api_bp.route('/dnd/pericias')
+def listar_pericias():
+    """Lista todas as perícias"""
+    from ..modulos.database import get_connection
+    
+    with get_connection() as conn:
+        cursor = conn.execute("SELECT * FROM pericias ORDER BY nome_display")
+        pericias = [dict(row) for row in cursor.fetchall()]
+    
+    return jsonify(pericias)
+
+
+@api_bp.route('/dnd/idiomas')
+def listar_idiomas():
+    """Lista todos os idiomas"""
+    from ..modulos.database import get_connection
+    
+    with get_connection() as conn:
+        cursor = conn.execute("SELECT * FROM idiomas ORDER BY tipo, nome")
+        idiomas = [dict(row) for row in cursor.fetchall()]
+    
+    return jsonify(idiomas)
+
+
+@api_bp.route('/dnd/antecedentes')
+def listar_antecedentes():
+    """Lista todos os antecedentes"""
+    from ..modulos.database import get_connection, json_loads_safe
+    
+    with get_connection() as conn:
+        cursor = conn.execute("SELECT * FROM antecedentes WHERE ativo = 1 ORDER BY nome")
+        antecedentes = []
+        for row in cursor.fetchall():
+            ant = dict(row)
+            ant['pericias'] = json_loads_safe(ant['pericias'], [])
+            ant['ferramentas'] = json_loads_safe(ant['ferramentas'], [])
+            antecedentes.append(ant)
+    
+    return jsonify(antecedentes)
+
+
+@api_bp.route('/dnd/regras-completas')
+def obter_regras_completas():
+    """
+    Retorna todas as regras D&D em uma única requisição.
+    Ideal para cache inicial no frontend.
+    """
+    from ..modulos.database import get_connection, json_loads_safe
+    
+    with get_connection() as conn:
+        # Raças
+        cursor = conn.execute("SELECT * FROM racas WHERE ativo = 1")
+        racas = {}
+        for row in cursor.fetchall():
+            raca = dict(row)
+            raca['bonus_atributos'] = json_loads_safe(raca['bonus_atributos'], {})
+            raca['idiomas'] = json_loads_safe(raca['idiomas'], [])
+            raca['proficiencias_armas'] = json_loads_safe(raca['proficiencias_armas'], [])
+            raca['proficiencias_armaduras'] = json_loads_safe(raca['proficiencias_armaduras'], [])
+            raca['proficiencias_ferramentas'] = json_loads_safe(raca['proficiencias_ferramentas'], [])
+            raca['pericias_bonus'] = json_loads_safe(raca['pericias_bonus'], [])
+            raca['caracteristicas'] = json_loads_safe(raca['caracteristicas'], [])
+            raca['resistencias'] = json_loads_safe(raca['resistencias'], [])
+            raca['imunidades'] = json_loads_safe(raca['imunidades'], [])
+            raca['pericias_opcoes'] = json_loads_safe(raca['pericias_opcoes'], [])
+            racas[raca['nome']] = raca
+        
+        # Classes
+        cursor = conn.execute("SELECT * FROM classes WHERE ativo = 1")
+        classes = {}
+        for row in cursor.fetchall():
+            classe = dict(row)
+            classe['salvaguardas_proficientes'] = json_loads_safe(classe['salvaguardas_proficientes'], [])
+            classe['armaduras'] = json_loads_safe(classe['armaduras'], [])
+            classe['armas'] = json_loads_safe(classe['armas'], [])
+            classe['ferramentas'] = json_loads_safe(classe['ferramentas'], [])
+            classe['pericias_disponiveis'] = json_loads_safe(classe['pericias_disponiveis'], [])
+            classe['caracteristicas_nivel_1'] = json_loads_safe(classe['caracteristicas_nivel_1'], [])
+            classes[classe['nome']] = classe
+        
+        # Perícias
+        cursor = conn.execute("SELECT * FROM pericias")
+        pericias = {}
+        for row in cursor.fetchall():
+            p = dict(row)
+            pericias[p['nome']] = p
+        
+        # Idiomas
+        cursor = conn.execute("SELECT * FROM idiomas")
+        idiomas = [dict(row) for row in cursor.fetchall()]
+        
+        # Antecedentes
+        cursor = conn.execute("SELECT * FROM antecedentes WHERE ativo = 1")
+        antecedentes = {}
+        for row in cursor.fetchall():
+            ant = dict(row)
+            ant['pericias'] = json_loads_safe(ant['pericias'], [])
+            ant['ferramentas'] = json_loads_safe(ant['ferramentas'], [])
+            antecedentes[ant['nome']] = ant
+    
+    return jsonify({
+        'racas': racas,
+        'classes': classes,
+        'pericias': pericias,
+        'idiomas': idiomas,
+        'antecedentes': antecedentes,
+        # Constantes para criação de personagem
+        'point_buy': {
+            'pontos_disponiveis': 27,
+            'valor_minimo': 8,
+            'valor_maximo': 15,
+            'custos': {8: 0, 9: 1, 10: 2, 11: 3, 12: 4, 13: 5, 14: 7, 15: 9}
+        },
+        'array_padrao': [15, 14, 13, 12, 10, 8],
+        'atributos': ['forca', 'destreza', 'constituicao', 'inteligencia', 'sabedoria', 'carisma'],
+        'atributos_display': {
+            'forca': 'Força',
+            'destreza': 'Destreza',
+            'constituicao': 'Constituição',
+            'inteligencia': 'Inteligência',
+            'sabedoria': 'Sabedoria',
+            'carisma': 'Carisma'
+        }
+    })
+
+
 # ==================== MONSTROS ====================
 
 @api_bp.route('/monstros')
@@ -316,3 +543,65 @@ def estatisticas_personagem(personagem_id):
     
     stats = AcaoLogRepository.estatisticas_personagem(personagem_id)
     return jsonify(stats)
+
+
+# ==================== API DE FICHAS ====================
+# Rotas de compatibilidade para os templates
+
+@api_bp.route('/personagens', methods=['GET'])
+def api_personagens():
+    """Lista todos os personagens"""
+    from ..modulos.repositories import PersonagemRepository
+    personagens = PersonagemRepository.get_all()
+    return jsonify(personagens)
+
+
+@api_bp.route('/monstros', methods=['GET'])
+def api_monstros():
+    """Lista todos os monstros"""
+    from ..modulos.repositories import MonstroRepository
+    monstros = MonstroRepository.get_all()
+    return jsonify(monstros)
+
+
+@api_bp.route('/npcs', methods=['GET'])
+def api_npcs():
+    """Lista todos os NPCs"""
+    from ..modulos.repositories import NPCRepository
+    
+    conhecidos = request.args.get('conhecidos')
+    if conhecidos == '1':
+        npcs = NPCRepository.get_conhecidos()
+    else:
+        npcs = NPCRepository.get_all()
+    return jsonify(npcs)
+
+
+@api_bp.route('/npcs/<int:id>', methods=['GET'])
+def api_obter_npc(id):
+    """Obtém um NPC pelo ID"""
+    from ..modulos.repositories import NPCRepository
+    npc = NPCRepository.get_by_id(id)
+    if npc:
+        return jsonify(npc)
+    return jsonify({'erro': 'NPC não encontrado'}), 404
+
+
+@api_bp.route('/npcs/<int:id>', methods=['PUT', 'PATCH'])
+def api_atualizar_npc(id):
+    """Atualiza um NPC"""
+    from ..modulos.repositories import NPCRepository
+    data = request.get_json()
+    NPCRepository.update(id, data)
+    npc = NPCRepository.get_by_id(id)
+    return jsonify(npc)
+
+
+@api_bp.route('/npcs', methods=['POST'])
+def api_criar_npc():
+    """Cria um novo NPC"""
+    from ..modulos.repositories import NPCRepository
+    data = request.get_json()
+    id = NPCRepository.insert(data)
+    npc = NPCRepository.get_by_id(id)
+    return jsonify(npc)

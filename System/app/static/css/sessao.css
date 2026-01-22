@@ -6,13 +6,25 @@ body.sessao-mode {
     overflow: hidden;
 }
 
+body.sessao-mode .container {
+    display: none; /* Esconde o container padrão */
+}
+
+body.sessao-mode .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1001;
+}
+
 /* =========================================
    Toolbar flutuante
    ========================================= */
 
 .toolbar {
     position: fixed;
-    top: var(--spacing-md);
+    top: 70px; /* Abaixo da navbar */
     left: 50%;
     transform: translateX(-50%);
     display: flex;

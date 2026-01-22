@@ -1,0 +1,257 @@
+{% extends "base.html" %}
+
+{% block title %}Monstros - Out of the Abyss{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/fichas.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="lista-container">
+    <header class="lista-header">
+        <h1>👹 Bestiário do Underdark</h1>
+        <div class="lista-acoes">
+            <button class="btn-principal" onclick="window.location.href='{{ url_for('fichas.novo_monstro') }}'">
+                ➕ Novo Monstro
+            </button>
+        </div>
+    </header>
+
+    <div class="filtros">
+        <input type="text" id="filtro-nome" placeholder="🔍 Buscar por nome..." oninput="filtrarLista()">
+        <select id="filtro-tipo" onchange="filtrarLista()">
+            <option value="">Todos os Tipos</option>
+            <option value="aberração">Aberração</option>
+            <option value="besta">Besta</option>
+            <option value="celestial">Celestial</option>
+            <option value="constructo">Constructo</option>
+            <option value="dragão">Dragão</option>
+            <option value="elemental">Elemental</option>
+            <option value="fada">Fada</option>
+            <option value="fera monstruosa">Fera Monstruosa</option>
+            <option value="gigante">Gigante</option>
+            <option value="humanóide">Humanóide</option>
+            <option value="monstruosidade">Monstruosidade</option>
+            <option value="morto-vivo">Morto-Vivo</option>
+            <option value="planta">Planta</option>
+            <option value="vasa">Vasa</option>
+        </select>
+        <select id="filtro-nd" onchange="filtrarLista()">
+            <option value="">Todos os NDs</option>
+            <option value="0-0.5">ND 0 - 1/2</option>
+            <option value="1-4">ND 1-4</option>
+            <option value="5-10">ND 5-10</option>
+            <option value="11-16">ND 11-16</option>
+            <option value="17-30">ND 17+</option>
+        </select>
+    </div>
+
+    <div class="lista-grid" id="lista-monstros">
+        <div class="loading">Carregando monstros...</div>
+    </div>
+</div>
+
+<!-- Modal para Instanciar Monstro -->
+<div id="modal-instanciar" class="modal">
+    <div class="modal-content">
+        <h3>Adicionar ao Combate</h3>
+        <input type="hidden" id="monstro-base-id">
+        <div class="form-group">
+            <label>Nome da Instância</label>
+            <input type="text" id="nome-instancia" placeholder="Ex: Goblin 1">
+        </div>
+        <div class="form-group">
+            <label>Quantidade</label>
+            <input type="number" id="quantidade-instancias" value="1" min="1" max="20">
+        </div>
+        <div class="modal-buttons">
+            <button onclick="criarInstancias()">Criar</button>
+            <button onclick="fecharModal('modal-instanciar')">Cancelar</button>
+        </div>
+    </div>
+</div>
+
+<!-- Template Card Monstro -->
+<template id="template-card-monstro">
+    <div class="card-monstro" data-id="" data-tipo="" data-nd="">
+        <div class="card-header-monstro">
+            <h3 class="card-nome"></h3>
+            <span class="card-nd">ND <span class="nd-valor"></span></span>
+        </div>
+        <div class="card-body-monstro">
+            <p class="card-tipo"></p>
+            <div class="card-stats-monstro">
+                <span class="stat">
+                    <span class="stat-label">CA</span>
+                    <span class="stat-valor ca-valor"></span>
+                </span>
+                <span class="stat">
+                    <span class="stat-label">HP</span>
+                    <span class="stat-valor hp-valor"></span>
+                </span>
+                <span class="stat">
+                    <span class="stat-label">XP</span>
+                    <span class="stat-valor xp-valor"></span>
+                </span>
+            </div>
+        </div>
+        <div class="card-acoes">
+            <button class="btn-card btn-ver" onclick="verMonstro(this)">👁️ Ver</button>
+            <button class="btn-card btn-instanciar" onclick="abrirModalInstanciar(this)">⚔️ Combate</button>
+            <button class="btn-card btn-widget" onclick="abrirComoWidget(this)">📌 Widget</button>
+        </div>
+    </div>
+</template>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', carregarMonstros);
+
+async function carregarMonstros() {
+    const container = document.getElementById('lista-monstros');
+    
+    try {
+        const response = await fetch('/api/monstros');
+        const monstros = await response.json();
+        
+        container.innerHTML = '';
+        
+        if (monstros.length === 0) {
+            container.innerHTML = `
+                <div class="lista-vazia">
+                    <p>Nenhum monstro cadastrado ainda.</p>
+                    <button class="btn-principal" onclick="window.location.href='{{ url_for('fichas.novo_monstro') }}'">
+                        Adicionar Primeiro Monstro
+                    </button>
+                </div>
+            `;
+            return;
+        }
+        
+        const template = document.getElementById('template-card-monstro');
+        
+        monstros.forEach(m => {
+            const card = template.content.cloneNode(true);
+            const cardEl = card.querySelector('.card-monstro');
+            
+            cardEl.dataset.id = m.id;
+            cardEl.dataset.tipo = (m.tipo || '').toLowerCase();
+            cardEl.dataset.nd = m.nd || 0;
+            
+            cardEl.querySelector('.card-nome').textContent = m.nome;
+            cardEl.querySelector('.nd-valor').textContent = formatarND(m.nd);
+            cardEl.querySelector('.card-tipo').textContent = `${m.tamanho || 'Médio'} ${m.tipo || 'Criatura'}`;
+            cardEl.querySelector('.ca-valor').textContent = m.ca || 10;
+            cardEl.querySelector('.hp-valor').textContent = m.hp_medio || '?';
+            cardEl.querySelector('.xp-valor').textContent = m.xp || 0;
+            
+            // Cor por ND
+            const nd = m.nd || 0;
+            if (nd >= 17) cardEl.classList.add('nd-lendario');
+            else if (nd >= 11) cardEl.classList.add('nd-muito-alto');
+            else if (nd >= 5) cardEl.classList.add('nd-alto');
+            else if (nd >= 1) cardEl.classList.add('nd-medio');
+            
+            container.appendChild(card);
+        });
+        
+    } catch (error) {
+        console.error('Erro ao carregar monstros:', error);
+        container.innerHTML = '<div class="erro">Erro ao carregar monstros</div>';
+    }
+}
+
+function formatarND(nd) {
+    if (nd === 0.125) return '1/8';
+    if (nd === 0.25) return '1/4';
+    if (nd === 0.5) return '1/2';
+    return nd;
+}
+
+function filtrarLista() {
+    const filtroNome = document.getElementById('filtro-nome').value.toLowerCase();
+    const filtroTipo = document.getElementById('filtro-tipo').value.toLowerCase();
+    const filtroND = document.getElementById('filtro-nd').value;
+    
+    let ndMin = 0, ndMax = 999;
+    if (filtroND) {
+        const [min, max] = filtroND.split('-').map(Number);
+        ndMin = min;
+        ndMax = max;
+    }
+    
+    document.querySelectorAll('.card-monstro').forEach(card => {
+        const nome = card.querySelector('.card-nome').textContent.toLowerCase();
+        const tipo = card.dataset.tipo;
+        const nd = parseFloat(card.dataset.nd) || 0;
+        
+        const matchNome = nome.includes(filtroNome);
+        const matchTipo = !filtroTipo || tipo.includes(filtroTipo);
+        const matchND = nd >= ndMin && nd <= ndMax;
+        
+        card.style.display = (matchNome && matchTipo && matchND) ? '' : 'none';
+    });
+}
+
+function verMonstro(btn) {
+    const id = btn.closest('.card-monstro').dataset.id;
+    window.location.href = `/fichas/monstro/${id}`;
+}
+
+function abrirModalInstanciar(btn) {
+    const card = btn.closest('.card-monstro');
+    const id = card.dataset.id;
+    const nome = card.querySelector('.card-nome').textContent;
+    
+    document.getElementById('monstro-base-id').value = id;
+    document.getElementById('nome-instancia').value = nome + ' 1';
+    document.getElementById('quantidade-instancias').value = 1;
+    document.getElementById('modal-instanciar').classList.add('ativo');
+}
+
+async function criarInstancias() {
+    const monstroId = document.getElementById('monstro-base-id').value;
+    const nomeBase = document.getElementById('nome-instancia').value;
+    const quantidade = parseInt(document.getElementById('quantidade-instancias').value) || 1;
+    
+    const instancias = [];
+    
+    for (let i = 0; i < quantidade; i++) {
+        const nome = quantidade > 1 ? `${nomeBase.replace(/\s*\d+$/, '')} ${i + 1}` : nomeBase;
+        
+        try {
+            const response = await fetch('/fichas/api/monstro/instancia', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ monstro_id: parseInt(monstroId), nome: nome })
+            });
+            
+            if (response.ok) {
+                const instancia = await response.json();
+                instancias.push(instancia);
+            }
+        } catch (error) {
+            console.error('Erro ao criar instância:', error);
+        }
+    }
+    
+    fecharModal('modal-instanciar');
+    
+    if (instancias.length > 0) {
+        alert(`${instancias.length} instância(s) criada(s) com sucesso!`);
+        // Redireciona para combate ou sessão
+        window.location.href = '/sessao/';
+    }
+}
+
+function abrirComoWidget(btn) {
+    const id = btn.closest('.card-monstro').dataset.id;
+    window.location.href = `/sessao/?widget=monstro&id=${id}`;
+}
+
+function fecharModal(modalId) {
+    document.getElementById(modalId).classList.remove('ativo');
+}
+</script>
+{% endblock %}

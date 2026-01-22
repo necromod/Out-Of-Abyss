@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}Erro - Out of the Abyss{% endblock %}
+
+{% block content %}
+<div class="erro-container">
+    <div class="erro-icone">⚠️</div>
+    <h1>Ops! Algo deu errado</h1>
+    <p class="erro-mensagem">{{ mensagem or 'Um erro inesperado ocorreu.' }}</p>
+    
+    <div class="erro-acoes">
+        <a href="{{ url_for('main.index') }}" class="btn btn-primary">
+            🏠 Voltar ao Início
+        </a>
+        <button onclick="history.back()" class="btn btn-secondary">
+            ← Voltar
+        </button>
+    </div>
+</div>
+
+<style>
+    .erro-container {
+        text-align: center;
+        padding: 4rem 2rem;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+    
+    .erro-icone {
+        font-size: 4rem;
+        margin-bottom: 1rem;
+    }
+    
+    .erro-container h1 {
+        color: var(--accent-danger, #ef4444);
+        margin-bottom: 0.5rem;
+    }
+    
+    .erro-mensagem {
+        color: var(--text-secondary, #9090a0);
+        margin-bottom: 2rem;
+        font-size: 1.1rem;
+    }
+    
+    .erro-acoes {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+    }
+</style>
+{% endblock %}

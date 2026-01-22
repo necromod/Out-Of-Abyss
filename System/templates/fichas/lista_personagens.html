@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+
+{% block title %}Personagens - Out of the Abyss{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/fichas.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="lista-container">
+    <header class="lista-header">
+        <h1>⚔️ Personagens dos Jogadores</h1>
+        <div class="lista-acoes">
+            <button class="btn-principal" onclick="window.location.href='{{ url_for('fichas.novo_personagem') }}'">
+                ➕ Novo Personagem
+            </button>
+        </div>
+    </header>
+
+    <div class="filtros">
+        <input type="text" id="filtro-nome" placeholder="🔍 Buscar por nome..." oninput="filtrarLista()">
+        <select id="filtro-classe" onchange="filtrarLista()">
+            <option value="">Todas as Classes</option>
+            <option value="barbaro">Bárbaro</option>
+            <option value="bardo">Bardo</option>
+            <option value="bruxo">Bruxo</option>
+            <option value="clerigo">Clérigo</option>
+            <option value="druida">Druida</option>
+            <option value="feiticeiro">Feiticeiro</option>
+            <option value="guerreiro">Guerreiro</option>
+            <option value="ladino">Ladino</option>
+            <option value="mago">Mago</option>
+            <option value="monge">Monge</option>
+            <option value="paladino">Paladino</option>
+            <option value="patrulheiro">Patrulheiro</option>
+        </select>
+    </div>
+
+    <div class="lista-grid" id="lista-personagens">
+        <!-- Carregado via JavaScript -->
+        <div class="loading">Carregando personagens...</div>
+    </div>
+</div>
+
+<!-- Template do Card -->
+<template id="template-card-personagem">
+    <div class="card-personagem" data-id="">
+        <div class="card-avatar">
+            <span class="avatar-placeholder">🧙</span>
+        </div>
+        <div class="card-info">
+            <h3 class="card-nome"></h3>
+            <p class="card-detalhes">
+                <span class="card-raca"></span> • 
+                <span class="card-classe"></span> 
+                <span class="card-nivel"></span>
+            </p>
+            <p class="card-jogador"></p>
+        </div>
+        <div class="card-stats">
+            <div class="stat-hp">
+                <span class="stat-label">HP</span>
+                <span class="stat-valor hp-atual"></span>/<span class="stat-valor hp-max"></span>
+            </div>
+            <div class="stat-ca">
+                <span class="stat-label">CA</span>
+                <span class="stat-valor ca-valor"></span>
+            </div>
+        </div>
+        <div class="card-acoes">
+            <button class="btn-card btn-ver" onclick="verPersonagem(this)">👁️ Ver</button>
+            <button class="btn-card btn-editar" onclick="editarPersonagem(this)">✏️ Editar</button>
+            <button class="btn-card btn-widget" onclick="abrirComoWidget(this)">📌 Widget</button>
+        </div>
+    </div>
+</template>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Carrega personagens ao abrir página
+document.addEventListener('DOMContentLoaded', carregarPersonagens);
+
+async function carregarPersonagens() {
+    const container = document.getElementById('lista-personagens');
+    
+    try {
+        const response = await fetch('/api/personagens');
+        const personagens = await response.json();
+        
+        container.innerHTML = '';
+        
+        if (personagens.length === 0) {
+            container.innerHTML = `
+                <div class="lista-vazia">
+                    <p>Nenhum personagem cadastrado ainda.</p>
+                    <button class="btn-principal" onclick="window.location.href='{{ url_for('fichas.novo_personagem') }}'">
+                        Criar Primeiro Personagem
+                    </button>
+                </div>
+            `;
+            return;
+        }
+        
+        const template = document.getElementById('template-card-personagem');
+        
+        personagens.forEach(p => {
+            const card = template.content.cloneNode(true);
+            const cardEl = card.querySelector('.card-personagem');
+            
+            cardEl.dataset.id = p.id;
+            cardEl.querySelector('.card-nome').textContent = p.nome;
+            cardEl.querySelector('.card-raca').textContent = p.raca || 'Raça';
+            cardEl.querySelector('.card-classe').textContent = p.classe || 'Classe';
+            cardEl.querySelector('.card-nivel').textContent = `Nv.${p.nivel || 1}`;
+            cardEl.querySelector('.card-jogador').textContent = p.jogador ? `Jogador: ${p.jogador}` : '';
+            cardEl.querySelector('.hp-atual').textContent = p.hp_atual || 0;
+            cardEl.querySelector('.hp-max').textContent = p.hp_maximo || 0;
+            cardEl.querySelector('.ca-valor').textContent = p.ca || 10;
+            
+            // HP baixo - destaque vermelho
+            if (p.hp_atual <= p.hp_maximo * 0.25) {
+                cardEl.classList.add('hp-critico');
+            } else if (p.hp_atual <= p.hp_maximo * 0.5) {
+                cardEl.classList.add('hp-baixo');
+            }
+            
+            container.appendChild(card);
+        });
+        
+    } catch (error) {
+        console.error('Erro ao carregar personagens:', error);
+        container.innerHTML = '<div class="erro">Erro ao carregar personagens</div>';
+    }
+}
+
+function filtrarLista() {
+    const filtroNome = document.getElementById('filtro-nome').value.toLowerCase();
+    const filtroClasse = document.getElementById('filtro-classe').value.toLowerCase();
+    
+    document.querySelectorAll('.card-personagem').forEach(card => {
+        const nome = card.querySelector('.card-nome').textContent.toLowerCase();
+        const classe = card.querySelector('.card-classe').textContent.toLowerCase();
+        
+        const matchNome = nome.includes(filtroNome);
+        const matchClasse = !filtroClasse || classe.includes(filtroClasse);
+        
+        card.style.display = (matchNome && matchClasse) ? '' : 'none';
+    });
+}
+
+function verPersonagem(btn) {
+    const id = btn.closest('.card-personagem').dataset.id;
+    window.location.href = `/fichas/personagem/${id}`;
+}
+
+function editarPersonagem(btn) {
+    const id = btn.closest('.card-personagem').dataset.id;
+    window.location.href = `/fichas/personagem/${id}/editar`;
+}
+
+function abrirComoWidget(btn) {
+    const id = btn.closest('.card-personagem').dataset.id;
+    // Se estiver na tela de sessão, abre como widget
+    if (window.opener && window.opener.widgetManager) {
+        window.opener.widgetManager.criarWidget('personagem', id);
+        window.close();
+    } else {
+        // Redireciona para sessão com parâmetro
+        window.location.href = `/sessao/?widget=personagem&id=${id}`;
+    }
+}
+</script>
+{% endblock %}

@@ -161,4 +161,15 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
+// =========================================
+// Menu Mobile
+// =========================================
+
+function toggleMobileMenu() {
+    const menu = document.getElementById('mobileMenu');
+    if (menu) {
+        menu.classList.toggle('active');
+    }
+}
+
 console.log('🎲 Out of the Abyss - Sistema carregado');

@@ -127,11 +127,12 @@ class PersonagemRepository(BaseRepository):
         json_fields = ['atributos', 'pericias_proficientes', 'pericias_expertise',
                        'salvaguardas_proficientes', 'espacos_magia', 'espacos_usados',
                        'magias_conhecidas', 'magias_preparadas', 'equipamento',
-                       'armas', 'condicoes']
+                       'equipamentos', 'armas', 'condicoes', 'moedas', 'dados_vida_tipos']
         
         for field in json_fields:
             if field in data and isinstance(data[field], str):
-                data[field] = json_loads_safe(data[field], {} if 'espacos' in field or field == 'atributos' else [])
+                default = {} if field in ('espacos_magia', 'espacos_usados', 'atributos', 'moedas') else []
+                data[field] = json_loads_safe(data[field], default)
     
     @staticmethod
     def _prepare_for_db(dados: Dict) -> Dict:
@@ -139,7 +140,7 @@ class PersonagemRepository(BaseRepository):
         json_fields = ['atributos', 'pericias_proficientes', 'pericias_expertise',
                        'salvaguardas_proficientes', 'espacos_magia', 'espacos_usados',
                        'magias_conhecidas', 'magias_preparadas', 'equipamento',
-                       'armas', 'condicoes']
+                       'equipamentos', 'armas', 'condicoes', 'moedas', 'dados_vida_tipos']
         
         result = {}
         for k, v in dados.items():

@@ -1,0 +1,293 @@
+{% extends "base.html" %}
+
+{% block title %}{{ npc.nome if npc else 'Novo NPC' }} - Ficha{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/fichas.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="ficha-npc-container">
+    <header class="ficha-npc-header">
+        <div class="npc-info-principal">
+            <h1 class="npc-nome" data-campo="nome" contenteditable="true">{{ npc.nome if npc else 'Nome do NPC' }}</h1>
+            <p class="npc-subtitulo">
+                <span data-campo="raca" contenteditable="true">{{ npc.raca if npc else 'Raça' }}</span>
+                {% if npc and npc.classe %} • <span data-campo="classe" contenteditable="true">{{ npc.classe }}</span>{% endif %}
+            </p>
+        </div>
+        <div class="npc-status-container">
+            <select class="status-select" data-campo="alinhamento">
+                <option value="amigavel" {{ 'selected' if npc and npc.alinhamento == 'amigavel' else '' }}>💚 Amigável</option>
+                <option value="indiferente" {{ 'selected' if npc and npc.alinhamento == 'indiferente' else '' }}>💛 Indiferente</option>
+                <option value="hostil" {{ 'selected' if npc and npc.alinhamento == 'hostil' else '' }}>❤️ Hostil</option>
+            </select>
+            <label class="checkbox-vivo">
+                <input type="checkbox" data-campo="vivo" {{ 'checked' if not npc or npc.vivo else '' }}>
+                Vivo
+            </label>
+            <label class="checkbox-conhecido">
+                <input type="checkbox" data-campo="conhecido" {{ 'checked' if npc and npc.conhecido else '' }}>
+                Conhecido pelo grupo
+            </label>
+        </div>
+    </header>
+
+    <div class="ficha-npc-body">
+        <div class="coluna-esquerda">
+            <!-- LOCALIZAÇÃO -->
+            <div class="bloco localizacao">
+                <h3>📍 Localização</h3>
+                <input type="text" class="input-full" data-campo="localizacao" value="{{ npc.localizacao if npc else '' }}" placeholder="Onde este NPC está atualmente?">
+            </div>
+
+            <!-- DESCRIÇÃO -->
+            <div class="bloco descricao">
+                <h3>📖 Descrição</h3>
+                <textarea class="texto-area" data-campo="descricao" placeholder="Aparência, comportamento, primeira impressão...">{{ npc.descricao if npc else '' }}</textarea>
+            </div>
+
+            <!-- PERSONALIDADE -->
+            <div class="bloco personalidade-npc">
+                <h3>🎭 Personalidade</h3>
+                <textarea class="texto-area" data-campo="personalidade" placeholder="Como o NPC age, fala, o que motiva ele...">{{ npc.personalidade if npc else '' }}</textarea>
+            </div>
+
+            <!-- ESTATÍSTICAS DE COMBATE (se aplicável) -->
+            <div class="bloco stats-combate">
+                <h3>⚔️ Combate</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <label>HP Máximo</label>
+                        <input type="number" data-campo="hp_maximo" value="{{ npc.hp_maximo if npc else '' }}" placeholder="—">
+                    </div>
+                    <div class="stat-item">
+                        <label>HP Atual</label>
+                        <input type="number" data-campo="hp_atual" value="{{ npc.hp_atual if npc else '' }}" placeholder="—">
+                    </div>
+                    <div class="stat-item">
+                        <label>CA</label>
+                        <input type="number" data-campo="ca" value="{{ npc.ca if npc else 10 }}" placeholder="10">
+                    </div>
+                </div>
+                <p class="stat-hint">Deixe HP vazio se não for relevante para combate. Pode vincular a um monstro do bestiário para stats completas.</p>
+            </div>
+        </div>
+
+        <div class="coluna-direita">
+            <!-- NOTAS DO MESTRE -->
+            <div class="bloco notas-mestre">
+                <h3>🔒 Notas do Mestre (Secreto)</h3>
+                <textarea class="texto-area texto-secreto" data-campo="notas" placeholder="Segredos, planos futuros, conexões que os jogadores não sabem...">{{ npc.notas if npc else '' }}</textarea>
+            </div>
+
+            <!-- RELACIONAMENTOS -->
+            <div class="bloco relacionamentos">
+                <h3>🔗 Relacionamentos</h3>
+                <div class="relacionamento-lista" id="lista-relacionamentos">
+                    {% if npc and npc.relacionamentos %}
+                    {% for rel in npc.relacionamentos %}
+                    <div class="relacionamento-item">
+                        <input type="text" value="{{ rel.nome }}" placeholder="Nome">
+                        <input type="text" value="{{ rel.relacao }}" placeholder="Relação">
+                        <button class="btn-remover" onclick="removerRelacionamento(this)">✕</button>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+                <button class="btn-adicionar" onclick="adicionarRelacionamento()">+ Adicionar Relacionamento</button>
+            </div>
+
+            <!-- HISTÓRICO DE ENCONTROS -->
+            <div class="bloco historico">
+                <h3>📅 Histórico de Encontros</h3>
+                <div class="historico-lista" id="lista-historico">
+                    {% if npc and npc.historico %}
+                    {% for evento in npc.historico %}
+                    <div class="historico-item">
+                        <span class="historico-sessao">Sessão {{ evento.sessao }}</span>
+                        <span class="historico-texto">{{ evento.descricao }}</span>
+                    </div>
+                    {% endfor %}
+                    {% else %}
+                    <p class="lista-vazia-pequena">Nenhum encontro registrado ainda.</p>
+                    {% endif %}
+                </div>
+                <div class="adicionar-historico">
+                    <input type="number" id="nova-sessao" placeholder="Sessão #" min="1">
+                    <input type="text" id="novo-evento" placeholder="O que aconteceu...">
+                    <button class="btn-adicionar-pequeno" onclick="adicionarEvento()">+</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AÇÕES RÁPIDAS -->
+    <div class="acoes-rapidas">
+        {% if npc and npc.id %}
+        <button class="btn-acao btn-salvar" onclick="salvarNPC()">💾 Salvar</button>
+        <button class="btn-acao btn-matar" onclick="toggleVivo()">{{ '💀 Marcar como Morto' if npc.vivo else '✨ Ressuscitar' }}</button>
+        <button class="btn-acao btn-revelar" onclick="toggleConhecido()">{{ '👁️ Revelar ao Grupo' if not npc.conhecido else '🙈 Ocultar do Grupo' }}</button>
+        {% else %}
+        <button class="btn-acao btn-criar" onclick="criarNPC()">✅ Criar NPC</button>
+        {% endif %}
+        <a href="{{ url_for('fichas.lista_npcs') }}" class="btn-acao btn-voltar">← Voltar para Lista</a>
+    </div>
+</div>
+
+<input type="hidden" id="npc-id" value="{{ npc.id if npc else '' }}">
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/fichas.js') }}"></script>
+<script>
+function adicionarRelacionamento() {
+    const lista = document.getElementById('lista-relacionamentos');
+    const div = document.createElement('div');
+    div.className = 'relacionamento-item';
+    div.innerHTML = `
+        <input type="text" placeholder="Nome">
+        <input type="text" placeholder="Relação">
+        <button class="btn-remover" onclick="removerRelacionamento(this)">✕</button>
+    `;
+    lista.appendChild(div);
+}
+
+function removerRelacionamento(btn) {
+    btn.closest('.relacionamento-item').remove();
+}
+
+function adicionarEvento() {
+    const sessao = document.getElementById('nova-sessao').value;
+    const evento = document.getElementById('novo-evento').value;
+    
+    if (!sessao || !evento) {
+        alert('Preencha a sessão e o evento');
+        return;
+    }
+    
+    const lista = document.getElementById('lista-historico');
+    
+    // Remove mensagem de lista vazia se existir
+    const vazia = lista.querySelector('.lista-vazia-pequena');
+    if (vazia) vazia.remove();
+    
+    const div = document.createElement('div');
+    div.className = 'historico-item';
+    div.innerHTML = `
+        <span class="historico-sessao">Sessão ${sessao}</span>
+        <span class="historico-texto">${evento}</span>
+    `;
+    lista.appendChild(div);
+    
+    // Limpa inputs
+    document.getElementById('nova-sessao').value = '';
+    document.getElementById('novo-evento').value = '';
+}
+
+async function toggleVivo() {
+    const id = document.getElementById('npc-id').value;
+    const checkbox = document.querySelector('[data-campo="vivo"]');
+    const novoValor = !checkbox.checked;
+    
+    checkbox.checked = novoValor;
+    
+    await fetch(`/api/npcs/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ vivo: novoValor ? 1 : 0 })
+    });
+    
+    location.reload();
+}
+
+async function toggleConhecido() {
+    const id = document.getElementById('npc-id').value;
+    const checkbox = document.querySelector('[data-campo="conhecido"]');
+    const novoValor = !checkbox.checked;
+    
+    checkbox.checked = novoValor;
+    
+    await fetch(`/api/npcs/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ conhecido: novoValor ? 1 : 0 })
+    });
+    
+    location.reload();
+}
+
+async function criarNPC() {
+    const dados = coletarDadosFormulario();
+    
+    try {
+        const response = await fetch('/api/npcs', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(dados)
+        });
+        
+        if (response.ok) {
+            const npc = await response.json();
+            window.location.href = `/fichas/npc/${npc.id}`;
+        }
+    } catch (error) {
+        console.error('Erro ao criar NPC:', error);
+        alert('Erro ao criar NPC');
+    }
+}
+
+async function salvarNPC() {
+    const id = document.getElementById('npc-id').value;
+    const dados = coletarDadosFormulario();
+    
+    try {
+        const response = await fetch(`/api/npcs/${id}`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(dados)
+        });
+        
+        if (response.ok) {
+            mostrarMensagem('NPC salvo com sucesso!', 'sucesso');
+        }
+    } catch (error) {
+        console.error('Erro ao salvar NPC:', error);
+        alert('Erro ao salvar NPC');
+    }
+}
+
+function coletarDadosFormulario() {
+    const dados = {};
+    
+    // Campos de texto editáveis
+    document.querySelectorAll('[data-campo][contenteditable="true"]').forEach(el => {
+        dados[el.dataset.campo] = el.textContent.trim();
+    });
+    
+    // Inputs
+    document.querySelectorAll('input[data-campo], textarea[data-campo], select[data-campo]').forEach(el => {
+        const campo = el.dataset.campo;
+        if (el.type === 'checkbox') {
+            dados[campo] = el.checked ? 1 : 0;
+        } else if (el.type === 'number') {
+            dados[campo] = el.value ? parseInt(el.value) : null;
+        } else {
+            dados[campo] = el.value;
+        }
+    });
+    
+    return dados;
+}
+
+function mostrarMensagem(texto, tipo) {
+    // Implementação simples de toast
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${tipo}`;
+    toast.textContent = texto;
+    document.body.appendChild(toast);
+    
+    setTimeout(() => toast.remove(), 3000);
+}
+</script>
+{% endblock %}

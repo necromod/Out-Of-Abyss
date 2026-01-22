@@ -87,8 +87,9 @@ def init_database():
                 hp_temporario INTEGER DEFAULT 0,
                 ca INTEGER DEFAULT 10,
                 ca_bonus INTEGER DEFAULT 0,
-                velocidade REAL DEFAULT 9.0,
+                velocidade TEXT DEFAULT '9m',
                 iniciativa_bonus INTEGER DEFAULT 0,
+                inspiracao INTEGER DEFAULT 0,
                 
                 -- Proficiências (JSON arrays)
                 pericias_proficientes TEXT DEFAULT '[]',
@@ -109,7 +110,24 @@ def init_database():
                 
                 -- Equipamento (JSON)
                 equipamento TEXT DEFAULT '[]',
+                equipamentos TEXT DEFAULT '[]',
                 armas TEXT DEFAULT '[]',
+                moedas TEXT DEFAULT '{"pc":0,"pp":0,"pe":0,"po":0,"pl":0}',
+                
+                -- Proficiências
+                bonus_proficiencia INTEGER DEFAULT 2,
+                proficiencias TEXT,
+                linguas TEXT,
+                
+                -- Personalidade
+                caracteristicas TEXT,
+                personalidade TEXT,
+                ideais TEXT,
+                vinculos TEXT,
+                defeitos TEXT,
+                
+                -- Dados de vida (JSON para multiclasse)
+                dados_vida_tipos TEXT DEFAULT '[{"qtd":1,"faces":8}]',
                 
                 -- Estado
                 condicoes TEXT DEFAULT '[]',
@@ -374,7 +392,140 @@ def init_database():
             )
         """)
         
+        # ==================== RAÇAS D&D 5e ====================
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS racas (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                nome TEXT NOT NULL UNIQUE,
+                categoria TEXT DEFAULT 'Livro do Jogador',
+                
+                -- Bônus
+                bonus_atributos TEXT DEFAULT '{}',
+                velocidade INTEGER DEFAULT 9,
+                tamanho TEXT DEFAULT 'Médio',
+                
+                -- Proficiências e idiomas
+                idiomas TEXT DEFAULT '[]',
+                proficiencias_armas TEXT DEFAULT '[]',
+                proficiencias_armaduras TEXT DEFAULT '[]',
+                proficiencias_ferramentas TEXT DEFAULT '[]',
+                pericias_bonus TEXT DEFAULT '[]',
+                
+                -- Características
+                caracteristicas TEXT DEFAULT '[]',
+                resistencias TEXT DEFAULT '[]',
+                imunidades TEXT DEFAULT '[]',
+                
+                -- Escolhas pendentes
+                atributos_escolha INTEGER DEFAULT 0,
+                pericias_escolha INTEGER DEFAULT 0,
+                idiomas_escolha INTEGER DEFAULT 0,
+                pericias_opcoes TEXT DEFAULT '[]',
+                
+                -- Subraça
+                subraca_de INTEGER,
+                
+                ativo INTEGER DEFAULT 1,
+                criado_em TEXT DEFAULT CURRENT_TIMESTAMP,
+                
+                FOREIGN KEY (subraca_de) REFERENCES racas(id)
+            )
+        """)
+        
+        # ==================== CLASSES D&D 5e ====================
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS classes (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                nome TEXT NOT NULL UNIQUE,
+                
+                -- Dados de vida
+                dado_vida INTEGER NOT NULL,
+                hp_primeiro_nivel TEXT,
+                
+                -- Salvaguardas
+                salvaguardas_proficientes TEXT DEFAULT '[]',
+                
+                -- Proficiências
+                armaduras TEXT DEFAULT '[]',
+                armas TEXT DEFAULT '[]',
+                ferramentas TEXT DEFAULT '[]',
+                
+                -- Perícias
+                pericias_disponiveis TEXT DEFAULT '[]',
+                qtd_pericias INTEGER DEFAULT 2,
+                
+                -- Características nível 1
+                caracteristicas_nivel_1 TEXT DEFAULT '[]',
+                
+                -- Magia
+                conjurador INTEGER DEFAULT 0,
+                atributo_conjuracao TEXT,
+                magias_conhecidas_nivel_1 INTEGER DEFAULT 0,
+                truques_nivel_1 INTEGER DEFAULT 0,
+                
+                ativo INTEGER DEFAULT 1,
+                criado_em TEXT DEFAULT CURRENT_TIMESTAMP
+            )
+        """)
+        
+        # ==================== PERÍCIAS D&D 5e ====================
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS pericias (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                nome TEXT NOT NULL UNIQUE,
+                nome_display TEXT NOT NULL,
+                atributo_base TEXT NOT NULL,
+                descricao TEXT
+            )
+        """)
+        
+        # ==================== IDIOMAS D&D 5e ====================
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS idiomas (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                nome TEXT NOT NULL UNIQUE,
+                tipo TEXT DEFAULT 'comum',
+                falantes TEXT
+            )
+        """)
+        
+        # ==================== ANTECEDENTES D&D 5e ====================
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS antecedentes (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                nome TEXT NOT NULL UNIQUE,
+                
+                -- Proficiências
+                pericias TEXT DEFAULT '[]',
+                ferramentas TEXT DEFAULT '[]',
+                idiomas_escolha INTEGER DEFAULT 0,
+                
+                -- Equipamento inicial
+                equipamento TEXT DEFAULT '[]',
+                dinheiro_inicial TEXT,
+                
+                -- Características
+                caracteristica_nome TEXT,
+                caracteristica_descricao TEXT,
+                
+                -- Personalidade
+                tracos_personalidade TEXT DEFAULT '[]',
+                ideais TEXT DEFAULT '[]',
+                vinculos TEXT DEFAULT '[]',
+                defeitos TEXT DEFAULT '[]',
+                
+                ativo INTEGER DEFAULT 1,
+                criado_em TEXT DEFAULT CURRENT_TIMESTAMP
+            )
+        """)
+        
         # ==================== ÍNDICES PARA PERFORMANCE ====================
+        
+        # Índices para tabelas de regras
+        cursor.execute("CREATE INDEX IF NOT EXISTS idx_racas_nome ON racas(nome)")
+        cursor.execute("CREATE INDEX IF NOT EXISTS idx_racas_categoria ON racas(categoria)")
+        cursor.execute("CREATE INDEX IF NOT EXISTS idx_classes_nome ON classes(nome)")
+        cursor.execute("CREATE INDEX IF NOT EXISTS idx_pericias_atributo ON pericias(atributo_base)")
         
         # Índices para buscas frequentes
         cursor.execute("CREATE INDEX IF NOT EXISTS idx_personagens_nome ON personagens(nome)")
