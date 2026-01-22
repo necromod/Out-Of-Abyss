@@ -1,0 +1,30 @@
+"""
+Out of the Abyss - Sistema de Mestragem D&D 5e
+Ponto de entrada da aplicação
+
+Execute com: python main.py
+"""
+
+import sys
+import os
+
+# Adiciona o diretório do sistema ao path
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+from app import create_app
+
+app = create_app()
+
+if __name__ == '__main__':
+    print("=" * 50)
+    print("⚔️  OUT OF THE ABYSS - Sistema de Mestragem")
+    print("=" * 50)
+    print("🌐 Servidor iniciando em: http://127.0.0.1:5000")
+    print("📖 Pressione Ctrl+C para encerrar")
+    print("=" * 50)
+    
+    app.run(
+        host='127.0.0.1',
+        port=5000,
+        debug=True
+    )

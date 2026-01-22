@@ -1,0 +1,453 @@
+/* =========================================
+   Widgets - Blocos flutuantes
+   ========================================= */
+
+.widget {
+    position: absolute;
+    min-width: 280px;
+    min-height: 150px;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    pointer-events: auto;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    resize: both;
+}
+
+.widget.minimized {
+    min-height: auto;
+    height: auto !important;
+    resize: none;
+}
+
+.widget.minimized .widget-body {
+    display: none;
+}
+
+/* =========================================
+   Header do widget
+   ========================================= */
+
+.widget-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-sm) var(--spacing-md);
+    background-color: var(--bg-tertiary);
+    border-bottom: 1px solid var(--border-color);
+    cursor: move;
+    user-select: none;
+}
+
+.widget-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.widget-controls {
+    display: flex;
+    gap: var(--spacing-xs);
+}
+
+.widget-control {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    font-size: 0.875rem;
+    transition: var(--transition-fast);
+}
+
+.widget-control:hover {
+    background-color: var(--bg-elevated);
+    color: var(--text-primary);
+}
+
+.widget-control.close:hover {
+    background-color: var(--accent-danger);
+}
+
+/* =========================================
+   Body do widget
+   ========================================= */
+
+.widget-body {
+    flex: 1;
+    padding: var(--spacing-md);
+    overflow-y: auto;
+}
+
+/* =========================================
+   Fichas nos widgets
+   ========================================= */
+
+.ficha-header {
+    margin-bottom: var(--spacing-md);
+}
+
+.ficha-nome {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: var(--spacing-xs);
+}
+
+.ficha-nome:focus {
+    outline: 1px dashed var(--accent-primary);
+    outline-offset: 2px;
+}
+
+.ficha-classe {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+.ficha-tipo {
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+}
+
+/* HP Bar */
+.ficha-hp {
+    margin-bottom: var(--spacing-md);
+}
+
+.hp-bar {
+    height: 20px;
+    background-color: var(--bg-primary);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    margin-bottom: var(--spacing-xs);
+}
+
+.hp-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-danger), #6a3a3a);
+    transition: width var(--transition-normal);
+}
+
+.hp-valores {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-xs);
+    font-size: 0.875rem;
+}
+
+.hp-atual, .hp-max {
+    font-weight: 600;
+}
+
+.hp-atual:focus, .hp-max:focus {
+    outline: 1px dashed var(--accent-primary);
+}
+
+.hp-temp {
+    color: var(--accent-primary);
+}
+
+/* Stats row */
+.ficha-stats-row {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+}
+
+.stat-box {
+    flex: 1;
+    text-align: center;
+    padding: var(--spacing-sm);
+    background-color: var(--bg-tertiary);
+    border-radius: var(--radius-sm);
+}
+
+.stat-label {
+    display: block;
+    font-size: 0.625rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: var(--spacing-xs);
+}
+
+.stat-valor {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.stat-valor:focus {
+    outline: 1px dashed var(--accent-primary);
+}
+
+.stat-note {
+    display: block;
+    font-size: 0.625rem;
+    color: var(--text-muted);
+}
+
+/* Atributos */
+.ficha-atributos {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-md);
+}
+
+.atributo {
+    text-align: center;
+    padding: var(--spacing-xs);
+    background-color: var(--bg-tertiary);
+    border-radius: var(--radius-sm);
+}
+
+.attr-nome {
+    display: block;
+    font-size: 0.625rem;
+    color: var(--text-muted);
+}
+
+.attr-valor {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.attr-valor:focus {
+    outline: 1px dashed var(--accent-primary);
+}
+
+.attr-mod {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+/* Atributos compactos (monstros) */
+.ficha-atributos.compact {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.atributo-mini {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background-color: var(--bg-tertiary);
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+}
+
+/* Condições */
+.ficha-condicoes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-md);
+}
+
+.condicao-tag {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background-color: var(--accent-warning);
+    color: var(--bg-primary);
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+/* Defesas */
+.ficha-defesas {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-sm);
+}
+
+.ficha-defesas strong {
+    color: var(--text-primary);
+}
+
+/* Ações */
+.ficha-acoes {
+    display: flex;
+    gap: var(--spacing-xs);
+    flex-wrap: wrap;
+    margin-top: auto;
+    padding-top: var(--spacing-md);
+    border-top: 1px solid var(--border-color);
+}
+
+.ficha-acoes-lista {
+    margin-bottom: var(--spacing-md);
+}
+
+.ficha-acoes-lista h4 {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: var(--spacing-sm);
+}
+
+.acao-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-sm);
+    background-color: var(--bg-tertiary);
+    border-radius: var(--radius-sm);
+    margin-bottom: var(--spacing-xs);
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.acao-item:hover {
+    background-color: var(--bg-elevated);
+}
+
+.acao-item strong {
+    font-size: 0.875rem;
+}
+
+.acao-info {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+/* Widget vazio */
+.ficha-vazia {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: var(--text-muted);
+}
+
+/* =========================================
+   Widget de Dados
+   ========================================= */
+
+.widget-dados {
+    text-align: center;
+}
+
+.dados-input {
+    margin-bottom: var(--spacing-md);
+}
+
+.dados-resultado {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--accent-primary);
+    margin-bottom: var(--spacing-md);
+}
+
+.dados-detalhes {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+/* =========================================
+   Widget de Iniciativa
+   ========================================= */
+
+.iniciativa-lista {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.iniciativa-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background-color: var(--bg-tertiary);
+    border-radius: var(--radius-sm);
+    border-left: 3px solid transparent;
+}
+
+.iniciativa-item.ativo {
+    border-left-color: var(--accent-primary);
+    background-color: var(--bg-elevated);
+}
+
+.iniciativa-ordem {
+    font-weight: bold;
+    color: var(--text-muted);
+    width: 24px;
+}
+
+.iniciativa-nome {
+    flex: 1;
+}
+
+.iniciativa-valor {
+    font-weight: bold;
+    color: var(--accent-primary);
+}
+
+/* =========================================
+   Widget de Log
+   ========================================= */
+
+.log-lista {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    font-size: 0.875rem;
+}
+
+.log-item {
+    padding: var(--spacing-sm);
+    background-color: var(--bg-tertiary);
+    border-radius: var(--radius-sm);
+    border-left: 3px solid var(--border-color);
+}
+
+.log-item.ataque {
+    border-left-color: var(--accent-danger);
+}
+
+.log-item.magia {
+    border-left-color: var(--accent-secondary);
+}
+
+.log-item.cura {
+    border-left-color: var(--accent-success);
+}
+
+.log-timestamp {
+    font-size: 0.625rem;
+    color: var(--text-muted);
+}
+
+/* =========================================
+   Widget de Notas
+   ========================================= */
+
+.notas-textarea {
+    width: 100%;
+    height: 100%;
+    min-height: 150px;
+    resize: none;
+    background-color: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-md);
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 0.875rem;
+}
+
+.notas-textarea:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+}

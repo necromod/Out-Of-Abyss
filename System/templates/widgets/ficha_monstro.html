@@ -1,0 +1,94 @@
+<div class="widget-ficha-monstro">
+    {% if monstro %}
+    <div class="ficha-header monstro">
+        <h3 class="ficha-nome">{{ monstro.nome_instancia or monstro.nome }}</h3>
+        <span class="ficha-tipo">{{ monstro.tamanho }} {{ monstro.tipo }} - ND {{ monstro.nd }}</span>
+    </div>
+    
+    <div class="ficha-hp">
+        <div class="hp-bar monstro">
+            <div class="hp-fill" style="width: {{ (monstro.hp_atual / monstro.hp_maximo * 100)|int }}%"></div>
+        </div>
+        <div class="hp-valores">
+            <span class="hp-atual" contenteditable="true" data-campo="hp_atual" data-id="{{ monstro.instancia_id }}">{{ monstro.hp_atual }}</span>
+            <span>/</span>
+            <span class="hp-max">{{ monstro.hp_maximo }}</span>
+        </div>
+    </div>
+    
+    <div class="ficha-stats-row">
+        <div class="stat-box">
+            <span class="stat-label">CA</span>
+            <span class="stat-valor" contenteditable="true" data-campo="ca">{{ monstro.ca }}</span>
+            {% if monstro.ca_tipo %}<span class="stat-note">({{ monstro.ca_tipo }})</span>{% endif %}
+        </div>
+        <div class="stat-box">
+            <span class="stat-label">Velocidade</span>
+            <span class="stat-valor">
+                {% for tipo, vel in monstro.velocidade.items() %}
+                {{ vel }}m{% if tipo != 'terrestre' %} ({{ tipo }}){% endif %}{% if not loop.last %}, {% endif %}
+                {% endfor %}
+            </span>
+        </div>
+    </div>
+    
+    <div class="ficha-atributos compact">
+        {% for attr in ['forca', 'destreza', 'constituicao', 'inteligencia', 'sabedoria', 'carisma'] %}
+        <div class="atributo-mini">
+            <span class="attr-nome">{{ attr[:3].upper() }}</span>
+            <span class="attr-valor">{{ monstro.atributos[attr] }} ({{ '%+d' % ((monstro.atributos[attr] - 10) // 2) }})</span>
+        </div>
+        {% endfor %}
+    </div>
+    
+    {% if monstro.resistencias %}
+    <div class="ficha-defesas">
+        <strong>Resistências:</strong> {{ monstro.resistencias | join(', ') }}
+    </div>
+    {% endif %}
+    
+    {% if monstro.imunidades_dano %}
+    <div class="ficha-defesas">
+        <strong>Imunidades:</strong> {{ monstro.imunidades_dano | join(', ') }}
+    </div>
+    {% endif %}
+    
+    {% if monstro.vulnerabilidades %}
+    <div class="ficha-defesas">
+        <strong>Vulnerabilidades:</strong> {{ monstro.vulnerabilidades | join(', ') }}
+    </div>
+    {% endif %}
+    
+    {% if monstro.acoes %}
+    <div class="ficha-acoes-lista">
+        <h4>Ações</h4>
+        {% for acao in monstro.acoes %}
+        <div class="acao-item" onclick="executarAcaoMonstro('{{ monstro.instancia_id }}', '{{ acao.nome }}')">
+            <strong>{{ acao.nome }}</strong>
+            {% if acao.tipo == 'ataque_arma' %}
+            <span class="acao-info">+{{ acao.bonus_ataque }} | {{ acao.dano }} {{ acao.tipo_dano }}</span>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    
+    {% if monstro.condicoes %}
+    <div class="ficha-condicoes">
+        {% for condicao in monstro.condicoes %}
+        <span class="condicao-tag">{{ condicao.nome }}</span>
+        {% endfor %}
+    </div>
+    {% endif %}
+    
+    <div class="ficha-acoes">
+        <button class="btn btn-sm btn-danger" onclick="aplicarDanoMonstro('{{ monstro.instancia_id }}')">💔 Dano</button>
+        <button class="btn btn-sm" onclick="curarMonstro('{{ monstro.instancia_id }}')">💚 Curar</button>
+        <button class="btn btn-sm btn-danger" onclick="removerMonstro('{{ monstro.instancia_id }}')">🗑️</button>
+    </div>
+    {% else %}
+    <div class="ficha-vazia">
+        <p>Monstro não encontrado</p>
+    </div>
+    {% endif %}
+</div>

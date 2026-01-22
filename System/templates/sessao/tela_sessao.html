@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sessão - Out of the Abyss</title>
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/sessao.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/widgets.css') }}">
+</head>
+<body class="tema-abyss sessao-mode">
+    
+    <!-- Barra de ferramentas flutuante -->
+    <div class="toolbar">
+        <button class="toolbar-btn" onclick="abrirSeletorMapa()" title="Trocar Mapa">🗺️</button>
+        <button class="toolbar-btn" onclick="adicionarWidget('ficha_personagem')" title="Ficha Personagem">👤</button>
+        <button class="toolbar-btn" onclick="adicionarWidget('ficha_monstro')" title="Ficha Monstro">👹</button>
+        <button class="toolbar-btn" onclick="adicionarWidget('iniciativa')" title="Iniciativa">⏱️</button>
+        <button class="toolbar-btn" onclick="adicionarWidget('log_combate')" title="Log Combate">📜</button>
+        <button class="toolbar-btn" onclick="adicionarWidget('notas')" title="Notas">📝</button>
+        <button class="toolbar-btn" onclick="adicionarWidget('dados')" title="Rolar Dados">🎲</button>
+        <div class="toolbar-separator"></div>
+        <button class="toolbar-btn btn-combat" onclick="toggleCombate()" title="Iniciar/Finalizar Combate">⚔️</button>
+    </div>
+    
+    <!-- Área do mapa (fundo) -->
+    <div id="mapa-container" class="mapa-container">
+        <div class="mapa-placeholder">
+            <p>Clique em 🗺️ para selecionar um mapa</p>
+        </div>
+    </div>
+    
+    <!-- Container de widgets -->
+    <div id="widgets-container" class="widgets-container">
+        <!-- Widgets serão adicionados dinamicamente aqui -->
+    </div>
+    
+    <!-- Modal seletor de mapa -->
+    <div id="modal-mapa" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Selecionar Mapa</h2>
+                <button class="modal-close" onclick="fecharModal('modal-mapa')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="lista-mapas" class="lista-mapas">
+                    <!-- Mapas serão carregados via JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal seletor de conteúdo de widget -->
+    <div id="modal-widget" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-widget-titulo">Selecionar</h2>
+                <button class="modal-close" onclick="fecharModal('modal-widget')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="modal-widget-conteudo">
+                    <!-- Conteúdo dinâmico -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="{{ url_for('static', filename='js/base.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/widgets.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/sessao.js') }}"></script>
+</body>
+</html>

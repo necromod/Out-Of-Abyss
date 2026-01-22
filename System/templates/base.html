@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Out of the Abyss{% endblock %}</title>
+    
+    <!-- CSS Base -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/widgets.css') }}">
+    
+    {% block extra_css %}{% endblock %}
+</head>
+<body class="tema-abyss">
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <a href="{{ url_for('main.index') }}">⚔️ Out of the Abyss</a>
+        </div>
+        <div class="navbar-menu">
+            <a href="{{ url_for('sessao.tela_sessao') }}" class="nav-link">Sessão</a>
+            <a href="{{ url_for('main.configuracoes') }}" class="nav-link">Configurações</a>
+        </div>
+    </nav>
+    
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+    
+    <!-- JavaScript Base -->
+    <script src="{{ url_for('static', filename='js/base.js') }}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

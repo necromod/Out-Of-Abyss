@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block title %}Configurações - Out of the Abyss{% endblock %}
+
+{% block content %}
+<div class="config-page">
+    <h1>⚙️ Configurações</h1>
+    
+    <section class="config-section">
+        <h2>📚 Regras Ativas</h2>
+        <p class="config-desc">Selecione quais livros de regras estão ativos na campanha</p>
+        
+        <div class="config-options">
+            <label class="config-option">
+                <input type="checkbox" id="regra-livro-jogador" checked disabled>
+                <span>Livro do Jogador (Obrigatório)</span>
+            </label>
+            
+            <label class="config-option">
+                <input type="checkbox" id="regra-xanathar" {% if regras.xanathar %}checked{% endif %}>
+                <span>Guia de Xanathar</span>
+            </label>
+            
+            <label class="config-option">
+                <input type="checkbox" id="regra-tasha" {% if regras.tasha %}checked{% endif %}>
+                <span>Caldeirão de Tasha</span>
+            </label>
+            
+            <label class="config-option">
+                <input type="checkbox" id="regra-multiverso" {% if regras.multiverso %}checked{% endif %}>
+                <span>Monstros do Multiverso</span>
+            </label>
+            
+            <label class="config-option">
+                <input type="checkbox" id="regra-valdas" {% if regras.valdas %}checked{% endif %}>
+                <span>Valda's Spire of Secrets</span>
+            </label>
+            
+            <label class="config-option">
+                <input type="checkbox" id="regra-fora-abismo" {% if regras.fora_abismo %}checked{% endif %}>
+                <span>Fora do Abismo (Campanha)</span>
+            </label>
+        </div>
+        
+        <button class="btn btn-primary" onclick="salvarRegras()">Salvar Configurações</button>
+    </section>
+</div>
+
+<script>
+function salvarRegras() {
+    const regras = {
+        xanathar: document.getElementById('regra-xanathar').checked,
+        tasha: document.getElementById('regra-tasha').checked,
+        multiverso: document.getElementById('regra-multiverso').checked,
+        valdas: document.getElementById('regra-valdas').checked,
+        fora_abismo: document.getElementById('regra-fora-abismo').checked
+    };
+    
+    fetch('/api/regras', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(regras)
+    })
+    .then(r => r.json())
+    .then(data => {
+        if (data.sucesso) {
+            alert('Configurações salvas!');
+        }
+    });
+}
+</script>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Out of the Abyss - Sistema de Mestragem{% endblock %}
+
+{% block content %}
+<div class="hero">
+    <h1>Out of the Abyss</h1>
+    <p class="subtitle">Sistema de Mestragem D&D 5e</p>
+    
+    <div class="hero-actions">
+        <a href="{{ url_for('sessao.tela_sessao') }}" class="btn btn-primary btn-large">
+            🎲 Iniciar Sessão
+        </a>
+    </div>
+</div>
+
+<div class="quick-actions">
+    <div class="action-card">
+        <h3>⚔️ Combate</h3>
+        <p>Gerencie combates com cálculos automáticos e controle total</p>
+    </div>
+    
+    <div class="action-card">
+        <h3>📜 Fichas</h3>
+        <p>Personagens e monstros com edição em tempo real</p>
+    </div>
+    
+    <div class="action-card">
+        <h3>🗺️ Mapas</h3>
+        <p>Troque mapas de batalha instantaneamente</p>
+    </div>
+    
+    <div class="action-card">
+        <h3>📝 Notas</h3>
+        <p>Anotações rápidas durante a sessão</p>
+    </div>
+</div>
+{% endblock %}
