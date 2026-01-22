@@ -1,0 +1,146 @@
+=============================================================================
+PROMPT DE CONFIGURAÇÃO COMPLETA - OUT OF THE ABYSS SYSTEM
+=============================================================================
+
+Configure o ambiente de desenvolvimento do projeto Out_of_Abyss_System com as seguintes diretrizes:
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📋 1. INSTRUÇÕES BASE DO PROJETO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Crie/atualize o arquivo:
+
+.github/instructions/instrucao_base.instructions.md
+
+com as diretrizes abaixo (ver arquivo separado).
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⚙️ 2. CONFIGURAÇÕES DO VSCODE (PADRÃO RÍGIDO DE AUTOMAÇÃO)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Criar a pasta `.vscode/` e versionar TODOS os arquivos.
+
+═══════════════════════════════════════════════════════════════════════════
+📄 .vscode/settings.json
+═══════════════════════════════════════════════════════════════════════════
+
+Objetivo:
+- Eliminar prompts desnecessários
+- Permitir execução automática
+- Facilitar fluxo rápido de desenvolvimento
+- Integrar Copilot ao padrão do projeto
+
+Configuração base:
+
+{
+  "github.copilot.chat.executeCommands": "always",
+  "security.workspace.trust.enabled": false,
+  "security.workspace.trust.banner": "never",
+  "security.workspace.trust.startupPrompt": "never",
+
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 1000,
+
+  "explorer.confirmDelete": false,
+  "explorer.confirmDragAndDrop": false,
+  "window.confirmBeforeClose": "never",
+
+  "git.confirmSync": false,
+
+  "terminal.integrated.defaultProfile.windows": "PowerShell",
+  "terminal.integrated.profiles.windows": {
+    "PowerShell": {
+      "args": ["-NoLogo", "-ExecutionPolicy", "Bypass"]
+    }
+  },
+
+  "chat.tools.terminal.autoApprove": {
+    "python": true,
+    "pip": true,
+    "pytest": true,
+    "flask": true,
+    "Set-Location": true,
+    "Get-Item": true,
+    "Get-Content": true,
+    "Remove-Item": true,
+    "Copy-Item": true,
+    "Move-Item": true,
+    "ConvertFrom-Json": true,
+    "ConvertTo-Json": true,
+    "if": true,
+    "foreach": true
+  }
+}
+
+═══════════════════════════════════════════════════════════════════════════
+📄 .vscode/tasks.json
+═══════════════════════════════════════════════════════════════════════════
+
+Criar tasks para:
+1. Ativar ambiente virtual (.venv)
+2. Instalar dependências (requirements.txt)
+3. Executar Flask App (modo desenvolvimento)
+4. Executar testes automatizados (pytest)
+
+═══════════════════════════════════════════════════════════════════════════
+📄 .vscode/launch.json
+═══════════════════════════════════════════════════════════════════════════
+
+Configurar debug para:
+- Flask App
+- Arquivo Python atual
+- Testes pytest
+
+═══════════════════════════════════════════════════════════════════════════
+📄 .vscode/extensions.json
+═══════════════════════════════════════════════════════════════════════════
+
+Extensões recomendadas:
+- ms-python.python
+- ms-python.vscode-pylance
+- github.copilot
+- github.copilot-chat
+- formulahendry.code-runner
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📝 3. .gitignore
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+NÃO ignorar a pasta `.vscode/`.
+
+Ignorar apenas:
+- .venv/
+- __pycache__/
+- *.pyc
+- .env
+- config_local.py
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🧪 4. TESTES E VALIDAÇÃO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Sempre que:
+- Criar nova funcionalidade
+- Alterar regras de sistema
+- Ajustar lógica de combate
+
+FAZER:
+- Rodar o Flask
+- Validar manualmente pelo navegador
+- Executar testes automatizados (quando existirem)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎯 COMPORTAMENTO ESPERADO DO ASSISTENTE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Sempre que trabalhar neste projeto:
+• Respeitar a estrutura /system
+• Nunca misturar código com conteúdo da campanha
+• Executar comandos automaticamente
+• Não criar documentação desnecessária
+• Priorizar clareza e controle do mestre
+• Garantir funcionamento antes de encerrar iteração
+
+=============================================================================
+FIM DO PROMPT
+=============================================================================

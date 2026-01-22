@@ -1,0 +1,15 @@
+# Arquivos grandes - PDFs dos livros (excedem limite do GitHub)
+Livros/
+
+# Arquivos de sistema
+.DS_Store
+Thumbs.db
+*.tmp
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.env
+venv/
+.venv/
