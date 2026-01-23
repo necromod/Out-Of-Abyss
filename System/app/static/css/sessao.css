@@ -19,27 +19,20 @@ body.sessao-mode .navbar {
 }
 
 /* =========================================
-   Toolbar flutuante
+   Menu de Widgets na Navbar
    ========================================= */
 
-.toolbar {
-    position: fixed;
-    top: 70px; /* Abaixo da navbar */
-    left: 50%;
-    transform: translateX(-50%);
+.navbar-widgets-menu {
     display: flex;
-    gap: var(--spacing-xs);
-    padding: var(--spacing-sm);
-    background-color: var(--bg-secondary);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-lg);
-    z-index: 1000;
-    box-shadow: var(--shadow-lg);
+    align-items: center;
+    gap: 4px;
+    margin-left: auto;
+    padding: 0 var(--spacing-sm);
 }
 
-.toolbar-btn {
-    width: 40px;
-    height: 40px;
+.nav-widget-btn {
+    width: 36px;
+    height: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -47,29 +40,48 @@ body.sessao-mode .navbar {
     border: 1px solid var(--border-color);
     border-radius: var(--radius-sm);
     cursor: pointer;
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     transition: var(--transition-fast);
+    color: var(--text-secondary);
 }
 
-.toolbar-btn:hover {
+.nav-widget-btn:hover {
     background-color: var(--bg-elevated);
     border-color: var(--accent-primary);
+    transform: scale(1.05);
 }
 
-.toolbar-btn.btn-combat {
+.nav-widget-btn.btn-combat {
     background-color: var(--accent-danger);
     border-color: var(--accent-danger);
+    color: white;
 }
 
-.toolbar-btn.btn-combat.active {
+.nav-widget-btn.btn-combat:hover {
+    background-color: #d32f2f;
+}
+
+.nav-widget-btn.btn-combat.active {
     background-color: var(--accent-success);
     border-color: var(--accent-success);
+    animation: pulse-combat 1.5s ease-in-out infinite;
 }
 
-.toolbar-separator {
+@keyframes pulse-combat {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.4); }
+    50% { box-shadow: 0 0 0 6px rgba(76, 175, 80, 0); }
+}
+
+.nav-separator {
     width: 1px;
+    height: 24px;
     background-color: var(--border-color);
-    margin: 0 var(--spacing-xs);
+    margin: 0 4px;
+}
+
+/* Esconde toolbar flutuante antiga quando na sessão */
+body.sessao-mode .toolbar {
+    display: none;
 }
 
 /* =========================================
@@ -188,6 +200,18 @@ body.sessao-mode .navbar {
     border-color: var(--accent-primary);
 }
 
+/* Item para criar novo (ficha rápida) */
+.item-selecao.item-criar-novo {
+    background-color: rgba(34, 197, 94, 0.1);
+    border-color: var(--success);
+    border-style: dashed;
+}
+
+.item-selecao.item-criar-novo:hover {
+    background-color: rgba(34, 197, 94, 0.2);
+    border-style: solid;
+}
+
 .item-info {
     flex: 1;
     min-width: 0;
@@ -244,7 +268,7 @@ body.sessao-mode .navbar {
 .monstro-widget-header {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
     margin-bottom: var(--spacing-sm);
     padding-bottom: var(--spacing-sm);
     border-bottom: 1px solid var(--border-color);
@@ -254,6 +278,7 @@ body.sessao-mode .navbar {
     font-size: 0.85rem;
     color: var(--text-muted);
     font-style: italic;
+    flex: 1;
 }
 
 .monstro-widget-header .monstro-nd {
@@ -414,8 +439,36 @@ body.sessao-mode .navbar {
 .personagem-widget-header {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
     margin-bottom: var(--spacing-sm);
+}
+
+.personagem-widget-header .personagem-info {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    flex: 1;
+}
+
+/* Botão de adicionar ao combate */
+.btn-add-combate {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(145deg, var(--bg-tertiary), var(--bg-secondary));
+    border: 1px solid var(--accent-danger);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.15s ease;
+    flex-shrink: 0;
+}
+
+.btn-add-combate:hover {
+    background: var(--accent-danger);
+    transform: scale(1.1);
+    box-shadow: 0 2px 8px rgba(231, 76, 60, 0.4);
 }
 
 .personagem-widget-header h4 {
@@ -594,6 +647,55 @@ body.sessao-mode .navbar {
     color: var(--accent-primary);
 }
 
+/* =========================================
+   Seção de Ações/Ataques
+   ========================================= */
+
+.personagem-widget-acoes,
+.monstro-widget-acoes {
+    margin-top: var(--spacing-sm);
+    padding: var(--spacing-sm);
+    background-color: var(--bg-tertiary);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+}
+
+.acoes-titulo {
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: var(--accent-primary);
+    margin-bottom: var(--spacing-xs);
+}
+
+.acoes-lista {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.btn-acao {
+    background: linear-gradient(145deg, var(--bg-elevated), var(--bg-secondary));
+    border: 1px solid var(--accent-primary);
+    color: var(--text-primary);
+    padding: 4px 8px;
+    font-size: 0.7rem;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+}
+
+.btn-acao:hover {
+    background: linear-gradient(145deg, var(--accent-primary), var(--accent-secondary));
+    color: white;
+    transform: scale(1.02);
+    box-shadow: 0 2px 8px rgba(233, 69, 96, 0.3);
+}
+
+.btn-acao:active {
+    transform: scale(0.98);
+}
+
 .personagem-widget-botoes {
     display: flex;
     gap: var(--spacing-sm);
@@ -758,14 +860,36 @@ body.sessao-mode .navbar {
 }
 
 .log-item {
-    display: flex;
-    gap: var(--spacing-sm);
+    display: block;
     padding: var(--spacing-xs) var(--spacing-sm);
     margin-bottom: var(--spacing-xs);
     background-color: var(--bg-secondary);
     border-radius: var(--radius-sm);
     font-size: 0.85rem;
     border-left: 3px solid var(--border-color);
+    cursor: default;
+    position: relative;
+}
+
+/* Tooltip de horário instantâneo */
+.log-item[data-time]::after {
+    content: attr(data-time);
+    position: absolute;
+    right: var(--spacing-sm);
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 2px 6px;
+    background-color: var(--bg-tertiary);
+    color: var(--text-muted);
+    font-size: 0.7rem;
+    border-radius: var(--radius-sm);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.1s;
+}
+
+.log-item[data-time]:hover::after {
+    opacity: 1;
 }
 
 .log-item.log-dano {
@@ -786,6 +910,96 @@ body.sessao-mode .navbar {
     border-left-color: var(--accent-warning);
     background-color: rgba(241, 196, 15, 0.1);
 }
+
+.log-item.log-crit {
+    border-left-color: #9b59b6;
+    background-color: rgba(155, 89, 182, 0.15);
+}
+
+.log-item.log-fumble {
+    border-left-color: #2c3e50;
+    background-color: rgba(44, 62, 80, 0.2);
+}
+
+.log-item.log-erro {
+    border-left-color: #e74c3c;
+    background-color: rgba(231, 76, 60, 0.2);
+}
+
+/* Estilos para resultados de ataque */
+.log-msg .crit {
+    color: #9b59b6;
+    font-weight: bold;
+    text-shadow: 0 0 5px rgba(155, 89, 182, 0.5);
+}
+
+.log-msg .fumble {
+    color: #7f8c8d;
+    font-weight: bold;
+}
+
+/* Estilos para total de ataque */
+.log-msg .ataque-total {
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.log-msg .ataque-total.crit {
+    color: #9b59b6;
+    text-shadow: 0 0 5px rgba(155, 89, 182, 0.5);
+}
+
+.log-msg .ataque-total.fumble {
+    color: #7f8c8d;
+}
+
+.log-msg .ataque-detalhes {
+    color: var(--text-muted);
+    font-size: 0.9em;
+}
+
+/* Linha de dano */
+.log-msg .dano-linha {
+    display: block;
+    margin-top: 2px;
+    padding-left: var(--spacing-sm);
+}
+
+.log-msg .dano-expressao {
+    color: var(--text-muted);
+    font-size: 0.85em;
+}
+
+.log-msg .dano {
+    color: var(--accent-danger);
+    font-weight: bold;
+}
+
+/* Tipo de Dano */
+.log-msg .tipo-dano {
+    display: inline-block;
+    padding: 0 4px;
+    margin-left: 2px;
+    border-radius: 3px;
+    font-size: 0.8em;
+    font-weight: 500;
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-muted);
+}
+
+.log-msg .tipo-dano[data-tipo="Ácido"] { color: #9acd32; background: rgba(154, 205, 50, 0.15); }
+.log-msg .tipo-dano[data-tipo="Contundente"] { color: #8b4513; background: rgba(139, 69, 19, 0.15); }
+.log-msg .tipo-dano[data-tipo="Cortante"] { color: #c0c0c0; background: rgba(192, 192, 192, 0.15); }
+.log-msg .tipo-dano[data-tipo="Elétrico"] { color: #00bfff; background: rgba(0, 191, 255, 0.15); }
+.log-msg .tipo-dano[data-tipo="Energético"] { color: #9932cc; background: rgba(153, 50, 204, 0.15); }
+.log-msg .tipo-dano[data-tipo="Gélido"] { color: #87ceeb; background: rgba(135, 206, 235, 0.15); }
+.log-msg .tipo-dano[data-tipo="Ígneo"] { color: #ff6347; background: rgba(255, 99, 71, 0.15); }
+.log-msg .tipo-dano[data-tipo="Necrótico"] { color: #4b0082; background: rgba(75, 0, 130, 0.15); }
+.log-msg .tipo-dano[data-tipo="Perfurante"] { color: #b0b0b0; background: rgba(176, 176, 176, 0.15); }
+.log-msg .tipo-dano[data-tipo="Psíquico"] { color: #da70d6; background: rgba(218, 112, 214, 0.15); }
+.log-msg .tipo-dano[data-tipo="Radiante"] { color: #ffd700; background: rgba(255, 215, 0, 0.15); }
+.log-msg .tipo-dano[data-tipo="Trovejante"] { color: #4169e1; background: rgba(65, 105, 225, 0.15); }
+.log-msg .tipo-dano[data-tipo="Venenoso"] { color: #32cd32; background: rgba(50, 205, 50, 0.15); }
 
 .log-time {
     color: var(--text-muted);
@@ -818,6 +1032,27 @@ body.sessao-mode .navbar {
     background-color: rgba(231, 76, 60, 0.1);
     border: 1px solid var(--accent-danger);
     border-radius: var(--radius-sm);
+}
+
+/* Personagem morto (3+ falhas) */
+.testes-morte.personagem-morto {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-color: #333;
+}
+
+.morte-label {
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--accent-danger);
+    margin-bottom: var(--spacing-sm);
+    text-shadow: 0 0 10px rgba(231, 76, 60, 0.5);
+}
+
+.testes-morte .btn-xs {
+    margin-top: var(--spacing-xs);
+    font-size: 0.65rem;
+    padding: 2px 6px;
 }
 
 .teste-linha {
@@ -888,7 +1123,7 @@ body.sessao-mode .navbar {
 
 .turno-label {
     font-size: 0.8rem;
-    color: var(--text-muted);
+    color: #ffffff;
     text-transform: uppercase;
 }
 
@@ -1022,6 +1257,18 @@ body.sessao-mode .navbar {
     padding: 0 4px;
     border-radius: 2px;
     font-weight: bold;
+    white-space: nowrap;
+}
+
+.efeito-desc {
+    color: var(--bg-primary);
+    font-size: 0.65rem;
+    opacity: 0.9;
+    font-style: italic;
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .efeito-item .btn-mini {
@@ -1047,6 +1294,184 @@ body.sessao-mode .navbar {
 .btn-outline:hover {
     border-color: var(--accent-primary);
     color: var(--accent-primary);
+}
+
+/* =========================================
+   Observações no Widget
+   ========================================= */
+
+.widget-observacoes {
+    margin-top: var(--spacing-sm);
+    padding: var(--spacing-sm);
+    background: linear-gradient(135deg, var(--bg-tertiary) 0%, rgba(233, 69, 96, 0.05) 100%);
+    border: 1px dashed var(--accent-primary);
+    border-radius: var(--radius-sm);
+}
+
+.observacoes-titulo {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--accent-primary);
+    margin-bottom: 4px;
+}
+
+.observacoes-textarea {
+    width: 100%;
+    min-height: 50px;
+    max-height: 100px;
+    padding: var(--spacing-xs);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    line-height: 1.3;
+    resize: vertical;
+    font-family: inherit;
+}
+
+.observacoes-textarea:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+    background: var(--bg-primary);
+}
+
+.observacoes-textarea::placeholder {
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+/* =========================================
+   Formulário de Ficha Rápida
+   ========================================= */
+
+.ficha-rapida-form {
+    padding: var(--spacing-sm);
+}
+
+.ficha-rapida-form .form-grupo {
+    margin-bottom: var(--spacing-sm);
+}
+
+.ficha-rapida-form .form-grupo label {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    margin-bottom: 2px;
+}
+
+.ficha-rapida-form .form-control {
+    width: 100%;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: 0.85rem;
+    background-color: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-xs);
+    color: var(--text-primary);
+}
+
+.ficha-rapida-form .form-control:focus {
+    border-color: var(--accent-primary);
+    outline: none;
+}
+
+.ficha-rapida-form .form-linha {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-xs);
+}
+
+.ficha-rapida-form .form-acoes {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-md);
+    justify-content: flex-end;
+}
+
+.ficha-rapida-form .btn {
+    padding: var(--spacing-xs) var(--spacing-md);
+    font-size: 0.85rem;
+}
+
+/* Ficha temporária (não salva) */
+.ficha-temporaria {
+    border-left: 3px solid var(--accent-warning);
+    position: relative;
+}
+
+/* =========================================
+   Modal de Efeitos
+   ========================================= */
+
+.modal .modal-sm {
+    max-width: 350px;
+    padding: var(--spacing-lg);
+}
+
+.modal .modal-sm h3 {
+    margin: 0 0 var(--spacing-md) 0;
+    color: var(--text-primary);
+    font-size: 1.1rem;
+}
+
+.modal .modal-sm .form-group {
+    margin-bottom: var(--spacing-md);
+}
+
+.modal .modal-sm .form-group label {
+    display: block;
+    margin-bottom: var(--spacing-xs);
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+}
+
+.modal .modal-sm .form-group select,
+.modal .modal-sm .form-group input,
+.modal .modal-sm .form-group textarea {
+    width: 100%;
+    padding: var(--spacing-sm);
+    background-color: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+}
+
+.modal .modal-sm .form-group textarea {
+    resize: vertical;
+    min-height: 50px;
+    font-family: inherit;
+}
+
+.modal .modal-sm .form-group select:focus,
+.modal .modal-sm .form-group input:focus,
+.modal .modal-sm .form-group textarea:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+}
+
+.modal-buttons {
+    display: flex;
+    gap: var(--spacing-sm);
+    justify-content: flex-end;
+    margin-top: var(--spacing-lg);
+}
+
+.modal-buttons .btn {
+    padding: var(--spacing-xs) var(--spacing-md);
+}
+
+.ficha-temporaria::before {
+    content: 'TEMP';
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    font-size: 0.5rem;
+    background-color: var(--accent-warning);
+    color: var(--bg-primary);
+    padding: 1px 4px;
+    border-radius: 2px;
+    font-weight: bold;
 }
 
 /* =========================================

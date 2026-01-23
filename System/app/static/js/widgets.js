@@ -247,6 +247,60 @@ class WidgetManager {
         this.contadorTipo = {};
     }
     
+    /**
+     * Encontra uma posição livre para um novo widget
+     */
+    encontrarPosicaoLivre(largura, altura, xBase = 100, yBase = 80) {
+        const GAP = 20; // Espaço entre widgets
+        const container = document.getElementById('widgets-container');
+        const maxX = container ? container.offsetWidth - largura - 20 : window.innerWidth - largura - 20;
+        const maxY = container ? container.offsetHeight - altura - 20 : window.innerHeight - altura - 100;
+        
+        // Coleta todas as posições ocupadas
+        const ocupados = [];
+        this.widgets.forEach(w => {
+            ocupados.push({
+                x: w.element.offsetLeft,
+                y: w.element.offsetTop,
+                w: w.element.offsetWidth,
+                h: w.element.offsetHeight
+            });
+        });
+        
+        // Função para verificar colisão
+        const colide = (x, y) => {
+            return ocupados.some(o => 
+                x < o.x + o.w + GAP && x + largura + GAP > o.x &&
+                y < o.y + o.h + GAP && y + altura + GAP > o.y
+            );
+        };
+        
+        // Tenta posição base primeiro
+        if (!colide(xBase, yBase)) {
+            return { x: xBase, y: yBase };
+        }
+        
+        // Tenta abaixo dos widgets existentes
+        for (const o of ocupados) {
+            const novoY = o.y + o.h + GAP;
+            if (novoY + altura <= maxY && !colide(xBase, novoY)) {
+                return { x: xBase, y: novoY };
+            }
+        }
+        
+        // Tenta à direita dos widgets existentes
+        for (const o of ocupados) {
+            const novoX = o.x + o.w + GAP;
+            if (novoX + largura <= maxX && !colide(novoX, yBase)) {
+                return { x: novoX, y: yBase };
+            }
+        }
+        
+        // Fallback: posição escalonada
+        const offset = this.widgets.size * 30;
+        return { x: xBase + offset, y: yBase + offset };
+    }
+    
     criar(tipo, options = {}) {
         // Incrementa contador por tipo
         if (!this.contadorTipo[tipo]) {
@@ -254,16 +308,26 @@ class WidgetManager {
         }
         this.contadorTipo[tipo]++;
         
-        // Posição inicial escalonada
-        const offset = this.widgets.size * 30;
+        const largura = options.width || this.getLarguraPadrao(tipo);
+        const altura = options.height || this.getAlturaPadrao(tipo);
+        
+        // Calcula posição: usa a fornecida ou encontra uma livre
+        let posX = options.x;
+        let posY = options.y;
+        
+        if (posX === undefined || posY === undefined) {
+            const posLivre = this.encontrarPosicaoLivre(largura, altura);
+            posX = posX !== undefined ? posX : posLivre.x;
+            posY = posY !== undefined ? posY : posLivre.y;
+        }
         
         const widget = new Widget({
             tipo,
             titulo: options.titulo || this.getTituloPadrao(tipo),
-            x: options.x || 100 + offset,
-            y: options.y || 80 + offset,
-            width: options.width || this.getLarguraPadrao(tipo),
-            height: options.height || this.getAlturaPadrao(tipo),
+            x: posX,
+            y: posY,
+            width: largura,
+            height: altura,
             conteudo: options.conteudo || ''
         });
         
@@ -324,10 +388,13 @@ class WidgetManager {
     salvarEstado() {
         const estado = [];
         this.widgets.forEach(widget => {
+            // Pega o título atual do DOM (pode ter sido alterado)
+            const tituloAtual = widget.element.querySelector('.widget-title')?.textContent || widget.titulo;
+            
             estado.push({
                 id: widget.id,
                 tipo: widget.tipo,
-                titulo: widget.titulo,
+                titulo: tituloAtual,
                 x: widget.element.offsetLeft,
                 y: widget.element.offsetTop,
                 width: widget.element.offsetWidth,
@@ -350,21 +417,35 @@ class WidgetManager {
         const existente = Array.from(this.widgets.values()).find(w => w.tipo === tipo && 
             (tipo === 'iniciativa' || tipo === 'log_combate'));
         if (existente) {
-            // Atualiza posição
+            // Atualiza posição e título
             existente.element.style.left = `${config.x}px`;
             existente.element.style.top = `${config.y}px`;
             existente.element.style.width = `${config.width}px`;
             existente.element.style.height = `${config.height}px`;
+            // Garante título correto
+            const tituloCorreto = this.getTituloPadrao(tipo);
+            existente.element.querySelector('.widget-title').textContent = tituloCorreto;
             return existente;
         }
         
+        // Determina título: usa o salvo apenas se não for genérico "Widget"
+        let titulo = config.titulo;
+        if (!titulo || titulo === 'Widget') {
+            titulo = this.getTituloPadrao(tipo);
+        }
+        
         const widget = this.criar(tipo, {
-            titulo: config.titulo || this.getTituloPadrao(tipo),
+            titulo: titulo,
             x: config.x,
             y: config.y,
             width: config.width,
             height: config.height
         });
+        
+        // Salva dadosCriatura no widget para referência futura
+        if (config.dadosCriatura) {
+            widget.dadosCriatura = config.dadosCriatura;
+        }
         
         if (config.minimizado) {
             widget.toggleMinimizar();

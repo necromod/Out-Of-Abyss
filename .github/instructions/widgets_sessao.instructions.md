@@ -120,6 +120,7 @@ const SessaoState = {
 
 ```javascript
 const CONDICOES_DND = {
+    // Condições D&D 5e
     'agarrado': { nome: 'Agarrado', descricao: '...' },
     'amedrontado': { nome: 'Amedrontado', descricao: '...' },
     'atordoado': { nome: 'Atordoado', descricao: '...' },
@@ -134,7 +135,22 @@ const CONDICOES_DND = {
     'paralisado': { nome: 'Paralisado', descricao: '...' },
     'petrificado': { nome: 'Petrificado', descricao: '...' },
     'surdo': { nome: 'Surdo', descricao: '...' },
-    'exaustao': { nome: 'Exaustão', descricao: '...' }
+    'exaustao': { nome: 'Exaustão', descricao: '...' },
+    
+    // Tipos de Dano (para resistências/vulnerabilidades)
+    'dano_acido': { nome: 'Dano Ácido', descricao: '...' },
+    'dano_contundente': { nome: 'Dano Contundente', descricao: '...' },
+    'dano_cortante': { nome: 'Dano Cortante', descricao: '...' },
+    'dano_eletrico': { nome: 'Dano Elétrico', descricao: '...' },
+    'dano_energetico': { nome: 'Dano Energético', descricao: '...' },
+    'dano_gelido': { nome: 'Dano Gélido', descricao: '...' },
+    'dano_igneo': { nome: 'Dano Ígneo', descricao: '...' },
+    'dano_necrotico': { nome: 'Dano Necrótico', descricao: '...' },
+    'dano_perfurante': { nome: 'Dano Perfurante', descricao: '...' },
+    'dano_psiquico': { nome: 'Dano Psíquico', descricao: '...' },
+    'dano_radiante': { nome: 'Dano Radiante', descricao: '...' },
+    'dano_trovejante': { nome: 'Dano Trovejante', descricao: '...' },
+    'dano_venenoso': { nome: 'Dano Venenoso', descricao: '...' }
 };
 ```
 
@@ -142,16 +158,29 @@ const CONDICOES_DND = {
 
 ```javascript
 // Abrir modal para adicionar efeito
+// O modal é criado dinamicamente com style="display: flex;"
 abrirModalEfeito(event, tipo, id)
 
 // Adicionar efeito a uma criatura
+// Cria elemento visual em .efeitos-lista
 adicionarEfeito(tipo, id)
 
 // Remover efeito de uma criatura
-removerEfeito(tipo, id, nomeEfeito)
+removerEfeito(btn)  // Recebe o botão clicado
 
 // Atualizar contadores de turno (chamado automaticamente em proximoTurno)
+// Decrementa turnos de todos os efeitos, remove os que expiraram
 atualizarContadoresEfeitos()
+```
+
+### Estrutura HTML do Efeito
+
+```html
+<div class="efeito-item" data-condicao="envenenado" data-turnos="3">
+    <span class="efeito-nome" title="Descrição da condição">Envenenado</span>
+    <span class="efeito-turnos">3</span>
+    <button class="btn-mini btn-remover" onclick="removerEfeito(this)">✕</button>
+</div>
 ```
 
 ---
@@ -193,7 +222,137 @@ editarIniciativa(event, index)
 
 ---
 
-## 7. Widgets de Ficha
+## 7. Sistema de Ataques
+
+### Estrutura de Armas no Widget
+
+Os botões de ataque são gerados automaticamente a partir do array `armas`:
+
+```javascript
+// Formato novo de armas (recomendado)
+{
+    nome: "Espada Longa",
+    bonus: "+5",
+    dados: ["1d8+3"],      // Array de dados de dano
+    tipo: "Cortante"       // Tipo de dano
+}
+
+// Formato legado (ainda suportado)
+{
+    nome: "Espada Longa",
+    ataque: "+5",
+    dano: "1d8+3 cort."    // String com tipo embutido
+}
+```
+
+### Função rolarAtaque()
+
+```javascript
+/**
+ * Rola um ataque com d20 + bônus e mostra resultado no log
+ * @param {Event} event - Evento do clique
+ * @param {string} nomeAtacante - Nome de quem ataca
+ * @param {string} nomeAtaque - Nome da arma/ataque
+ * @param {string} bonusAtaque - Bônus de acerto (ex: "+5")
+ * @param {string[]|string} dados - Array de dados de dano ou string única
+ * @param {string} tipoDano - Tipo de dano (ex: "Cortante", "Ígneo")
+ */
+async function rolarAtaque(event, nomeAtacante, nomeAtaque, bonusAtaque, dados, tipoDano = '')
+
+// Fluxo:
+// 1. Rola 1d20 + bonus
+// 2. Verifica crítico (20) ou falha crítica (1)
+// 3. Se não for falha crítica, rola dano (dobrado em crítico)
+// 4. Adiciona ao log de combate
+```
+
+### Detecção de Formato de Armas
+
+```javascript
+// Detecta se é formato novo ou legado
+const isFormatoNovo = a.dados !== undefined;
+
+if (isFormatoNovo) {
+    // Usa a.bonus e a.dados[]
+    const dadosStr = JSON.stringify(a.dados);
+    const tipo = a.tipo || '';
+} else {
+    // Usa a.ataque e a.dano (extrai tipo do texto)
+    const bonus = a.ataque || a.bonus;
+    const danoMatch = a.dano.match(/^([^a-zA-Z]+)/);
+}
+```
+
+---
+
+## 8. Log de Combate
+
+### Formato das Mensagens
+
+```javascript
+// Ataque normal
+"Azazel Ireth usa Raio de fogo 15 (8+7)"
+"8 dano ígneo (1d10)"
+
+// Crítico (🎯)
+"Azazel Ireth usa Raio de fogo 26 🎯 (20+6)"
+"17 dano ígneo (2d10)"  // Dados dobrados
+
+// Falha Crítica (💀)
+"Azazel Ireth usa Raio de fogo 7 💀 (1+6)"
+// Sem linha de dano
+```
+
+### Estrutura do Log Item
+
+```html
+<div class="log-item log-ataque" data-time="16:09">
+    <span class="log-msg">
+        <strong>Azazel Ireth</strong> usa <em>Raio de fogo</em> 
+        <span class="ataque-total">15</span> 
+        <span class="ataque-detalhes">(8+7)</span>
+        <br>
+        <span class="dano-linha">
+            <span class="dano">8</span> dano
+            <span class="tipo-dano" data-tipo="Ígneo">ígneo</span>
+            <span class="dano-expressao">(1d10)</span>
+        </span>
+    </span>
+</div>
+```
+
+### Tooltip de Horário
+
+O horário aparece apenas no hover, usando CSS puro (sem delay):
+
+```css
+.log-item[data-time]::after {
+    content: attr(data-time);
+    position: absolute;
+    right: var(--spacing-sm);
+    opacity: 0;
+}
+
+.log-item[data-time]:hover::after {
+    opacity: 1;
+}
+```
+
+### Tipos de Log
+
+| Tipo | Uso | Cor da Borda |
+|------|-----|--------------|
+| `info` | Mensagens gerais | Azul primário |
+| `ataque` | Ataques normais | Amarelo/warning |
+| `crit` | Críticos | Roxo |
+| `fumble` | Falhas críticas | Cinza escuro |
+| `dano` | Dano aplicado | Vermelho |
+| `cura` | Cura/efeito expirado | Verde |
+| `erro` | Erros | Vermelho escuro |
+
+---
+
+## 9. Widgets de Ficha
 
 ### Estrutura HTML do Widget de Personagem
 
@@ -201,8 +360,18 @@ editarIniciativa(event, index)
 <div class="widget-personagem-conteudo">
     <div class="personagem-widget-header">...</div>
     <div class="personagem-widget-hp">...</div>
-    <div class="personagem-widget-stats">...</div>
+    
+    <!-- Stats com Percepção Passiva -->
+    <div class="personagem-widget-stats">
+        CA: 15 | +3 | 9m | 👁10
+    </div>
+    
     <div class="personagem-widget-attrs">...</div>
+    
+    <!-- Ações/Ataques -->
+    <div class="personagem-widget-acoes">
+        <button onclick="rolarAtaque(...)">Espada +5</button>
+    </div>
     
     <!-- Dano/Cura -->
     <div class="personagem-widget-botoes">

@@ -30,6 +30,25 @@ Este é um sistema web local para auxiliar na mestragem de D&D 5e, com foco em:
 - Controle de combate em tempo real (rounds, iniciativa, turnos)
 - Sistema de widgets flutuantes para sessão de jogo
 - Sistema de efeitos/condições D&D 5e com contador de turnos
+- Sistema de ataques com rolagem automática (d20 + dano)
+- Testes de morte automáticos (HP <= 0)
+- Log de combate com formatação visual
+- Rastreamento de sessões
+- Automação de regras D&D 5e
+
+### Funcionalidades Principais
+
+| Funcionalidade | Descrição |
+|----------------|-----------|
+| **Armas/Ataques** | Formato novo: Nome, Bônus, Dados[], Tipo de Dano |
+| **Rolagem de Ataque** | Clica no botão → rola d20 + dano → log formatado |
+| **Crítico/Falha** | Detecta 20 (🎯 dobra dados) e 1 (💀 sem dano) |
+| **Percepção Passiva** | Calculado automaticamente (10 + mod SAB) |
+| **Efeitos** | Modal para adicionar condições com contador de turnos |
+| **Tipos de Dano** | 13 tipos com cores e tooltips |
+| **Log de Combate** | Horário no hover, linha de dano separada |
+- Sistema de widgets flutuantes para sessão de jogo
+- Sistema de efeitos/condições D&D 5e com contador de turnos
 - Testes de morte automáticos (HP <= 0)
 - Rastreamento de sessões
 - Automação de regras D&D 5e

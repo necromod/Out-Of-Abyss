@@ -531,6 +531,7 @@
 
 .tabela-ataques td {
     padding: 0.25rem;
+    vertical-align: top;
 }
 
 .tabela-ataques td input {
@@ -550,6 +551,99 @@
 
 .tabela-ataques td input::placeholder {
     color: var(--ficha-text-muted);
+}
+
+/* Bônus Input */
+.tabela-ataques .input-bonus {
+    text-align: center;
+    font-family: monospace;
+    font-weight: 600;
+}
+
+/* Container de Dados de Dano */
+.tabela-ataques .td-dados {
+    position: relative;
+}
+
+.dados-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.dado-linha {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.dado-linha .input-dado {
+    flex: 1;
+    min-width: 0;
+    font-family: monospace;
+}
+
+.btn-remover-dado {
+    padding: 0;
+    width: 18px;
+    height: 18px;
+    line-height: 16px;
+    text-align: center;
+    border: none;
+    background: transparent;
+    color: var(--ficha-text-muted);
+    cursor: pointer;
+    font-size: 0.9rem;
+    opacity: 0.5;
+    transition: all 0.2s;
+}
+
+.btn-remover-dado:hover {
+    color: var(--ficha-danger);
+    opacity: 1;
+}
+
+.btn-add-dado {
+    padding: 0;
+    width: 18px;
+    height: 18px;
+    margin-top: 2px;
+    line-height: 16px;
+    text-align: center;
+    border: 1px dashed var(--ficha-border);
+    border-radius: 3px;
+    background: transparent;
+    color: var(--ficha-text-muted);
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+}
+
+.btn-add-dado:hover {
+    border-color: var(--ficha-accent);
+    color: var(--ficha-accent);
+}
+
+/* Select Tipo de Dano */
+.select-tipo-dano {
+    width: 100%;
+    padding: 0.25rem;
+    background: var(--ficha-bg);
+    border: 1px solid var(--ficha-border);
+    border-radius: 4px;
+    color: var(--ficha-text);
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+
+.select-tipo-dano:focus {
+    outline: none;
+    border-color: var(--ficha-accent);
+}
+
+.select-tipo-dano option {
+    background: var(--ficha-card-bg);
+    color: var(--ficha-text);
 }
 
 .btn-adicionar {
@@ -1355,6 +1449,17 @@
     align-items: center;
     justify-content: center;
     z-index: 1000;
+}
+
+/* Modal transparente (sem escurecer tela) */
+.modal.modal-transparente {
+    background: transparent;
+    pointer-events: none;
+}
+
+.modal.modal-transparente .modal-content {
+    pointer-events: auto;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
 }
 
 .modal.active,
@@ -2402,6 +2507,19 @@
 .textarea-mini:focus {
     outline: none;
     border-color: var(--ficha-accent);
+}
+
+/* Observações - bloco destacado */
+.observacoes-box {
+    background: linear-gradient(135deg, var(--ficha-bg) 0%, rgba(233, 69, 96, 0.05) 100%);
+    border-color: var(--ficha-accent);
+    border-style: dashed;
+    min-height: 60px;
+}
+
+.observacoes-box::placeholder {
+    color: var(--ficha-text-muted);
+    font-style: italic;
 }
 
 /* Auto-expand textarea */

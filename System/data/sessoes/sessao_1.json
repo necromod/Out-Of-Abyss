@@ -1,0 +1,82 @@
+﻿{
+    "numero":  2,
+    "data":  "2026-01-23",
+    "criada_em":  "2026-01-23T14:08:52.356776",
+    "atualizada_em":  "2026-01-23T14:48:33.181472",
+    "estado":  {
+                   "mapa_atual":  null,
+                   "combate_ativo":  true,
+                   "turno_contador":  1,
+                   "turno_atual":  0,
+                   "ordem_turnos":  [
+                                        {
+                                            "tipo":  "instancia",
+                                            "id":  16,
+                                            "nome":  "Quaggoth 1",
+                                            "iniciativa":  6,
+                                            "ativo":  true
+                                        }
+                                    ],
+                   "widgets":  [
+                                   {
+                                       "id":  "widget-1769187763453",
+                                       "tipo":  "log_combate",
+                                       "titulo":  "ðŸ“œ Log de Combate",
+                                       "x":  1358,
+                                       "y":  80,
+                                       "width":  350,
+                                       "height":  350,
+                                       "minimizado":  false,
+                                       "dadosCriatura":  null
+                                   },
+                                   {
+                                       "id":  "widget-1769187766120",
+                                       "tipo":  "ficha_personagem",
+                                       "titulo":  "ðŸ‘¤ Vralktar",
+                                       "x":  130,
+                                       "y":  110,
+                                       "width":  320,
+                                       "height":  400,
+                                       "minimizado":  false,
+                                       "dadosCriatura":  {
+                                                             "tipo":  "personagem",
+                                                             "id":  2,
+                                                             "nome":  "Vralktar",
+                                                             "modDestreza":  -1
+                                                         }
+                                   },
+                                   {
+                                       "id":  "widget-1769187769922",
+                                       "tipo":  "ficha_monstro",
+                                       "titulo":  "ðŸ‘¹ Quaggoth 1",
+                                       "x":  427,
+                                       "y":  146,
+                                       "width":  350,
+                                       "height":  450,
+                                       "minimizado":  false,
+                                       "dadosCriatura":  {
+                                                             "tipo":  "instancia",
+                                                             "id":  16,
+                                                             "nome":  "Quaggoth 1",
+                                                             "nomeBase":  "Quaggoth",
+                                                             "modDestreza":  1
+                                                         }
+                                   },
+                                   {
+                                       "id":  "widget-1769187792062",
+                                       "tipo":  "iniciativa",
+                                       "titulo":  "â±ï¸ Iniciativa",
+                                       "x":  939,
+                                       "y":  180,
+                                       "width":  200,
+                                       "height":  150,
+                                       "minimizado":  false,
+                                       "dadosCriatura":  null
+                                   }
+                               ]
+               },
+    "log":  [
+
+            ],
+    "id":  "1"
+}

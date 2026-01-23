@@ -169,6 +169,21 @@
     font-style: italic;
 }
 
+/* Observações de Monstro */
+.observacoes-monstro label {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--ficha-accent);
+    margin-bottom: 0.3rem;
+    font-weight: 600;
+}
+
+.observacoes-monstro .observacoes-box {
+    background: linear-gradient(135deg, var(--ficha-bg) 0%, rgba(233, 69, 96, 0.05) 100%);
+    border: 1px dashed var(--ficha-accent);
+    min-height: 50px;
+}
+
 /* ==================== AÇÕES COMPACTAS ==================== */
 .acoes-compactas {
     padding-top: 0.5rem;

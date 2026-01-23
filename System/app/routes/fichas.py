@@ -265,6 +265,15 @@ def api_obter_instancia_monstro(id):
     return jsonify({'erro': 'Instância não encontrada'}), 404
 
 
+@fichas_bp.route('/api/monstro/instancia/<int:id>', methods=['PATCH'])
+def api_atualizar_instancia_monstro(id):
+    """Atualiza campos de uma instância de monstro"""
+    data = request.get_json()
+    InstanciaMonstroRepository.update(id, data)
+    resultado = InstanciaMonstroRepository.get_completo(id)
+    return jsonify(resultado)
+
+
 @fichas_bp.route('/api/monstro/instancia/<int:id>/campo', methods=['PATCH'])
 def api_editar_campo_instancia(id):
     """Edita um campo específico da instância de monstro"""

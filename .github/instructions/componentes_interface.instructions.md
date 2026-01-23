@@ -392,8 +392,8 @@ function atualizarBarraHP(hpAtual, hpMax) {
 ### Adicionar/Remover Item Dinâmico
 
 ```javascript
-// Adicionar arma
-function adicionarArma() {
+// Adicionar arma (formato novo)
+function adicionarAtaque() {
     const container = document.getElementById('lista-armas');
     const index = container.querySelectorAll('.arma-item').length;
     
@@ -401,17 +401,77 @@ function adicionarArma() {
     novaArma.className = 'arma-item';
     novaArma.innerHTML = `
         <input type="text" data-campo="armas.${index}.nome" placeholder="Nome">
-        <input type="text" data-campo="armas.${index}.ataque" placeholder="+0">
-        <input type="text" data-campo="armas.${index}.dano" placeholder="1d6">
-        <button type="button" onclick="removerArma(this)">×</button>
+        <input type="text" data-campo="armas.${index}.bonus" placeholder="+0">
+        <div class="dados-dano-container">
+            <input class="dado-dano-input" placeholder="1d6+2">
+            <button type="button" class="btn-add-dado" onclick="adicionarDadoDano(this)">+</button>
+        </div>
+        <select data-campo="armas.${index}.tipo">
+            <option value="">—</option>
+            <option value="Ácido" title="Dissolve matéria orgânica">Ácido</option>
+            <option value="Contundente" title="Impacto, esmagamento">Contundente</option>
+            <option value="Cortante" title="Lâminas, corte">Cortante</option>
+            <option value="Elétrico" title="Raios, eletricidade">Elétrico</option>
+            <option value="Energético" title="Energia pura, força">Energético</option>
+            <option value="Gélido" title="Frio intenso, congelamento">Gélido</option>
+            <option value="Ígneo" title="Fogo, calor intenso">Ígneo</option>
+            <option value="Necrótico" title="Energia negativa, morte">Necrótico</option>
+            <option value="Perfurante" title="Pontas, flechas, espinhos">Perfurante</option>
+            <option value="Psíquico" title="Dano mental, ilusões">Psíquico</option>
+            <option value="Radiante" title="Luz divina, energia positiva">Radiante</option>
+            <option value="Trovejante" title="Som, ondas de choque">Trovejante</option>
+            <option value="Venenoso" title="Toxinas, venenos">Venenoso</option>
+        </select>
+        <button type="button" class="btn-remover" onclick="removerAtaque(this)">×</button>
     `;
     container.appendChild(novaArma);
 }
 
-// Remover
-function removerArma(btn) {
+// Adicionar dado de dano extra (para múltiplos tipos)
+function adicionarDadoDano(btn) {
+    const container = btn.closest('.dados-dano-container');
+    const novoInput = document.createElement('input');
+    novoInput.className = 'dado-dano-input';
+    novoInput.placeholder = '1d6';
+    container.insertBefore(novoInput, btn);
+}
+
+// Remover arma
+function removerAtaque(btn) {
     btn.closest('.arma-item').remove();
-    // Reindexar data-campo se necessário
+}
+```
+
+### CSS de Armas (Formato Novo)
+
+```css
+.arma-item {
+    display: grid;
+    grid-template-columns: 2fr 60px 1fr 100px 30px;
+    gap: var(--spacing-xs);
+    align-items: center;
+    padding: var(--spacing-xs);
+    background: rgba(0,0,0,0.2);
+    border-radius: var(--radius-sm);
+    margin-bottom: var(--spacing-xs);
+}
+
+.dados-dano-container {
+    display: flex;
+    gap: 2px;
+    flex-wrap: wrap;
+}
+
+.dado-dano-input {
+    width: 60px;
+    text-align: center;
+}
+
+.btn-add-dado {
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    font-size: 0.8rem;
 }
 ```
 
@@ -462,7 +522,7 @@ function mostrarNotificacao(mensagem, tipo = 'info') {
 </div>
 ```
 
-### Lista de Armas
+### Lista de Armas (Formato Novo)
 
 ```html
 <div id="lista-armas">
@@ -471,16 +531,32 @@ function mostrarNotificacao(mensagem, tipo = 'info') {
         <div class="arma-item">
             <input type="text" data-campo="armas.{{ loop.index0 }}.nome" 
                    value="{{ arma.nome }}" placeholder="Nome">
-            <input type="text" data-campo="armas.{{ loop.index0 }}.ataque" 
-                   value="{{ arma.ataque }}" placeholder="+0">
-            <input type="text" data-campo="armas.{{ loop.index0 }}.dano" 
-                   value="{{ arma.dano }}" placeholder="1d6">
-            <button type="button" onclick="removerArma(this)">×</button>
+            <input type="text" data-campo="armas.{{ loop.index0 }}.bonus" 
+                   value="{{ arma.bonus or arma.ataque }}" placeholder="+0">
+            <div class="dados-dano-container">
+                {% if arma.dados %}
+                    {% for dado in arma.dados %}
+                    <input class="dado-dano-input" value="{{ dado }}" placeholder="1d6">
+                    {% endfor %}
+                {% else %}
+                    <input class="dado-dano-input" value="{{ arma.dano }}" placeholder="1d6">
+                {% endif %}
+                <button type="button" class="btn-add-dado" onclick="adicionarDadoDano(this)">+</button>
+            </div>
+            <select data-campo="armas.{{ loop.index0 }}.tipo">
+                <option value="">—</option>
+                {% for tipo in ['Ácido', 'Contundente', 'Cortante', 'Elétrico', 'Energético', 
+                                'Gélido', 'Ígneo', 'Necrótico', 'Perfurante', 'Psíquico', 
+                                'Radiante', 'Trovejante', 'Venenoso'] %}
+                <option value="{{ tipo }}" {{ 'selected' if arma.tipo == tipo }}>{{ tipo }}</option>
+                {% endfor %}
+            </select>
+            <button type="button" onclick="removerAtaque(this)">×</button>
         </div>
         {% endfor %}
     {% endif %}
 </div>
-<button type="button" onclick="adicionarArma()">+ Arma</button>
+<button type="button" onclick="adicionarAtaque()">+ Ataque</button>
 ```
 
 ### Checkboxes de Perícias

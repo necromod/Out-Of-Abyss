@@ -1,0 +1,73 @@
+{
+  "numero": 8,
+  "id": "8",
+  "data": "2026-01-23",
+  "criada_em": "2026-01-23T14:57:22.421431",
+  "atualizada_em": "2026-01-23T15:10:40.181201",
+  "estado": {
+    "mapa_atual": null,
+    "combate_ativo": false,
+    "turno_contador": 0,
+    "turno_atual": 0,
+    "ordem_turnos": [
+      {
+        "ativo": true,
+        "id": 24,
+        "iniciativa": 10,
+        "nome": "Quaggoth 1",
+        "tipo": "instancia"
+      }
+    ],
+    "widgets": [
+      {
+        "id": "widget-1769191779910",
+        "tipo": "log_combate",
+        "titulo": "📜 Log de Combate",
+        "x": 1358,
+        "y": 80,
+        "width": 350,
+        "height": 350,
+        "minimizado": false,
+        "dadosCriatura": null
+      }
+    ]
+  },
+  "log": [
+    {
+      "timestamp": "2026-01-23T15:02:48.732204",
+      "tipo": "info",
+      "mensagem": "<strong>Quaggoth 1</strong> rolou iniciativa: 9+1 = 10",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T15:02:52.464254",
+      "tipo": "info",
+      "mensagem": "<strong>Quaggoth 1</strong> já está nos turnos",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T15:02:55.261096",
+      "tipo": "info",
+      "mensagem": "<strong>Quaggoth 1</strong> já está nos turnos",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T15:02:55.997148",
+      "tipo": "info",
+      "mensagem": "<strong>Quaggoth 1</strong> já está nos turnos",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T15:02:56.122445",
+      "tipo": "info",
+      "mensagem": "<strong>Quaggoth 1</strong> já está nos turnos",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T15:03:03.029199",
+      "tipo": "dano",
+      "mensagem": "<strong>Quaggoth 1</strong> -4 HP",
+      "dados": {}
+    }
+  ]
+}

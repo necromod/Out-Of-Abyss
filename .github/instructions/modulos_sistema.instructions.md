@@ -93,6 +93,15 @@ PersonagemRepository.atualizar_campo(1, 'atributos.forca', 18)
 # Combate
 PersonagemRepository.aplicar_dano(1, 10)
 PersonagemRepository.curar(1, 5)
+
+# Campos JSON tratados automaticamente:
+# atributos, pericias_proficientes, pericias_expertise,
+# salvaguardas_proficientes, armas, equipamentos, moedas,
+# espacos_magia, espacos_usados, magias_conhecidas, magias_preparadas,
+# dados_vida_tipos, condicoes
+
+# Estrutura de armas (formato novo):
+# [{ nome, bonus, dados[], tipo }]
 ```
 
 ### MonstroRepository
@@ -411,11 +420,12 @@ class WidgetManager {
 **Responsabilidades:**
 - Estado da sessão (`SessaoState`)
 - Sistema de combate (turnos, rounds)
+- Sistema de ataques com rolagem automática
 - Condições D&D 5e (`CONDICOES_DND`)
 - Widgets de personagem/monstro
 - Dano/cura rápida
 - Testes de morte
-- Log de combate
+- Log de combate formatado
 
 **Estado Global:**
 ```javascript
@@ -424,7 +434,8 @@ const SessaoState = {
     ordemTurnos: [],    // [{tipo, id, nome, iniciativa, modDestreza, efeitos}]
     turnoAtual: 0,
     roundAtual: 0,      // 0 = fora de combate, 1+ = em combate
-    contadorMonstros: {}
+    contadorMonstros: {},
+    logCombate: []      // Histórico de ações
 };
 ```
 
@@ -437,9 +448,17 @@ finalizarCombate()        // Encerra combate
 adicionarAosTurnos(tipo, id, nome, iniciativa, modDestreza)
 editarIniciativa(event, index)
 
+// Ataques (rola automaticamente ao clicar)
+rolarAtaque(event, nomeAtacante, nomeAtaque, bonusAtaque, dados, tipoDano)
+// Rola 1d20+bonus, detecta crítico/falha, rola dano (dobrado em crit)
+
+// Log de Combate
+adicionarLogCombate(mensagem, tipo)  // tipo: info, ataque, crit, fumble, dano, cura
+atualizarWidgetLog()
+
 // Widgets de ficha
 carregarPersonagemWidget(widgetId, personagemId)
-gerarHTMLPersonagemWidget(p)
+gerarHTMLPersonagemWidget(p)  // Inclui PP: 👁{percepcaoPassiva}
 atualizarWidgetCriatura(tipo, id, dadosAtualizados)
 
 // Dano/Cura
@@ -447,10 +466,10 @@ abrirDanoRapido(event, id, nome, tipo)
 abrirCuraRapida(event, id, nome, tipo)
 
 // Efeitos D&D 5e
-abrirModalEfeito(event, tipo, id)
+abrirModalEfeito(event, tipo, id)  // Modal com style="display: flex;"
 adicionarEfeito(tipo, id)
-removerEfeito(tipo, id, nomeEfeito)
-atualizarContadoresEfeitos()
+removerEfeito(btn)  // Recebe o botão clicado
+atualizarContadoresEfeitos()  // Decrementa turnos, remove expirados
 
 // Testes de Morte
 marcarTesteMorte(event, id, tipo, valor)

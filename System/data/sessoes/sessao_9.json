@@ -1,0 +1,532 @@
+{
+  "numero": 9,
+  "id": "9",
+  "data": "2026-01-23",
+  "criada_em": "2026-01-23T15:10:53.281478",
+  "atualizada_em": "2026-01-23T17:27:32.915169",
+  "estado": {
+    "mapa_atual": null,
+    "combate_ativo": true,
+    "turno_contador": 9,
+    "turno_atual": 0,
+    "ordem_turnos": [
+      {
+        "ativo": true,
+        "id": 24,
+        "iniciativa": 10,
+        "nome": "Quaggoth 1",
+        "tipo": "instancia"
+      },
+      {
+        "ativo": true,
+        "id": 1,
+        "iniciativa": 6,
+        "nome": "Azazel Ireth",
+        "tipo": "personagem"
+      }
+    ],
+    "widgets": [
+      {
+        "id": "widget-1769197271724",
+        "tipo": "log_combate",
+        "titulo": "📜 Log de Combate",
+        "x": 1358,
+        "y": 80,
+        "width": 350,
+        "height": 350,
+        "minimizado": false,
+        "dadosCriatura": null
+      },
+      {
+        "id": "widget-1769197271725",
+        "tipo": "ficha_personagem",
+        "titulo": "👤 Vralktar",
+        "x": 461,
+        "y": 79,
+        "width": 320,
+        "height": 400,
+        "minimizado": false,
+        "dadosCriatura": {
+          "tipo": "personagem",
+          "id": 2,
+          "nome": "Vralktar",
+          "modDestreza": -1
+        }
+      },
+      {
+        "id": "widget-1769197271727",
+        "tipo": "ficha_personagem",
+        "titulo": "👤 Azazel Ireth",
+        "x": 100,
+        "y": 80,
+        "width": 319,
+        "height": 503,
+        "minimizado": false,
+        "dadosCriatura": {
+          "tipo": "personagem",
+          "id": 1,
+          "nome": "Azazel Ireth",
+          "modDestreza": 3
+        }
+      }
+    ]
+  },
+  "log": [
+    {
+      "timestamp": "2026-01-23T15:11:10.704562",
+      "tipo": "dano",
+      "mensagem": "<strong>Azazel Ireth</strong> -7 HP",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T15:11:12.797650",
+      "tipo": "dano",
+      "mensagem": "<strong>Azazel Ireth</strong> -1 HP",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T15:11:14.099255",
+      "tipo": "cura",
+      "mensagem": "<strong>Azazel Ireth</strong> teste de morte: ✓ Sucesso",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T15:11:14.562864",
+      "tipo": "cura",
+      "mensagem": "<strong>Azazel Ireth</strong> teste de morte: ✓ Sucesso",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T15:11:15.212911",
+      "tipo": "cura",
+      "mensagem": "<strong>Azazel Ireth</strong> teste de morte: ✓ Sucesso",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T15:11:17.068975",
+      "tipo": "cura",
+      "mensagem": "<strong>Azazel Ireth</strong> teste de morte: ✓ Sucesso",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T15:11:18.741069",
+      "tipo": "cura",
+      "mensagem": "<strong>Azazel Ireth</strong> teste de morte: ✓ Sucesso",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T15:11:19.326292",
+      "tipo": "cura",
+      "mensagem": "<strong>Azazel Ireth</strong> teste de morte: ✓ Sucesso",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T15:11:20.038543",
+      "tipo": "cura",
+      "mensagem": "<strong>Azazel Ireth</strong> teste de morte: ✓ Sucesso",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T15:11:20.703906",
+      "tipo": "cura",
+      "mensagem": "<strong>Azazel Ireth</strong> teste de morte: ✓ Sucesso",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T15:11:21.186355",
+      "tipo": "cura",
+      "mensagem": "<strong>Azazel Ireth</strong> teste de morte: ✓ Sucesso",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T15:11:21.719972",
+      "tipo": "cura",
+      "mensagem": "<strong>Azazel Ireth</strong> teste de morte: ✓ Sucesso",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T15:11:22.575299",
+      "tipo": "cura",
+      "mensagem": "<strong>Azazel Ireth</strong> teste de morte: ✓ Sucesso",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T15:11:23.488455",
+      "tipo": "cura",
+      "mensagem": "<strong>Azazel Ireth</strong> teste de morte: ✓ Sucesso",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T15:11:24.097838",
+      "tipo": "cura",
+      "mensagem": "<strong>Azazel Ireth</strong> teste de morte: ✓ Sucesso",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T15:11:24.555930",
+      "tipo": "cura",
+      "mensagem": "<strong>Azazel Ireth</strong> teste de morte: ✓ Sucesso",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T15:11:25.795649",
+      "tipo": "dano",
+      "mensagem": "<strong>Azazel Ireth</strong> teste de morte: ✗ Falha",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T15:11:26.444196",
+      "tipo": "dano",
+      "mensagem": "<strong>Azazel Ireth</strong> teste de morte: ✗ Falha",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T15:11:27.486577",
+      "tipo": "cura",
+      "mensagem": "<strong>Azazel Ireth</strong> teste de morte: ✓ Sucesso",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T15:11:27.799086",
+      "tipo": "dano",
+      "mensagem": "<strong>Azazel Ireth</strong> teste de morte: ✗ Falha",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T15:11:29.061777",
+      "tipo": "cura",
+      "mensagem": "<strong>Azazel Ireth</strong> teste de morte: ✓ Sucesso",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T15:11:29.538898",
+      "tipo": "dano",
+      "mensagem": "<strong>Azazel Ireth</strong> teste de morte: ✗ Falha",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T15:29:16.440312",
+      "tipo": "cura",
+      "mensagem": "<strong>Azazel Ireth</strong> teste de morte: ✓ Sucesso",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T15:29:17.139314",
+      "tipo": "dano",
+      "mensagem": "<strong>Azazel Ireth</strong> teste de morte: ✗ Falha",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T15:29:19.484443",
+      "tipo": "dano",
+      "mensagem": "<strong>Azazel Ireth</strong> teste de morte: ✗ Falha",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T15:29:19.964523",
+      "tipo": "cura",
+      "mensagem": "<strong>Azazel Ireth</strong> teste de morte: ✓ Sucesso",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T15:29:20.117967",
+      "tipo": "cura",
+      "mensagem": "<strong>Azazel Ireth</strong> teste de morte: ✓ Sucesso",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T15:29:22.840722",
+      "tipo": "cura",
+      "mensagem": "<strong>Azazel Ireth</strong> teste de morte: ✓ Sucesso",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T15:29:26.177478",
+      "tipo": "cura",
+      "mensagem": "<strong>Azazel Ireth</strong> +1 HP",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T15:51:02.529658",
+      "tipo": "cura",
+      "mensagem": "<strong>Azazel Ireth</strong> +7 HP",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T15:51:04.484753",
+      "tipo": "cura",
+      "mensagem": "<strong>Azazel Ireth</strong> +1 HP",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T15:51:06.357875",
+      "tipo": "dano",
+      "mensagem": "<strong>Azazel Ireth</strong> -8 HP",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T15:51:08.054123",
+      "tipo": "cura",
+      "mensagem": "<strong>Azazel Ireth</strong> teste de morte: ✓ Sucesso",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T15:51:12.846727",
+      "tipo": "cura",
+      "mensagem": "<strong>Azazel Ireth</strong> teste de morte: ✓ Sucesso",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T15:51:14.180955",
+      "tipo": "cura",
+      "mensagem": "<strong>Azazel Ireth</strong> teste de morte: ✓ Sucesso",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T15:51:16.146516",
+      "tipo": "info",
+      "mensagem": "<strong>Azazel Ireth</strong> testes de morte resetados",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T15:51:17.113183",
+      "tipo": "cura",
+      "mensagem": "<strong>Azazel Ireth</strong> teste de morte: ✓ Sucesso",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T15:51:17.901639",
+      "tipo": "info",
+      "mensagem": "<strong>Azazel Ireth</strong> testes de morte resetados",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T15:51:18.559876",
+      "tipo": "dano",
+      "mensagem": "<strong>Azazel Ireth</strong> teste de morte: ✗ Falha",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T15:51:18.853081",
+      "tipo": "dano",
+      "mensagem": "<strong>Azazel Ireth</strong> teste de morte: ✗ Falha",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T15:51:19.223305",
+      "tipo": "dano",
+      "mensagem": "<strong>Azazel Ireth</strong> teste de morte: ✗ Falha",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T15:51:19.828171",
+      "tipo": "info",
+      "mensagem": "<strong>Azazel Ireth</strong> testes de morte resetados",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T15:51:21.676518",
+      "tipo": "cura",
+      "mensagem": "<strong>Azazel Ireth</strong> +1 HP",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T16:08:10.627800",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Adaga</em>: 🎲 17+5 = <strong>22</strong> → <span class=\"dano\">4 dano</span> <span class=\"tipo-dano\" data-tipo=\"Cortante\">Cortante</span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T16:08:19.449510",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Raio de fogo</em>: 🎲 15+6 = <strong>21</strong> → <span class=\"dano\">0 dano</span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T16:08:53.467480",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Adaga</em>: 🎲 19+5 = <strong>24</strong> → <span class=\"dano\">7 dano</span> <span class=\"tipo-dano\" data-tipo=\"Cortante\">Cortante</span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T16:09:09.818085",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Raio de fogo</em>: 🎲 2+6 = <strong>8</strong> → <span class=\"dano\">0 dano</span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T16:09:10.634725",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Raio de fogo</em>: 🎲 14+6 = <strong>20</strong> → <span class=\"dano\">0 dano</span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T16:09:11.067793",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Raio de fogo</em>: 🎲 15+6 = <strong>21</strong> → <span class=\"dano\">0 dano</span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T16:09:11.378538",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Raio de fogo</em>: 🎲 3+6 = <strong>9</strong> → <span class=\"dano\">0 dano</span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T16:09:11.552064",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Raio de fogo</em>: 🎲 9+6 = <strong>15</strong> → <span class=\"dano\">0 dano</span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T16:09:28.369258",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Raio de fogo</em>: 🎲 18+6 = <strong>24</strong> → <span class=\"dano\">7 dano</span> <span class=\"tipo-dano\" data-tipo=\"Ígneo\">Ígneo</span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T16:09:29.036516",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Raio de fogo</em>: 🎲 5+6 = <strong>11</strong> → <span class=\"dano\">6 dano</span> <span class=\"tipo-dano\" data-tipo=\"Ígneo\">Ígneo</span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T16:09:29.440860",
+      "tipo": "crit",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Raio de fogo</em>: <span class=\"crit\">🎯 CRÍTICO! (20+6 = 26)</span> → <span class=\"dano\">16 dano</span> <span class=\"tipo-dano\" data-tipo=\"Ígneo\">Ígneo</span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T16:09:29.719208",
+      "tipo": "fumble",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Raio de fogo</em>: <span class=\"fumble\">💀 FALHA CRÍTICA! (1+6 = 7)</span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T16:21:36.341253",
+      "tipo": "dano",
+      "mensagem": "<strong>Azazel Ireth</strong> -4 HP",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T16:21:39.467715",
+      "tipo": "cura",
+      "mensagem": "<strong>Azazel Ireth</strong> +8 HP",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T16:21:41.424338",
+      "tipo": "dano",
+      "mensagem": "<strong>Azazel Ireth</strong> -4 HP",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T16:21:43.995908",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Adaga</em> <span class=\"ataque-total \">15</span> <span class=\"ataque-detalhes\">(10+5)</span><br><span class=\"dano-linha\"><span class=\"dano\">6</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d4+3)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T16:23:06.864792",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Adaga</em> <span class=\"ataque-total \">10</span> <span class=\"ataque-detalhes\">(5+5)</span><br><span class=\"dano-linha\"><span class=\"dano\">6</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d4+3)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T16:25:21.579322",
+      "tipo": "info",
+      "mensagem": "Efeito <strong>Atordoado</strong> aplicado",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T16:25:24.669258",
+      "tipo": "info",
+      "mensagem": "⚔️ <strong>Batalha iniciada!</strong>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T16:25:24.674702",
+      "tipo": "info",
+      "mensagem": "🔄 <strong>Turno 1</strong>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T16:25:36.141610",
+      "tipo": "info",
+      "mensagem": "<strong>Azazel Ireth</strong> rolou iniciativa: 3+3 = 6",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T16:25:37.721568",
+      "tipo": "info",
+      "mensagem": "🔄 <strong>Turno 2</strong>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T16:25:38.534849",
+      "tipo": "info",
+      "mensagem": "🔄 <strong>Turno 4</strong>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T16:25:38.871626",
+      "tipo": "info",
+      "mensagem": "🔄 <strong>Turno 5</strong>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T16:25:55.769825",
+      "tipo": "info",
+      "mensagem": "Efeito <strong>Agarrado</strong> aplicado",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T16:25:57.747044",
+      "tipo": "info",
+      "mensagem": "🔄 <strong>Turno 6</strong>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T16:25:58.402942",
+      "tipo": "info",
+      "mensagem": "🔄 <strong>Turno 7</strong>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T16:25:58.821036",
+      "tipo": "info",
+      "mensagem": "🔄 <strong>Turno 8</strong>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T16:25:59.321580",
+      "tipo": "cura",
+      "mensagem": "Efeito <strong>Agarrado</strong> expirou",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T16:26:40.147117",
+      "tipo": "info",
+      "mensagem": "Efeito <strong>Enfeitiçado</strong> aplicado",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T16:35:55.523095",
+      "tipo": "info",
+      "mensagem": "Efeito <strong>Agarrado</strong> (Teste) aplicado",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T16:38:34.485044",
+      "tipo": "info",
+      "mensagem": "Efeito <strong>Atordoado</strong> (Cansado) aplicado",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-23T16:38:46.157661",
+      "tipo": "info",
+      "mensagem": "Efeito <strong>Envenenado</strong> (5 dano por turno) aplicado",
+      "dados": {}
+    }
+  ]
+}

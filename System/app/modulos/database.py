@@ -138,6 +138,9 @@ def init_database():
                 sucesso_morte INTEGER DEFAULT 0,
                 falha_morte INTEGER DEFAULT 0,
                 
+                -- Percepção Passiva (calculado: 10 + mod sabedoria)
+                percepcao_passiva INTEGER DEFAULT 10,
+                
                 criado_em TEXT DEFAULT CURRENT_TIMESTAMP,
                 atualizado_em TEXT DEFAULT CURRENT_TIMESTAMP
             )
@@ -546,8 +549,76 @@ def init_database():
         cursor.execute("CREATE INDEX IF NOT EXISTS idx_instancias_sessao ON monstros_instancias(sessao_id)")
         cursor.execute("CREATE INDEX IF NOT EXISTS idx_instancias_ativo ON monstros_instancias(ativo)")
         
+        # ==================== MIGRAÇÕES ====================
+        _executar_migracoes(cursor)
+        
         conn.commit()
         print("✅ Banco de dados inicializado com sucesso!")
+
+
+def _executar_migracoes(cursor):
+    """Executa migrações para atualizar schema existente"""
+    
+    # Verifica e adiciona coluna percepcao_passiva em personagens
+    cursor.execute("PRAGMA table_info(personagens)")
+    colunas_personagens = [col[1] for col in cursor.fetchall()]
+    
+    if 'percepcao_passiva' not in colunas_personagens:
+        print("[MIGRAÇÃO] Adicionando percepcao_passiva em personagens...")
+        cursor.execute("ALTER TABLE personagens ADD COLUMN percepcao_passiva INTEGER DEFAULT 10")
+        
+        # Atualiza valores existentes baseado no modificador de sabedoria
+        cursor.execute("SELECT id, atributos FROM personagens")
+        for row in cursor.fetchall():
+            id_p = row[0]
+            atributos = json_loads_safe(row[1], {})
+            sabedoria = atributos.get('sabedoria', 10)
+            mod_sab = (sabedoria - 10) // 2
+            percepcao_passiva = 10 + mod_sab
+            cursor.execute("UPDATE personagens SET percepcao_passiva = ? WHERE id = ?", (percepcao_passiva, id_p))
+        print(f"[MIGRAÇÃO] percepcao_passiva atualizada para personagens existentes")
+    
+    # Verifica e atualiza percepcao_passiva em monstros (se existir)
+    cursor.execute("PRAGMA table_info(monstros)")
+    colunas_monstros = [col[1] for col in cursor.fetchall()]
+    
+    if 'percepcao_passiva' in colunas_monstros:
+        # Atualiza monstros existentes que tenham valor 0 ou default
+        cursor.execute("SELECT id, atributos, percepcao_passiva FROM monstros WHERE percepcao_passiva = 0 OR percepcao_passiva = 10")
+        for row in cursor.fetchall():
+            id_m = row[0]
+            atributos = json_loads_safe(row[1], {})
+            sabedoria = atributos.get('sabedoria', 10)
+            mod_sab = (sabedoria - 10) // 2
+            percepcao_passiva = 10 + mod_sab
+            if percepcao_passiva != row[2]:  # Só atualiza se for diferente do atual
+                cursor.execute("UPDATE monstros SET percepcao_passiva = ? WHERE id = ?", (percepcao_passiva, id_m))
+    
+    # ==================== MIGRAÇÃO: campo observacoes ====================
+    
+    # Adiciona coluna observacoes em personagens
+    cursor.execute("PRAGMA table_info(personagens)")
+    colunas_personagens = [col[1] for col in cursor.fetchall()]
+    
+    if 'observacoes' not in colunas_personagens:
+        print("[MIGRAÇÃO] Adicionando observacoes em personagens...")
+        cursor.execute("ALTER TABLE personagens ADD COLUMN observacoes TEXT DEFAULT ''")
+        print(f"[MIGRAÇÃO] observacoes adicionada em personagens")
+    
+    # Adiciona coluna observacoes em monstros
+    if 'observacoes' not in colunas_monstros:
+        print("[MIGRAÇÃO] Adicionando observacoes em monstros...")
+        cursor.execute("ALTER TABLE monstros ADD COLUMN observacoes TEXT DEFAULT ''")
+        print(f"[MIGRAÇÃO] observacoes adicionada em monstros")
+    
+    # Adiciona coluna observacoes em monstros_instancias
+    cursor.execute("PRAGMA table_info(monstros_instancias)")
+    colunas_instancias = [col[1] for col in cursor.fetchall()]
+    
+    if 'observacoes' not in colunas_instancias:
+        print("[MIGRAÇÃO] Adicionando observacoes em monstros_instancias...")
+        cursor.execute("ALTER TABLE monstros_instancias ADD COLUMN observacoes TEXT DEFAULT ''")
+        print(f"[MIGRAÇÃO] observacoes adicionada em monstros_instancias")
 
 
 # ==================== HELPERS JSON ====================

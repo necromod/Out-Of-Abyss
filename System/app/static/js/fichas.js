@@ -1491,11 +1491,68 @@ function adicionarAtaque() {
     const novaLinha = document.createElement('tr');
     novaLinha.innerHTML = `
         <td><input type="text" placeholder="Nome da Arma/Magia" data-campo="armas.${index}.nome"></td>
-        <td><input type="text" placeholder="+0" data-campo="armas.${index}.bonus"></td>
-        <td><input type="text" placeholder="1d8+0 cort." data-campo="armas.${index}.dano"></td>
+        <td><input type="text" placeholder="+0" data-campo="armas.${index}.bonus" class="input-bonus"></td>
+        <td class="td-dados">
+            <div class="dados-container" data-index="${index}">
+                <div class="dado-linha">
+                    <input type="text" class="input-dado" placeholder="1d8+3">
+                    <button type="button" class="btn-remover-dado" onclick="removerDado(this)">×</button>
+                </div>
+            </div>
+            <button type="button" class="btn-add-dado" onclick="adicionarDado(this)" title="Adicionar dado">+</button>
+        </td>
+        <td>
+            <select data-campo="armas.${index}.tipo" class="select-tipo-dano" title="Selecione o tipo de dano">
+                <option value="">-</option>
+                <option value="Ácido" title="Substância corrosiva causa queimaduras">Ácido</option>
+                <option value="Contundente" title="Impacto físico causando hematomas">Contundente</option>
+                <option value="Cortante" title="Ferimentos abertos sangrando">Cortante</option>
+                <option value="Elétrico" title="Choque percorrendo o corpo">Elétrico</option>
+                <option value="Energético" title="Energia mágica pura (força)">Energético</option>
+                <option value="Gélido" title="Congelamento e hipotermia">Gélido</option>
+                <option value="Ígneo" title="Queimando, em chamas">Ígneo</option>
+                <option value="Necrótico" title="Energia vital sendo drenada">Necrótico</option>
+                <option value="Perfurante" title="Feridas profundas penetrantes">Perfurante</option>
+                <option value="Psíquico" title="Mente sendo atacada">Psíquico</option>
+                <option value="Radiante" title="Luz divina queimando">Radiante</option>
+                <option value="Trovejante" title="Ondas sonoras devastadoras">Trovejante</option>
+                <option value="Venenoso" title="Toxina no sistema">Venenoso</option>
+            </select>
+        </td>
         <td><button type="button" class="btn-remover-item" onclick="removerAtaque(this)">×</button></td>
     `;
     container.appendChild(novaLinha);
+}
+
+/**
+ * Adiciona um dado extra ao ataque (para múltiplos dados de dano)
+ */
+function adicionarDado(btn) {
+    const container = btn.previousElementSibling;
+    if (!container || !container.classList.contains('dados-container')) return;
+    
+    const novoDiv = document.createElement('div');
+    novoDiv.className = 'dado-linha';
+    novoDiv.innerHTML = `
+        <input type="text" class="input-dado" placeholder="1d6">
+        <button type="button" class="btn-remover-dado" onclick="removerDado(this)">×</button>
+    `;
+    container.appendChild(novoDiv);
+    agendarAutoSave();
+}
+
+/**
+ * Remove um dado da lista de dados do ataque
+ */
+function removerDado(btn) {
+    const linha = btn.closest('.dado-linha');
+    const container = linha?.parentElement;
+    
+    // Não permite remover se for o único dado
+    if (container && container.querySelectorAll('.dado-linha').length > 1) {
+        linha.remove();
+        agendarAutoSave();
+    }
 }
 
 /**
@@ -1656,14 +1713,21 @@ function coletarDadosPersonagem() {
         moedas: { pc: 0, pp: 0, pe: 0, po: 0, pl: 0 }
     };
     
-    // Coleta armas
+    // Coleta armas com nova estrutura (nome, bonus, dados[], tipo)
     document.querySelectorAll('#lista-ataques tr').forEach((tr, index) => {
         const nome = tr.querySelector('[data-campo*=".nome"]')?.value || '';
         const bonus = tr.querySelector('[data-campo*=".bonus"]')?.value || '';
-        const dano = tr.querySelector('[data-campo*=".dano"]')?.value || '';
+        const tipo = tr.querySelector('[data-campo*=".tipo"]')?.value || '';
         
-        if (nome || bonus || dano) {
-            dados.armas.push({ nome, bonus, dano });
+        // Coleta todos os dados de dano
+        const dadosDano = [];
+        tr.querySelectorAll('.dados-container .input-dado').forEach(input => {
+            const valor = input.value.trim();
+            if (valor) dadosDano.push(valor);
+        });
+        
+        if (nome || bonus || dadosDano.length > 0) {
+            dados.armas.push({ nome, bonus, dados: dadosDano, tipo });
         }
     });
     

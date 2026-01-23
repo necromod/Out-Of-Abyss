@@ -101,13 +101,25 @@ function coletarDadosPersonagem() {
         // ... processa cada tipo
     });
     
-    // Coleta armas
+    // Coleta armas (formato novo)
     document.querySelectorAll('.arma-item').forEach((item, i) => {
-        dados.armas.push({
-            nome: item.querySelector('[data-campo*=".nome"]').value,
-            ataque: item.querySelector('[data-campo*=".ataque"]').value,
-            dano: item.querySelector('[data-campo*=".dano"]').value
+        const dadosDano = [];
+        item.querySelectorAll('.dado-dano-input').forEach(input => {
+            if (input.value.trim()) {
+                dadosDano.push(input.value.trim());
+            }
         });
+        
+        const arma = {
+            nome: item.querySelector('[data-campo*=".nome"]')?.value || '',
+            bonus: item.querySelector('[data-campo*=".bonus"]')?.value || '',
+            dados: dadosDano,
+            tipo: item.querySelector('[data-campo*=".tipo"]')?.value || ''
+        };
+        
+        if (arma.nome) {
+            dados.armas.push(arma);
+        }
     });
     
     // Coleta moedas
@@ -118,6 +130,47 @@ function coletarDadosPersonagem() {
     
     return dados;
 }
+```
+
+### Estrutura de Armas (Formato Novo)
+
+```javascript
+// Cada arma no formato novo:
+{
+    nome: "Espada Longa",       // Nome da arma
+    bonus: "+5",                // Bônus de ataque
+    dados: ["1d8+3"],           // Array de dados de dano
+    tipo: "Cortante"            // Tipo de dano (dropdown)
+}
+
+// Múltiplos dados de dano:
+{
+    nome: "Espada Flamejante",
+    bonus: "+5",
+    dados: ["1d8+3", "1d6"],    // 1d8+3 cortante + 1d6 ígneo
+    tipo: "Cortante"
+}
+```
+
+### Tipos de Dano Disponíveis
+
+```javascript
+const TIPOS_DANO = [
+    { valor: '',            nome: '—' },
+    { valor: 'Ácido',       nome: 'Ácido' },
+    { valor: 'Contundente', nome: 'Contundente' },
+    { valor: 'Cortante',    nome: 'Cortante' },
+    { valor: 'Elétrico',    nome: 'Elétrico' },
+    { valor: 'Energético',  nome: 'Energético' },
+    { valor: 'Gélido',      nome: 'Gélido' },
+    { valor: 'Ígneo',       nome: 'Ígneo' },
+    { valor: 'Necrótico',   nome: 'Necrótico' },
+    { valor: 'Perfurante',  nome: 'Perfurante' },
+    { valor: 'Psíquico',    nome: 'Psíquico' },
+    { valor: 'Radiante',    nome: 'Radiante' },
+    { valor: 'Trovejante',  nome: 'Trovejante' },
+    { valor: 'Venenoso',    nome: 'Venenoso' }
+];
 ```
 
 ### Campos com data-campo
@@ -134,8 +187,14 @@ O atributo `data-campo` vincula inputs ao modelo de dados:
 <!-- Campo aninhado (objeto) -->
 <input data-campo="atributos.forca" value="{{ p.atributos.forca }}">
 
-<!-- Campo de array com índice -->
+<!-- Armas - Formato Novo -->
 <input data-campo="armas.0.nome" value="{{ p.armas[0].nome }}">
+<input data-campo="armas.0.bonus" value="{{ p.armas[0].bonus }}">
+<input class="dado-dano-input" value="{{ p.armas[0].dados[0] }}">
+<select data-campo="armas.0.tipo">
+    <option value="Cortante">Cortante</option>
+    <!-- ... -->
+</select>
 
 <!-- Checkbox para arrays -->
 <input type="checkbox" data-campo="pericias_proficientes" data-valor="percepcao">
@@ -478,4 +537,89 @@ function mostrarNotificacao(mensagem, tipo = 'info') {
     
     setTimeout(() => notif.remove(), 3000);
 }
+```
+
+---
+
+## 7. APIs do Sistema
+
+### API de Dados (Rolagem)
+
+```javascript
+// POST /api/dados/rolar
+// Body: { expressao: "2d6+3" }
+// Response: { expressao, dados: [4, 2], soma: 6, modificador: 3, total: 9 }
+
+const resultado = await API.post('/api/dados/rolar', { expressao: '1d20+5' });
+```
+
+### API de Personagens
+
+```javascript
+// GET /fichas/api/personagem/{id}
+// Response: { id, nome, hp_atual, hp_maximo, atributos, armas, percepcao_passiva, ... }
+
+// PUT /fichas/api/personagem/{id}
+// Body: { ...dados completos }
+
+// PATCH /fichas/api/personagem/{id}
+// Body: { campo: valor } - atualização parcial
+
+// Dano/Cura
+// POST /api/personagens/{id}/dano   Body: { dano: 10 }
+// POST /api/personagens/{id}/curar  Body: { quantidade: 5 }
+// Response inclui: hp_atual, hp_maximo, sucesso_morte, falha_morte
+```
+
+### API de Instâncias de Monstros
+
+```javascript
+// POST /fichas/api/monstro/instancia
+// Body: { monstro_id, nome?, sessao_id? }
+
+// GET /fichas/api/monstro/instancia/{id}
+
+// PATCH /fichas/api/monstro/instancia/{id}
+// Body: { hp_atual, condicoes, ... }
+
+// Dano/Cura
+// POST /api/monstros/instancias/{id}/dano  Body: { dano: 10 }
+// POST /api/monstros/instancias/{id}/curar Body: { quantidade: 5 }
+```
+
+### API de Sessão
+
+```javascript
+// POST /sessao/api/log
+// Body: { tipo, mensagem, dados: {} }
+// Registra ação no log do servidor
+```
+
+### Objeto API Global (base.js)
+
+```javascript
+const API = {
+    async get(url) {
+        const response = await fetch(url);
+        return response.json();
+    },
+    
+    async post(url, data) {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
+        return response.json();
+    },
+    
+    async patch(url, data) {
+        const response = await fetch(url, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
+        return response.json();
+    }
+};
 ```

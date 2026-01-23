@@ -6,26 +6,26 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/sessao.css') }}">
 {% endblock %}
 
+{% block navbar_extra %}
+<!-- Menu de Widgets na Navbar -->
+<div class="navbar-widgets-menu">
+    <button class="nav-widget-btn" onclick="adicionarWidget('ficha_personagem')" title="Ficha Personagem">👤</button>
+    <button class="nav-widget-btn" onclick="adicionarWidget('ficha_monstro')" title="Adicionar Monstro">👹</button>
+    <button class="nav-widget-btn" onclick="adicionarWidget('iniciativa')" title="Ordem de Turno">⏱️</button>
+    <button class="nav-widget-btn" onclick="adicionarWidget('log_combate')" title="Log Combate">📜</button>
+    <button class="nav-widget-btn" onclick="adicionarWidget('dados')" title="Rolar Dados">🎲</button>
+    <div class="nav-separator"></div>
+    <button class="nav-widget-btn btn-combat" onclick="toggleCombate()" title="Iniciar/Finalizar Combate" id="btn-combate">⚔️</button>
+</div>
+{% endblock %}
+
 {% block content %}
 </main><!-- Fecha o container do base.html -->
 
-    <!-- Barra de ferramentas flutuante -->
-    <div class="toolbar">
-        <button class="toolbar-btn" onclick="abrirSeletorMapa()" title="Trocar Mapa">🗺️</button>
-        <button class="toolbar-btn" onclick="adicionarWidget('ficha_personagem')" title="Ficha Personagem">👤</button>
-        <button class="toolbar-btn" onclick="adicionarWidget('ficha_monstro')" title="Adicionar Monstro">👹</button>
-        <button class="toolbar-btn" onclick="adicionarWidget('iniciativa')" title="Iniciativa">⏱️</button>
-        <button class="toolbar-btn" onclick="adicionarWidget('log_combate')" title="Log Combate">📜</button>
-        <button class="toolbar-btn" onclick="adicionarWidget('notas')" title="Notas">📝</button>
-        <button class="toolbar-btn" onclick="adicionarWidget('dados')" title="Rolar Dados">🎲</button>
-        <div class="toolbar-separator"></div>
-        <button class="toolbar-btn btn-combat" onclick="toggleCombate()" title="Iniciar/Finalizar Combate">🛡️</button>
-    </div>
-    
     <!-- Área do mapa (fundo) -->
     <div id="mapa-container" class="mapa-container">
         <div class="mapa-placeholder">
-            <p>Clique em 🗺️ para selecionar um mapa</p>
+            <p>🗺️ Arraste um mapa aqui ou use o menu</p>
         </div>
     </div>
     

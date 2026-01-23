@@ -282,6 +282,9 @@
                 
                 <h3>Línguas</h3>
                 <textarea class="textarea-mini auto-expand" data-campo="linguas" placeholder="Comum, Élfico, Anão...">{{ p.linguas if p else '' }}</textarea>
+                
+                <h3>Observações</h3>
+                <textarea class="textarea-mini auto-expand observacoes-box" data-campo="observacoes" placeholder="Anotações gerais, história, detalhes importantes...">{{ p.observacoes if p else '' }}</textarea>
             </div>
         </div>
 
@@ -395,22 +398,85 @@
                 <h3>Ataques & Magias</h3>
                 <table class="tabela-ataques">
                     <thead>
-                        <tr><th>Nome</th><th>Bônus</th><th>Dano/Tipo</th></tr>
+                        <tr>
+                            <th>Nome</th>
+                            <th style="width: 60px;">Bônus</th>
+                            <th>Dados</th>
+                            <th style="width: 110px;">Tipo</th>
+                            <th style="width: 30px;"></th>
+                        </tr>
                     </thead>
                     <tbody id="lista-ataques">
                         {% if p and p.armas %}
                             {% for arma in p.armas %}
                             <tr>
                                 <td><input type="text" value="{{ arma.nome }}" data-campo="armas.{{ loop.index0 }}.nome"></td>
-                                <td><input type="text" value="{{ arma.bonus }}" data-campo="armas.{{ loop.index0 }}.bonus"></td>
-                                <td><input type="text" value="{{ arma.dano }}" data-campo="armas.{{ loop.index0 }}.dano"></td>
+                                <td><input type="text" value="{{ arma.bonus }}" data-campo="armas.{{ loop.index0 }}.bonus" class="input-bonus" placeholder="+0"></td>
+                                <td class="td-dados">
+                                    <div class="dados-container" data-index="{{ loop.index0 }}">
+                                        {% set dados_list = arma.dados if arma.dados else [arma.dano|replace(' ' ~ arma.tipo, '') if arma.tipo else arma.dano] %}
+                                        {% for dado in dados_list %}
+                                        <div class="dado-linha">
+                                            <input type="text" value="{{ dado }}" class="input-dado" placeholder="1d8+3">
+                                            <button type="button" class="btn-remover-dado" onclick="removerDado(this)">×</button>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                    <button type="button" class="btn-add-dado" onclick="adicionarDado(this)" title="Adicionar dado">+</button>
+                                </td>
+                                <td>
+                                    <select data-campo="armas.{{ loop.index0 }}.tipo" class="select-tipo-dano" title="Selecione o tipo de dano">
+                                        <option value="">-</option>
+                                        <option value="Ácido" title="Substância corrosiva causa queimaduras" {{ 'selected' if arma.tipo == 'Ácido' else '' }}>Ácido</option>
+                                        <option value="Contundente" title="Impacto físico causando hematomas" {{ 'selected' if arma.tipo == 'Contundente' else '' }}>Contundente</option>
+                                        <option value="Cortante" title="Ferimentos abertos sangrando" {{ 'selected' if arma.tipo == 'Cortante' else '' }}>Cortante</option>
+                                        <option value="Elétrico" title="Choque percorrendo o corpo" {{ 'selected' if arma.tipo == 'Elétrico' else '' }}>Elétrico</option>
+                                        <option value="Energético" title="Energia mágica pura (força)" {{ 'selected' if arma.tipo == 'Energético' else '' }}>Energético</option>
+                                        <option value="Gélido" title="Congelamento e hipotermia" {{ 'selected' if arma.tipo == 'Gélido' else '' }}>Gélido</option>
+                                        <option value="Ígneo" title="Queimando, em chamas" {{ 'selected' if arma.tipo == 'Ígneo' else '' }}>Ígneo</option>
+                                        <option value="Necrótico" title="Energia vital sendo drenada" {{ 'selected' if arma.tipo == 'Necrótico' else '' }}>Necrótico</option>
+                                        <option value="Perfurante" title="Feridas profundas penetrantes" {{ 'selected' if arma.tipo == 'Perfurante' else '' }}>Perfurante</option>
+                                        <option value="Psíquico" title="Mente sendo atacada" {{ 'selected' if arma.tipo == 'Psíquico' else '' }}>Psíquico</option>
+                                        <option value="Radiante" title="Luz divina queimando" {{ 'selected' if arma.tipo == 'Radiante' else '' }}>Radiante</option>
+                                        <option value="Trovejante" title="Ondas sonoras devastadoras" {{ 'selected' if arma.tipo == 'Trovejante' else '' }}>Trovejante</option>
+                                        <option value="Venenoso" title="Toxina no sistema" {{ 'selected' if arma.tipo == 'Venenoso' else '' }}>Venenoso</option>
+                                    </select>
+                                </td>
+                                <td><button type="button" class="btn-remover-item" onclick="removerAtaque(this)">×</button></td>
                             </tr>
                             {% endfor %}
                         {% else %}
                             <tr>
                                 <td><input type="text" placeholder="Nome da Arma/Magia" data-campo="armas.0.nome"></td>
-                                <td><input type="text" placeholder="+0" data-campo="armas.0.bonus"></td>
-                                <td><input type="text" placeholder="1d8+0 cort." data-campo="armas.0.dano"></td>
+                                <td><input type="text" placeholder="+0" data-campo="armas.0.bonus" class="input-bonus"></td>
+                                <td class="td-dados">
+                                    <div class="dados-container" data-index="0">
+                                        <div class="dado-linha">
+                                            <input type="text" class="input-dado" placeholder="1d8+3">
+                                            <button type="button" class="btn-remover-dado" onclick="removerDado(this)">×</button>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn-add-dado" onclick="adicionarDado(this)" title="Adicionar dado">+</button>
+                                </td>
+                                <td>
+                                    <select data-campo="armas.0.tipo" class="select-tipo-dano" title="Selecione o tipo de dano">
+                                        <option value="">-</option>
+                                        <option value="Ácido" title="Substância corrosiva causa queimaduras">Ácido</option>
+                                        <option value="Contundente" title="Impacto físico causando hematomas">Contundente</option>
+                                        <option value="Cortante" title="Ferimentos abertos sangrando">Cortante</option>
+                                        <option value="Elétrico" title="Choque percorrendo o corpo">Elétrico</option>
+                                        <option value="Energético" title="Energia mágica pura (força)">Energético</option>
+                                        <option value="Gélido" title="Congelamento e hipotermia">Gélido</option>
+                                        <option value="Ígneo" title="Queimando, em chamas">Ígneo</option>
+                                        <option value="Necrótico" title="Energia vital sendo drenada">Necrótico</option>
+                                        <option value="Perfurante" title="Feridas profundas penetrantes">Perfurante</option>
+                                        <option value="Psíquico" title="Mente sendo atacada">Psíquico</option>
+                                        <option value="Radiante" title="Luz divina queimando">Radiante</option>
+                                        <option value="Trovejante" title="Ondas sonoras devastadoras">Trovejante</option>
+                                        <option value="Venenoso" title="Toxina no sistema">Venenoso</option>
+                                    </select>
+                                </td>
+                                <td><button type="button" class="btn-remover-item" onclick="removerAtaque(this)">×</button></td>
                             </tr>
                         {% endif %}
                 </tbody>

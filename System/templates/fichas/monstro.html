@@ -98,6 +98,13 @@
                   placeholder="Habilidades especiais ou fonte (ex: Multitataque, Livro do Mestre pg.123)">{{ m.fonte if m else '' }}</textarea>
     </div>
 
+    <!-- OBSERVAÇÕES -->
+    <div class="caracteristicas-inline observacoes-monstro" style="margin-top: 0.5rem; border-bottom: none;">
+        <label>📝 Observações</label>
+        <textarea class="auto-expand observacoes-box" data-campo="observacoes" 
+                  placeholder="Anotações, comportamento, táticas, detalhes da campanha...">{{ m.observacoes if m else '' }}</textarea>
+    </div>
+
     <!-- BOTÕES -->
     <div class="monstro-acoes-footer">
         <button type="button" class="btn-voltar-monstro" onclick="window.location.href='/fichas/monstros'">← Voltar</button>

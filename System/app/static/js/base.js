@@ -65,6 +65,17 @@ function createElement(tag, classes = [], attributes = {}) {
 function abrirModal(id) {
     const modal = document.getElementById(id);
     if (modal) {
+        modal.classList.remove('modal-transparente');
+        modal.classList.add('active');
+        modal.style.display = 'flex';
+    }
+}
+
+function abrirModalTransparente(id) {
+    const modal = document.getElementById(id);
+    if (modal) {
+        modal.classList.add('modal-transparente');
+        modal.classList.add('active');
         modal.style.display = 'flex';
     }
 }
@@ -72,6 +83,8 @@ function abrirModal(id) {
 function fecharModal(id) {
     const modal = document.getElementById(id);
     if (modal) {
+        modal.classList.remove('active');
+        modal.classList.remove('modal-transparente');
         modal.style.display = 'none';
     }
 }
@@ -79,7 +92,7 @@ function fecharModal(id) {
 // Fechar modal ao clicar fora
 document.addEventListener('click', (e) => {
     if (e.target.classList.contains('modal')) {
-        e.target.style.display = 'none';
+        fecharModal(e.target.id);
     }
 });
 

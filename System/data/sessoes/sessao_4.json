@@ -1,0 +1,16 @@
+{
+  "numero": 4,
+  "id": "4",
+  "data": "2026-01-23",
+  "criada_em": "2026-01-23T14:50:50.773278",
+  "atualizada_em": "2026-01-23T14:50:50.773287",
+  "estado": {
+    "mapa_atual": null,
+    "combate_ativo": false,
+    "turno_contador": 0,
+    "turno_atual": 0,
+    "ordem_turnos": [],
+    "widgets": []
+  },
+  "log": []
+}

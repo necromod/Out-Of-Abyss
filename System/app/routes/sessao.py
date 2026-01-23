@@ -7,11 +7,16 @@ from flask import Blueprint, render_template, request, jsonify
 from datetime import datetime, date
 import json
 import os
+import tempfile
+import threading
 
 sessao_bp = Blueprint('sessao', __name__)
 
 # Caminho para os arquivos de sessão
 SESSOES_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'data', 'sessoes')
+
+# Lock para evitar escritas simultâneas
+_sessao_lock = threading.Lock()
 
 def garantir_pasta_sessoes():
     """Garante que a pasta de sessões existe"""
@@ -22,10 +27,13 @@ def get_data_atual():
     """Retorna a data atual no formato YYYY-MM-DD"""
     return date.today().isoformat()
 
-def get_caminho_sessao(data_sessao):
-    """Retorna o caminho do arquivo JSON de uma sessão"""
+def get_caminho_sessao(identificador):
+    """Retorna o caminho do arquivo JSON de uma sessão (aceita data ou número)"""
     garantir_pasta_sessoes()
-    return os.path.join(SESSOES_PATH, f"sessao_{data_sessao}.json")
+    # Se for número, usa formato sessao_N.json, senão sessao_DATA.json
+    if isinstance(identificador, int) or identificador.isdigit():
+        return os.path.join(SESSOES_PATH, f"sessao_{identificador}.json")
+    return os.path.join(SESSOES_PATH, f"sessao_{identificador}.json")
 
 def get_caminho_indice():
     """Retorna o caminho do arquivo de índice de sessões"""
@@ -36,7 +44,7 @@ def carregar_indice():
     """Carrega o índice de sessões"""
     caminho = get_caminho_indice()
     if os.path.exists(caminho):
-        with open(caminho, 'r', encoding='utf-8') as f:
+        with open(caminho, 'r', encoding='utf-8-sig') as f:
             return json.load(f)
     return {"sessao_atual": None, "sessoes": []}
 
@@ -50,6 +58,7 @@ def criar_sessao_estrutura(data_sessao, numero):
     """Cria estrutura inicial de uma sessão"""
     return {
         "numero": numero,
+        "id": str(numero),  # Identificador único para salvar arquivo
         "data": data_sessao,
         "criada_em": datetime.now().isoformat(),
         "atualizada_em": datetime.now().isoformat(),
@@ -64,20 +73,48 @@ def criar_sessao_estrutura(data_sessao, numero):
         "log": []
     }
 
-def carregar_sessao(data_sessao):
+def carregar_sessao(identificador):
     """Carrega uma sessão pelo arquivo JSON"""
-    caminho = get_caminho_sessao(data_sessao)
+    caminho = get_caminho_sessao(identificador)
     if os.path.exists(caminho):
-        with open(caminho, 'r', encoding='utf-8') as f:
-            return json.load(f)
+        try:
+            with open(caminho, 'r', encoding='utf-8-sig') as f:
+                return json.load(f)
+        except json.JSONDecodeError as e:
+            # Arquivo corrompido - tenta recuperar ou cria backup
+            print(f"AVISO: Arquivo de sessão corrompido: {e}")
+            backup = caminho + '.corrupted'
+            if os.path.exists(backup):
+                os.remove(backup)
+            os.rename(caminho, backup)
+            return None
     return None
 
 def salvar_sessao(sessao):
-    """Salva uma sessão no arquivo JSON"""
+    """Salva uma sessão no arquivo JSON de forma atômica"""
     sessao['atualizada_em'] = datetime.now().isoformat()
-    caminho = get_caminho_sessao(sessao['data'])
-    with open(caminho, 'w', encoding='utf-8') as f:
-        json.dump(sessao, f, ensure_ascii=False, indent=2)
+    # Usa o ID (número) como identificador do arquivo
+    identificador = sessao.get('id', sessao.get('numero', sessao['data']))
+    caminho = get_caminho_sessao(identificador)
+    
+    with _sessao_lock:
+        # Escrita atômica: escreve em temp e renomeia
+        dir_path = os.path.dirname(caminho)
+        try:
+            fd, temp_path = tempfile.mkstemp(dir=dir_path, suffix='.tmp')
+            with os.fdopen(fd, 'w', encoding='utf-8') as f:
+                json.dump(sessao, f, ensure_ascii=False, indent=2)
+            
+            # Renomeia atomicamente (substitui o arquivo antigo)
+            if os.path.exists(caminho):
+                os.replace(temp_path, caminho)
+            else:
+                os.rename(temp_path, caminho)
+        except Exception as e:
+            # Limpa arquivo temporário em caso de erro
+            if 'temp_path' in locals() and os.path.exists(temp_path):
+                os.remove(temp_path)
+            raise e
 
 def get_ou_criar_sessao_atual():
     """Obtém a sessão atual ou cria uma nova se necessário"""
@@ -90,37 +127,32 @@ def get_ou_criar_sessao_atual():
         nova_sessao = criar_sessao_estrutura(data_hoje, numero)
         salvar_sessao(nova_sessao)
         
-        indice['sessao_atual'] = data_hoje
+        indice['sessao_atual'] = str(numero)  # Usa número como ID
         indice['sessoes'].append({
             "numero": numero,
+            "id": str(numero),
             "data": data_hoje,
             "titulo": f"Sessão {numero}"
         })
         salvar_indice(indice)
         return nova_sessao
     
-    # Se a data da sessão atual é diferente de hoje, cria nova
-    if indice['sessao_atual'] != data_hoje:
-        numero = len(indice['sessoes']) + 1
-        nova_sessao = criar_sessao_estrutura(data_hoje, numero)
-        salvar_sessao(nova_sessao)
-        
-        indice['sessao_atual'] = data_hoje
-        indice['sessoes'].append({
-            "numero": numero,
-            "data": data_hoje,
-            "titulo": f"Sessão {numero}"
-        })
-        salvar_indice(indice)
-        return nova_sessao
-    
-    # Carrega a sessão atual
+    # Carrega a sessão atual pelo ID
     sessao = carregar_sessao(indice['sessao_atual'])
     if not sessao:
-        # Sessão não existe, cria
-        numero = len(indice['sessoes'])
+        # Sessão não existe, cria nova
+        numero = len(indice['sessoes']) + 1
         sessao = criar_sessao_estrutura(data_hoje, numero)
         salvar_sessao(sessao)
+        
+        indice['sessao_atual'] = str(numero)
+        indice['sessoes'].append({
+            "numero": numero,
+            "id": str(numero),
+            "data": data_hoje,
+            "titulo": f"Sessão {numero}"
+        })
+        salvar_indice(indice)
     
     return sessao
 
@@ -150,18 +182,32 @@ def api_listar_sessoes():
     return jsonify(indice['sessoes'])
 
 
-@sessao_bp.route('/api/<data_sessao>', methods=['GET'])
-def api_carregar_sessao(data_sessao):
-    """Carrega uma sessão específica (somente leitura)"""
-    sessao = carregar_sessao(data_sessao)
+@sessao_bp.route('/api/<identificador>', methods=['GET'])
+def api_carregar_sessao(identificador):
+    """Carrega uma sessão específica pelo ID ou data"""
+    sessao = carregar_sessao(identificador)
     if sessao:
         return jsonify(sessao)
     return jsonify({'erro': 'Sessão não encontrada'}), 404
 
 
+@sessao_bp.route('/api/mudar/<identificador>', methods=['POST'])
+def api_mudar_sessao(identificador):
+    """Muda para uma sessão específica (carrega sessão anterior)"""
+    sessao = carregar_sessao(identificador)
+    if not sessao:
+        return jsonify({'erro': 'Sessão não encontrada'}), 404
+    
+    indice = carregar_indice()
+    indice['sessao_atual'] = str(sessao.get('id', sessao.get('numero', identificador)))
+    salvar_indice(indice)
+    
+    return jsonify({'sucesso': True, 'sessao': sessao})
+
+
 @sessao_bp.route('/api/nova', methods=['POST'])
 def api_nova_sessao():
-    """Cria uma nova sessão manualmente"""
+    """Cria uma nova sessão manualmente (permite múltiplas no mesmo dia)"""
     indice = carregar_indice()
     data_hoje = get_data_atual()
     
@@ -169,9 +215,10 @@ def api_nova_sessao():
     nova_sessao = criar_sessao_estrutura(data_hoje, numero)
     salvar_sessao(nova_sessao)
     
-    indice['sessao_atual'] = data_hoje
+    indice['sessao_atual'] = str(numero)  # Usa número como ID
     indice['sessoes'].append({
         "numero": numero,
+        "id": str(numero),
         "data": data_hoje,
         "titulo": f"Sessão {numero}"
     })

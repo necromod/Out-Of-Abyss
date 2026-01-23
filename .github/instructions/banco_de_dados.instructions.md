@@ -71,6 +71,7 @@ conn.execute("PRAGMA synchronous = NORMAL")
 | `ativo` | INTEGER | 1 | Se está ativo |
 | `sucesso_morte` | INTEGER | 0 | Sucessos em death saves |
 | `falha_morte` | INTEGER | 0 | Falhas em death saves |
+| `percepcao_passiva` | INTEGER | 10 | Percepção passiva (10 + mod SAB) |
 | `criado_em` | TEXT | TIMESTAMP | Data criação |
 | `atualizado_em` | TEXT | TIMESTAMP | Última atualização |
 
@@ -86,7 +87,30 @@ conn.execute("PRAGMA synchronous = NORMAL")
 }
 ```
 
-**Estrutura JSON de Armas:**
+**Estrutura JSON de Armas (Formato Novo):**
+```json
+[
+  {
+    "nome": "Espada Longa",
+    "bonus": "+5",
+    "dados": ["1d8+3"],
+    "tipo": "Cortante"
+  },
+  {
+    "nome": "Bola de Fogo",
+    "bonus": "+6",
+    "dados": ["8d6"],
+    "tipo": "Ígneo"
+  }
+]
+```
+
+**Tipos de Dano Suportados:**
+- Ácido, Contundente, Cortante, Elétrico, Energético
+- Gélido, Ígneo, Necrótico, Perfurante, Psíquico
+- Radiante, Trovejante, Venenoso
+
+**Estrutura JSON de Armas (Formato Legado - ainda suportado):**
 ```json
 [
   {
@@ -373,6 +397,54 @@ from app.modulos.database import dict_from_row
 
 row = cursor.fetchone()
 data = dict_from_row(row)  # Converte sqlite3.Row para dict
+```
+
+---
+
+## Sistema de Migrações
+
+### Função _executar_migracoes()
+
+Localizada em `database.py`, é chamada automaticamente no `init_database()`:
+
+```python
+def _executar_migracoes(cursor):
+    \"\"\"Executa migrações de schema do banco de dados.\"\"\"
+    
+    # Verifica colunas existentes
+    cursor.execute("PRAGMA table_info(personagens)")
+    colunas_existentes = {col[1] for col in cursor.fetchall()}
+    
+    # Adiciona percepcao_passiva se não existir
+    if 'percepcao_passiva' not in colunas_existentes:
+        cursor.execute(\"\"\"
+            ALTER TABLE personagens 
+            ADD COLUMN percepcao_passiva INTEGER DEFAULT 10
+        \"\"\")
+        
+        # Calcula para personagens existentes
+        cursor.execute(\"SELECT id, atributos FROM personagens\")
+        for row in cursor.fetchall():
+            atributos = json_loads_safe(row[1], {})
+            sabedoria = atributos.get('sabedoria', 10)
+            mod_sab = (sabedoria - 10) // 2
+            pp = 10 + mod_sab
+            cursor.execute(
+                \"UPDATE personagens SET percepcao_passiva = ? WHERE id = ?\",
+                (pp, row[0])
+            )
+```
+
+### Padrão para Novas Migrações
+
+```python
+# 1. Verificar se coluna existe
+if 'nova_coluna' not in colunas_existentes:
+    # 2. Adicionar coluna com default
+    cursor.execute(\"ALTER TABLE tabela ADD COLUMN nova_coluna TIPO DEFAULT valor\")
+    
+    # 3. Se necessário, calcular valores para registros existentes
+    cursor.execute(\"UPDATE tabela SET nova_coluna = expressao\")
 ```
 
 ---
