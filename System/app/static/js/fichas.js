@@ -1703,6 +1703,36 @@ async function salvarPersonagem() {
     }
 }
 
+async function deletarPersonagem() {
+    const form = document.querySelector('.ficha-personagem');
+    if (!form) return;
+    
+    const id = form.dataset.id;
+    if (!id) return;
+    
+    const nome = document.querySelector('.input-nome-personagem')?.value || 'este personagem';
+    
+    if (!confirm(`⚠️ Tem certeza que deseja DELETAR ${nome}?\n\nEsta ação não pode ser desfeita!`)) {
+        return;
+    }
+    
+    try {
+        const response = await fetch(`/fichas/api/personagem/${id}`, {
+            method: 'DELETE'
+        });
+        
+        if (response.ok) {
+            mostrarNotificacao('🗑️ Personagem deletado!', 'info');
+            setTimeout(() => window.location.href = '/fichas/personagens', 1000);
+        } else {
+            mostrarNotificacao('❌ Erro ao deletar', 'danger');
+        }
+    } catch (error) {
+        console.error('Erro ao deletar:', error);
+        mostrarNotificacao('❌ Erro de conexão', 'danger');
+    }
+}
+
 function coletarDadosPersonagem() {
     const dados = {
         atributos: {},

@@ -42,35 +42,56 @@
     </div>
 </div>
 
-<!-- Template do Card -->
+<!-- Template Card Personagem (Estilo Compacto) -->
 <template id="template-card-personagem">
-    <div class="card-personagem" data-id="">
-        <div class="card-avatar">
-            <span class="avatar-placeholder">🧙</span>
-        </div>
-        <div class="card-info">
+    <div class="card-personagem-compacto" data-id="" data-classe="" data-nivel="">
+        <!-- HEADER: Nome + Nível -->
+        <div class="card-personagem-header" onclick="verPersonagem(this)">
             <h3 class="card-nome"></h3>
-            <p class="card-detalhes">
-                <span class="card-raca"></span> • 
-                <span class="card-classe"></span> 
-                <span class="card-nivel"></span>
-            </p>
-            <p class="card-jogador"></p>
+            <span class="card-nivel">Nv <span class="nivel-valor"></span></span>
         </div>
-        <div class="card-stats">
-            <div class="stat-hp">
+        
+        <!-- INFO BÁSICA: Raça + Classe -->
+        <p class="card-tipo-info"></p>
+        <p class="card-jogador-info"></p>
+        
+        <!-- STATS EM GRID -->
+        <div class="card-stats-grid">
+            <div class="stat-box">
                 <span class="stat-label">HP</span>
-                <span class="stat-valor hp-atual"></span>/<span class="stat-valor hp-max"></span>
+                <span class="stat-valor hp-display"></span>
             </div>
-            <div class="stat-ca">
+            <div class="stat-box">
                 <span class="stat-label">CA</span>
                 <span class="stat-valor ca-valor"></span>
             </div>
+            <div class="stat-box">
+                <span class="stat-label">PP</span>
+                <span class="stat-valor pp-valor"></span>
+            </div>
         </div>
-        <div class="card-acoes">
-            <button class="btn-card btn-ver" onclick="verPersonagem(this)">👁️ Ver</button>
-            <button class="btn-card btn-editar" onclick="editarPersonagem(this)">✏️ Editar</button>
-            <button class="btn-card btn-widget" onclick="abrirComoWidget(this)">📌 Widget</button>
+        
+        <!-- ATRIBUTOS (Modificadores) -->
+        <div class="card-atributos">
+            <div class="attr-mini"><span class="attr-label">FOR</span><span class="attr-mod for-valor"></span></div>
+            <div class="attr-mini"><span class="attr-label">DES</span><span class="attr-mod des-valor"></span></div>
+            <div class="attr-mini"><span class="attr-label">CON</span><span class="attr-mod con-valor"></span></div>
+            <div class="attr-mini"><span class="attr-label">INT</span><span class="attr-mod int-valor"></span></div>
+            <div class="attr-mini"><span class="attr-label">SAB</span><span class="attr-mod sab-valor"></span></div>
+            <div class="attr-mini"><span class="attr-label">CAR</span><span class="attr-mod car-valor"></span></div>
+        </div>
+        
+        <!-- ARMAS -->
+        <div class="card-acoes-lista">
+            <div class="acoes-titulo">Ataques:</div>
+            <div class="acoes-container"></div>
+        </div>
+        
+        <!-- BOTÕES -->
+        <div class="card-botoes">
+            <button class="btn-card-compacto btn-ver" onclick="verPersonagem(this)" title="Ver ficha completa">👁️</button>
+            <button class="btn-card-compacto btn-combate" onclick="adicionarAoCombate(this)" title="Adicionar ao combate">⚔️</button>
+            <button class="btn-card-compacto btn-widget" onclick="abrirComoWidget(this)" title="Abrir como widget">📌</button>
         </div>
     </div>
 </template>
@@ -106,22 +127,58 @@ async function carregarPersonagens() {
         
         personagens.forEach(p => {
             const card = template.content.cloneNode(true);
-            const cardEl = card.querySelector('.card-personagem');
+            const cardEl = card.querySelector('.card-personagem-compacto');
             
             cardEl.dataset.id = p.id;
-            cardEl.querySelector('.card-nome').textContent = p.nome;
-            cardEl.querySelector('.card-raca').textContent = p.raca || 'Raça';
-            cardEl.querySelector('.card-classe').textContent = p.classe || 'Classe';
-            cardEl.querySelector('.card-nivel').textContent = `Nv.${p.nivel || 1}`;
-            cardEl.querySelector('.card-jogador').textContent = p.jogador ? `Jogador: ${p.jogador}` : '';
-            cardEl.querySelector('.hp-atual').textContent = p.hp_atual || 0;
-            cardEl.querySelector('.hp-max').textContent = p.hp_maximo || 0;
-            cardEl.querySelector('.ca-valor').textContent = p.ca || 10;
+            cardEl.dataset.classe = (p.classe || '').toLowerCase();
+            cardEl.dataset.nivel = p.nivel || 1;
             
-            // HP baixo - destaque vermelho
-            if (p.hp_atual <= p.hp_maximo * 0.25) {
+            cardEl.querySelector('.card-nome').textContent = p.nome;
+            cardEl.querySelector('.nivel-valor').textContent = p.nivel || 1;
+            cardEl.querySelector('.card-tipo-info').textContent = `${p.raca || 'Humano'} ${p.classe || 'Aventureiro'}`;
+            cardEl.querySelector('.card-jogador-info').textContent = p.jogador ? `🎮 ${p.jogador}` : '';
+            
+            // HP com indicador visual
+            const hpAtual = p.hp_atual || 0;
+            const hpMax = p.hp_maximo || 1;
+            cardEl.querySelector('.hp-display').textContent = `${hpAtual}/${hpMax}`;
+            cardEl.querySelector('.ca-valor').textContent = p.ca || 10;
+            cardEl.querySelector('.pp-valor').textContent = p.percepcao_passiva || 10;
+            
+            // Calcular modificadores dos atributos
+            const atribs = p.atributos || {forca: 10, destreza: 10, constituicao: 10, inteligencia: 10, sabedoria: 10, carisma: 10};
+            const calcMod = (val) => {
+                const mod = Math.floor((val - 10) / 2);
+                return (mod >= 0 ? '+' : '') + mod;
+            };
+            
+            cardEl.querySelector('.for-valor').textContent = calcMod(atribs.forca || 10);
+            cardEl.querySelector('.des-valor').textContent = calcMod(atribs.destreza || 10);
+            cardEl.querySelector('.con-valor').textContent = calcMod(atribs.constituicao || 10);
+            cardEl.querySelector('.int-valor').textContent = calcMod(atribs.inteligencia || 10);
+            cardEl.querySelector('.sab-valor').textContent = calcMod(atribs.sabedoria || 10);
+            cardEl.querySelector('.car-valor').textContent = calcMod(atribs.carisma || 10);
+            
+            // Listar armas (até 3)
+            const acoesContainer = cardEl.querySelector('.acoes-container');
+            if (p.armas && p.armas.length > 0) {
+                const armasHTML = p.armas.slice(0, 3).map(a => {
+                    const dadosStr = Array.isArray(a.dados) ? a.dados.join('+') : a.dano || '';
+                    const textoArma = `<strong>${a.nome}</strong>: ${a.bonus || ''} ${dadosStr}`.trim();
+                    return `<div class="acao-mini">${textoArma}</div>`;
+                }).join('');
+                acoesContainer.innerHTML = armasHTML;
+                if (p.armas.length > 3) {
+                    acoesContainer.innerHTML += `<div class="acao-mini">...e mais ${p.armas.length - 3}</div>`;
+                }
+            } else {
+                acoesContainer.innerHTML = '<div class="acao-mini" style="opacity: 0.5;">Nenhum ataque</div>';
+            }
+            
+            // HP baixo - cores de alerta
+            if (hpAtual <= hpMax * 0.25) {
                 cardEl.classList.add('hp-critico');
-            } else if (p.hp_atual <= p.hp_maximo * 0.5) {
+            } else if (hpAtual <= hpMax * 0.5) {
                 cardEl.classList.add('hp-baixo');
             }
             
@@ -138,9 +195,9 @@ function filtrarLista() {
     const filtroNome = document.getElementById('filtro-nome').value.toLowerCase();
     const filtroClasse = document.getElementById('filtro-classe').value.toLowerCase();
     
-    document.querySelectorAll('.card-personagem').forEach(card => {
+    document.querySelectorAll('.card-personagem-compacto').forEach(card => {
         const nome = card.querySelector('.card-nome').textContent.toLowerCase();
-        const classe = card.querySelector('.card-classe').textContent.toLowerCase();
+        const classe = card.dataset.classe;
         
         const matchNome = nome.includes(filtroNome);
         const matchClasse = !filtroClasse || classe.includes(filtroClasse);
@@ -150,25 +207,19 @@ function filtrarLista() {
 }
 
 function verPersonagem(btn) {
-    const id = btn.closest('.card-personagem').dataset.id;
+    const id = btn.closest('.card-personagem-compacto').dataset.id;
     window.location.href = `/fichas/personagem/${id}`;
 }
 
-function editarPersonagem(btn) {
-    const id = btn.closest('.card-personagem').dataset.id;
-    window.location.href = `/fichas/personagem/${id}/editar`;
+function adicionarAoCombate(btn) {
+    const id = btn.closest('.card-personagem-compacto').dataset.id;
+    // Redireciona para sessão e adiciona ao combate
+    window.location.href = `/sessao/?combate=personagem&id=${id}`;
 }
 
 function abrirComoWidget(btn) {
-    const id = btn.closest('.card-personagem').dataset.id;
-    // Se estiver na tela de sessão, abre como widget
-    if (window.opener && window.opener.widgetManager) {
-        window.opener.widgetManager.criarWidget('personagem', id);
-        window.close();
-    } else {
-        // Redireciona para sessão com parâmetro
-        window.location.href = `/sessao/?widget=personagem&id=${id}`;
-    }
+    const id = btn.closest('.card-personagem-compacto').dataset.id;
+    window.location.href = `/sessao/?widget=personagem&id=${id}`;
 }
 </script>
 {% endblock %}

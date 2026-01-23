@@ -48,27 +48,40 @@
     </div>
 </div>
 
-<!-- Template Card NPC -->
+<!-- Template Card NPC (Estilo Compacto) -->
 <template id="template-card-npc">
-    <div class="card-npc" data-id="" data-status="" data-local="" data-vivo="" data-conhecido="">
-        <div class="card-status-indicator"></div>
-        <div class="card-header-npc">
+    <div class="card-npc-compacto" data-id="" data-status="" data-local="" data-vivo="" data-conhecido="">
+        <!-- HEADER: Nome + Status -->
+        <div class="card-npc-header">
             <h3 class="card-nome"></h3>
-            <span class="card-raca"></span>
+            <span class="card-status-badge"></span>
         </div>
-        <div class="card-body-npc">
-            <p class="card-classe"></p>
-            <p class="card-local">📍 <span class="local-valor"></span></p>
-            <p class="card-descricao"></p>
+        
+        <!-- INFO BÁSICA: Raça + Classe/Ocupação -->
+        <p class="card-tipo-info"></p>
+        <p class="card-local-info">📍 <span class="local-valor"></span></p>
+        
+        <!-- DESCRIÇÃO -->
+        <div class="card-descricao-box">
+            <p class="card-descricao-texto"></p>
         </div>
-        <div class="card-tags">
-            <span class="tag tag-status"></span>
+        
+        <!-- RELACIONAMENTO (se houver) -->
+        <div class="card-relacionamento">
+            <div class="relacionamento-container"></div>
+        </div>
+        
+        <!-- TAGS -->
+        <div class="card-tags-inline">
             <span class="tag tag-vivo"></span>
+            <span class="tag tag-conhecido"></span>
         </div>
-        <div class="card-acoes">
-            <button class="btn-card btn-ver" onclick="verNPC(this)">👁️ Ver</button>
-            <button class="btn-card btn-editar" onclick="editarNPC(this)">✏️ Editar</button>
-            <button class="btn-card btn-notas" onclick="verNotas(this)">📝 Notas</button>
+        
+        <!-- BOTÕES -->
+        <div class="card-botoes">
+            <button class="btn-card-compacto btn-ver" onclick="verNPC(this)" title="Ver ficha completa">👁️</button>
+            <button class="btn-card-compacto btn-notas" onclick="verNotas(this)" title="Notas do mestre">📝</button>
+            <button class="btn-card-compacto btn-widget" onclick="abrirComoWidgetNPC(this)" title="Abrir como widget">📌</button>
         </div>
     </div>
 </template>
@@ -118,7 +131,7 @@ async function carregarNPCs() {
         
         npcs.forEach(npc => {
             const card = template.content.cloneNode(true);
-            const cardEl = card.querySelector('.card-npc');
+            const cardEl = card.querySelector('.card-npc-compacto');
             
             cardEl.dataset.id = npc.id;
             cardEl.dataset.status = npc.alinhamento || 'neutro';
@@ -127,26 +140,36 @@ async function carregarNPCs() {
             cardEl.dataset.conhecido = npc.conhecido ? '1' : '0';
             
             cardEl.querySelector('.card-nome').textContent = npc.nome;
-            cardEl.querySelector('.card-raca').textContent = npc.raca || '';
-            cardEl.querySelector('.card-classe').textContent = npc.classe || npc.ocupacao || '';
+            cardEl.querySelector('.card-tipo-info').textContent = `${npc.raca || 'Humanoide'} ${npc.classe || npc.ocupacao || ''}`;
             cardEl.querySelector('.local-valor').textContent = npc.localizacao || 'Desconhecido';
-            cardEl.querySelector('.card-descricao').textContent = (npc.descricao || '').substring(0, 100) + (npc.descricao && npc.descricao.length > 100 ? '...' : '');
+            cardEl.querySelector('.card-descricao-texto').textContent = (npc.descricao || 'Nenhuma descrição disponível.').substring(0, 120) + ((npc.descricao || '').length > 120 ? '...' : '');
             
-            // Tags de status
-            const tagStatus = cardEl.querySelector('.tag-status');
+            // Badge de status no header
+            const statusBadge = cardEl.querySelector('.card-status-badge');
             if (npc.alinhamento === 'amigavel' || npc.aliado) {
-                tagStatus.textContent = '💚 Aliado';
-                tagStatus.classList.add('tag-aliado');
+                statusBadge.textContent = '💚';
+                statusBadge.title = 'Aliado';
+                cardEl.classList.add('status-aliado');
             } else if (npc.alinhamento === 'hostil' || npc.hostil) {
-                tagStatus.textContent = '❤️ Hostil';
-                tagStatus.classList.add('tag-hostil');
+                statusBadge.textContent = '❤️';
+                statusBadge.title = 'Hostil';
+                cardEl.classList.add('status-hostil');
             } else {
-                tagStatus.textContent = '💛 Neutro';
-                tagStatus.classList.add('tag-neutro');
+                statusBadge.textContent = '💛';
+                statusBadge.title = 'Neutro';
+                cardEl.classList.add('status-neutro');
             }
             
-            // Tag de vida
+            // Relacionamento (se houver)
+            const relContainer = cardEl.querySelector('.relacionamento-container');
+            if (npc.relacionamento_jogadores) {
+                relContainer.innerHTML = `<div class="rel-mini">👥 ${npc.relacionamento_jogadores}</div>`;
+            }
+            
+            // Tags inline
             const tagVivo = cardEl.querySelector('.tag-vivo');
+            const tagConhecido = cardEl.querySelector('.tag-conhecido');
+            
             if (!npc.vivo) {
                 tagVivo.textContent = '💀 Morto';
                 tagVivo.classList.add('tag-morto');
@@ -155,8 +178,12 @@ async function carregarNPCs() {
                 tagVivo.style.display = 'none';
             }
             
-            // Indicador de status (borda colorida)
-            cardEl.classList.add(`status-${npc.alinhamento || 'neutro'}`);
+            if (!npc.conhecido) {
+                tagConhecido.textContent = '❓ Desconhecido';
+                tagConhecido.classList.add('tag-desconhecido');
+            } else {
+                tagConhecido.style.display = 'none';
+            }
             
             container.appendChild(card);
         });
@@ -177,7 +204,7 @@ function filtrarLista() {
     const apenasVivo = document.getElementById('filtro-vivo').checked;
     const apenasConhecido = document.getElementById('filtro-conhecido').checked;
     
-    document.querySelectorAll('.card-npc').forEach(card => {
+    document.querySelectorAll('.card-npc-compacto').forEach(card => {
         const nome = card.querySelector('.card-nome').textContent.toLowerCase();
         const status = card.dataset.status;
         const local = card.dataset.local;
@@ -195,17 +222,17 @@ function filtrarLista() {
 }
 
 function verNPC(btn) {
-    const id = btn.closest('.card-npc').dataset.id;
+    const id = btn.closest('.card-npc-compacto').dataset.id;
     window.location.href = `/fichas/npc/${id}`;
 }
 
-function editarNPC(btn) {
-    const id = btn.closest('.card-npc').dataset.id;
-    window.location.href = `/fichas/npc/${id}/editar`;
+function abrirComoWidgetNPC(btn) {
+    const id = btn.closest('.card-npc-compacto').dataset.id;
+    window.location.href = `/sessao/?widget=npc&id=${id}`;
 }
 
 async function verNotas(btn) {
-    const card = btn.closest('.card-npc');
+    const card = btn.closest('.card-npc-compacto');
     const id = card.dataset.id;
     
     try {

@@ -110,6 +110,7 @@
         <button type="button" class="btn-voltar-monstro" onclick="window.location.href='/fichas/monstros'">← Voltar</button>
         {% if m and m.id %}
         <button type="button" class="btn-salvar-monstro" onclick="salvarMonstro()">💾 Salvar</button>
+        <button type="button" class="btn-deletar-monstro" onclick="deletarMonstro()" style="background: var(--danger-color, #dc3545); margin-left: auto;">🗑️ Deletar</button>
         {% else %}
         <button type="button" class="btn-adicionar-monstro" onclick="criarMonstro()">✅ Criar</button>
         {% endif %}
@@ -244,6 +245,34 @@ async function criarMonstro() {
     } catch (error) {
         console.error('Erro:', error);
         mostrarNotificacao('❌ Erro de conexão: ' + error.message, 'danger');
+    }
+}
+
+// Deletar monstro
+async function deletarMonstro() {
+    const id = document.getElementById('monstro-id').value;
+    if (!id) return;
+    
+    const monstroNome = document.querySelector('.monstro-nome-input').value || 'este monstro';
+    
+    if (!confirm(`⚠️ Tem certeza que deseja DELETAR ${monstroNome}?\n\nEsta ação não pode ser desfeita!`)) {
+        return;
+    }
+    
+    try {
+        const response = await fetch(`/fichas/api/monstro/${id}`, {
+            method: 'DELETE'
+        });
+        
+        if (response.ok) {
+            mostrarNotificacao('🗑️ Monstro deletado!', 'info');
+            setTimeout(() => window.location.href = '/fichas/monstros', 1000);
+        } else {
+            mostrarNotificacao('❌ Erro ao deletar', 'danger');
+        }
+    } catch (error) {
+        console.error('Erro:', error);
+        mostrarNotificacao('❌ Erro de conexão', 'danger');
     }
 }
 

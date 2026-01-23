@@ -3,17 +3,21 @@ Rotas da Tela de Sessão - principal área de mestragem
 Sistema de persistência de sessões em JSON
 """
 
-from flask import Blueprint, render_template, request, jsonify
+from flask import Blueprint, render_template, request, jsonify, send_from_directory
 from datetime import datetime, date
 import json
 import os
 import tempfile
 import threading
+from pathlib import Path
 
 sessao_bp = Blueprint('sessao', __name__)
 
 # Caminho para os arquivos de sessão
 SESSOES_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'data', 'sessoes')
+
+# Caminho base do projeto (fora de System)
+BASE_PATH = Path(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))))
 
 # Lock para evitar escritas simultâneas
 _sessao_lock = threading.Lock()
@@ -168,6 +172,13 @@ def tela_sessao():
                          sessoes=indice['sessoes'])
 
 
+@sessao_bp.route('/imagens/<path:filename>')
+def servir_imagem(filename):
+    """Serve imagens da pasta Imagens"""
+    imagens_path = BASE_PATH / 'Imagens'
+    return send_from_directory(str(imagens_path), filename)
+
+
 @sessao_bp.route('/api/atual', methods=['GET'])
 def api_sessao_atual():
     """Retorna dados da sessão atual"""
@@ -299,3 +310,110 @@ def alterar_mapa():
     salvar_sessao(sessao)
     
     return jsonify({'sucesso': True, 'mapa': caminho_mapa})
+
+
+@sessao_bp.route('/api/cenarios', methods=['GET'])
+def listar_cenarios():
+    """Lista todos os cenários disponíveis"""
+    from pathlib import Path
+    
+    # Caminho para a pasta de cenários (fora do System)
+    base_path = Path(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))))
+    cenarios_path = base_path / 'Imagens' / 'Cenários'
+    
+    if not cenarios_path.exists():
+        cenarios_path.mkdir(parents=True, exist_ok=True)
+    
+    # Lista todas as imagens
+    extensoes = {'.png', '.jpg', '.jpeg', '.webp', '.gif'}
+    cenarios = []
+    imagens_path = base_path / 'Imagens'
+    
+    for arquivo in cenarios_path.iterdir():
+        if arquivo.is_file() and arquivo.suffix.lower() in extensoes:
+            # Caminho relativo à pasta Imagens (para usar com /sessao/imagens/)
+            caminho_relativo = str(arquivo.relative_to(imagens_path)).replace('\\', '/')
+            cenarios.append({
+                'nome': arquivo.name,
+                'caminho': caminho_relativo,  # Ex: "Cenários/mapa.png"
+                'tamanho': arquivo.stat().st_size
+            })
+    
+    # Ordena por nome
+    cenarios.sort(key=lambda x: x['nome'])
+    
+    return jsonify(cenarios)
+
+
+@sessao_bp.route('/api/cenarios/upload', methods=['POST'])
+def upload_cenario():
+    """Recebe upload de imagem de cenário via drag-and-drop"""
+    from pathlib import Path
+    from werkzeug.utils import secure_filename
+    
+    if 'file' not in request.files:
+        return jsonify({'erro': 'Nenhum arquivo enviado'}), 400
+    
+    file = request.files['file']
+    
+    if file.filename == '':
+        return jsonify({'erro': 'Nome de arquivo vazio'}), 400
+    
+    # Valida extensão
+    extensoes_permitidas = {'.png', '.jpg', '.jpeg', '.webp', '.gif'}
+    ext = Path(file.filename).suffix.lower()
+    
+    if ext not in extensoes_permitidas:
+        return jsonify({'erro': 'Tipo de arquivo não permitido'}), 400
+    
+    # Caminho para a pasta de cenários
+    base_path = Path(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))))
+    cenarios_path = base_path / 'Imagens' / 'Cenários'
+    cenarios_path.mkdir(parents=True, exist_ok=True)
+    
+    # Nome seguro do arquivo
+    nome_original = secure_filename(file.filename)
+    nome_sem_ext = Path(nome_original).stem
+    
+    # Verifica duplicatas e adiciona número
+    contador = 1
+    nome_final = nome_original
+    caminho_final = cenarios_path / nome_final
+    
+    while caminho_final.exists():
+        nome_final = f"{nome_sem_ext}_{contador}{ext}"
+        caminho_final = cenarios_path / nome_final
+        contador += 1
+    
+    # Salva o arquivo
+    file.save(str(caminho_final))
+    
+    # Retorna o caminho relativo à pasta Imagens (para usar com /sessao/imagens/)
+    imagens_path = base_path / 'Imagens'
+    caminho_relativo = str(caminho_final.relative_to(imagens_path)).replace('\\', '/')
+    
+    return jsonify({
+        'sucesso': True,
+        'nome': nome_final,
+        'caminho': caminho_relativo,  # Ex: "Cenários/mapa.png"
+        'mensagem': f'Cenário "{nome_final}" salvo com sucesso!'
+    })
+
+
+@sessao_bp.route('/api/cenarios/selecionar', methods=['POST'])
+def selecionar_cenario():
+    """Define o cenário atual da sessão"""
+    data = request.get_json()
+    caminho = data.get('caminho')
+    
+    if not caminho:
+        return jsonify({'erro': 'Caminho não fornecido'}), 400
+    
+    sessao = get_ou_criar_sessao_atual()
+    sessao['estado']['mapa_atual'] = caminho
+    salvar_sessao(sessao)
+    
+    return jsonify({
+        'sucesso': True,
+        'mapa': caminho
+    })

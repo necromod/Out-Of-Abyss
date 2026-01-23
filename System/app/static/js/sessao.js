@@ -1766,7 +1766,20 @@ function adicionarAosTurnos(tipo, id, nome, iniciativa = null, modDestreza = 0, 
 }
 
 function removerDosTurnos(tipo, id) {
-    const index = SessaoState.ordemTurnos.findIndex(p => p.tipo === tipo && p.id === id);
+    console.log('[removerDosTurnos] Tentando remover:', { tipo, id, tipoOf: typeof id });
+    console.log('[removerDosTurnos] ordemTurnos atual:', SessaoState.ordemTurnos);
+    
+    const index = SessaoState.ordemTurnos.findIndex(p => {
+        // Converte ambos para string para comparação consistente
+        const pIdStr = String(p.id);
+        const idStr = String(id);
+        const match = p.tipo === tipo && pIdStr === idStr;
+        console.log(`  Comparando: p.tipo=${p.tipo} (${tipo}), p.id=${p.id} (${id}) -> ${match}`);
+        return match;
+    });
+    
+    console.log('[removerDosTurnos] Index encontrado:', index);
+    
     if (index !== -1) {
         const removido = SessaoState.ordemTurnos.splice(index, 1)[0];
         adicionarLogCombate(`<strong>${removido.nome}</strong> removido dos turnos`, 'info');
@@ -1777,28 +1790,48 @@ function removerDosTurnos(tipo, id) {
         }
         
         atualizarWidgetIniciativa();
+        salvarEstadoSessao();
+    } else {
+        console.error('[removerDosTurnos] Participante não encontrado!');
     }
 }
 
 function proximoTurno() {
-    if (SessaoState.ordemTurnos.length === 0) return;
-    
-    const turnoAnteriorIdx = SessaoState.turnoAtual;
-    SessaoState.turnoAtual = (SessaoState.turnoAtual + 1) % SessaoState.ordemTurnos.length;
-    
-    // Se voltou ao início, incrementa turno
-    if (SessaoState.turnoAtual === 0 && turnoAnteriorIdx !== 0) {
+    // Se não há participantes, apenas incrementa o contador de turnos
+    if (SessaoState.ordemTurnos.length === 0) {
         SessaoState.turnoContador++;
         adicionarLogCombate(`🔄 <strong>Turno ${SessaoState.turnoContador}</strong>`, 'info');
-        // Atualiza contadores de efeitos de todos os widgets
         atualizarContadoresEfeitos();
+        atualizarIndicadorTurno();
+        salvarEstadoSessao();
+        return;
     }
     
-    const atual = SessaoState.ordemTurnos[SessaoState.turnoAtual];
-    adicionarLogCombate(`➡️ Turno de <strong>${atual.nome}</strong>`, 'info');
-    atualizarWidgetIniciativa();
+    const turnoAnteriorIdx = SessaoState.turnoAtual;
     
-    // Atualiza indicador na navbar e salva estado
+    // Se só tem 1 participante, sempre fica no mesmo e incrementa turno
+    if (SessaoState.ordemTurnos.length === 1) {
+        SessaoState.turnoAtual = 0;
+        SessaoState.turnoContador++;
+        adicionarLogCombate(`🔄 <strong>Turno ${SessaoState.turnoContador}</strong>`, 'info');
+        adicionarLogCombate(`➡️ Turno de <strong>${SessaoState.ordemTurnos[0].nome}</strong>`, 'info');
+        atualizarContadoresEfeitos();
+    } else {
+        // Múltiplos participantes: avança normalmente
+        SessaoState.turnoAtual = (SessaoState.turnoAtual + 1) % SessaoState.ordemTurnos.length;
+        
+        // Se voltou ao início, incrementa turno
+        if (SessaoState.turnoAtual === 0 && turnoAnteriorIdx !== 0) {
+            SessaoState.turnoContador++;
+            adicionarLogCombate(`🔄 <strong>Turno ${SessaoState.turnoContador}</strong>`, 'info');
+            atualizarContadoresEfeitos();
+        }
+        
+        const atual = SessaoState.ordemTurnos[SessaoState.turnoAtual];
+        adicionarLogCombate(`➡️ Turno de <strong>${atual.nome}</strong>`, 'info');
+    }
+    
+    atualizarWidgetIniciativa();
     atualizarIndicadorTurno();
     salvarEstadoSessao();
 }
@@ -1828,13 +1861,20 @@ function atualizarWidgetIniciativa() {
         return;
     }
     
-    lista.innerHTML = SessaoState.ordemTurnos.map((p, i) => `
+    lista.innerHTML = SessaoState.ordemTurnos.map((p, i) => {
+        // Debug: log da estrutura do participante
+        if (!p.id && p.id !== 0) {
+            console.warn('[atualizarWidgetIniciativa] Participante sem ID:', p);
+        }
+        
+        return `
         <div class="iniciativa-item ${i === SessaoState.turnoAtual ? 'turno-atual' : ''}" data-tipo="${p.tipo}" data-id="${p.id}" data-index="${i}">
             <span class="iniciativa-ordem" contenteditable="true" onblur="editarIniciativa(event, ${i})" onkeydown="if(event.key==='Enter'){event.preventDefault();this.blur();}">${p.iniciativa}</span>
             <span class="iniciativa-nome">${p.tipo === 'personagem' ? '👤' : '👹'} ${p.nome}</span>
-            <button class="btn-mini btn-remover" onclick="removerDosTurnos('${p.tipo}', ${p.id})" title="Remover">✕</button>
+            <button class="btn-mini btn-remover" onclick="removerDosTurnos('${p.tipo}', '${p.id}')" title="Remover">✕</button>
         </div>
-    `).join('');
+        `;
+    }).join('');
 }
 
 function editarIniciativa(event, index) {
@@ -2056,14 +2096,10 @@ document.addEventListener('click', (e) => {
 });
 
 function restaurarEstado(estado) {
-    // Restaura mapa
+    // Restaura mapa usando a função aplicarCenario
     if (estado.mapa_atual) {
-        const container = document.getElementById('mapa-container');
-        if (container) {
-            container.innerHTML = '';
-            container.style.backgroundImage = `url('file:///${estado.mapa_atual}')`;
-        }
-        SessaoState.mapaAtual = estado.mapa_atual;
+        console.log('[restaurarEstado] Restaurando cenário:', estado.mapa_atual);
+        aplicarCenario(estado.mapa_atual);
     }
     
     // Restaura estado do combate
@@ -2133,3 +2169,198 @@ function atualizarIndicadorTurno() {
         indicator.style.display = 'none';
     }
 }
+
+// =========================================
+// Sistema de Cenários (Drag-and-Drop + Menu)
+// =========================================
+
+// Configura drag-and-drop na área do mapa
+function configurarDropZone() {
+    const dropZone = document.getElementById('mapa-container');
+    
+    if (!dropZone) return;
+    
+    // Previne comportamento padrão do navegador
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        dropZone.addEventListener(eventName, preventDefaults, false);
+        document.body.addEventListener(eventName, preventDefaults, false);
+    });
+    
+    function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+    
+    // Visual feedback
+    ['dragenter', 'dragover'].forEach(eventName => {
+        dropZone.addEventListener(eventName, () => {
+            dropZone.classList.add('drag-over');
+        });
+    });
+    
+    ['dragleave', 'drop'].forEach(eventName => {
+        dropZone.addEventListener(eventName, () => {
+            dropZone.classList.remove('drag-over');
+        });
+    });
+    
+    // Handle drop
+    dropZone.addEventListener('drop', handleDrop);
+}
+
+async function handleDrop(e) {
+    const dt = e.dataTransfer;
+    const files = dt.files;
+    
+    if (files.length === 0) return;
+    
+    const file = files[0];
+    
+    // Valida tipo de arquivo
+    if (!file.type.startsWith('image/')) {
+        mostrarNotificacao('❌ Apenas imagens são permitidas!', 'danger');
+        return;
+    }
+    
+    // Upload via FormData
+    const formData = new FormData();
+    formData.append('file', file);
+    
+    try {
+        const response = await fetch('/sessao/api/cenarios/upload', {
+            method: 'POST',
+            body: formData
+        });
+        
+        const result = await response.json();
+        
+        if (response.ok && result.sucesso) {
+            mostrarNotificacao(result.mensagem, 'success');
+            
+            // Aplica o cenário automaticamente
+            await aplicarCenario(result.caminho);
+        } else {
+            mostrarNotificacao('❌ ' + (result.erro || 'Erro ao fazer upload'), 'danger');
+        }
+    } catch (error) {
+        console.error('Erro no upload:', error);
+        mostrarNotificacao('❌ Erro de conexão ao fazer upload', 'danger');
+    }
+}
+
+// Abre modal de seleção de cenários
+async function abrirModalCenarios() {
+    const modal = document.getElementById('modal-cenarios');
+    const lista = document.getElementById('lista-cenarios');
+    
+    modal.style.display = 'flex';
+    lista.innerHTML = '<div class="loading">Carregando cenários...</div>';
+    
+    try {
+        const response = await fetch('/sessao/api/cenarios');
+        const cenarios = await response.json();
+        
+        if (cenarios.length === 0) {
+            lista.innerHTML = `
+                <div class="lista-vazia">
+                    <p>📂 Nenhum cenário encontrado</p>
+                    <p class="hint">Arraste imagens para a tela ou coloque em <code>Imagens\\Cenários</code></p>
+                </div>
+            `;
+            return;
+        }
+        
+        // Monta grid de cenários
+        lista.innerHTML = cenarios.map(c => `
+            <div class="cenario-card" onclick="selecionarCenario('${c.caminho}')">
+                <img src="/sessao/imagens/${c.caminho}" alt="${c.nome}" loading="lazy">
+                <div class="cenario-nome">${c.nome}</div>
+            </div>
+        `).join('');
+        
+    } catch (error) {
+        console.error('Erro ao carregar cenários:', error);
+        lista.innerHTML = '<div class="erro">❌ Erro ao carregar cenários</div>';
+    }
+}
+
+// Seleciona cenário do modal
+async function selecionarCenario(caminho) {
+    fecharModal('modal-cenarios');
+    await aplicarCenario(caminho);
+}
+
+// Aplica cenário na tela
+async function aplicarCenario(caminho) {
+    const container = document.getElementById('mapa-container');
+    const placeholder = document.getElementById('mapa-placeholder');
+    const imagem = document.getElementById('mapa-imagem');
+    const btnRemover = document.getElementById('btn-remover-mapa');
+    
+    if (!imagem) return;
+    
+    console.log('Aplicando cenário:', caminho);
+    
+    // Carrega imagem - corrigido: rota é /sessao/imagens/ mas blueprint tem url_prefix=/sessao
+    // então a URL final fica /sessao/imagens/
+    imagem.src = `/sessao/imagens/${caminho}`;
+    imagem.style.display = 'block';
+    placeholder.style.display = 'none';
+    btnRemover.style.display = 'block';
+    
+    // Verifica se carregou
+    imagem.onload = () => {
+        console.log('Imagem carregada com sucesso:', caminho);
+    };
+    imagem.onerror = () => {
+        console.error('Erro ao carregar imagem:', caminho);
+        mostrarNotificacao('Erro ao carregar cenário', 'danger');
+    };
+    
+    // Atualiza estado
+    SessaoState.mapaAtual = caminho;
+    
+    // Salva no backend
+    try {
+        await fetch('/sessao/api/cenarios/selecionar', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ caminho })
+        });
+    } catch (error) {
+        console.warn('Erro ao salvar cenário:', error);
+    }
+}
+
+// Remove cenário
+async function removerMapa() {
+    const placeholder = document.getElementById('mapa-placeholder');
+    const imagem = document.getElementById('mapa-imagem');
+    const btnRemover = document.getElementById('btn-remover-mapa');
+    
+    if (!imagem) return;
+    
+    imagem.style.display = 'none';
+    imagem.src = '';
+    placeholder.style.display = 'flex';
+    btnRemover.style.display = 'none';
+    
+    SessaoState.mapaAtual = null;
+    
+    // Salva no backend
+    try {
+        await fetch('/sessao/api/cenarios/selecionar', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ caminho: null })
+        });
+    } catch (error) {
+        console.warn('Erro ao remover cenário:', error);
+    }
+}
+
+// Inicializa sistema de cenários
+document.addEventListener('DOMContentLoaded', () => {
+    configurarDropZone();
+    // carregarCenarioSalvo() foi removida - agora usa restaurarEstado()
+});

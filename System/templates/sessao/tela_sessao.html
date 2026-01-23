@@ -15,6 +15,7 @@
     <button class="nav-widget-btn" onclick="adicionarWidget('log_combate')" title="Log Combate">📜</button>
     <button class="nav-widget-btn" onclick="adicionarWidget('dados')" title="Rolar Dados">🎲</button>
     <div class="nav-separator"></div>
+    <button class="nav-widget-btn" onclick="abrirModalCenarios()" title="Selecionar Cenário">🗺️</button>
     <button class="nav-widget-btn btn-combat" onclick="toggleCombate()" title="Iniciar/Finalizar Combate" id="btn-combate">⚔️</button>
 </div>
 {% endblock %}
@@ -23,10 +24,16 @@
 </main><!-- Fecha o container do base.html -->
 
     <!-- Área do mapa (fundo) -->
-    <div id="mapa-container" class="mapa-container">
-        <div class="mapa-placeholder">
-            <p>🗺️ Arraste um mapa aqui ou use o menu</p>
+    <div id="mapa-container" class="mapa-container" data-drop-zone="true">
+        <div class="mapa-placeholder" id="mapa-placeholder">
+            <div class="placeholder-content">
+                <span class="placeholder-icon">🗺️</span>
+                <p class="placeholder-text">Arraste uma imagem aqui</p>
+                <p class="placeholder-hint">ou clique no botão 🗺️ para selecionar</p>
+            </div>
         </div>
+        <img id="mapa-imagem" class="mapa-imagem" style="display: none;" alt="Mapa">
+        <button id="btn-remover-mapa" class="btn-remover-mapa" style="display: none;" onclick="removerMapa()" title="Remover mapa">✕</button>
     </div>
     
     <!-- Container de widgets -->
@@ -34,16 +41,19 @@
         <!-- Widgets serão adicionados dinamicamente aqui -->
     </div>
     
-    <!-- Modal seletor de mapa -->
-    <div id="modal-mapa" class="modal" style="display: none;">
-        <div class="modal-content">
+    <!-- Modal seletor de cenários -->
+    <div id="modal-cenarios" class="modal">
+        <div class="modal-content modal-cenarios">
             <div class="modal-header">
-                <h2>Selecionar Mapa</h2>
-                <button class="modal-close" onclick="fecharModal('modal-mapa')">&times;</button>
+                <h2>🗺️ Cenários</h2>
+                <button class="modal-close" onclick="fecharModal('modal-cenarios')">&times;</button>
             </div>
             <div class="modal-body">
-                <div id="lista-mapas" class="lista-mapas">
-                    <!-- Mapas serão carregados via JS -->
+                <div class="cenarios-info">
+                    <p>📁 Imagens salvas em: <code>Imagens\Cenários</code></p>
+                </div>
+                <div id="lista-cenarios" class="lista-cenarios">
+                    <div class="loading">Carregando cenários...</div>
                 </div>
             </div>
         </div>

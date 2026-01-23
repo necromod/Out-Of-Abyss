@@ -55,6 +55,14 @@ O foco é na **agilidade durante a sessão** — edição em tempo real, auto-sa
 | **NPCs** | Fichas simplificadas com relacionamentos e status |
 | **Auto-save** | Todas as alterações são salvas automaticamente |
 | **Observações** | Campo destacado para anotações em cada ficha |
+| **Cards Compactos** | Listas visuais com atributos, stats e ações em destaque |
+
+**Novidade**: Listas de personagens, monstros e NPCs agora exibem **cards compactos** com:
+- Grid de 6 atributos (FOR, DES, CON, INT, SAB, CAR) com modificadores calculados
+- Stats principais (HP/CA para personagens, ND para monstros, status para NPCs)
+- Preview de ataques/ações mais importantes
+- Cores e badges visuais (nível, ND, status de NPC)
+- Alertas de HP baixo/crítico para personagens
 
 ### ⚔️ Sistema de Combate
 
@@ -62,11 +70,27 @@ O foco é na **agilidade durante a sessão** — edição em tempo real, auto-sa
 |---------|-----------|
 | **Iniciativa** | Rolagem automática (1d20 + mod DES), editável por clique |
 | **Turnos** | Controle de ordem com destaque visual do turno atual |
+| **Contador Inteligente** | Funciona com 0, 1 ou múltiplos participantes |
 | **Ataques** | Clique para rolar d20 + bônus, detecta crítico (20) e falha (1) |
 | **Dano** | Rolagem automática com tipos de dano coloridos |
 | **Crítico** | Dobra automaticamente os dados de dano 🎯 |
 | **Testes de Morte** | Aparecem quando HP ≤ 0, marca "💀 MORTO" com 3 falhas |
 | **Dano/Cura Rápida** | Botões para aplicar valores diretamente |
+
+**Novidade**: Sistema de turnos agora funciona corretamente mesmo sem participantes ou com apenas 1 combatente, incrementando o contador a cada clique.
+
+### 🖼️ Cenários e Mapas
+
+| Recurso | Descrição |
+|---------|-----------|
+| **Drag-and-Drop** | Arraste imagens diretamente para a tela de sessão |
+| **Upload Automático** | Imagens são salvas em `Imagens/Cenários/` |
+| **Modal de Seleção** | Galeria com thumbnails de todos os cenários |
+| **Persistência** | Cenário atual é salvo e restaurado entre sessões |
+| **Formatos** | Suporta PNG, JPG, JPEG, WEBP, GIF |
+| **Duplicatas** | Sistema adiciona sufixo numérico automaticamente |
+
+**Novidade**: Sistema completo de cenários com drag-and-drop, modal de seleção visual e persistência automática.
 
 ### 🎭 Efeitos e Condições D&D 5e
 
@@ -183,12 +207,12 @@ System/
 │   │   ├── personagem.html # Ficha completa de PC
 │   │   ├── monstro.html    # Ficha de monstro
 │   │   ├── npc.html        # Ficha de NPC
-│   │   ├── lista_personagens.html
-│   │   ├── lista_monstros.html
-│   │   └── lista_npcs.html
+│   │   ├── lista_personagens.html  # Cards compactos com atributos/stats
+│   │   ├── lista_monstros.html     # Cards compactos com ND/ações
+│   │   └── lista_npcs.html         # Cards compactos com status/local
 │   │
 │   ├── sessao/
-│   │   └── tela_sessao.html # Tela principal de sessão
+│   │   └── tela_sessao.html # Tela principal de sessão + drag-drop
 │   │
 │   └── widgets/
 │       ├── ficha_personagem.html
@@ -209,6 +233,15 @@ System/
 └── tests/                  # Testes automatizados
     ├── __init__.py
     └── test_sistema_completo.py  # Suite completa (87 testes)
+```
+
+**Pastas Externas ao System**:
+```
+Imagens/
+└── Cenários/              # Mapas e cenários de sessão (auto-criada)
+    ├── Caverna.png
+    ├── Mercado_Noite.png
+    └── ...
 ```
 
 ---
@@ -312,12 +345,21 @@ O sistema usa bibliotecas padrão do Python para o restante (sqlite3, json, date
    - ⏱️ Iniciativa
    - 📜 Log de Combate
    - 🎲 Dados
+   - 🗺️ Selecionar Cenário
+
+### Adicionando Cenários
+1. **Arraste** uma imagem diretamente para a tela de sessão, ou
+2. Clique no botão **🗺️** na navbar
+3. Selecione um cenário da galeria
+4. O cenário é persistido e restaurado nas próximas sessões
+5. Clique no **✕** para remover o cenário
 
 ### Iniciando Combate
 1. Adicione criaturas clicando no botão ⚔️ em cada widget
 2. Clique no botão de combate na navbar
 3. O sistema rola iniciativa automaticamente
 4. Use **Próximo** para avançar turnos
+   - Funciona mesmo sem participantes ou com apenas 1
 
 ### Rolando Ataques
 1. Clique no botão de ataque no widget da criatura
@@ -363,8 +405,11 @@ Rolagem de dados:
 
 ### sessao.js
 Estado e lógica de combate:
-- `SessaoState` - Estado global da sessão
+- `SessaoState` - Estado global da sessão (turnos, widgets, mapa)
 - `CONDICOES_DND` - 15 condições + tipos de dano
+- `proximoTurno()` - Avança turno (0, 1 ou N participantes)
+- `aplicarCenario()` - Carrega imagem de cenário na tela
+- `restaurarEstado()` - Restaura sessão salva (widgets, combate, mapa)
 - `rolarAtaque()` - Ataque com crítico/falha
 - `adicionarEfeito()` - Sistema de efeitos
 - `proximoTurno()` - Avança combate
@@ -556,6 +601,27 @@ Os testes cobrem:
 - ✅ Estrutura de arquivos do projeto
 - ✅ Integridade do banco de dados
 - ✅ Performance básica
+
+---
+
+## 🎨 Visual e UX
+
+### Cards Compactos
+Todas as listas de entidades usam o mesmo padrão visual:
+- **Personagens**: Header com nível, grid de atributos 6 cols, stats (HP/CA/PP), lista de armas
+- **Monstros**: Header com ND, grid de atributos 6 cols, stats (CA/HP/XP), lista de ações
+- **NPCs**: Header com status badge, local, descrição, relacionamento, tags (morto/vivo)
+
+### Sistema de Cores
+- **Aliado** (NPC): Verde (#4ade80)
+- **Hostil** (NPC): Vermelho (#ef4444)
+- **Neutro** (NPC): Amarelo (#fbbf24)
+- **HP Crítico** (≤25%): Vermelho com gradiente
+- **HP Baixo** (≤50%): Amarelo com gradiente
+- **ND Lendário**: Roxo (#8b5cf6)
+- **ND Muito Alto**: Vermelho (#dc2626)
+- **ND Alto**: Laranja (#ea580c)
+- **ND Médio**: Amarelo (#ca8a04)
 
 ---
 

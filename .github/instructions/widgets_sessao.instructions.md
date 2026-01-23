@@ -86,16 +86,28 @@ widget.element.dataset.modDestreza  // Modificador de DES para iniciativa
 
 ```javascript
 const SessaoState = {
-    mapaAtual: null,
+    mapaAtual: null,           // Caminho do cenário atual (relativo a Imagens/)
     combateAtivo: false,
     widgets: [],
     logCombate: [],
-    ordemTurnos: [],   // Lista de participantes: [{tipo, id, nome, iniciativa, modDestreza}]
-    turnoAtual: 0,     // Índice do turno atual
-    contadorMonstros: {}, // Contador por tipo: { 'Goblin': 2 }
-    roundAtual: 0      // Contador de rounds (1+ durante combate, 0 fora)
+    ordemTurnos: [],          // Lista de participantes: [{tipo, id, nome, iniciativa, modDestreza}]
+    turnoAtual: 0,            // Índice do turno atual (0 a length-1)
+    contadorMonstros: {},     // Contador por tipo: { 'Goblin': 2 }
+    turnoContador: 0          // Contador de turnos (0 = fora de combate, 1+ = em combate)
 };
 ```
+
+**⚠️ IMPORTANTE - Cenários**:
+- `mapaAtual` armazena caminho relativo à pasta `Imagens/` (ex: `Cenários/mapa.png`)
+- APIs `/sessao/api/cenarios` retornam caminhos já relativos a `Imagens/`
+- URL final: `/sessao/imagens/{mapaAtual}` (ex: `/sessao/imagens/Cenários/mapa.png`)
+- Função `restaurarEstado()` usa `aplicarCenario()` para carregar imagem
+
+**⚠️ IMPORTANTE - Turnos**:
+- `proximoTurno()` funciona com 0, 1 ou múltiplos participantes
+- Com 0 participantes: apenas incrementa `turnoContador`
+- Com 1 participante: sempre no índice 0, incrementa `turnoContador` a cada clique
+- Com 2+ participantes: usa módulo `%` para circular, incrementa ao voltar ao início
 
 ### Estrutura de Participante nos Turnos
 

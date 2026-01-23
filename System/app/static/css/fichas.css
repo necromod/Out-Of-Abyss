@@ -20,6 +20,11 @@
     --ficha-warning: #fbbf24;
     --ficha-danger: #ef4444;
     --ficha-info: #60a5fa;
+    
+    /* Cores para status de NPCs */
+    --status-aliado: #4ade80;
+    --status-hostil: #ef4444;
+    --status-neutro: #fbbf24;
 }
 
 /* ==========================================================================
@@ -77,6 +82,13 @@
 .cards-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.25rem;
+}
+
+/* Grid de Lista Monstros */
+.lista-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 1.25rem;
 }
 
@@ -3083,3 +3095,463 @@
     .janela-criacao { width: 180px; right: 10px; }
     .grid-attrs { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* ==========================================================================
+   CARDS COMPACTOS DE MONSTRO (Estilo Widget)
+   ========================================================================== */
+
+.card-monstro-compacto {
+    background: var(--ficha-card-bg);
+    border: 2px solid var(--ficha-border);
+    border-radius: 10px;
+    padding: 0.75rem;
+    transition: all 0.3s ease;
+}
+
+.card-monstro-compacto:hover {
+    border-color: var(--ficha-accent);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(233, 69, 96, 0.25);
+}
+
+/* Header com Nome + ND */
+.card-monstro-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--ficha-border);
+}
+
+.card-monstro-header .card-nome {
+    margin: 0;
+    font-size: 1.1rem;
+    color: var(--ficha-accent);
+    font-weight: 600;
+}
+
+.card-monstro-header .card-nd {
+    background: var(--ficha-bg);
+    padding: 0.25rem 0.5rem;
+    border-radius: 5px;
+    font-size: 0.85rem;
+    color: var(--ficha-gold);
+    font-weight: bold;
+}
+
+/* Tipo Info */
+.card-tipo-info {
+    margin: 0 0 0.5rem 0;
+    font-size: 0.85rem;
+    color: var(--ficha-text-muted);
+    font-style: italic;
+}
+
+/* Stats em Grid */
+.card-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.card-stats-grid .stat-box {
+    background: var(--ficha-bg);
+    border: 1px solid var(--ficha-border);
+    border-radius: 6px;
+    padding: 0.4rem;
+    text-align: center;
+}
+
+.card-stats-grid .stat-label {
+    display: block;
+    font-size: 0.65rem;
+    color: var(--ficha-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.card-stats-grid .stat-valor {
+    display: block;
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--ficha-text);
+    margin-top: 0.15rem;
+}
+
+/* Atributos Mini */
+.card-atributos {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.4rem;
+    margin-bottom: 0.75rem;
+}
+
+.attr-mini {
+    background: var(--ficha-bg);
+    border: 1px solid var(--ficha-border);
+    border-radius: 5px;
+    padding: 0.3rem 0.2rem;
+    text-align: center;
+}
+
+.attr-mini .attr-label {
+    display: block;
+    font-size: 0.6rem;
+    color: var(--ficha-text-muted);
+    text-transform: uppercase;
+}
+
+.attr-mini .attr-mod {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: var(--ficha-text);
+    margin-top: 0.1rem;
+}
+
+/* Ações */
+.card-acoes-lista {
+    margin-bottom: 0.75rem;
+    padding: 0.5rem;
+    background: var(--ficha-bg);
+    border-radius: 6px;
+    border: 1px solid var(--ficha-border);
+}
+
+.card-acoes-lista .acoes-titulo {
+    font-size: 0.7rem;
+    color: var(--ficha-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.4rem;
+}
+
+.card-acoes-lista .acoes-container {
+    font-size: 0.75rem;
+    color: var(--ficha-text);
+    line-height: 1.4;
+}
+
+.acao-mini {
+    margin-bottom: 0.3rem;
+    padding-left: 0.5rem;
+    border-left: 2px solid var(--ficha-accent);
+}
+
+.acao-mini strong {
+    color: var(--ficha-accent);
+}
+
+/* Botões */
+.card-botoes {
+    display: flex;
+    gap: 0.4rem;
+    justify-content: space-between;
+}
+
+.btn-card-compacto {
+    flex: 1;
+    padding: 0.5rem 0.4rem;
+    border: none;
+    border-radius: 6px;
+    background: var(--ficha-bg);
+    color: var(--ficha-text);
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid var(--ficha-border);
+}
+
+.btn-card-compacto:hover {
+    background: var(--ficha-accent);
+    border-color: var(--ficha-accent);
+    transform: translateY(-2px);
+}
+
+.btn-card-compacto.btn-ver:hover {
+    background: var(--ficha-info);
+    border-color: var(--ficha-info);
+}
+
+.btn-card-compacto.btn-instanciar:hover {
+    background: var(--ficha-danger);
+    border-color: var(--ficha-danger);
+}
+
+.btn-card-compacto.btn-widget:hover {
+    background: var(--ficha-warning);
+    border-color: var(--ficha-warning);
+}
+
+/* Cores por ND */
+.card-monstro-compacto.nd-lendario { border-color: #8b5cf6; }
+.card-monstro-compacto.nd-lendario:hover { border-color: #a78bfa; box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4); }
+
+.card-monstro-compacto.nd-muito-alto { border-color: #dc2626; }
+.card-monstro-compacto.nd-muito-alto:hover { border-color: #ef4444; box-shadow: 0 6px 20px rgba(220, 38, 38, 0.4); }
+
+.card-monstro-compacto.nd-alto { border-color: #ea580c; }
+.card-monstro-compacto.nd-alto:hover { border-color: #f97316; box-shadow: 0 6px 20px rgba(234, 88, 12, 0.4); }
+
+.card-monstro-compacto.nd-medio { border-color: #ca8a04; }
+.card-monstro-compacto.nd-medio:hover { border-color: #eab308; box-shadow: 0 6px 20px rgba(202, 138, 4, 0.4); }
+
+/* Botão Deletar em Fichas */
+.btn-acao.deletar,
+.btn-deletar-monstro {
+    background: var(--ficha-danger) !important;
+    border-color: var(--ficha-danger) !important;
+}
+
+.btn-acao.deletar:hover,
+.btn-deletar-monstro:hover {
+    background: #dc2626 !important;
+    border-color: #dc2626 !important;
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+}
+
+/* ==========================================================================
+   CARDS DE PERSONAGEM COMPACTOS (ESTILO MONSTROS)
+   ========================================================================== */
+.card-personagem-compacto {
+    background: var(--ficha-card-bg);
+    border: 2px solid var(--ficha-border);
+    border-radius: 10px;
+    padding: 1rem;
+    transition: all 0.3s ease;
+    cursor: default;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.card-personagem-compacto:hover {
+    border-color: var(--ficha-accent);
+    box-shadow: 0 6px 16px rgba(233, 69, 96, 0.3);
+    transform: translateY(-3px);
+}
+
+/* HP Baixo/Crítico */
+.card-personagem-compacto.hp-critico {
+    border-color: var(--ficha-danger);
+    background: linear-gradient(135deg, var(--ficha-card-bg) 0%, rgba(239, 68, 68, 0.1) 100%);
+}
+
+.card-personagem-compacto.hp-baixo {
+    border-color: var(--ficha-warning);
+    background: linear-gradient(135deg, var(--ficha-card-bg) 0%, rgba(251, 191, 36, 0.1) 100%);
+}
+
+/* Header Personagem */
+.card-personagem-compacto .card-personagem-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--ficha-border);
+}
+
+.card-personagem-compacto .card-nome {
+    margin: 0;
+    font-size: 1.2rem;
+    color: var(--ficha-accent);
+    font-weight: bold;
+}
+
+.card-personagem-compacto .card-nivel {
+    font-size: 0.85rem;
+    background: var(--ficha-accent);
+    color: white;
+    padding: 0.25rem 0.6rem;
+    border-radius: 12px;
+    font-weight: bold;
+}
+
+/* Info Básica */
+.card-personagem-compacto .card-tipo-info {
+    font-size: 0.9rem;
+    color: var(--ficha-text-muted);
+    margin: 0;
+}
+
+.card-personagem-compacto .card-jogador-info {
+    font-size: 0.85rem;
+    color: var(--ficha-info);
+    margin: 0;
+    font-weight: 500;
+}
+
+/* Reutiliza stats-grid e atributos de monstros */
+.card-personagem-compacto .card-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+}
+
+.card-personagem-compacto .card-atributos {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.4rem;
+}
+
+/* Armas/Ataques */
+.card-personagem-compacto .card-acoes-lista {
+    padding: 0.5rem 0;
+    border-top: 1px solid var(--ficha-border);
+}
+
+.card-personagem-compacto .acoes-titulo {
+    font-size: 0.8rem;
+    color: var(--ficha-text-muted);
+    font-weight: bold;
+    margin-bottom: 0.4rem;
+    text-transform: uppercase;
+}
+
+.card-personagem-compacto .acao-mini {
+    font-size: 0.85rem;
+    padding: 0.3rem 0;
+    color: var(--ficha-text);
+}
+
+/* Botões */
+.card-personagem-compacto .card-botoes {
+    display: flex;
+    gap: 0.4rem;
+    justify-content: space-between;
+}
+
+.card-personagem-compacto .btn-combate:hover {
+    background: var(--ficha-danger);
+    border-color: var(--ficha-danger);
+}
+
+/* ==========================================================================
+   CARDS DE NPC COMPACTOS (ESTILO MONSTROS)
+   ========================================================================== */
+.card-npc-compacto {
+    background: var(--ficha-card-bg);
+    border: 2px solid var(--ficha-border);
+    border-radius: 10px;
+    padding: 1rem;
+    transition: all 0.3s ease;
+    cursor: default;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.card-npc-compacto:hover {
+    border-color: var(--ficha-info);
+    box-shadow: 0 6px 16px rgba(96, 165, 250, 0.3);
+    transform: translateY(-3px);
+}
+
+/* Status Aliado/Hostil/Neutro */
+.card-npc-compacto.status-aliado {
+    border-left: 4px solid var(--status-aliado);
+}
+
+.card-npc-compacto.status-hostil {
+    border-left: 4px solid var(--status-hostil);
+}
+
+.card-npc-compacto.status-neutro {
+    border-left: 4px solid var(--status-neutro);
+}
+
+.card-npc-compacto.npc-morto {
+    opacity: 0.6;
+    filter: grayscale(50%);
+}
+
+/* Header NPC */
+.card-npc-compacto .card-npc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--ficha-border);
+}
+
+.card-npc-compacto .card-status-badge {
+    font-size: 1.2rem;
+}
+
+/* Descrição Box */
+.card-npc-compacto .card-descricao-box {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    padding: 0.6rem;
+    border-left: 3px solid var(--ficha-accent);
+}
+
+.card-npc-compacto .card-descricao-texto {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--ficha-text-muted);
+    line-height: 1.4;
+}
+
+/* Local Info */
+.card-npc-compacto .card-local-info {
+    font-size: 0.85rem;
+    color: var(--ficha-info);
+    margin: 0;
+}
+
+/* Relacionamento */
+.card-npc-compacto .card-relacionamento {
+    padding: 0.4rem 0;
+}
+
+.card-npc-compacto .rel-mini {
+    font-size: 0.85rem;
+    color: var(--ficha-text-muted);
+    background: rgba(96, 165, 250, 0.1);
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+/* Tags Inline */
+.card-npc-compacto .card-tags-inline {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.card-npc-compacto .tag {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 12px;
+    font-weight: 600;
+}
+
+.card-npc-compacto .tag-morto {
+    background: var(--ficha-danger);
+    color: white;
+}
+
+.card-npc-compacto .tag-desconhecido {
+    background: var(--ficha-warning);
+    color: #1a1a2e;
+}
+
+/* Botões */
+.card-npc-compacto .card-botoes {
+    display: flex;
+    gap: 0.4rem;
+    justify-content: space-between;
+}
+
+.card-npc-compacto .btn-notas:hover {
+    background: var(--ficha-success);
+    border-color: var(--ficha-success);
+}
+    background: #dc2626 !important;
+    transform: translateY(-2px);
+}
+

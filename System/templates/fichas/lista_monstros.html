@@ -71,34 +71,55 @@
     </div>
 </div>
 
-<!-- Template Card Monstro -->
+<!-- Template Card Monstro (Estilo Widget Compacto) -->
 <template id="template-card-monstro">
-    <div class="card-monstro" data-id="" data-tipo="" data-nd="">
-        <div class="card-header-monstro">
-            <h3 class="card-nome"></h3>
+    <div class="card-monstro-compacto" data-id="" data-tipo="" data-nd="">
+        <!-- HEADER: Nome + ND -->
+        <div class="card-monstro-header">
+            <h3 class="card-nome" onclick="verMonstro(this)"></h3>
             <span class="card-nd">ND <span class="nd-valor"></span></span>
         </div>
-        <div class="card-body-monstro">
-            <p class="card-tipo"></p>
-            <div class="card-stats-monstro">
-                <span class="stat">
-                    <span class="stat-label">CA</span>
-                    <span class="stat-valor ca-valor"></span>
-                </span>
-                <span class="stat">
-                    <span class="stat-label">HP</span>
-                    <span class="stat-valor hp-valor"></span>
-                </span>
-                <span class="stat">
-                    <span class="stat-label">XP</span>
-                    <span class="stat-valor xp-valor"></span>
-                </span>
+        
+        <!-- INFO BÁSICA: Tamanho + Tipo -->
+        <p class="card-tipo-info"></p>
+        
+        <!-- STATS EM GRID -->
+        <div class="card-stats-grid">
+            <div class="stat-box">
+                <span class="stat-label">CA</span>
+                <span class="stat-valor ca-valor"></span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-label">HP</span>
+                <span class="stat-valor hp-valor"></span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-label">XP</span>
+                <span class="stat-valor xp-valor"></span>
             </div>
         </div>
-        <div class="card-acoes">
-            <button class="btn-card btn-ver" onclick="verMonstro(this)">👁️ Ver</button>
-            <button class="btn-card btn-instanciar" onclick="abrirModalInstanciar(this)">⚔️ Combate</button>
-            <button class="btn-card btn-widget" onclick="abrirComoWidget(this)">📌 Widget</button>
+        
+        <!-- ATRIBUTOS (Modificadores) -->
+        <div class="card-atributos">
+            <div class="attr-mini"><span class="attr-label">FOR</span><span class="attr-mod for-valor"></span></div>
+            <div class="attr-mini"><span class="attr-label">DES</span><span class="attr-mod des-valor"></span></div>
+            <div class="attr-mini"><span class="attr-label">CON</span><span class="attr-mod con-valor"></span></div>
+            <div class="attr-mini"><span class="attr-label">INT</span><span class="attr-mod int-valor"></span></div>
+            <div class="attr-mini"><span class="attr-label">SAB</span><span class="attr-mod sab-valor"></span></div>
+            <div class="attr-mini"><span class="attr-label">CAR</span><span class="attr-mod car-valor"></span></div>
+        </div>
+        
+        <!-- AÇÕES -->
+        <div class="card-acoes-lista">
+            <div class="acoes-titulo">Ações:</div>
+            <div class="acoes-container"></div>
+        </div>
+        
+        <!-- BOTÕES -->
+        <div class="card-botoes">
+            <button class="btn-card-compacto btn-ver" onclick="verMonstro(this)" title="Ver ficha completa">👁️</button>
+            <button class="btn-card-compacto btn-instanciar" onclick="abrirModalInstanciar(this)" title="Adicionar ao combate">⚔️</button>
+            <button class="btn-card-compacto btn-widget" onclick="abrirComoWidget(this)" title="Abrir como widget">📌</button>
         </div>
     </div>
 </template>
@@ -133,7 +154,7 @@ async function carregarMonstros() {
         
         monstros.forEach(m => {
             const card = template.content.cloneNode(true);
-            const cardEl = card.querySelector('.card-monstro');
+            const cardEl = card.querySelector('.card-monstro-compacto');
             
             cardEl.dataset.id = m.id;
             cardEl.dataset.tipo = (m.tipo || '').toLowerCase();
@@ -141,10 +162,39 @@ async function carregarMonstros() {
             
             cardEl.querySelector('.card-nome').textContent = m.nome;
             cardEl.querySelector('.nd-valor').textContent = formatarND(m.nd);
-            cardEl.querySelector('.card-tipo').textContent = `${m.tamanho || 'Médio'} ${m.tipo || 'Criatura'}`;
+            cardEl.querySelector('.card-tipo-info').textContent = `${m.tamanho || 'Médio'} ${m.tipo || 'Criatura'}`;
             cardEl.querySelector('.ca-valor').textContent = m.ca || 10;
             cardEl.querySelector('.hp-valor').textContent = m.hp_medio || '?';
             cardEl.querySelector('.xp-valor').textContent = m.xp || 0;
+            
+            // Calcular modificadores dos atributos
+            const atribs = m.atributos || {forca: 10, destreza: 10, constituicao: 10, inteligencia: 10, sabedoria: 10, carisma: 10};
+            const calcMod = (val) => {
+                const mod = Math.floor((val - 10) / 2);
+                return (mod >= 0 ? '+' : '') + mod;
+            };
+            
+            cardEl.querySelector('.for-valor').textContent = calcMod(atribs.forca || 10);
+            cardEl.querySelector('.des-valor').textContent = calcMod(atribs.destreza || 10);
+            cardEl.querySelector('.con-valor').textContent = calcMod(atribs.constituicao || 10);
+            cardEl.querySelector('.int-valor').textContent = calcMod(atribs.inteligencia || 10);
+            cardEl.querySelector('.sab-valor').textContent = calcMod(atribs.sabedoria || 10);
+            cardEl.querySelector('.car-valor').textContent = calcMod(atribs.carisma || 10);
+            
+            // Listar ações (até 3)
+            const acoesContainer = cardEl.querySelector('.acoes-container');
+            if (m.acoes && m.acoes.length > 0) {
+                const acoesHTML = m.acoes.slice(0, 3).map(a => {
+                    const textoAcao = `<strong>${a.nome}</strong>: ${a.ataque || ''} ${a.dano || ''}`.trim();
+                    return `<div class="acao-mini">${textoAcao}</div>`;
+                }).join('');
+                acoesContainer.innerHTML = acoesHTML;
+                if (m.acoes.length > 3) {
+                    acoesContainer.innerHTML += `<div class="acao-mini">...e mais ${m.acoes.length - 3}</div>`;
+                }
+            } else {
+                acoesContainer.innerHTML = '<div class="acao-mini" style="opacity: 0.5;">Nenhuma ação</div>';
+            }
             
             // Cor por ND
             const nd = m.nd || 0;
@@ -181,7 +231,7 @@ function filtrarLista() {
         ndMax = max;
     }
     
-    document.querySelectorAll('.card-monstro').forEach(card => {
+    document.querySelectorAll('.card-monstro-compacto').forEach(card => {
         const nome = card.querySelector('.card-nome').textContent.toLowerCase();
         const tipo = card.dataset.tipo;
         const nd = parseFloat(card.dataset.nd) || 0;
@@ -195,12 +245,12 @@ function filtrarLista() {
 }
 
 function verMonstro(btn) {
-    const id = btn.closest('.card-monstro').dataset.id;
+    const id = btn.closest('.card-monstro-compacto').dataset.id;
     window.location.href = `/fichas/monstro/${id}`;
 }
 
 function abrirModalInstanciar(btn) {
-    const card = btn.closest('.card-monstro');
+    const card = btn.closest('.card-monstro-compacto');
     const id = card.dataset.id;
     const nome = card.querySelector('.card-nome').textContent;
     
@@ -246,7 +296,7 @@ async function criarInstancias() {
 }
 
 function abrirComoWidget(btn) {
-    const id = btn.closest('.card-monstro').dataset.id;
+    const id = btn.closest('.card-monstro-compacto').dataset.id;
     window.location.href = `/sessao/?widget=monstro&id=${id}`;
 }
 

@@ -216,7 +216,152 @@ Documentação dos componentes visuais reutilizáveis.
 }
 ```
 
-### Modal
+---
+
+## 4. Cards Compactos de Listas
+
+### Card de Personagem (Estilo Compacto)
+
+**Arquivo**: `lista_personagens.html`  
+**Classes**: `.card-personagem-compacto`, `.card-personagem-header`, `.card-stats-grid`, `.card-atributos`
+
+```html
+<div class="card-personagem-compacto hp-baixo">
+    <div class="card-personagem-header">
+        <h3 class="card-nome">Guerreiro</h3>
+        <span class="card-nivel">Nv <span class="nivel-valor">5</span></span>
+    </div>
+    <p class="card-tipo-info">Humano Guerreiro</p>
+    <p class="card-jogador-info">🎮 Jogador 1</p>
+    
+    <div class="card-stats-grid">
+        <div class="stat-box"><span>HP</span><span>25/30</span></div>
+        <div class="stat-box"><span>CA</span><span>16</span></div>
+        <div class="stat-box"><span>PP</span><span>13</span></div>
+    </div>
+    
+    <div class="card-atributos">
+        <div class="attr-mini"><span>FOR</span><span>+3</span></div>
+        <div class="attr-mini"><span>DES</span><span>+2</span></div>
+        <div class="attr-mini"><span>CON</span><span>+1</span></div>
+        <div class="attr-mini"><span>INT</span><span>+0</span></div>
+        <div class="attr-mini"><span>SAB</span><span>+1</span></div>
+        <div class="attr-mini"><span>CAR</span><span>-1</span></div>
+    </div>
+    
+    <div class="card-acoes-lista">
+        <div class="acoes-titulo">Ataques:</div>
+        <div class="acao-mini"><strong>Espada Longa</strong>: +5 1d8+3</div>
+    </div>
+    
+    <div class="card-botoes">
+        <button class="btn-card-compacto btn-ver">👁️</button>
+        <button class="btn-card-compacto btn-combate">⚔️</button>
+        <button class="btn-card-compacto btn-widget">📌</button>
+    </div>
+</div>
+```
+
+**Características**:
+- Header com nome + badge de nível
+- Stats em grid 3 colunas (HP, CA, Percepção Passiva)
+- Atributos em grid 6 colunas com modificadores calculados
+- Lista de ataques (até 3)
+- Alertas visuais: `.hp-critico` (<=25%), `.hp-baixo` (<=50%)
+
+### Card de NPC (Estilo Compacto)
+
+**Arquivo**: `lista_npcs.html`  
+**Classes**: `.card-npc-compacto`, `.status-aliado`, `.status-hostil`, `.status-neutro`
+
+```html
+<div class="card-npc-compacto status-aliado">
+    <div class="card-npc-header">
+        <h3 class="card-nome">Mercador</h3>
+        <span class="card-status-badge">💚</span>
+    </div>
+    <p class="card-tipo-info">Humano Comerciante</p>
+    <p class="card-local-info">📍 Neverwinter</p>
+    
+    <div class="card-descricao-box">
+        <p class="card-descricao-texto">Um mercador amigável...</p>
+    </div>
+    
+    <div class="card-relacionamento">
+        <div class="rel-mini">👥 Conhecido dos jogadores</div>
+    </div>
+    
+    <div class="card-tags-inline">
+        <span class="tag tag-morto" style="display: none;">💀 Morto</span>
+        <span class="tag tag-desconhecido" style="display: none;">❓ Desconhecido</span>
+    </div>
+    
+    <div class="card-botoes">
+        <button class="btn-card-compacto btn-ver">👁️</button>
+        <button class="btn-card-compacto btn-notas">📝</button>
+        <button class="btn-card-compacto btn-widget">📌</button>
+    </div>
+</div>
+```
+
+**Características**:
+- Header com nome + badge de status (emoji)
+- Borda colorida à esquerda indica status (verde/vermelho/amarelo)
+- Box de descrição com excerpt (120 chars)
+- Relacionamento com jogadores
+- Tags: Morto, Desconhecido (quando aplicável)
+- NPCs mortos: opacity reduzida + grayscale
+
+### Card de Monstro (Estilo Compacto)
+
+**Arquivo**: `lista_monstros.html`  
+**Classes**: `.card-monstro-compacto`, `.nd-lendario`, `.nd-muito-alto`, `.nd-alto`, `.nd-medio`
+
+```html
+<div class="card-monstro-compacto nd-medio">
+    <div class="card-monstro-header">
+        <h3 class="card-nome">Goblin</h3>
+        <span class="card-nd">ND 1/4</span>
+    </div>
+    <p class="card-tipo-info">Pequeno humanoide (goblinoide)</p>
+    
+    <div class="card-stats-grid">
+        <div class="stat-box"><span>CA</span><span>15</span></div>
+        <div class="stat-box"><span>HP</span><span>7</span></div>
+        <div class="stat-box"><span>XP</span><span>50</span></div>
+    </div>
+    
+    <div class="card-atributos">
+        <div class="attr-mini"><span>FOR</span><span>-1</span></div>
+        <div class="attr-mini"><span>DES</span><span>+2</span></div>
+        <div class="attr-mini"><span>CON</span><span>+0</span></div>
+        <div class="attr-mini"><span>INT</span><span>+0</span></div>
+        <div class="attr-mini"><span>SAB</span><span>-1</span></div>
+        <div class="attr-mini"><span>CAR</span><span>-1</span></div>
+    </div>
+    
+    <div class="card-acoes-lista">
+        <div class="acoes-titulo">Ações:</div>
+        <div class="acao-mini"><strong>Cimitarra</strong>: +4 1d6+2 cortante</div>
+    </div>
+    
+    <div class="card-botoes">
+        <button class="btn-card-compacto btn-ver">👁️</button>
+        <button class="btn-card-compacto btn-instanciar">🎭</button>
+        <button class="btn-card-compacto btn-widget">📌</button>
+    </div>
+</div>
+```
+
+**Características**:
+- Cores de borda por ND: Lendário (roxo), Muito Alto (vermelho), Alto (laranja), Médio (amarelo)
+- Grid de atributos 6 colunas
+- Grid de stats 3 colunas (CA, HP, XP)
+- Lista de ações
+
+---
+
+## 5. Modal
 
 ```css
 .modal {
