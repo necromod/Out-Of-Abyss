@@ -18,12 +18,10 @@
     
     <div class="ficha-stats-row">
         <div class="stat-box">
-            <span class="stat-label">CA</span>
-            <span class="stat-valor" contenteditable="true" data-campo="ca">{{ monstro.ca }}</span>
+            <span class="stat-valor" contenteditable="true" data-campo="ca">CA{{ monstro.ca }}</span>
             {% if monstro.ca_tipo %}<span class="stat-note">({{ monstro.ca_tipo }})</span>{% endif %}
         </div>
         <div class="stat-box">
-            <span class="stat-label">Velocidade</span>
             <span class="stat-valor">
                 {% for tipo, vel in monstro.velocidade.items() %}
                 {{ vel }}m{% if tipo != 'terrestre' %} ({{ tipo }}){% endif %}{% if not loop.last %}, {% endif %}

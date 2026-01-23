@@ -157,3 +157,902 @@ body.sessao-mode .navbar {
     font-size: 0.75rem;
     color: var(--text-primary);
 }
+
+/* =========================================
+   Lista de seleção (personagens/monstros)
+   ========================================= */
+
+.lista-selecao {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    max-height: 400px;
+    overflow-y: auto;
+    padding: var(--spacing-xs);
+}
+
+.item-selecao {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.item-selecao:hover {
+    background-color: var(--bg-elevated);
+    border-color: var(--accent-primary);
+}
+
+.item-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.item-info strong {
+    display: block;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    margin-bottom: 2px;
+}
+
+.item-detalhes {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.item-stats {
+    display: flex;
+    gap: var(--spacing-sm);
+    flex-shrink: 0;
+}
+
+.stat-mini {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background-color: var(--bg-tertiary);
+    border-radius: var(--radius-xs);
+    min-width: 45px;
+}
+
+.stat-mini .valor {
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--text-primary);
+}
+
+.stat-mini .label {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+/* =========================================
+   Widget de Monstro
+   ========================================= */
+
+.widget-monstro-conteudo {
+    padding: var(--spacing-sm);
+}
+
+.monstro-widget-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: var(--spacing-sm);
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.monstro-widget-header .monstro-tipo {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+.monstro-widget-header .monstro-nd {
+    background-color: var(--accent-danger);
+    color: white;
+    padding: 2px 8px;
+    border-radius: var(--radius-xs);
+    font-size: 0.75rem;
+    font-weight: bold;
+}
+
+.monstro-widget-header h4 {
+    margin: 0;
+    color: var(--accent-danger);
+    font-size: 1.1rem;
+}
+
+.monstro-widget-header .nd-badge {
+    background-color: var(--accent-danger);
+    color: white;
+    padding: 2px 8px;
+    border-radius: var(--radius-xs);
+    font-size: 0.75rem;
+    font-weight: bold;
+}
+
+.monstro-widget-stats {
+    display: flex;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-sm);
+}
+
+.monstro-widget-stats .stat-box {
+    flex: 1;
+    text-align: center;
+    padding: var(--spacing-xs);
+    background-color: var(--bg-tertiary);
+    border-radius: var(--radius-xs);
+}
+
+.monstro-widget-stats .stat-valor {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: var(--text-primary);
+}
+
+.monstro-widget-stats .stat-label {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+.monstro-widget-attrs {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-sm);
+}
+
+.monstro-widget-attrs .attr {
+    text-align: center;
+    padding: var(--spacing-xs);
+    background-color: var(--bg-secondary);
+    border-radius: var(--radius-xs);
+}
+
+.monstro-widget-attrs .attr-nome {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+.monstro-widget-attrs .attr-valor {
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: var(--text-primary);
+}
+
+.monstro-widget-attrs .attr-mod {
+    font-size: 0.7rem;
+    color: var(--accent-primary);
+}
+
+.monstro-widget-acoes {
+    margin-bottom: var(--spacing-sm);
+}
+
+.monstro-widget-acoes strong {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: var(--spacing-xs);
+}
+
+.acao-item-widget {
+    display: flex;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-xs);
+    background-color: var(--bg-secondary);
+    border-radius: var(--radius-xs);
+    margin-bottom: var(--spacing-xs);
+    font-size: 0.8rem;
+}
+
+.acao-item-widget .acao-nome {
+    font-weight: bold;
+    color: var(--text-primary);
+}
+
+.acao-item-widget .acao-ataque {
+    color: var(--accent-primary);
+}
+
+.acao-item-widget .acao-dano {
+    color: var(--accent-danger);
+}
+
+.monstro-widget-acoes h5 {
+    margin: 0 0 var(--spacing-xs);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+.monstro-widget-acoes ul {
+    margin: 0;
+    padding-left: var(--spacing-md);
+    font-size: 0.85rem;
+}
+
+.monstro-widget-acoes li {
+    color: var(--text-secondary);
+    margin-bottom: 2px;
+}
+
+.monstro-widget-botoes {
+    display: flex;
+    gap: var(--spacing-sm);
+    padding-top: var(--spacing-sm);
+    border-top: 1px solid var(--border-color);
+}
+
+.monstro-widget-botoes .btn {
+    flex: 1;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: 0.8rem;
+}
+
+/* =========================================
+   Widget de Personagem
+   ========================================= */
+
+.widget-personagem-conteudo {
+    padding: var(--spacing-sm);
+}
+
+.personagem-widget-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: var(--spacing-sm);
+}
+
+.personagem-widget-header h4 {
+    margin: 0;
+    color: var(--accent-primary);
+    font-size: 1.1rem;
+}
+
+.personagem-widget-header .nivel-badge {
+    background-color: var(--accent-primary);
+    color: white;
+    padding: 2px 8px;
+    border-radius: var(--radius-xs);
+    font-size: 0.75rem;
+    font-weight: bold;
+}
+
+.personagem-widget-classe {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: var(--spacing-sm);
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.personagem-widget-hp {
+    margin-bottom: var(--spacing-sm);
+}
+
+.hp-barra-mini {
+    height: 20px;
+    background-color: var(--bg-tertiary);
+    border-radius: var(--radius-xs);
+    overflow: hidden;
+    position: relative;
+}
+
+.hp-barra-mini .hp-fill {
+    height: 100%;
+    background-color: var(--accent-success);
+    transition: width 0.3s ease;
+}
+
+.hp-barra-mini .hp-texto {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+.hp-critico .hp-fill {
+    background-color: var(--accent-danger);
+}
+
+.hp-baixo .hp-fill {
+    background-color: var(--accent-warning);
+}
+
+.personagem-widget-stats {
+    display: flex;
+    gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-sm);
+    flex-wrap: wrap;
+}
+
+.personagem-widget-stats .stat-box {
+    flex: 1;
+    min-width: 50px;
+    text-align: center;
+    padding: var(--spacing-xs);
+    background-color: var(--bg-tertiary);
+    border-radius: var(--radius-xs);
+}
+
+.personagem-widget-stats .stat-valor {
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--text-primary);
+}
+
+.personagem-widget-stats .stat-label {
+    display: none;
+}
+
+.monstro-widget-stats {
+    display: flex;
+    gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-sm);
+    flex-wrap: wrap;
+}
+
+.monstro-widget-stats .stat-box {
+    flex: 1;
+    min-width: 50px;
+    text-align: center;
+    padding: var(--spacing-xs);
+    background-color: var(--bg-tertiary);
+    border-radius: var(--radius-xs);
+}
+
+.monstro-widget-stats .stat-valor {
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--text-primary);
+}
+
+.personagem-widget-attrs {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-sm);
+}
+
+/* Responsivo: 3 colunas quando estreito */
+@container (max-width: 250px) {
+    .personagem-widget-attrs,
+    .monstro-widget-attrs {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.personagem-widget-attrs span {
+    text-align: center;
+    padding: 2px;
+    background-color: var(--bg-secondary);
+    border-radius: var(--radius-xs);
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.monstro-widget-attrs {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-sm);
+}
+
+.monstro-widget-attrs span {
+    text-align: center;
+    padding: 2px;
+    background-color: var(--bg-secondary);
+    border-radius: var(--radius-xs);
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.personagem-widget-attrs .attr {
+    text-align: center;
+    padding: var(--spacing-xs);
+    background-color: var(--bg-secondary);
+    border-radius: var(--radius-xs);
+}
+
+.personagem-widget-attrs .attr-nome {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+.personagem-widget-attrs .attr-valor {
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: var(--text-primary);
+}
+
+.personagem-widget-attrs .attr-mod {
+    font-size: 0.7rem;
+    color: var(--accent-primary);
+}
+
+.personagem-widget-botoes {
+    display: flex;
+    gap: var(--spacing-sm);
+    padding-top: var(--spacing-sm);
+    border-top: 1px solid var(--border-color);
+}
+
+.personagem-widget-botoes .btn {
+    flex: 1;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: 0.8rem;
+}
+
+/* Notas rápidas */
+.personagem-widget-notas,
+.monstro-widget-notas {
+    margin-top: var(--spacing-sm);
+}
+
+.notas-rapidas {
+    width: 100%;
+    min-height: 40px;
+    max-height: 80px;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background-color: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    font-size: 0.75rem;
+    font-family: inherit;
+    resize: vertical;
+}
+
+.notas-rapidas:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+}
+
+.notas-rapidas::placeholder {
+    color: var(--text-muted);
+}
+
+/* =========================================
+   Mensagem vazia
+   ========================================= */
+
+.mensagem-vazia {
+    text-align: center;
+    padding: var(--spacing-lg);
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+/* =========================================
+   Input Flutuante (Dano/Cura)
+   ========================================= */
+
+.input-flutuante {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 8px;
+    background-color: var(--bg-secondary);
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    animation: inputFlutuanteEntrar 0.15s ease-out;
+}
+
+@keyframes inputFlutuanteEntrar {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.input-flutuante-dano {
+    border-color: var(--accent-danger);
+}
+
+.input-flutuante-cura {
+    border-color: var(--accent-success);
+}
+
+.input-flutuante-valor {
+    width: 60px;
+    padding: 4px 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+}
+
+.input-flutuante-valor:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+}
+
+.input-flutuante-dano .input-flutuante-valor:focus {
+    border-color: var(--accent-danger);
+}
+
+.input-flutuante-cura .input-flutuante-valor:focus {
+    border-color: var(--accent-success);
+}
+
+.input-flutuante-confirmar,
+.input-flutuante-cancelar {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: var(--transition-fast);
+}
+
+.input-flutuante-confirmar {
+    background-color: var(--accent-success);
+    color: white;
+}
+
+.input-flutuante-confirmar:hover {
+    background-color: #27ae60;
+}
+
+.input-flutuante-cancelar {
+    background-color: var(--bg-tertiary);
+    color: var(--text-muted);
+}
+
+.input-flutuante-cancelar:hover {
+    background-color: var(--accent-danger);
+    color: white;
+}
+
+/* =========================================
+   Log de Combate
+   ========================================= */
+
+.log-lista {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--spacing-sm);
+}
+
+.log-acoes {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-top: 1px solid var(--border-color);
+    text-align: right;
+    flex-shrink: 0;
+}
+
+.log-item {
+    display: flex;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    margin-bottom: var(--spacing-xs);
+    background-color: var(--bg-secondary);
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+    border-left: 3px solid var(--border-color);
+}
+
+.log-item.log-dano {
+    border-left-color: var(--accent-danger);
+    background-color: rgba(231, 76, 60, 0.1);
+}
+
+.log-item.log-cura {
+    border-left-color: var(--accent-success);
+    background-color: rgba(46, 204, 113, 0.1);
+}
+
+.log-item.log-info {
+    border-left-color: var(--accent-primary);
+}
+
+.log-item.log-ataque {
+    border-left-color: var(--accent-warning);
+    background-color: rgba(241, 196, 15, 0.1);
+}
+
+.log-time {
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    flex-shrink: 0;
+}
+
+.log-msg {
+    color: var(--text-primary);
+    flex: 1;
+}
+
+.log-msg strong {
+    color: var(--accent-primary);
+}
+
+.log-acoes {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-top: 1px solid var(--border-color);
+    text-align: right;
+}
+
+/* =========================================
+   Testes de Morte
+   ========================================= */
+
+.testes-morte {
+    margin-top: var(--spacing-sm);
+    padding: var(--spacing-sm);
+    background-color: rgba(231, 76, 60, 0.1);
+    border: 1px solid var(--accent-danger);
+    border-radius: var(--radius-sm);
+}
+
+.teste-linha {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-xs);
+}
+
+.teste-linha:last-child {
+    margin-bottom: 0;
+}
+
+.teste-label {
+    width: 45px;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.teste-checks {
+    display: flex;
+    gap: 4px;
+}
+
+.teste-check {
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    cursor: pointer;
+    border: 1px solid var(--border-color);
+    border-radius: 3px;
+    background-color: var(--bg-secondary);
+    transition: var(--transition-fast);
+}
+
+.teste-check:hover {
+    border-color: var(--accent-primary);
+}
+
+.teste-check.marcado {
+    background-color: var(--accent-success);
+    border-color: var(--accent-success);
+    color: white;
+}
+
+.teste-checks[data-tipo="falha"] .teste-check.marcado {
+    background-color: var(--accent-danger);
+    border-color: var(--accent-danger);
+}
+
+/* =========================================
+   Sistema de Iniciativa / Turnos
+   ========================================= */
+
+.iniciativa-round {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm);
+    margin-bottom: var(--spacing-sm);
+    background-color: var(--bg-tertiary);
+    border-radius: var(--radius-sm);
+}
+
+.round-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+.round-valor {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: var(--accent-primary);
+}
+
+.iniciativa-lista {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--spacing-xs);
+}
+
+.iniciativa-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    margin-bottom: var(--spacing-xs);
+    background-color: var(--bg-secondary);
+    border-radius: var(--radius-sm);
+    border-left: 3px solid transparent;
+    transition: var(--transition-fast);
+}
+
+.iniciativa-item.turno-atual {
+    background-color: rgba(52, 152, 219, 0.2);
+    border-left-color: var(--accent-primary);
+}
+
+.iniciativa-ordem {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg-tertiary);
+    border-radius: 50%;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: var(--text-primary);
+    cursor: text;
+    outline: none;
+    border: 1px solid transparent;
+    transition: var(--transition-fast);
+}
+
+.iniciativa-ordem:focus {
+    border-color: var(--accent-primary);
+    background-color: var(--bg-elevated);
+}
+
+.iniciativa-nome {
+    flex: 1;
+    font-size: 0.85rem;
+    color: var(--text-primary);
+}
+
+.btn-mini {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    border-radius: 3px;
+    font-size: 0.7rem;
+    transition: var(--transition-fast);
+}
+
+.btn-mini:hover {
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+.btn-mini.btn-remover:hover {
+    background-color: var(--accent-danger);
+    color: white;
+}
+
+.iniciativa-controles {
+    display: flex;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm);
+    border-top: 1px solid var(--border-color);
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+/* =========================================
+   Sistema de Efeitos/Condições
+   ========================================= */
+
+.widget-efeitos {
+    margin-top: var(--spacing-sm);
+    padding-top: var(--spacing-sm);
+    border-top: 1px solid var(--border-color);
+}
+
+.efeitos-lista {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-xs);
+}
+
+.efeito-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 6px;
+    background-color: var(--accent-warning);
+    border-radius: var(--radius-sm);
+    font-size: 0.7rem;
+}
+
+.efeito-nome {
+    color: var(--bg-primary);
+    font-weight: 600;
+    cursor: help;
+}
+
+.efeito-turnos {
+    color: var(--bg-primary);
+    background-color: rgba(0,0,0,0.2);
+    padding: 0 4px;
+    border-radius: 2px;
+    font-weight: bold;
+}
+
+.efeito-item .btn-mini {
+    width: 14px;
+    height: 14px;
+    font-size: 0.6rem;
+    color: var(--bg-primary);
+}
+
+.efeito-item .btn-mini:hover {
+    background-color: rgba(0,0,0,0.3);
+    color: white;
+}
+
+.btn-outline {
+    background: transparent;
+    border: 1px dashed var(--border-color);
+    color: var(--text-muted);
+    font-size: 0.7rem;
+    padding: 2px 8px;
+}
+
+.btn-outline:hover {
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+}
+
+/* =========================================
+   Instância de Monstro
+   ========================================= */
+
+.widget-instancia {
+    border-left: 3px solid var(--accent-danger);
+}

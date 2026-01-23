@@ -19,6 +19,7 @@ Flask + SQLite + Jinja2 | Python 3.14
 | `padroes_codigo.instructions.md` | Convenções Python, JS, CSS, HTML |
 | `modulos_sistema.instructions.md` | Descrição de cada módulo Python |
 | `componentes_interface.instructions.md` | Componentes visuais reutilizáveis |
+| `widgets_sessao.instructions.md` | Sistema de widgets, combate e efeitos |
 
 ---
 
@@ -26,7 +27,10 @@ Flask + SQLite + Jinja2 | Python 3.14
 
 Este é um sistema web local para auxiliar na mestragem de D&D 5e, com foco em:
 - Gerenciamento de fichas (personagens, monstros, NPCs)
-- Controle de combate em tempo real
+- Controle de combate em tempo real (rounds, iniciativa, turnos)
+- Sistema de widgets flutuantes para sessão de jogo
+- Sistema de efeitos/condições D&D 5e com contador de turnos
+- Testes de morte automáticos (HP <= 0)
 - Rastreamento de sessões
 - Automação de regras D&D 5e
 
@@ -43,7 +47,8 @@ Out Of Abyss/
 │       ├── fluxos_crud.instructions.md
 │       ├── padroes_codigo.instructions.md
 │       ├── modulos_sistema.instructions.md
-│       └── componentes_interface.instructions.md
+│       ├── componentes_interface.instructions.md
+│       └── widgets_sessao.instructions.md  # Widgets e combate
 ├── .venv/                     # Ambiente virtual Python
 ├── Imagens/                   # Assets visuais (FORA do sistema)
 ├── Itens/                     # Dados de itens (FORA do sistema)

@@ -206,7 +206,7 @@
             <!-- Iniciativa -->
             <div class="stat-rapido">
                 {% set mod_des = ((atribs.get('destreza', 10) - 10) // 2) %}
-                <span class="stat-valor" id="inicativa_padd">{{ '%+d' % mod_des }}</span>
+                <span class="stat-valor" data-display="iniciativa">{{ '%+d' % mod_des }}</span>
                 <span class="stat-nome">Iniciativa</span>
             </div>
             

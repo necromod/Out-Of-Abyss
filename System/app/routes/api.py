@@ -380,6 +380,35 @@ def criar_instancia_monstro():
     return jsonify(instancia)
 
 
+@api_bp.route('/monstros/instancias/<int:id>/dano', methods=['POST'])
+def aplicar_dano_instancia(id):
+    """Aplica dano a uma instância de monstro"""
+    from ..modulos.repositories import InstanciaMonstroRepository
+    
+    data = request.get_json()
+    dano = data.get('dano', 0)
+    tipo_dano = data.get('tipo_dano')
+    
+    instancia = InstanciaMonstroRepository.aplicar_dano(id, dano, tipo_dano)
+    if not instancia:
+        return jsonify({'erro': 'Instância não encontrada'}), 404
+    return jsonify(instancia)
+
+
+@api_bp.route('/monstros/instancias/<int:id>/curar', methods=['POST'])
+def curar_instancia(id):
+    """Cura uma instância de monstro"""
+    from ..modulos.repositories import InstanciaMonstroRepository
+    
+    data = request.get_json()
+    quantidade = data.get('quantidade', 0)
+    
+    instancia = InstanciaMonstroRepository.curar(id, quantidade)
+    if not instancia:
+        return jsonify({'erro': 'Instância não encontrada'}), 404
+    return jsonify(instancia)
+
+
 # ==================== NPCs ====================
 
 @api_bp.route('/npcs')

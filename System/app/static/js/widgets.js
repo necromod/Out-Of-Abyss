@@ -30,12 +30,19 @@ class Widget {
         this.element.style.width = `${this.width}px`;
         this.element.style.height = `${this.height}px`;
         
+        // Determina se é widget de ficha (personagem ou monstro)
+        const isFicha = this.tipo === 'ficha_personagem' || this.tipo === 'ficha_monstro';
+        
         // Header
         const header = document.createElement('div');
         header.className = 'widget-header';
         header.innerHTML = `
             <span class="widget-title">${this.titulo}</span>
             <div class="widget-controls">
+                ${isFicha ? `
+                    <button class="widget-control turnos" title="Adicionar aos Turnos" data-widget-id="${this.id}">⏱️</button>
+                    <button class="widget-control ficha" title="Abrir Ficha Completa" data-widget-id="${this.id}">📋</button>
+                ` : ''}
                 <button class="widget-control minimize" title="Minimizar">−</button>
                 <button class="widget-control close" title="Fechar">×</button>
             </div>
@@ -67,7 +74,14 @@ class Widget {
         let isDragging = false;
         let startX, startY, initialX, initialY;
         
+        // Middle-click para fechar widget
         header.addEventListener('mousedown', (e) => {
+            if (e.button === 1) {
+                e.preventDefault();
+                this.fechar();
+                return;
+            }
+            
             if (e.target.classList.contains('widget-control')) return;
             
             isDragging = true;
@@ -77,6 +91,11 @@ class Widget {
             initialY = this.element.offsetTop;
             
             this.element.style.transition = 'none';
+        });
+        
+        // Prevenir comportamento padrão do middle-click
+        header.addEventListener('auxclick', (e) => {
+            if (e.button === 1) e.preventDefault();
         });
         
         document.addEventListener('mousemove', (e) => {
@@ -98,9 +117,83 @@ class Widget {
     setupControles(header) {
         const btnMinimizar = header.querySelector('.minimize');
         const btnFechar = header.querySelector('.close');
+        const btnTurnos = header.querySelector('.turnos');
+        const btnFicha = header.querySelector('.ficha');
         
         btnMinimizar.addEventListener('click', () => this.toggleMinimizar());
         btnFechar.addEventListener('click', () => this.fechar());
+        
+        // Botão de adicionar aos turnos
+        if (btnTurnos) {
+            btnTurnos.addEventListener('click', () => this.adicionarAosTurnos());
+        }
+        
+        // Botão de abrir ficha completa
+        if (btnFicha) {
+            btnFicha.addEventListener('click', () => this.abrirFichaCompleta());
+        }
+    }
+    
+    adicionarAosTurnos() {
+        // Extrai dados do widget para adicionar aos turnos
+        if (this.dadosCriatura) {
+            // Widget já tem dados salvos (monstro instanciado ou personagem)
+            if (typeof adicionarAosTurnos === 'function') {
+                const modDes = this.dadosCriatura.modDestreza || 0;
+                adicionarAosTurnos(this.dadosCriatura.tipo, this.dadosCriatura.id, this.dadosCriatura.nome, null, modDes);
+            }
+        } else {
+            // Tenta extrair do conteúdo
+            const conteudo = this.element.querySelector('.widget-personagem-conteudo, .widget-monstro-conteudo');
+            if (conteudo) {
+                const btnDano = conteudo.querySelector('.btn-danger');
+                if (btnDano) {
+                    const onclick = btnDano.getAttribute('onclick') || '';
+                    // Extrai id e nome do onclick
+                    const match = onclick.match(/abrirDanoRapido\(event,\s*(\d+),\s*'([^']+)',\s*'([^']+)'\)/);
+                    if (match) {
+                        const [, id, nome, tipo] = match;
+                        // Tenta extrair modificador de destreza do widget
+                        const desSpan = conteudo.querySelector('[title="Destreza"]');
+                        let modDes = 0;
+                        if (desSpan) {
+                            const desText = desSpan.textContent.match(/[+-]?\d+$/);
+                            if (desText) modDes = parseInt(desText[0]) || 0;
+                        }
+                        if (typeof adicionarAosTurnos === 'function') {
+                            adicionarAosTurnos(tipo, parseInt(id), nome, null, modDes);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    abrirFichaCompleta() {
+        // Tenta abrir a ficha completa baseado no tipo do widget
+        if (this.dadosCriatura) {
+            const url = this.dadosCriatura.tipo === 'personagem' 
+                ? `/fichas/personagem/${this.dadosCriatura.id}`
+                : `/fichas/monstro/${this.dadosCriatura.monstroId || this.dadosCriatura.id}`;
+            window.open(url, '_blank');
+        } else {
+            // Tenta extrair do conteúdo
+            const conteudo = this.element.querySelector('.widget-personagem-conteudo, .widget-monstro-conteudo');
+            if (conteudo) {
+                const btnDano = conteudo.querySelector('.btn-danger');
+                if (btnDano) {
+                    const onclick = btnDano.getAttribute('onclick') || '';
+                    const match = onclick.match(/abrirDanoRapido\(event,\s*(\d+),\s*'([^']+)',\s*'([^']+)'\)/);
+                    if (match) {
+                        const [, id, , tipo] = match;
+                        const url = tipo === 'personagem' 
+                            ? `/fichas/personagem/${id}`
+                            : `/fichas/monstro/${id}`;
+                        window.open(url, '_blank');
+                    }
+                }
+            }
+        }
     }
     
     toggleMinimizar() {

@@ -4,7 +4,7 @@
 
 .widget {
     position: absolute;
-    min-width: 280px;
+    min-width: 200px;
     min-height: 150px;
     background-color: var(--bg-secondary);
     border: 1px solid var(--border-color);
@@ -80,14 +80,29 @@
     background-color: var(--accent-danger);
 }
 
+.widget-control.turnos:hover {
+    background-color: var(--accent-primary);
+    color: white;
+}
+
+.widget-control.ficha:hover {
+    background-color: var(--accent-warning);
+    color: white;
+}
+
 /* =========================================
    Body do widget
    ========================================= */
 
 .widget-body {
     flex: 1;
-    padding: var(--spacing-md);
     overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.widget-body > *:not(.log-acoes):not(.iniciativa-controles) {
+    flex: 1;
 }
 
 /* =========================================
@@ -395,14 +410,31 @@
 }
 
 /* =========================================
+   Widget de Iniciativa
+   ========================================= */
+
+.widget[data-tipo="iniciativa"] .widget-body {
+    display: flex;
+    flex-direction: column;
+}
+
+/* =========================================
    Widget de Log
    ========================================= */
+
+.widget[data-tipo="log"] .widget-body {
+    display: flex;
+    flex-direction: column;
+}
 
 .log-lista {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-sm);
     font-size: 0.875rem;
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--spacing-sm);
 }
 
 .log-item {

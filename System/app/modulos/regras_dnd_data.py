@@ -175,7 +175,7 @@ def popular_regras_dnd():
                     'Ancestralidade Feérica: Vantagem contra ser enfeitiçado, imune a sono mágico',
                     'Transe: 4 horas de meditação = 8 horas de sono',
                     'Máscara da Natureza: Pode se esconder com folhagem, chuva, neve, neblina',
-                    'Pés Ligeiros: Velocidade base 10,5m'
+                    'Pés Ligeiros: Velocidade base 10m'
                 ]),
                 'imunidades': json_dumps(['sono mágico']),
                 'subraca_de': 4,  # Elfo

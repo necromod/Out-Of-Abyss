@@ -113,11 +113,16 @@ class PersonagemRepository(BaseRepository):
     
     @classmethod
     def curar(cls, id: int, quantidade: int) -> Dict:
-        """Cura o personagem"""
+        """Cura o personagem e reseta testes de morte se HP > 0"""
         with get_connection() as conn:
+            # Cura e reseta testes de morte
             conn.execute(
-                "UPDATE personagens SET hp_atual = MIN(hp_maximo, hp_atual + ?) WHERE id = ?",
-                (quantidade, id)
+                """UPDATE personagens 
+                   SET hp_atual = MIN(hp_maximo, hp_atual + ?),
+                       sucesso_morte = CASE WHEN hp_atual + ? > 0 THEN 0 ELSE sucesso_morte END,
+                       falha_morte = CASE WHEN hp_atual + ? > 0 THEN 0 ELSE falha_morte END
+                   WHERE id = ?""",
+                (quantidade, quantidade, quantidade, id)
             )
         return cls.get_by_id(id)
     
@@ -184,6 +189,17 @@ class MonstroRepository(BaseRepository):
     def criar(cls, dados: Dict) -> Dict:
         dados_db = cls._prepare_for_db(dados)
         id = cls.insert(dados_db)
+        return cls.get_by_id(id)
+    
+    @classmethod
+    def atualizar(cls, id: int, dados: Dict) -> Dict:
+        """Atualiza um monstro (prepara campos JSON)"""
+        dados_db = cls._prepare_for_db(dados)
+        # Update sem atualizado_em (tabela monstros não tem esse campo)
+        with get_connection() as conn:
+            sets = ", ".join([f"{k} = ?" for k in dados_db.keys()])
+            sql = f"UPDATE {cls.table_name} SET {sets} WHERE id = ?"
+            conn.execute(sql, (*dados_db.values(), id))
         return cls.get_by_id(id)
     
     @staticmethod

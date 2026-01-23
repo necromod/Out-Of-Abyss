@@ -224,9 +224,15 @@ def api_obter_monstro(id):
 @fichas_bp.route('/api/monstro/<int:id>', methods=['PUT', 'PATCH'])
 def api_atualizar_monstro(id):
     """Atualiza dados de um monstro"""
-    data = request.get_json()
-    resultado = MonstroRepository.update(id, data)
-    return jsonify(resultado)
+    try:
+        data = request.get_json()
+        resultado = MonstroRepository.atualizar(id, data)
+        if resultado:
+            return jsonify(resultado)
+        return jsonify({'erro': 'Monstro não encontrado'}), 404
+    except Exception as e:
+        print(f"❌ Erro ao atualizar monstro {id}: {e}")
+        return jsonify({'erro': str(e)}), 500
 
 
 @fichas_bp.route('/api/monstro/<int:id>', methods=['DELETE'])

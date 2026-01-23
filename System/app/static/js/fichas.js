@@ -513,7 +513,7 @@ async function aplicarRaca(racaNome) {
     if (raca.velocidade) {
         const campoVelocidade = document.querySelector('[data-campo="velocidade"]');
         if (campoVelocidade) {
-            campoVelocidade.value = raca.velocidade + ',5m';
+            campoVelocidade.value = raca.velocidade + 'm';
         }
     }
     

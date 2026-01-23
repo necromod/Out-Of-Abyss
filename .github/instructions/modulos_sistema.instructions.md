@@ -359,13 +359,109 @@ condicoes = get_condicoes(tipo='personagem', id=1)
 | `base.css` | Estilos globais, variáveis, layout base |
 | `fichas.css` | Fichas de personagem, atributos, HP |
 | `monstros.css` | Fichas de monstro, layout compacto |
-| `sessao.css` | Tela de sessão, widgets |
-| `widgets.css` | Componentes de widgets |
+| `sessao.css` | Tela de sessão, iniciativa, efeitos, testes de morte |
+| `widgets.css` | Componentes de widgets flutuantes |
 
 ### JS
 | Arquivo | Uso |
 |---------|-----|
 | `base.js` | Funções globais, notificações, utilitários |
-| `fichas.js` | CRUD de personagens, coleta de dados, auto-save |
-| `sessao.js` | Interatividade da sessão, widgets |
-| `widgets.js` | Lógica de widgets flutuantes |
+| `fichas.js` | CRUD de personagens, coleta de dados, auto-save, iniciativa |
+| `sessao.js` | Lógica de sessão, combate, turnos, efeitos D&D 5e |
+| `widgets.js` | Classe Widget e WidgetManager, arrastar, redimensionar |
+
+---
+
+## 10. widgets.js
+
+**Caminho:** `app/static/js/widgets.js`
+
+**Responsabilidades:**
+- Classe `Widget` - Blocos flutuantes
+- Classe `WidgetManager` - Gerenciamento de widgets
+- Arrastar, redimensionar, minimizar, fechar
+- Middle-click no header fecha widget
+
+**Classes Principais:**
+```javascript
+class Widget {
+    constructor(options) { }
+    criar() { }           // Cria elemento DOM
+    setupDrag(header) { } // Configura arraste
+    fechar() { }          // Remove widget
+    minimizar() { }       // Toggle minimizado
+    setConteudo(html) { } // Atualiza conteúdo
+    trazerParaFrente() { }
+}
+
+class WidgetManager {
+    criar(options) { }    // Cria novo widget
+    remover(id) { }       // Remove widget
+    salvarEstado() { }    // Serializa para salvar
+    restaurarEstado() { } // Restaura de salvamento
+}
+```
+
+---
+
+## 11. sessao.js
+
+**Caminho:** `app/static/js/sessao.js`
+
+**Responsabilidades:**
+- Estado da sessão (`SessaoState`)
+- Sistema de combate (turnos, rounds)
+- Condições D&D 5e (`CONDICOES_DND`)
+- Widgets de personagem/monstro
+- Dano/cura rápida
+- Testes de morte
+- Log de combate
+
+**Estado Global:**
+```javascript
+const SessaoState = {
+    combateAtivo: false,
+    ordemTurnos: [],    // [{tipo, id, nome, iniciativa, modDestreza, efeitos}]
+    turnoAtual: 0,
+    roundAtual: 0,      // 0 = fora de combate, 1+ = em combate
+    contadorMonstros: {}
+};
+```
+
+**Funções Principais:**
+```javascript
+// Combate
+iniciarCombate()          // Inicia combate, ordena turnos
+proximoTurno()            // Avança turno, incrementa round se necessário
+finalizarCombate()        // Encerra combate
+adicionarAosTurnos(tipo, id, nome, iniciativa, modDestreza)
+editarIniciativa(event, index)
+
+// Widgets de ficha
+carregarPersonagemWidget(widgetId, personagemId)
+gerarHTMLPersonagemWidget(p)
+atualizarWidgetCriatura(tipo, id, dadosAtualizados)
+
+// Dano/Cura
+abrirDanoRapido(event, id, nome, tipo)
+abrirCuraRapida(event, id, nome, tipo)
+
+// Efeitos D&D 5e
+abrirModalEfeito(event, tipo, id)
+adicionarEfeito(tipo, id)
+removerEfeito(tipo, id, nomeEfeito)
+atualizarContadoresEfeitos()
+
+// Testes de Morte
+marcarTesteMorte(event, id, tipo, valor)
+```
+
+**Constante de Condições:**
+```javascript
+const CONDICOES_DND = {
+    'agarrado': { nome: 'Agarrado', descricao: '...' },
+    'amedrontado': { nome: 'Amedrontado', descricao: '...' },
+    // ... todas as 15 condições D&D 5e
+};
+```
+
