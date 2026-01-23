@@ -340,9 +340,15 @@ class WidgetManager {
     }
     
     restaurarWidget(config) {
+        // Normaliza tipo (pode vir como objeto de sessões antigas corrompidas)
+        let tipo = config.tipo;
+        if (typeof tipo === 'object' && tipo !== null) {
+            tipo = tipo.tipo || 'desconhecido';
+        }
+        
         // Verifica se já existe (para singletons)
-        const existente = Array.from(this.widgets.values()).find(w => w.tipo === config.tipo && 
-            (config.tipo === 'iniciativa' || config.tipo === 'log_combate'));
+        const existente = Array.from(this.widgets.values()).find(w => w.tipo === tipo && 
+            (tipo === 'iniciativa' || tipo === 'log_combate'));
         if (existente) {
             // Atualiza posição
             existente.element.style.left = `${config.x}px`;
@@ -352,8 +358,8 @@ class WidgetManager {
             return existente;
         }
         
-        const widget = this.criar(config.tipo, {
-            titulo: config.titulo,
+        const widget = this.criar(tipo, {
+            titulo: config.titulo || this.getTituloPadrao(tipo),
             x: config.x,
             y: config.y,
             width: config.width,
@@ -364,33 +370,41 @@ class WidgetManager {
             widget.toggleMinimizar();
         }
         
-        // Carrega conteúdo apropriado
-        if (typeof adicionarWidget === 'function') {
-            switch (config.tipo) {
-                case 'iniciativa':
+        // Carrega conteúdo apropriado (funções definidas em sessao.js)
+        switch (tipo) {
+            case 'iniciativa':
+                if (typeof getConteudoIniciativa === 'function') {
                     widget.setConteudo(getConteudoIniciativa());
-                    atualizarWidgetIniciativa();
-                    break;
-                case 'log_combate':
+                    if (typeof atualizarWidgetIniciativa === 'function') {
+                        atualizarWidgetIniciativa();
+                    }
+                }
+                break;
+            case 'log_combate':
+                if (typeof getConteudoLog === 'function') {
                     widget.setConteudo(getConteudoLog());
-                    break;
-                case 'dados':
+                }
+                break;
+            case 'dados':
+                if (typeof getConteudoDados === 'function') {
                     widget.setConteudo(getConteudoDados());
-                    break;
-                case 'notas':
+                }
+                break;
+            case 'notas':
+                if (typeof getConteudoNotas === 'function') {
                     widget.setConteudo(getConteudoNotas());
-                    break;
-                case 'ficha_personagem':
-                    if (config.dadosCriatura) {
-                        carregarPersonagemWidget(widget.id, config.dadosCriatura.id);
-                    }
-                    break;
-                case 'ficha_monstro':
-                    if (config.dadosCriatura) {
-                        carregarMonstroWidget(widget.id, config.dadosCriatura.id);
-                    }
-                    break;
-            }
+                }
+                break;
+            case 'ficha_personagem':
+                if (config.dadosCriatura && typeof carregarPersonagemWidget === 'function') {
+                    carregarPersonagemWidget(widget.id, config.dadosCriatura.id);
+                }
+                break;
+            case 'ficha_monstro':
+                if (config.dadosCriatura && typeof carregarMonstroWidget === 'function') {
+                    carregarMonstroWidget(widget.id, config.dadosCriatura.id);
+                }
+                break;
         }
         
         return widget;
