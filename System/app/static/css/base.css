@@ -533,3 +533,136 @@ input:focus, select:focus, textarea:focus {
         display: block;
     }
 }
+
+/* =========================================
+   Navbar - Dropdown de Sessão
+   ========================================= */
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+.sessao-dropdown {
+    position: relative;
+}
+
+.sessao-toggle {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 0.875rem;
+    transition: var(--transition-fast);
+}
+
+.sessao-toggle:hover {
+    background: var(--bg-elevated);
+    color: var(--text-primary);
+    border-color: var(--accent-primary);
+}
+
+.sessao-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: var(--spacing-xs);
+    min-width: 200px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    z-index: 1100;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.sessao-menu.ativo {
+    display: block;
+}
+
+.sessao-menu-item {
+    display: block;
+    width: 100%;
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    text-align: left;
+    cursor: pointer;
+    font-size: 0.875rem;
+    transition: var(--transition-fast);
+}
+
+.sessao-menu-item:hover {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+.sessao-menu-item.nova-sessao {
+    color: var(--accent-success);
+    font-weight: 500;
+}
+
+.sessao-menu-item.nova-sessao:hover {
+    background: rgba(74, 139, 90, 0.2);
+}
+
+.sessao-menu-item.sessao-ativa {
+    background: var(--bg-tertiary);
+    color: var(--accent-primary);
+    border-left: 3px solid var(--accent-primary);
+}
+
+.sessao-menu-divider {
+    height: 1px;
+    background: var(--border-color);
+    margin: var(--spacing-xs) 0;
+}
+
+.sessao-item-data {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-left: var(--spacing-sm);
+}
+
+/* =========================================
+   Navbar - Indicador de Turno
+   ========================================= */
+
+.turno-indicator {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-xs) var(--spacing-md);
+    background: linear-gradient(135deg, var(--accent-danger), #8b3a3a);
+    border-radius: var(--radius-sm);
+    animation: turno-pulse 2s infinite;
+}
+
+@keyframes turno-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
+}
+
+.turno-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.8);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.turno-numero {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: white;
+}
+

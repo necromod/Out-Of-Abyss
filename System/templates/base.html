@@ -16,6 +16,29 @@
     <nav class="navbar">
         <div class="navbar-brand">
             <a href="{{ url_for('main.index') }}">⚔️ Out of the Abyss</a>
+            
+            <!-- Dropdown de Sessão (apenas na tela de sessão) -->
+            <div class="sessao-dropdown" id="sessao-dropdown" style="display: none;">
+                <button class="sessao-toggle" onclick="toggleSessaoMenu()">
+                    <span id="sessao-label">Sessão --</span>
+                    <span class="dropdown-arrow">▼</span>
+                </button>
+                <div class="sessao-menu" id="sessao-menu">
+                    <button class="sessao-menu-item nova-sessao" onclick="criarNovaSessao()">
+                        ➕ Nova Sessão
+                    </button>
+                    <div class="sessao-menu-divider"></div>
+                    <div id="sessao-historico">
+                        <!-- Histórico de sessões será carregado via JS -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Indicador de Round (visível durante combate) -->
+            <div class="turno-indicator" id="turno-indicator" style="display: none;">
+                <span class="turno-label">ROUND</span>
+                <span class="turno-numero" id="turno-numero">1</span>
+            </div>
         </div>
         <div class="navbar-menu">
             <!-- Dropdown Fichas -->

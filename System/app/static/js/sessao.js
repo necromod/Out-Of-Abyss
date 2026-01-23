@@ -174,6 +174,13 @@ function adicionarLogCombate(mensagem, tipo = 'info') {
     });
     
     atualizarWidgetLog();
+    
+    // Persiste no servidor
+    API.post('/sessao/api/log', {
+        tipo,
+        mensagem,
+        dados: {}
+    }).catch(() => {});
 }
 
 function atualizarWidgetLog() {
@@ -243,6 +250,19 @@ function selecionarMapa(caminho) {
 // =========================================
 
 function adicionarWidget(tipo) {
+    // Widgets singleton (apenas uma instância)
+    const singletonTypes = ['iniciativa', 'log_combate'];
+    
+    if (singletonTypes.includes(tipo)) {
+        // Verifica se já existe
+        const existente = encontrarWidgetPorTipo(tipo);
+        if (existente) {
+            // Traz para frente e retorna
+            existente.trazerParaFrente();
+            return existente;
+        }
+    }
+    
     const widget = window.widgetManager.criar(tipo);
     
     // Carrega conteúdo específico
@@ -255,6 +275,7 @@ function adicionarWidget(tipo) {
             break;
         case 'iniciativa':
             widget.setConteudo(getConteudoIniciativa());
+            atualizarWidgetIniciativa();
             break;
         case 'log_combate':
             widget.setConteudo(getConteudoLog());
@@ -270,6 +291,12 @@ function adicionarWidget(tipo) {
     }
     
     return widget;
+}
+
+function encontrarWidgetPorTipo(tipo) {
+    if (!window.widgetManager) return null;
+    const widgets = window.widgetManager.widgets;
+    return Array.from(widgets.values()).find(w => w.tipo === tipo);
 }
 
 // =========================================
@@ -997,20 +1024,19 @@ async function criarInstanciaMonstro(widgetId, monstroId) {
 // Sistema de Combate
 // =========================================
 
-function toggleCombate() {
-    SessaoState.combateAtivo = !SessaoState.combateAtivo;
-    
+async function toggleCombate() {
     const btn = document.querySelector('.btn-combat');
-    btn.classList.toggle('active', SessaoState.combateAtivo);
     
+    if (!SessaoState.combateAtivo) {
+        await iniciarCombate();
+    } else {
+        await finalizarCombate();
+    }
+    
+    // Atualiza o botão após as funções de combate atualizarem o estado
+    btn.classList.toggle('active', SessaoState.combateAtivo);
     // Muda o ícone: 🛡️ fora de batalha, ⚔️ em batalha
     btn.textContent = SessaoState.combateAtivo ? '⚔️' : '🛡️';
-    
-    if (SessaoState.combateAtivo) {
-        iniciarCombate();
-    } else {
-        finalizarCombate();
-    }
 }
 
 async function iniciarCombate() {
@@ -1020,6 +1046,7 @@ async function iniciarCombate() {
     
     // Reseta contador de rounds
     SessaoState.roundAtual = 1;
+    SessaoState.combateAtivo = true;
     
     // Log de combate
     adicionarLogCombate('⚔️ <strong>Batalha iniciada!</strong>', 'info');
@@ -1027,6 +1054,10 @@ async function iniciarCombate() {
     
     // Atualiza widget de iniciativa se existir
     atualizarWidgetIniciativa();
+    
+    // Atualiza indicador na navbar e salva estado
+    atualizarIndicadorTurno();
+    salvarEstadoSessao();
 }
 
 async function finalizarCombate() {
@@ -1041,7 +1072,12 @@ async function finalizarCombate() {
     SessaoState.ordemTurnos = [];
     SessaoState.turnoAtual = 0;
     SessaoState.roundAtual = 0;
+    SessaoState.combateAtivo = false;
     atualizarWidgetIniciativa();
+    
+    // Atualiza indicador na navbar e salva estado
+    atualizarIndicadorTurno();
+    salvarEstadoSessao();
 }
 
 // =========================================
@@ -1113,6 +1149,10 @@ function proximoTurno() {
     const atual = SessaoState.ordemTurnos[SessaoState.turnoAtual];
     adicionarLogCombate(`➡️ Turno de <strong>${atual.nome}</strong>`, 'info');
     atualizarWidgetIniciativa();
+    
+    // Atualiza indicador na navbar e salva estado
+    atualizarIndicadorTurno();
+    salvarEstadoSessao();
 }
 
 function turnoAnterior() {
@@ -1196,9 +1236,8 @@ function abrirWidgetIniciativa() {
     
     if (!existente) {
         // Cria novo widget de iniciativa
-        const widget = window.widgetManager.criar({
+        const widget = window.widgetManager.criar('iniciativa', {
             titulo: '⏱️ Iniciativa',
-            tipo: 'iniciativa',
             x: window.innerWidth - 320,
             y: 130
         });
@@ -1216,14 +1255,240 @@ function abrirWidgetIniciativa() {
 document.addEventListener('DOMContentLoaded', () => {
     console.log('🎲 Tela de Sessão carregada');
     
+    // Carrega sessão atual
+    carregarSessaoAtual();
+    
+    // Mostra dropdown de sessão na navbar
+    const sessaoDropdown = document.getElementById('sessao-dropdown');
+    if (sessaoDropdown) {
+        sessaoDropdown.style.display = 'flex';
+    }
+    
     // Verifica status da API
     API.get('/api/status').then(status => {
         console.log('API:', status);
-    });
+    }).catch(() => {});
 });
 
 // Salvar estado periodicamente
 setInterval(() => {
-    const estado = window.widgetManager.salvarEstado();
-    // TODO: Enviar para o servidor
-}, 30000);
+    salvarEstadoSessao();
+}, 10000); // A cada 10 segundos
+
+// =========================================
+// Sistema de Sessões Persistentes
+// =========================================
+
+let sessaoAtual = null;
+
+async function carregarSessaoAtual() {
+    try {
+        const sessao = await API.get('/sessao/api/atual');
+        sessaoAtual = sessao;
+        
+        // Atualiza label na navbar
+        const label = document.getElementById('sessao-label');
+        if (label) {
+            label.textContent = `Sessão ${sessao.numero}`;
+        }
+        
+        // Restaura estado
+        if (sessao.estado) {
+            restaurarEstado(sessao.estado);
+        }
+        
+        // Restaura log
+        if (sessao.log && sessao.log.length > 0) {
+            SessaoState.logCombate = sessao.log.map(l => ({
+                timestamp: new Date(l.timestamp).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
+                tipo: l.tipo,
+                mensagem: l.mensagem
+            }));
+            atualizarWidgetLog();
+        }
+        
+        // Carrega lista de sessões
+        await carregarListaSessoes();
+        
+        console.log('📂 Sessão carregada:', sessao.numero);
+    } catch (error) {
+        console.error('Erro ao carregar sessão:', error);
+    }
+}
+
+async function carregarListaSessoes() {
+    try {
+        const sessoes = await API.get('/sessao/api/lista');
+        const container = document.getElementById('sessao-historico');
+        if (!container) return;
+        
+        container.innerHTML = sessoes.reverse().map(s => `
+            <button class="sessao-menu-item ${sessaoAtual && s.numero === sessaoAtual.numero ? 'sessao-ativa' : ''}" 
+                    onclick="visualizarSessao('${s.data}')">
+                ${s.titulo}
+                <span class="sessao-item-data">${formatarData(s.data)}</span>
+            </button>
+        `).join('');
+    } catch (error) {
+        console.error('Erro ao carregar lista de sessões:', error);
+    }
+}
+
+function formatarData(dataStr) {
+    const [ano, mes, dia] = dataStr.split('-');
+    return `${dia}/${mes}`;
+}
+
+async function criarNovaSessao() {
+    if (!confirm('Criar nova sessão? O log de combate será limpo.')) return;
+    
+    try {
+        const novaSessao = await API.post('/sessao/api/nova', {});
+        sessaoAtual = novaSessao;
+        
+        // Limpa log local
+        SessaoState.logCombate = [];
+        SessaoState.ordemTurnos = [];
+        SessaoState.turnoAtual = 0;
+        SessaoState.roundAtual = 0;
+        SessaoState.combateAtivo = false;
+        
+        // Atualiza UI
+        const label = document.getElementById('sessao-label');
+        if (label) {
+            label.textContent = `Sessão ${novaSessao.numero}`;
+        }
+        
+        atualizarWidgetIniciativa();
+        atualizarWidgetLog();
+        atualizarIndicadorTurno();
+        
+        await carregarListaSessoes();
+        fecharSessaoMenu();
+        
+        notificar(`Nova sessão ${novaSessao.numero} criada!`, 'success');
+    } catch (error) {
+        console.error('Erro ao criar nova sessão:', error);
+        notificar('Erro ao criar sessão', 'danger');
+    }
+}
+
+async function visualizarSessao(dataSessao) {
+    try {
+        const sessao = await API.get(`/sessao/api/${dataSessao}`);
+        
+        // Se é a sessão atual, apenas fecha o menu
+        if (sessaoAtual && sessao.numero === sessaoAtual.numero) {
+            fecharSessaoMenu();
+            return;
+        }
+        
+        // Mostra log da sessão passada (somente leitura)
+        alert(`Sessão ${sessao.numero} (${formatarData(sessao.data)})\n\nLog com ${sessao.log.length} entradas.\n\nEsta é uma visualização de consulta. Para editar, crie uma nova sessão.`);
+        
+        fecharSessaoMenu();
+    } catch (error) {
+        console.error('Erro ao visualizar sessão:', error);
+    }
+}
+
+function toggleSessaoMenu() {
+    const menu = document.getElementById('sessao-menu');
+    if (menu) {
+        menu.classList.toggle('ativo');
+    }
+}
+
+function fecharSessaoMenu() {
+    const menu = document.getElementById('sessao-menu');
+    if (menu) {
+        menu.classList.remove('ativo');
+    }
+}
+
+// Fecha menu ao clicar fora
+document.addEventListener('click', (e) => {
+    const dropdown = document.getElementById('sessao-dropdown');
+    if (dropdown && !dropdown.contains(e.target)) {
+        fecharSessaoMenu();
+    }
+});
+
+function restaurarEstado(estado) {
+    // Restaura mapa
+    if (estado.mapa_atual) {
+        const container = document.getElementById('mapa-container');
+        if (container) {
+            container.innerHTML = '';
+            container.style.backgroundImage = `url('file:///${estado.mapa_atual}')`;
+        }
+        SessaoState.mapaAtual = estado.mapa_atual;
+    }
+    
+    // Restaura estado do combate
+    SessaoState.combateAtivo = estado.combate_ativo || false;
+    SessaoState.roundAtual = estado.round_atual || 0;
+    SessaoState.turnoAtual = estado.turno_atual || 0;
+    SessaoState.ordemTurnos = estado.ordem_turnos || [];
+    
+    // Atualiza botão de combate
+    const btn = document.querySelector('.btn-combat');
+    if (btn) {
+        btn.classList.toggle('active', SessaoState.combateAtivo);
+        btn.textContent = SessaoState.combateAtivo ? '⚔️' : '🛡️';
+    }
+    
+    // Atualiza indicador de turno na navbar
+    atualizarIndicadorTurno();
+    
+    // Atualiza widget de iniciativa se existir
+    atualizarWidgetIniciativa();
+    
+    // Restaura widgets
+    if (estado.widgets && estado.widgets.length > 0 && window.widgetManager) {
+        estado.widgets.forEach(w => {
+            try {
+                window.widgetManager.restaurarWidget(w);
+            } catch (e) {
+                console.warn('Erro ao restaurar widget:', e);
+            }
+        });
+    }
+}
+
+async function salvarEstadoSessao() {
+    if (!sessaoAtual) return;
+    
+    const estado = {
+        mapa_atual: SessaoState.mapaAtual,
+        combate_ativo: SessaoState.combateAtivo,
+        round_atual: SessaoState.roundAtual,
+        turno_atual: SessaoState.turnoAtual,
+        ordem_turnos: SessaoState.ordemTurnos,
+        widgets: window.widgetManager ? window.widgetManager.salvarEstado() : []
+    };
+    
+    try {
+        await API.post('/sessao/api/estado', { estado });
+    } catch (error) {
+        console.warn('Erro ao salvar estado:', error);
+    }
+}
+
+// =========================================
+// Indicador de Turno na Navbar
+// =========================================
+
+function atualizarIndicadorTurno() {
+    const indicator = document.getElementById('turno-indicator');
+    const numero = document.getElementById('turno-numero');
+    
+    if (!indicator || !numero) return;
+    
+    if (SessaoState.combateAtivo && SessaoState.roundAtual > 0) {
+        indicator.style.display = 'flex';
+        numero.textContent = SessaoState.roundAtual;
+    } else {
+        indicator.style.display = 'none';
+    }
+}

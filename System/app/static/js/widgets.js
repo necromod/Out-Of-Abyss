@@ -264,8 +264,7 @@ class WidgetManager {
             y: options.y || 80 + offset,
             width: options.width || this.getLarguraPadrao(tipo),
             height: options.height || this.getAlturaPadrao(tipo),
-            conteudo: options.conteudo || '',
-            ...options
+            conteudo: options.conteudo || ''
         });
         
         this.widgets.set(widget.id, widget);
@@ -328,18 +327,84 @@ class WidgetManager {
             estado.push({
                 id: widget.id,
                 tipo: widget.tipo,
+                titulo: widget.titulo,
                 x: widget.element.offsetLeft,
                 y: widget.element.offsetTop,
                 width: widget.element.offsetWidth,
                 height: widget.element.offsetHeight,
-                minimizado: widget.minimizado
+                minimizado: widget.minimizado,
+                dadosCriatura: widget.dadosCriatura || null
             });
         });
         return estado;
     }
     
+    restaurarWidget(config) {
+        // Verifica se já existe (para singletons)
+        const existente = Array.from(this.widgets.values()).find(w => w.tipo === config.tipo && 
+            (config.tipo === 'iniciativa' || config.tipo === 'log_combate'));
+        if (existente) {
+            // Atualiza posição
+            existente.element.style.left = `${config.x}px`;
+            existente.element.style.top = `${config.y}px`;
+            existente.element.style.width = `${config.width}px`;
+            existente.element.style.height = `${config.height}px`;
+            return existente;
+        }
+        
+        const widget = this.criar(config.tipo, {
+            titulo: config.titulo,
+            x: config.x,
+            y: config.y,
+            width: config.width,
+            height: config.height
+        });
+        
+        if (config.minimizado) {
+            widget.toggleMinimizar();
+        }
+        
+        // Carrega conteúdo apropriado
+        if (typeof adicionarWidget === 'function') {
+            switch (config.tipo) {
+                case 'iniciativa':
+                    widget.setConteudo(getConteudoIniciativa());
+                    atualizarWidgetIniciativa();
+                    break;
+                case 'log_combate':
+                    widget.setConteudo(getConteudoLog());
+                    break;
+                case 'dados':
+                    widget.setConteudo(getConteudoDados());
+                    break;
+                case 'notas':
+                    widget.setConteudo(getConteudoNotas());
+                    break;
+                case 'ficha_personagem':
+                    if (config.dadosCriatura) {
+                        carregarPersonagemWidget(widget.id, config.dadosCriatura.id);
+                    }
+                    break;
+                case 'ficha_monstro':
+                    if (config.dadosCriatura) {
+                        carregarMonstroWidget(widget.id, config.dadosCriatura.id);
+                    }
+                    break;
+            }
+        }
+        
+        return widget;
+    }
+    
     restaurarEstado(estado) {
-        // TODO: Implementar restauração de estado
+        if (!Array.isArray(estado)) return;
+        estado.forEach(config => {
+            try {
+                this.restaurarWidget(config);
+            } catch (e) {
+                console.warn('Erro ao restaurar widget:', e);
+            }
+        });
     }
 }
 
