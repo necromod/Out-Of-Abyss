@@ -875,7 +875,7 @@ body.sessao-mode .navbar {
    Sistema de Iniciativa / Turnos
    ========================================= */
 
-.iniciativa-round {
+.iniciativa-turno {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -886,13 +886,13 @@ body.sessao-mode .navbar {
     border-radius: var(--radius-sm);
 }
 
-.round-label {
+.turno-label {
     font-size: 0.8rem;
     color: var(--text-muted);
     text-transform: uppercase;
 }
 
-.round-valor {
+.turno-valor {
     font-size: 1.25rem;
     font-weight: bold;
     color: var(--accent-primary);

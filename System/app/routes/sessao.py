@@ -56,7 +56,7 @@ def criar_sessao_estrutura(data_sessao, numero):
         "estado": {
             "mapa_atual": None,
             "combate_ativo": False,
-            "round_atual": 0,
+            "turno_contador": 0,
             "turno_atual": 0,
             "ordem_turnos": [],
             "widgets": []

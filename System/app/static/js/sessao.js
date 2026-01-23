@@ -13,9 +13,9 @@ const SessaoState = {
     widgets: [],
     logCombate: [],
     ordemTurnos: [],  // Lista de participantes no combate
-    turnoAtual: 0,    // Índice do turno atual
+    turnoAtual: 0,    // Índice do turno atual na ordem
     contadorMonstros: {},  // Contador de monstros por tipo: { 'Goblin': 2, 'Orc': 1 }
-    roundAtual: 0     // Contador de rounds da batalha
+    turnoContador: 0  // Contador de turnos da batalha (era roundAtual)
 };
 
 // Condições do D&D 5e com descrições
@@ -340,9 +340,9 @@ function getConteudoNotas() {
 
 function getConteudoIniciativa() {
     return `
-        <div class="iniciativa-round" id="contador-round">
-            <span class="round-label">Round</span>
-            <span class="round-valor">${SessaoState.roundAtual}</span>
+        <div class="iniciativa-turno" id="contador-turno">
+            <span class="turno-label">Turno</span>
+            <span class="turno-valor">${SessaoState.turnoContador}</span>
         </div>
         <div class="iniciativa-lista" id="lista-iniciativa">
             <p class="text-muted">Adicione participantes usando ⏱️ nos widgets</p>
@@ -1044,13 +1044,13 @@ async function iniciarCombate() {
         await API.post('/combate/iniciar', {});
     } catch (e) { /* ignora erro se rota não existir */ }
     
-    // Reseta contador de rounds
-    SessaoState.roundAtual = 1;
+    // Reseta contador de turnos
+    SessaoState.turnoContador = 1;
     SessaoState.combateAtivo = true;
     
     // Log de combate
     adicionarLogCombate('⚔️ <strong>Batalha iniciada!</strong>', 'info');
-    adicionarLogCombate(`🔄 <strong>Round 1</strong>`, 'info');
+    adicionarLogCombate(`🔄 <strong>Turno 1</strong>`, 'info');
     
     // Atualiza widget de iniciativa se existir
     atualizarWidgetIniciativa();
@@ -1068,10 +1068,10 @@ async function finalizarCombate() {
     // Log de combate
     adicionarLogCombate('🛡️ <strong>Batalha encerrada!</strong>', 'info');
     
-    // Limpa ordem de turnos e reseta rounds
+    // Limpa ordem de turnos e reseta contador
     SessaoState.ordemTurnos = [];
     SessaoState.turnoAtual = 0;
-    SessaoState.roundAtual = 0;
+    SessaoState.turnoContador = 0;
     SessaoState.combateAtivo = false;
     atualizarWidgetIniciativa();
     
@@ -1138,10 +1138,10 @@ function proximoTurno() {
     const turnoAnteriorIdx = SessaoState.turnoAtual;
     SessaoState.turnoAtual = (SessaoState.turnoAtual + 1) % SessaoState.ordemTurnos.length;
     
-    // Se voltou ao início, incrementa round
+    // Se voltou ao início, incrementa turno
     if (SessaoState.turnoAtual === 0 && turnoAnteriorIdx !== 0) {
-        SessaoState.roundAtual++;
-        adicionarLogCombate(`🔄 <strong>Round ${SessaoState.roundAtual}</strong>`, 'info');
+        SessaoState.turnoContador++;
+        adicionarLogCombate(`🔄 <strong>Turno ${SessaoState.turnoContador}</strong>`, 'info');
         // Atualiza contadores de efeitos de todos os widgets
         atualizarContadoresEfeitos();
     }
@@ -1169,10 +1169,10 @@ function atualizarWidgetIniciativa() {
     const lista = document.getElementById('lista-iniciativa');
     if (!lista) return;
     
-    // Atualiza contador de rounds
-    const contadorRound = document.getElementById('contador-round');
-    if (contadorRound) {
-        contadorRound.querySelector('.round-valor').textContent = SessaoState.roundAtual;
+    // Atualiza contador de turnos
+    const contadorTurno = document.getElementById('contador-turno');
+    if (contadorTurno) {
+        contadorTurno.querySelector('.turno-valor').textContent = SessaoState.turnoContador;
     }
     
     if (SessaoState.ordemTurnos.length === 0) {
@@ -1350,7 +1350,7 @@ async function criarNovaSessao() {
         SessaoState.logCombate = [];
         SessaoState.ordemTurnos = [];
         SessaoState.turnoAtual = 0;
-        SessaoState.roundAtual = 0;
+        SessaoState.turnoContador = 0;
         SessaoState.combateAtivo = false;
         
         // Atualiza UI
@@ -1427,7 +1427,7 @@ function restaurarEstado(estado) {
     
     // Restaura estado do combate
     SessaoState.combateAtivo = estado.combate_ativo || false;
-    SessaoState.roundAtual = estado.round_atual || 0;
+    SessaoState.turnoContador = estado.turno_contador || estado.round_atual || 0;
     SessaoState.turnoAtual = estado.turno_atual || 0;
     SessaoState.ordemTurnos = estado.ordem_turnos || [];
     
@@ -1462,7 +1462,7 @@ async function salvarEstadoSessao() {
     const estado = {
         mapa_atual: SessaoState.mapaAtual,
         combate_ativo: SessaoState.combateAtivo,
-        round_atual: SessaoState.roundAtual,
+        turno_contador: SessaoState.turnoContador,
         turno_atual: SessaoState.turnoAtual,
         ordem_turnos: SessaoState.ordemTurnos,
         widgets: window.widgetManager ? window.widgetManager.salvarEstado() : []
@@ -1485,9 +1485,9 @@ function atualizarIndicadorTurno() {
     
     if (!indicator || !numero) return;
     
-    if (SessaoState.combateAtivo && SessaoState.roundAtual > 0) {
+    if (SessaoState.combateAtivo && SessaoState.turnoContador > 0) {
         indicator.style.display = 'flex';
-        numero.textContent = SessaoState.roundAtual;
+        numero.textContent = SessaoState.turnoContador;
     } else {
         indicator.style.display = 'none';
     }
