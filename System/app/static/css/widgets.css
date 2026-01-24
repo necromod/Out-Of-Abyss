@@ -491,8 +491,6 @@
 .widget-npc-conteudo {
     padding: var(--spacing-sm);
     font-size: 0.8rem;
-    max-height: 400px;
-    overflow-y: auto;
 }
 
 .npc-header-mini {
@@ -746,6 +744,49 @@
     padding: var(--spacing-xs) var(--spacing-sm);
     background-color: var(--bg-tertiary);
     border-radius: var(--radius-sm);
+}
+
+/* Descrição do NPC no widget */
+.npc-descricao-widget {
+    margin-top: var(--spacing-sm);
+    padding: var(--spacing-sm);
+    background: linear-gradient(135deg, var(--bg-tertiary) 0%, rgba(100, 149, 237, 0.05) 100%);
+    border: 1px dashed var(--accent-primary);
+    border-radius: var(--radius-sm);
+}
+
+.npc-descricao-widget .descricao-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--accent-primary);
+    margin-bottom: 4px;
+}
+
+.npc-descricao-widget .descricao-textarea {
+    width: 100%;
+    min-height: 60px;
+    max-height: none;
+    padding: var(--spacing-xs);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    line-height: 1.3;
+    resize: vertical;
+    font-family: inherit;
+    transition: border-color 0.2s;
+}
+
+.npc-descricao-widget .descricao-textarea:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+    background-color: var(--bg-elevated);
+}
+
+.npc-descricao-widget .descricao-textarea::placeholder {
+    color: var(--text-muted);
+    font-style: italic;
 }
 
 /* Log de magia */

@@ -1636,7 +1636,7 @@ body.sessao-mode .toolbar {
 .observacoes-textarea {
     width: 100%;
     min-height: 20px;
-    max-height: 200px;
+    max-height: none;
     padding: var(--spacing-xs);
     background: var(--bg-secondary);
     border: 1px solid var(--border-color);

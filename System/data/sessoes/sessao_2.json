@@ -3,57 +3,62 @@
   "id": "2",
   "data": "2026-01-24",
   "criada_em": "2026-01-24T11:25:45.485892",
-  "atualizada_em": "2026-01-24T12:55:49.874139",
+  "atualizada_em": "2026-01-24T17:08:59.953696",
   "estado": {
-    "mapa_atual": "Cenários/Caverna Iluminada.png",
+    "mapa_atual": "Cenários/Caverna_Iluminada_1.png",
     "combate_ativo": false,
-    "turno_contador": 31,
+    "turno_contador": 0,
     "turno_atual": 0,
     "ordem_turnos": [
       {
         "ativo": true,
-        "id": 63,
-        "iniciativa": 18,
-        "nome": "Derro 1",
+        "id": 66,
+        "iniciativa": 22,
+        "nome": "Drow Comum 1",
         "tipo": "instancia"
       },
       {
         "ativo": true,
-        "id": 59,
-        "iniciativa": 14,
+        "id": 64,
+        "iniciativa": 16,
+        "nome": "Giant Spider 1",
+        "tipo": "instancia"
+      },
+      {
+        "ativo": true,
+        "id": 65,
+        "iniciativa": 6,
         "nome": "Drow Elite Warrior 1",
-        "tipo": "instancia"
-      },
-      {
-        "ativo": true,
-        "id": 62,
-        "iniciativa": 11,
-        "nome": "Quaggoth 1",
-        "tipo": "instancia"
-      },
-      {
-        "ativo": true,
-        "id": 60,
-        "iniciativa": 10,
-        "nome": "Quaggoth 1",
         "tipo": "instancia"
       }
     ],
     "widgets": [
       {
-        "id": "widget-1769270149831",
-        "tipo": "ficha_personagem",
-        "titulo": "👤 Bilbo",
-        "x": 5,
+        "id": "widget-1769284019982",
+        "tipo": "log_combate",
+        "titulo": "📜 Log de Combate",
+        "x": 1263,
         "y": 80,
-        "width": 200,
-        "height": 150,
+        "width": 350,
+        "height": 350,
+        "minimizado": false,
+        "dadosCriatura": null
+      },
+      {
+        "id": "widget-1769284019983",
+        "tipo": "ficha_monstro",
+        "titulo": "👹 Drow Comum 1",
+        "x": 761,
+        "y": 109,
+        "width": 444,
+        "height": 523,
         "minimizado": false,
         "dadosCriatura": {
-          "tipo": "personagem",
-          "id": 59,
-          "nome": "Bilbo",
-          "modDestreza": 1
+          "tipo": "instancia",
+          "id": 66,
+          "nome": "Drow Comum 1",
+          "nomeBase": "Drow Comum",
+          "modDestreza": 2
         }
       }
     ]
@@ -81,6 +86,192 @@
       "timestamp": "2026-01-24T11:56:05.434153",
       "tipo": "ataque",
       "mensagem": "<strong>Derro 1</strong> usa <em>Azagaia</em> <span class=\"ataque-total \">21</span> <span class=\"ataque-detalhes\">(17+4)</span><br><span class=\"dano-linha\"><span class=\"dano\">7</span> dano <span class=\"dano-expressao\">(1d6+2)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T14:25:33.328628",
+      "tipo": "info",
+      "mensagem": "<strong>Quaggoth 1</strong> removido dos turnos",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T14:25:37.361513",
+      "tipo": "info",
+      "mensagem": "⚔️ <strong>Batalha iniciada!</strong>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T14:25:38.535566",
+      "tipo": "info",
+      "mensagem": "🛡️ <strong>Batalha encerrada!</strong>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T14:29:32.594243",
+      "tipo": "info",
+      "mensagem": "Efeito <strong>Agarrado</strong> aplicado",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T14:29:49.337184",
+      "tipo": "info",
+      "mensagem": "Efeito <strong>🔥 Ígneo</strong> aplicado",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T14:30:21.544625",
+      "tipo": "info",
+      "mensagem": "<strong>Giant Spider 1</strong> rolou iniciativa: 13+3 = 16",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T16:31:15.710867",
+      "tipo": "info",
+      "mensagem": "<strong>Drow Elite Warrior 1</strong> rolou iniciativa: 2+4 = 6",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T16:31:19.749769",
+      "tipo": "ataque",
+      "mensagem": "<strong>Drow Elite Warrior 1</strong> usa <em>Ataque Múltiplo</em> <span class=\"ataque-total \">7</span> <span class=\"ataque-detalhes\">(6+1)</span><br><span class=\"dano-linha\"><span class=\"dano\">3</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T16:31:37.965791",
+      "tipo": "crit",
+      "mensagem": "<strong>Drow Elite Warrior 1</strong> usa <em>Ataque Múltiplo</em> <span class=\"ataque-total crit\">21</span> 🎯 <span class=\"ataque-detalhes\">(20+1)</span><br><span class=\"dano-linha\"><span class=\"dano\">4</span> dano <span class=\"dano-expressao\">(2d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T16:32:12.327054",
+      "tipo": "fumble",
+      "mensagem": "<strong>Drow Elite Warrior 1</strong> usa <em>Ataque Múltiplo</em> <span class=\"ataque-total fumble\">6</span> 💀 <span class=\"ataque-detalhes\">(1+5)</span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T16:32:13.731572",
+      "tipo": "ataque",
+      "mensagem": "<strong>Drow Elite Warrior 1</strong> usa <em>Ataque Múltiplo</em> <span class=\"ataque-total \">10</span> <span class=\"ataque-detalhes\">(5+5)</span><br><span class=\"dano-linha\"><span class=\"dano\">12</span> dano <span class=\"dano-expressao\">(3d8+3)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T16:36:02.549637",
+      "tipo": "info",
+      "mensagem": "<strong>Drow Comum 1</strong> rolou iniciativa: 20+2 = 22",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T16:36:10.711692",
+      "tipo": "ataque",
+      "mensagem": "<strong>Drow Comum 1</strong> usa <em>Espada curta</em> <span class=\"ataque-total \">15</span> <span class=\"ataque-detalhes\">(11+4)</span><br><span class=\"dano-linha\"><span class=\"dano\">7</span> dano <span class=\"dano-expressao\">(1d6+2)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T16:36:12.139186",
+      "tipo": "ataque",
+      "mensagem": "<strong>Drow Comum 1</strong> usa <em>Espada curta</em> <span class=\"ataque-total \">12</span> <span class=\"ataque-detalhes\">(8+4)</span><br><span class=\"dano-linha\"><span class=\"dano\">8</span> dano <span class=\"dano-expressao\">(1d6+2)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T16:36:12.651001",
+      "tipo": "crit",
+      "mensagem": "<strong>Drow Comum 1</strong> usa <em>Espada curta</em> <span class=\"ataque-total crit\">24</span> 🎯 <span class=\"ataque-detalhes\">(20+4)</span><br><span class=\"dano-linha\"><span class=\"dano\">9</span> dano <span class=\"dano-expressao\">(2d6+2)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T16:36:13.203560",
+      "tipo": "ataque",
+      "mensagem": "<strong>Drow Comum 1</strong> usa <em>Espada curta</em> <span class=\"ataque-total \">16</span> <span class=\"ataque-detalhes\">(12+4)</span><br><span class=\"dano-linha\"><span class=\"dano\">4</span> dano <span class=\"dano-expressao\">(1d6+2)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T16:36:13.610885",
+      "tipo": "ataque",
+      "mensagem": "<strong>Drow Comum 1</strong> usa <em>Espada curta</em> <span class=\"ataque-total \">9</span> <span class=\"ataque-detalhes\">(5+4)</span><br><span class=\"dano-linha\"><span class=\"dano\">5</span> dano <span class=\"dano-expressao\">(1d6+2)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T16:36:14.526427",
+      "tipo": "crit",
+      "mensagem": "<strong>Drow Comum 1</strong> usa <em>Besta de Mão</em> <span class=\"ataque-total crit\">24</span> 🎯 <span class=\"ataque-detalhes\">(20+4)</span><br><span class=\"dano-linha\"><span class=\"dano\">4</span> dano <span class=\"dano-expressao\">(2d6+2)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T16:36:15.010626",
+      "tipo": "ataque",
+      "mensagem": "<strong>Drow Comum 1</strong> usa <em>Besta de Mão</em> <span class=\"ataque-total \">6</span> <span class=\"ataque-detalhes\">(2+4)</span><br><span class=\"dano-linha\"><span class=\"dano\">7</span> dano <span class=\"dano-expressao\">(1d6+2)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T16:36:15.420119",
+      "tipo": "ataque",
+      "mensagem": "<strong>Drow Comum 1</strong> usa <em>Besta de Mão</em> <span class=\"ataque-total \">8</span> <span class=\"ataque-detalhes\">(4+4)</span><br><span class=\"dano-linha\"><span class=\"dano\">4</span> dano <span class=\"dano-expressao\">(1d6+2)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T16:36:15.714633",
+      "tipo": "ataque",
+      "mensagem": "<strong>Drow Comum 1</strong> usa <em>Besta de Mão</em> <span class=\"ataque-total \">21</span> <span class=\"ataque-detalhes\">(17+4)</span><br><span class=\"dano-linha\"><span class=\"dano\">6</span> dano <span class=\"dano-expressao\">(1d6+2)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T16:36:15.938121",
+      "tipo": "ataque",
+      "mensagem": "<strong>Drow Comum 1</strong> usa <em>Besta de Mão</em> <span class=\"ataque-total \">16</span> <span class=\"ataque-detalhes\">(12+4)</span><br><span class=\"dano-linha\"><span class=\"dano\">4</span> dano <span class=\"dano-expressao\">(1d6+2)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T16:36:16.110772",
+      "tipo": "ataque",
+      "mensagem": "<strong>Drow Comum 1</strong> usa <em>Besta de Mão</em> <span class=\"ataque-total \">22</span> <span class=\"ataque-detalhes\">(18+4)</span><br><span class=\"dano-linha\"><span class=\"dano\">3</span> dano <span class=\"dano-expressao\">(1d6+2)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T16:36:16.260833",
+      "tipo": "ataque",
+      "mensagem": "<strong>Drow Comum 1</strong> usa <em>Besta de Mão</em> <span class=\"ataque-total \">19</span> <span class=\"ataque-detalhes\">(15+4)</span><br><span class=\"dano-linha\"><span class=\"dano\">3</span> dano <span class=\"dano-expressao\">(1d6+2)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T16:36:16.406057",
+      "tipo": "ataque",
+      "mensagem": "<strong>Drow Comum 1</strong> usa <em>Besta de Mão</em> <span class=\"ataque-total \">16</span> <span class=\"ataque-detalhes\">(12+4)</span><br><span class=\"dano-linha\"><span class=\"dano\">4</span> dano <span class=\"dano-expressao\">(1d6+2)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T16:36:16.564134",
+      "tipo": "crit",
+      "mensagem": "<strong>Drow Comum 1</strong> usa <em>Besta de Mão</em> <span class=\"ataque-total crit\">24</span> 🎯 <span class=\"ataque-detalhes\">(20+4)</span><br><span class=\"dano-linha\"><span class=\"dano\">8</span> dano <span class=\"dano-expressao\">(2d6+2)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T16:36:16.700278",
+      "tipo": "ataque",
+      "mensagem": "<strong>Drow Comum 1</strong> usa <em>Besta de Mão</em> <span class=\"ataque-total \">7</span> <span class=\"ataque-detalhes\">(3+4)</span><br><span class=\"dano-linha\"><span class=\"dano\">8</span> dano <span class=\"dano-expressao\">(1d6+2)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T16:36:16.859275",
+      "tipo": "ataque",
+      "mensagem": "<strong>Drow Comum 1</strong> usa <em>Besta de Mão</em> <span class=\"ataque-total \">12</span> <span class=\"ataque-detalhes\">(8+4)</span><br><span class=\"dano-linha\"><span class=\"dano\">7</span> dano <span class=\"dano-expressao\">(1d6+2)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T16:36:16.978014",
+      "tipo": "ataque",
+      "mensagem": "<strong>Drow Comum 1</strong> usa <em>Besta de Mão</em> <span class=\"ataque-total \">11</span> <span class=\"ataque-detalhes\">(7+4)</span><br><span class=\"dano-linha\"><span class=\"dano\">7</span> dano <span class=\"dano-expressao\">(1d6+2)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T16:36:17.110717",
+      "tipo": "ataque",
+      "mensagem": "<strong>Drow Comum 1</strong> usa <em>Besta de Mão</em> <span class=\"ataque-total \">7</span> <span class=\"ataque-detalhes\">(3+4)</span><br><span class=\"dano-linha\"><span class=\"dano\">6</span> dano <span class=\"dano-expressao\">(1d6+2)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T16:36:34.597912",
+      "tipo": "info",
+      "mensagem": "<strong>Drow Comum 1</strong> Resist de DES <span class=\"ataque-total info\">18</span> <span class=\"ataque-detalhes\">(d20: 16+2)</span>",
       "dados": {}
     }
   ]

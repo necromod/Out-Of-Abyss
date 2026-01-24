@@ -2381,6 +2381,11 @@ async function carregarNPCWidget(widgetId, npcId) {
         }
         
         widget.setConteudo(gerarHTMLNPCWidget(npc));
+        
+        // Aplica auto-save para descrição
+        setTimeout(() => {
+            aplicarAutoSaveNPC(widget);
+        }, 100);
         widget.element.querySelector('.widget-title').textContent = `🎭 ${npc.nome}`;
         
         // Salva dados do NPC no widget
@@ -2556,11 +2561,61 @@ function gerarHTMLNPCWidget(npc) {
                 </div>
             ` : ''}
             
+            <div class="npc-descricao-widget">
+                <label class="descricao-label">📖 Descrição</label>
+                <textarea class="descricao-textarea" data-npc-id="${npc.id}" placeholder="Descrição do NPC...">${npc.descricao || ''}</textarea>
+            </div>
+            
             <div class="npc-acoes-footer">
-                <a href="/fichas/npc/${npc.id}" class="btn-mini" target="_blank">📝 Editar</a>
+                <a href="/fichas/npc/${npc.id}" class="btn-mini" target="_blank">📝 Ficha Completa</a>
             </div>
         </div>
     `;
+}
+
+/**
+ * Auto-save para descrição de NPC no widget
+ */
+let npcAutoSaveTimeouts = {};
+
+function aplicarAutoSaveNPC(widget) {
+    const textarea = widget.element.querySelector('.descricao-textarea');
+    if (!textarea) return;
+    
+    const npcId = textarea.dataset.npcId;
+    if (!npcId) return;
+    
+    textarea.addEventListener('input', () => {
+        // Limpa timeout anterior se existir
+        if (npcAutoSaveTimeouts[npcId]) {
+            clearTimeout(npcAutoSaveTimeouts[npcId]);
+        }
+        
+        // Agenda novo save após 1.5 segundos de inatividade
+        npcAutoSaveTimeouts[npcId] = setTimeout(async () => {
+            await salvarDescricaoNPC(npcId, textarea.value);
+        }, 1500);
+    });
+}
+
+async function salvarDescricaoNPC(npcId, descricao) {
+    try {
+        console.log(`[NPC ${npcId}] Salvando descrição:`, descricao.substring(0, 50) + '...');
+        
+        const response = await fetch(`/api/npcs/${npcId}`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ descricao: descricao })
+        });
+        
+        if (response.ok) {
+            console.log(`[NPC ${npcId}] Descrição salva com sucesso`);
+        } else {
+            console.error(`[NPC ${npcId}] Erro ao salvar descrição:`, response.status);
+        }
+    } catch (error) {
+        console.error(`[NPC ${npcId}] Erro na requisição:`, error);
+    }
 }
 
 async function carregarMonstroWidget(widgetId, monstroId) {
