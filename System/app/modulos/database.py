@@ -64,6 +64,27 @@ def migrate_database():
             print("[MIGRATION] Adicionando coluna 'fonte' em classes...")
             cursor.execute("ALTER TABLE classes ADD COLUMN fonte TEXT DEFAULT 'PHB'")
         
+        # Verifica e cria tabela notas_sessao se não existir
+        try:
+            cursor.execute("SELECT 1 FROM notas_sessao LIMIT 1")
+        except sqlite3.OperationalError:
+            print("[MIGRATION] Criando tabela notas_sessao...")
+            cursor.execute("""
+                CREATE TABLE notas_sessao (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    titulo TEXT NOT NULL,
+                    campos TEXT DEFAULT '[]',
+                    links TEXT DEFAULT '[]',
+                    posicao_x INTEGER DEFAULT 100,
+                    posicao_y INTEGER DEFAULT 100,
+                    largura INTEGER DEFAULT 300,
+                    altura INTEGER DEFAULT 400,
+                    minimizada INTEGER DEFAULT 0,
+                    criado_em TEXT DEFAULT CURRENT_TIMESTAMP,
+                    atualizado_em TEXT DEFAULT CURRENT_TIMESTAMP
+                )
+            """)
+        
         conn.commit()
 
 
@@ -285,6 +306,23 @@ def init_database():
             )
         """)
         
+        # ==================== NOTAS DE SESSÃO ====================
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS notas_sessao (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                titulo TEXT NOT NULL,
+                campos TEXT DEFAULT '[]',  -- Array de campos de texto [{"id": 1, "conteudo": "texto"}]
+                links TEXT DEFAULT '[]',   -- Array de IDs de notas linkadas
+                posicao_x INTEGER DEFAULT 100,
+                posicao_y INTEGER DEFAULT 100,
+                largura INTEGER DEFAULT 300,
+                altura INTEGER DEFAULT 400,
+                minimizada INTEGER DEFAULT 0,
+                criado_em TEXT DEFAULT CURRENT_TIMESTAMP,
+                atualizado_em TEXT DEFAULT CURRENT_TIMESTAMP
+            )
+        """)
+
         # ==================== COMBATES ====================
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS combates (

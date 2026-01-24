@@ -704,3 +704,81 @@ def api_criar_npc():
     id = NPCRepository.insert(data)
     npc = NPCRepository.get_by_id(id)
     return jsonify(npc)
+
+
+# ========== NOTAS DE SESSÃO ==========
+
+@api_bp.route('/notas', methods=['GET'])
+def listar_notas():
+    """Lista todas as notas da sessão atual"""
+    from ..modulos.repositories import NotasSessaoRepository
+    
+    notas = NotasSessaoRepository.get_all()
+    return jsonify(notas)
+
+
+@api_bp.route('/notas/<int:id>', methods=['GET'])
+def obter_nota(id):
+    """Obtém uma nota específica"""
+    from ..modulos.repositories import NotasSessaoRepository
+    
+    nota = NotasSessaoRepository.get_by_id(id)
+    if not nota:
+        return jsonify({'erro': 'Nota não encontrada'}), 404
+    return jsonify(nota)
+
+
+@api_bp.route('/notas', methods=['POST'])
+def criar_nota():
+    """Cria uma nova nota"""
+    from ..modulos.repositories import NotasSessaoRepository
+    
+    data = request.get_json()
+    nota = NotasSessaoRepository.criar(data)
+    return jsonify(nota)
+
+
+@api_bp.route('/notas/<int:id>', methods=['PATCH'])
+def atualizar_nota(id):
+    """Atualiza campos de uma nota"""
+    from ..modulos.repositories import NotasSessaoRepository
+    
+    data = request.get_json()
+    nota = NotasSessaoRepository.get_by_id(id)
+    if not nota:
+        return jsonify({'erro': 'Nota não encontrada'}), 404
+    
+    # Atualizar campos diferentes conforme o tipo de dado
+    if 'titulo' in data:
+        NotasSessaoRepository.update(id, {'titulo': data['titulo']})
+    
+    if 'campos' in data:
+        NotasSessaoRepository.atualizar_campos(id, data['campos'])
+    
+    if 'links' in data:
+        NotasSessaoRepository.atualizar_links(id, data['links'])
+    
+    if 'posicao_x' in data or 'posicao_y' in data or 'largura' in data or 'altura' in data:
+        posicao_data = {
+            'posicao_x': data.get('posicao_x'),
+            'posicao_y': data.get('posicao_y'),
+            'largura': data.get('largura'),
+            'altura': data.get('altura')
+        }
+        # Remove None values
+        posicao_data = {k: v for k, v in posicao_data.items() if v is not None}
+        NotasSessaoRepository.atualizar_posicao(id, posicao_data)
+    
+    return jsonify(NotasSessaoRepository.get_by_id(id))
+
+
+@api_bp.route('/notas/<int:id>', methods=['DELETE'])
+def deletar_nota(id):
+    """Deleta uma nota"""
+    from ..modulos.repositories import NotasSessaoRepository
+    
+    sucesso = NotasSessaoRepository.delete(id)
+    if not sucesso:
+        return jsonify({'erro': 'Nota não encontrada'}), 404
+    
+    return jsonify({'sucesso': True})

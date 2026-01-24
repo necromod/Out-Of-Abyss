@@ -15,6 +15,19 @@
     <button class="nav-widget-btn" onclick="adicionarWidget('iniciativa')" title="Ordem de Turno">⏱️</button>
     <button class="nav-widget-btn" onclick="adicionarWidget('log_combate')" title="Log Combate">📜</button>
     <button class="nav-widget-btn" onclick="adicionarWidget('dados')" title="Rolar Dados">🎲</button>
+    <!-- Dropdown de Notas -->
+    <div class="dropdown-menu">
+        <button class="nav-widget-btn dropdown-toggle" onclick="toggleDropdownNotas(event)" title="Notas de Sessão">📝</button>
+        <div class="dropdown-content" id="dropdown-notas">
+            <div class="dropdown-header">Notas</div>
+            <button class="dropdown-item" onclick="criarNovaNota()">+ Nova Nota</button>
+            <div class="dropdown-separator"></div>
+            <div id="lista-notas-dropdown">
+                <!-- Lista de notas carregada dinamicamente -->
+                <div class="dropdown-empty">Nenhuma nota criada</div>
+            </div>
+        </div>
+    </div>
     <div class="nav-separator"></div>
     <button class="nav-widget-btn" onclick="abrirModalCenarios()" title="Selecionar Cenário">🗺️</button>
     <button class="nav-widget-btn btn-combat" onclick="toggleCombate()" title="Iniciar/Finalizar Combate" id="btn-combate">⚔️</button>

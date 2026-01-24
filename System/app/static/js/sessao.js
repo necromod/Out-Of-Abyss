@@ -4010,5 +4010,604 @@ async function removerMapa() {
 // Inicializa sistema de cenários
 document.addEventListener('DOMContentLoaded', () => {
     configurarDropZone();
+    carregarListaNotas(); // Carrega lista de notas no dropdown
     // carregarCenarioSalvo() foi removida - agora usa restaurarEstado()
+});
+
+// =========================================
+// Sistema de Notas
+// =========================================
+
+let notasCarregadas = [];
+
+// Funções de teste global
+window.testeAdicionarCampo = function(notaId) {
+    console.log('=== TESTE ADICIONAR CAMPO ===');
+    console.log('NotaId recebido:', notaId);
+    console.log('Tipo do notaId:', typeof notaId);
+    adicionarCampoNota(notaId);
+};
+
+window.testeFonte = function(notaId, indice, acao) {
+    console.log('=== TESTE ALTERAR FONTE ===');
+    console.log('Parâmetros:', { notaId, indice, acao });
+    console.log('Tipos:', { notaId: typeof notaId, indice: typeof indice, acao: typeof acao });
+    alterarFonteCampo(notaId, indice, acao);
+};
+
+/**
+ * Toggle do dropdown de notas
+ */
+function toggleDropdownNotas(event) {
+    event.stopPropagation();
+    const dropdown = document.getElementById('dropdown-notas');
+    const isVisible = dropdown.classList.contains('show');
+    
+    // Fecha outros dropdowns
+    document.querySelectorAll('.dropdown-content').forEach(dd => {
+        dd.classList.remove('show');
+    });
+    
+    if (!isVisible) {
+        dropdown.classList.add('show');
+        carregarListaNotas();
+    }
+}
+
+/**
+ * Carrega lista de notas no dropdown
+ */
+async function carregarListaNotas() {
+    try {
+        const response = await fetch('/api/notas');
+        const notas = await response.json();
+        notasCarregadas = notas;
+        
+        const lista = document.getElementById('lista-notas-dropdown');
+        if (notas.length === 0) {
+            lista.innerHTML = '<div class="dropdown-empty">Nenhuma nota criada</div>';
+        } else {
+            // Inverte ordem para mostrar mais recentes primeiro
+            const notasOrdenadas = [...notas].reverse();
+            
+            lista.innerHTML = notasOrdenadas.map(nota => {
+                // Verifica se a nota já está aberta
+                const jaAberta = SessaoState.widgets.some(w => w.tipo === 'nota' && w.dados?.id === nota.id);
+                const icone = jaAberta ? '📂' : '📄';
+                const status = jaAberta ? ' (aberta)' : '';
+                
+                return `<button class="dropdown-item" onclick="abrirNota(${nota.id})">
+                    ${icone} ${nota.titulo || 'Nota sem título'}${status}
+                </button>`;
+            }).join('');
+        }
+    } catch (error) {
+        console.error('Erro ao carregar notas:', error);
+    }
+}
+
+/**
+ * Cria uma nova nota
+ */
+async function criarNovaNota() {
+    try {
+        // Fecha dropdown
+        document.getElementById('dropdown-notas').classList.remove('show');
+        
+        const response = await fetch('/api/notas', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                titulo: 'Nova Nota',
+                campos: [{ texto: '' }],
+                links: [],
+                posicao_x: 100,
+                posicao_y: 100,
+                largura: 350,
+                altura: 250
+            })
+        });
+        
+        const nota = await response.json();
+        
+        // Verifica se a criação foi bem-sucedida
+        if (!response.ok) {
+            throw new Error(`Erro HTTP: ${response.status}`);
+        }
+        
+        criarWidgetNota(nota);
+        carregarListaNotas(); // Atualiza dropdown
+        salvarEstadoSessao(); // Salva estado
+        
+        mostrarNotificacao('Nota criada com sucesso!', 'success');
+        
+    } catch (error) {
+        console.error('Erro ao criar nota:', error);
+        mostrarNotificacao('Erro ao criar nota', 'danger');
+    }
+}
+
+/**
+ * Abre uma nota existente como widget
+ */
+async function abrirNota(notaId) {
+    try {
+        // Fecha dropdown
+        document.getElementById('dropdown-notas').classList.remove('show');
+        
+        // Verifica se já está aberta
+        const widgetExistente = SessaoState.widgets.find(w => w.tipo === 'nota' && w.dados?.id === notaId);
+        if (widgetExistente) {
+            console.log('[abrirNota] Widget já existe:', widgetExistente);
+            console.log('[abrirNota] Widget minimizado?', widgetExistente.minimizado);
+            
+            // Verifica se o elemento DOM ainda existe
+            if (!widgetExistente.element || !document.contains(widgetExistente.element)) {
+                console.log('[abrirNota] Widget órfão detectado (elemento DOM removido), limpando estado...');
+                
+                // Remove do estado
+                const index = SessaoState.widgets.findIndex(w => w.id === widgetExistente.id);
+                if (index !== -1) {
+                    SessaoState.widgets.splice(index, 1);
+                }
+                
+                // Remove do widgetManager também
+                if (window.widgetManager) {
+                    window.widgetManager.remover(widgetExistente.id);
+                }
+                
+                // Continua como se fosse criar um novo widget
+            } else {
+                // Element existe, pode manipular normalmente
+                console.log('[abrirNota] Elemento DOM válido, manipulando widget...');
+                
+                // Se já estiver aberta, apenas traz para frente e desmininiza se necessário
+                if (widgetExistente.minimizado) {
+                    console.log('[abrirNota] Desmininizando widget...');
+                    widgetExistente.toggleMinimizar(); // Toggle para desmininizar
+                }
+                widgetExistente.trazerParaFrente();
+                
+                // Verifica se o widget está visível
+                const rect = widgetExistente.element.getBoundingClientRect();
+                console.log('[abrirNota] Posição do widget:', rect);
+                
+                // Se estiver fora da tela, reposiciona
+                if (rect.left < 0 || rect.top < 0 || rect.right > window.innerWidth || rect.bottom > window.innerHeight) {
+                    console.log('[abrirNota] Widget fora da tela, reposicionando...');
+                    widgetExistente.element.style.left = '100px';
+                    widgetExistente.element.style.top = '100px';
+                }
+                
+                mostrarNotificacao('Nota focada!', 'info');
+                return;
+            }
+        }
+        
+        // Se não estiver aberta, busca e cria o widget
+        const response = await fetch(`/api/notas/${notaId}`);
+        const nota = await response.json();
+        
+        criarWidgetNota(nota);
+        salvarEstadoSessao(); // Salva estado
+        
+        mostrarNotificacao('Nota aberta!', 'success');
+        
+    } catch (error) {
+        console.error('Erro ao abrir nota:', error);
+        mostrarNotificacao('Erro ao abrir nota', 'danger');
+    }
+}
+
+/**
+ * Cria um widget de nota
+ */
+function criarWidgetNota(nota) {
+    console.log('[criarWidgetNota] Criando widget para nota:', nota);
+    
+    // Garante que as funções de teste estão globais
+    if (!window.testeAdicionarCampo) {
+        console.error('[criarWidgetNota] Funções de teste não estão globais!');
+    }
+    
+    const widget = new Widget({
+        id: `nota_${nota.id}`,
+        tipo: 'nota',
+        titulo: `📝 ${nota.titulo || 'Nota'}`,
+        x: nota.posicao_x || 100,
+        y: nota.posicao_y || 100,
+        width: nota.largura || 350,
+        height: nota.altura || 250,
+        conteudo: gerarHTMLNota(nota),
+        dados: {  // Passando dados diretamente no construtor
+            id: nota.id,
+            titulo: nota.titulo,
+            largura: nota.largura || 350,
+            altura: nota.altura || 250,
+            campos: nota.campos || [],
+            links: nota.links || []
+        }
+    });
+    
+    console.log('[criarWidgetNota] Widget criado:', widget);
+    console.log('[criarWidgetNota] Dados do widget:', widget.dados);
+    
+    // Adiciona ao estado ANTES de tentar manipular o DOM
+    SessaoState.widgets.push(widget);
+    
+    console.log('[criarWidgetNota] Widget adicionado ao estado. Total widgets:', SessaoState.widgets.length);
+    console.log('[criarWidgetNota] Dados do widget criado:', widget.dados);
+    console.log('[criarWidgetNota] ID da nota nos dados:', widget.dados?.id);
+    console.log('[criarWidgetNota] Todos os widgets no estado:', SessaoState.widgets.map(w => ({ tipo: w.tipo, dados: w.dados })));
+    
+    // Aguarda próximo frame para garantir que o DOM está renderizado
+    setTimeout(() => {
+        // Adiciona botão de links no header
+        const header = widget.element?.querySelector('.widget-header');
+        if (header) {
+            const linkBtn = document.createElement('button');
+            linkBtn.className = 'btn-header-link';
+            linkBtn.innerHTML = '🔗';
+            linkBtn.title = 'Gerenciar links';
+            linkBtn.onclick = (e) => {
+                e.stopPropagation();
+                gerenciarLinksNota(nota.id);
+            };
+            
+            const controls = header.querySelector('.widget-controls');
+            if (controls) {
+                controls.insertBefore(linkBtn, controls.firstChild);
+            }
+        }
+        
+        // Auto-save ao alterar título
+        const tituloInput = widget.element?.querySelector('.nota-titulo');
+        if (tituloInput) {
+            let timeoutId;
+            tituloInput.addEventListener('input', () => {
+                clearTimeout(timeoutId);
+                timeoutId = setTimeout(() => {
+                    salvarNota(nota.id, { titulo: tituloInput.value });
+                    // Atualiza título no header
+                    const headerTitle = widget.element.querySelector('.widget-title');
+                    if (headerTitle) headerTitle.textContent = `📝 ${tituloInput.value}`;
+                }, 1000);
+            });
+        }
+        
+        // Auto-save dos campos
+        aplicarAutoSaveNota(widget);
+    }, 0);
+    
+    return widget;
+}
+
+/**
+ * Gera HTML para widget de nota
+ */
+function gerarHTMLNota(nota) {
+    const campos = nota.campos || [{ texto: '' }];
+    
+    console.log('[gerarHTMLNota] Gerando HTML para nota:', nota.id, 'com', campos.length, 'campos');
+    
+    return `
+        <div class="widget-nota-content">
+            <input type="text" class="nota-titulo" value="${nota.titulo || ''}" placeholder="Título da nota...">
+            
+            <div class="campos-container" data-nota-id="${nota.id}">
+                ${campos.map((campo, index) => {
+                    console.log(`[gerarHTMLNota] Gerando campo ${index}:`, campo);
+                    return `
+                        <div class="campo-wrapper">
+                            <div class="controles-fonte-campo">
+                                <button class="btn-fonte" onclick="window.testeFonte(${nota.id}, ${index}, 'diminuir')" title="Diminuir fonte">A-</button>
+                                <button class="btn-fonte" onclick="window.testeFonte(${nota.id}, ${index}, 'aumentar')" title="Aumentar fonte">A+</button>
+                            </div>
+                            <textarea 
+                                class="campo-nota" 
+                                data-index="${index}" 
+                                placeholder="Digite suas anotações..."
+                                style="font-size: ${campo.fontSize || 14}px;"
+                            >${campo.texto || ''}</textarea>
+                        </div>
+                    `;
+                }).join('')}
+            </div>
+            
+            <div class="botoes-nota">
+                <button class="btn-adicionar-campo" onclick="window.testeAdicionarCampo(${nota.id})">+ Adicionar Campo</button>
+            </div>
+            
+            ${nota.links && nota.links.length > 0 ? `
+                <div class="links-nota">
+                    <h4>Links:</h4>
+                    ${nota.links.map(link => `
+                        <a class="link-nota" onclick="abrirNota(${link.nota_id})">${link.titulo}</a>
+                    `).join('')}
+                </div>
+            ` : ''}
+        </div>
+    `;
+}
+
+/**
+ * Adiciona um novo campo de texto à nota
+ */
+async function adicionarCampoNota(notaId) {
+    console.log('[adicionarCampoNota] Tentando adicionar campo para nota:', notaId);
+    console.log('[adicionarCampoNota] Tipo do notaId:', typeof notaId);
+    
+    console.log('[adicionarCampoNota] Todos os widgets:', SessaoState.widgets.map(w => ({
+        tipo: w.tipo,
+        dados: w.dados,
+        dadosId: w.dados?.id,
+        comparacao: w.dados?.id === notaId
+    })));
+    
+    const widget = SessaoState.widgets.find(w => {
+        const encontrou = w.tipo === 'nota' && w.dados?.id === notaId;
+        console.log(`[adicionarCampoNota] Verificando widget - tipo: ${w.tipo}, dados.id: ${w.dados?.id}, match: ${encontrou}`);
+        return encontrou;
+    });
+    
+    if (!widget) {
+        console.error('[adicionarCampoNota] Widget não encontrado para nota:', notaId);
+        console.log('[adicionarCampoNota] Widgets disponíveis:', SessaoState.widgets.map(w => ({tipo: w.tipo, id: w.dados?.id})));
+        return;
+    }
+    
+    console.log('[adicionarCampoNota] Widget encontrado:', widget.dados);
+    
+    // Adiciona campo no array
+    widget.dados.campos = widget.dados.campos || [];
+    const novoIndice = widget.dados.campos.length;
+    widget.dados.campos.push({ texto: '', fontSize: 14 });
+    
+    console.log('[adicionarCampoNota] Campos após adição:', widget.dados.campos);
+    console.log('[adicionarCampoNota] Novo índice:', novoIndice);
+    
+    // Atualiza HTML
+    const novoHTML = gerarHTMLNota(widget.dados);
+    console.log('[adicionarCampoNota] Novo HTML gerado, comprimento:', novoHTML.length);
+    
+    // Usa setConteudo para atualizar
+    widget.setConteudo(novoHTML);
+    console.log('[adicionarCampoNota] SetConteudo chamado');
+    
+    // Aguarda mais tempo para o DOM atualizar
+    setTimeout(() => {
+        console.log('[adicionarCampoNota] Callback de timeout executado');
+        
+        // Verifica se o novo campo foi criado
+        const todosOsCampos = widget.element?.querySelectorAll('.campo-nota');
+        console.log('[adicionarCampoNota] Total de campos encontrados:', todosOsCampos?.length);
+        
+        // Reaplicar auto-save
+        aplicarAutoSaveNota(widget);
+        console.log('[adicionarCampoNota] Auto-save reaplicado');
+        
+        // Focar no novo campo
+        if (todosOsCampos && todosOsCampos.length > novoIndice) {
+            todosOsCampos[novoIndice].focus();
+            console.log('[adicionarCampoNota] Foco definido no campo:', novoIndice);
+        } else {
+            console.warn('[adicionarCampoNota] Não foi possível focar no novo campo');
+        }
+        
+        // Salvar no servidor
+        salvarCamposNota(notaId, widget);
+        console.log('[adicionarCampoNota] Salvamento no servidor iniciado');
+    }, 100); // Aumentado de 50ms para 100ms
+}
+
+/**
+ * Salva alterações da nota
+ */
+async function salvarNota(notaId, dados) {
+    try {
+        await fetch(`/api/notas/${notaId}`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(dados)
+        });
+        
+        // Atualiza dados locais
+        const widget = SessaoState.widgets.find(w => w.tipo === 'nota' && w.dados?.id === notaId);
+        if (widget) {
+            Object.assign(widget.dados, dados);
+            
+            // Atualiza título no header se mudou
+            if (dados.titulo) {
+                const header = widget.element.querySelector('.widget-header h3');
+                if (header) header.textContent = `📝 ${dados.titulo}`;
+                carregarListaNotas(); // Atualiza dropdown
+            }
+        }
+        
+    } catch (error) {
+        console.error('Erro ao salvar nota:', error);
+    }
+}
+
+/**
+ * Salva campos de texto da nota
+ */
+async function salvarCamposNota(notaId, widget) {
+    console.log('[salvarCamposNota] Iniciando salvamento para nota:', notaId);
+    console.log('[salvarCamposNota] Widget:', widget);
+    
+    const campos = [];
+    const campoInputs = widget.element?.querySelectorAll('.campo-nota');
+    
+    console.log('[salvarCamposNota] Inputs encontrados:', campoInputs?.length);
+    
+    if (campoInputs) {
+        campoInputs.forEach((input, index) => {
+            const fontSize = parseInt(input.style.fontSize) || 14;
+            const campo = {
+                texto: input.value,
+                fontSize: fontSize
+            };
+            campos.push(campo);
+            console.log(`[salvarCamposNota] Campo ${index}:`, campo);
+        });
+    }
+    
+    console.log('[salvarCamposNota] Todos os campos coletados:', campos);
+    
+    try {
+        await salvarNota(notaId, { campos });
+        console.log('[salvarCamposNota] Salvamento concluído');
+    } catch (error) {
+        console.error('[salvarCamposNota] Erro no salvamento:', error);
+    }
+}
+
+/**
+ * Altera o tamanho da fonte de um campo específico da nota
+ */
+function alterarFonteCampo(notaId, campoIndex, acao) {
+    console.log('[alterarFonteCampo] Iniciando:', { notaId, campoIndex, acao });
+    console.log('[alterarFonteCampo] Tipo do notaId:', typeof notaId);
+    
+    console.log('[alterarFonteCampo] Widgets disponíveis:', SessaoState.widgets.map(w => ({
+        tipo: w.tipo,
+        dadosId: w.dados?.id,
+        match: w.dados?.id === notaId
+    })));
+    
+    const widget = SessaoState.widgets.find(w => {
+        const match = w.tipo === 'nota' && w.dados?.id === notaId;
+        console.log(`[alterarFonteCampo] Widget check - tipo: ${w.tipo}, id: ${w.dados?.id}, match: ${match}`);
+        return match;
+    });
+    
+    if (!widget) {
+        console.error('[alterarFonteCampo] Widget não encontrado:', notaId);
+        return;
+    }
+    
+    console.log('[alterarFonteCampo] Widget encontrado:', widget);
+    
+    const campo = widget.element?.querySelector(`textarea[data-index="${campoIndex}"]`);
+    if (!campo) {
+        console.error('[alterarFonteCampo] Campo não encontrado:', `textarea[data-index="${campoIndex}"]`);
+        // Lista todos os campos disponíveis
+        const todosCampos = widget.element?.querySelectorAll('textarea');
+        console.log('[alterarFonteCampo] Campos disponíveis:', todosCampos);
+        return;
+    }
+    
+    console.log('[alterarFonteCampo] Campo encontrado:', campo);
+    
+    const currentSize = parseInt(campo.style.fontSize) || 14;
+    let newSize = currentSize;
+    
+    console.log('[alterarFonteCampo] Tamanho atual:', currentSize);
+    
+    if (acao === 'aumentar' && currentSize < 24) {
+        newSize = currentSize + 1;
+    } else if (acao === 'diminuir' && currentSize > 10) {
+        newSize = currentSize - 1;
+    }
+    
+    console.log('[alterarFonteCampo] Novo tamanho:', newSize);
+    
+    campo.style.fontSize = `${newSize}px`;
+    console.log('[alterarFonteCampo] Font-size aplicado:', campo.style.fontSize);
+    
+    // Atualiza dados do widget
+    if (!widget.dados.campos[campoIndex]) {
+        widget.dados.campos[campoIndex] = {};
+    }
+    widget.dados.campos[campoIndex].fontSize = newSize;
+    
+    console.log('[alterarFonteCampo] Dados atualizados:', widget.dados.campos[campoIndex]);
+    
+    // Salva alterações
+    salvarCamposNota(notaId, widget);
+    console.log('[alterarFonteCampo] Salvamento iniciado');
+}
+
+/**
+ * Aplica auto-save em todos os campos da nota
+ */
+function aplicarAutoSaveNota(widget) {
+    console.log('[aplicarAutoSaveNota] Aplicando eventos para widget:', widget.dados?.id);
+    console.log('[aplicarAutoSaveNota] Widget completo:', widget);
+    
+    if (!widget.dados || !widget.dados.id) {
+        console.error('[aplicarAutoSaveNota] Widget sem dados válidos:', widget);
+        return;
+    }
+    
+    // Remove eventos antigos primeiro
+    const elementosAntigos = widget.element?.querySelectorAll('.nota-titulo, .campo-nota');
+    elementosAntigos?.forEach(el => {
+        const novoEl = el.cloneNode(true);
+        el.parentNode?.replaceChild(novoEl, el);
+    });
+    
+    // Auto-save título
+    const tituloInput = widget.element?.querySelector('.nota-titulo');
+    if (tituloInput) {
+        console.log('[aplicarAutoSaveNota] Título input encontrado');
+        let timeoutId;
+        tituloInput.addEventListener('input', () => {
+            clearTimeout(timeoutId);
+            timeoutId = setTimeout(() => {
+                if (widget.dados && widget.dados.id) {
+                    salvarNota(widget.dados.id, { titulo: tituloInput.value });
+                    // Atualiza título no header
+                    const headerTitle = widget.element?.querySelector('.widget-title');
+                    if (headerTitle) headerTitle.textContent = `📝 ${tituloInput.value}`;
+                } else {
+                    console.error('[aplicarAutoSaveNota] Dados do widget inválidos no título:', widget.dados);
+                }
+            }, 1000);
+        });
+    } else {
+        console.warn('[aplicarAutoSaveNota] Título input não encontrado');
+    }
+    
+    // Auto-save campos
+    const campos = widget.element?.querySelectorAll('.campo-nota');
+    console.log('[aplicarAutoSaveNota] Campos encontrados:', campos?.length);
+    
+    if (campos) {
+        campos.forEach((campo, index) => {
+            console.log(`[aplicarAutoSaveNota] Aplicando evento no campo ${index}`);
+            let timeoutId;
+            campo.addEventListener('input', () => {
+                console.log(`[aplicarAutoSaveNota] Input evento disparado no campo ${index}`);
+                clearTimeout(timeoutId);
+                timeoutId = setTimeout(() => {
+                    console.log(`[aplicarAutoSaveNota] Salvando campo ${index}`);
+                    if (widget.dados && widget.dados.id) {
+                        salvarCamposNota(widget.dados.id, widget);
+                    } else {
+                        console.error('[aplicarAutoSaveNota] Dados do widget inválidos no salvamento:', widget.dados);
+                    }
+                }, 1500);
+            });
+        });
+    } else {
+        console.warn('[aplicarAutoSaveNota] Nenhum campo encontrado');
+    }
+}
+
+/**
+ * Gerencia links entre notas (placeholder)
+ */
+function gerenciarLinksNota(notaId) {
+    mostrarNotificacao('Sistema de links será implementado em breve', 'info');
+}
+
+// Fecha dropdowns ao clicar fora
+document.addEventListener('click', (e) => {
+    if (!e.target.closest('.dropdown-menu')) {
+        document.querySelectorAll('.dropdown-content').forEach(dd => {
+            dd.classList.remove('show');
+        });
+    }
 });

@@ -16,6 +16,7 @@ class Widget {
         
         this.element = null;
         this.conteudo = options.conteudo || '';
+        this.dados = options.dados || null;  // Adicionado suporte para dados
         
         this.criar();
     }
@@ -360,6 +361,7 @@ class WidgetManager {
             'iniciativa': '⏱️ Iniciativa',
             'log_combate': '📜 Log de Combate',
             'notas': '📝 Notas',
+            'nota': '📝 Nota',
             'dados': '🎲 Dados',
             'condicoes': '⚠️ Condições',
             'magias': '✨ Magias'
@@ -398,6 +400,29 @@ class WidgetManager {
     }
     
     remover(id) {
+        const widget = this.widgets.get(id);
+        
+        // Se for widget de nota, notifica para atualizar a lista
+        if (widget && widget.tipo === 'nota') {
+            // Remove do estado da sessão também
+            if (window.SessaoState && window.SessaoState.widgets) {
+                const index = window.SessaoState.widgets.findIndex(w => w.id === id);
+                if (index !== -1) {
+                    window.SessaoState.widgets.splice(index, 1);
+                }
+                
+                // Atualiza lista de notas se a função existir
+                if (typeof window.carregarListaNotas === 'function') {
+                    window.carregarListaNotas();
+                }
+                
+                // Salva estado se a função existir
+                if (typeof window.salvarEstadoSessao === 'function') {
+                    window.salvarEstadoSessao();
+                }
+            }
+        }
+        
         this.widgets.delete(id);
     }
     
@@ -411,7 +436,7 @@ class WidgetManager {
             // Pega o título atual do DOM (pode ter sido alterado)
             const tituloAtual = widget.element.querySelector('.widget-title')?.textContent || widget.titulo;
             
-            estado.push({
+            const widgetState = {
                 id: widget.id,
                 tipo: widget.tipo,
                 titulo: tituloAtual,
@@ -421,7 +446,14 @@ class WidgetManager {
                 height: widget.element.offsetHeight,
                 minimizado: widget.minimizado,
                 dadosCriatura: widget.dadosCriatura || null
-            });
+            };
+            
+            // Para widgets de nota, salva os dados da nota
+            if (widget.tipo === 'nota' && widget.dados) {
+                widgetState.dados = widget.dados;
+            }
+            
+            estado.push(widgetState);
         });
         return estado;
     }
@@ -498,6 +530,14 @@ class WidgetManager {
             case 'notas':
                 if (typeof getConteudoNotas === 'function') {
                     widget.setConteudo(getConteudoNotas());
+                }
+                break;
+            case 'nota':
+                // Widget de nota individual - restaura diretamente de config.dados
+                if (config.dados && typeof criarWidgetNota === 'function') {
+                    // Remove widget temporário e cria um novo com dados corretos
+                    widget.fechar();
+                    criarWidgetNota(config.dados);
                 }
                 break;
             case 'ficha_personagem':

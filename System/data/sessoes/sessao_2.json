@@ -3,7 +3,7 @@
   "id": "2",
   "data": "2026-01-24",
   "criada_em": "2026-01-24T11:25:45.485892",
-  "atualizada_em": "2026-01-24T11:41:08.190691",
+  "atualizada_em": "2026-01-24T12:55:49.874139",
   "estado": {
     "mapa_atual": "Cenários/Caverna Iluminada.png",
     "combate_ativo": false,
@@ -12,9 +12,23 @@
     "ordem_turnos": [
       {
         "ativo": true,
+        "id": 63,
+        "iniciativa": 18,
+        "nome": "Derro 1",
+        "tipo": "instancia"
+      },
+      {
+        "ativo": true,
         "id": 59,
         "iniciativa": 14,
         "nome": "Drow Elite Warrior 1",
+        "tipo": "instancia"
+      },
+      {
+        "ativo": true,
+        "id": 62,
+        "iniciativa": 11,
+        "nome": "Quaggoth 1",
         "tipo": "instancia"
       },
       {
@@ -27,24 +41,13 @@
     ],
     "widgets": [
       {
-        "id": "widget-1769265668136",
-        "tipo": "log_combate",
-        "titulo": "📜 Log de Combate",
-        "x": 1090,
-        "y": 119,
-        "width": 350,
-        "height": 350,
-        "minimizado": false,
-        "dadosCriatura": null
-      },
-      {
-        "id": "widget-1769265668137",
+        "id": "widget-1769270149831",
         "tipo": "ficha_personagem",
         "titulo": "👤 Bilbo",
-        "x": 100,
+        "x": 5,
         "y": 80,
-        "width": 320,
-        "height": 400,
+        "width": 200,
+        "height": 150,
         "minimizado": false,
         "dadosCriatura": {
           "tipo": "personagem",
@@ -55,5 +58,30 @@
       }
     ]
   },
-  "log": []
+  "log": [
+    {
+      "timestamp": "2026-01-24T11:43:01.678649",
+      "tipo": "info",
+      "mensagem": "<strong>Quaggoth 1</strong> rolou iniciativa: 10+1 = 11",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T11:56:01.618297",
+      "tipo": "info",
+      "mensagem": "<strong>Derro 1</strong> rolou iniciativa: 16+2 = 18",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T11:56:04.206499",
+      "tipo": "dano",
+      "mensagem": "<strong>Derro 1</strong> -4 HP",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T11:56:05.434153",
+      "tipo": "ataque",
+      "mensagem": "<strong>Derro 1</strong> usa <em>Azagaia</em> <span class=\"ataque-total \">21</span> <span class=\"ataque-detalhes\">(17+4)</span><br><span class=\"dano-linha\"><span class=\"dano\">7</span> dano <span class=\"dano-expressao\">(1d6+2)</span></span>",
+      "dados": {}
+    }
+  ]
 }

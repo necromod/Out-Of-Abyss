@@ -79,6 +79,106 @@ body.sessao-mode .navbar {
     margin: 0 4px;
 }
 
+/* =========================================
+   Dropdown de Notas
+   ========================================= */
+
+.dropdown-menu {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-toggle {
+    position: relative;
+}
+
+.dropdown-content {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    min-width: 200px;
+    max-width: 300px;
+    max-height: 400px;
+    overflow-y: auto;
+    background-color: var(--bg-elevated);
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    z-index: 9999;
+    display: none;
+    animation: dropdownSlide 0.15s ease-out;
+}
+
+.dropdown-content.show {
+    display: block;
+}
+
+.dropdown-header {
+    padding: 8px 12px;
+    background-color: var(--bg-tertiary);
+    border-bottom: 1px solid var(--border-color);
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.dropdown-item {
+    display: block;
+    width: 100%;
+    padding: 8px 12px;
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    border-radius: 0;
+}
+
+.dropdown-item:hover {
+    background-color: var(--accent-primary);
+    color: var(--bg-primary);
+}
+
+.dropdown-item.criar-nota {
+    background-color: var(--bg-tertiary);
+    color: var(--accent-success);
+    font-weight: 600;
+}
+
+.dropdown-item.criar-nota:hover {
+    background-color: var(--accent-success);
+    color: var(--bg-primary);
+}
+
+.dropdown-separator {
+    height: 1px;
+    background-color: var(--border-color);
+    margin: 4px 0;
+}
+
+.dropdown-empty {
+    padding: 12px;
+    text-align: center;
+    color: var(--text-secondary);
+    font-style: italic;
+    font-size: 0.85rem;
+}
+
+@keyframes dropdownSlide {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 /* Esconde toolbar flutuante antiga quando na sessão */
 body.sessao-mode .toolbar {
     display: none;
@@ -1843,4 +1943,234 @@ body.sessao-mode .toolbar {
     border-color: var(--accent-info);
     color: var(--bg-primary);
     transform: translateX(2px);
+}
+
+/* =========================================
+   Widget de Notas
+   ========================================= */
+
+.widget-nota {
+    background-color: var(--bg-elevated);
+    border: 2px solid var(--accent-warning);
+    border-radius: var(--radius-md);
+    min-width: 300px;
+    min-height: 200px;
+    max-width: 500px;
+    max-height: 600px;
+    resize: both;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.widget-nota .widget-header {
+    background: linear-gradient(135deg, var(--accent-warning), #ffb74d);
+    color: var(--bg-primary);
+    font-weight: 600;
+    padding: 6px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    cursor: move;
+    min-height: 32px;
+}
+
+.btn-header-link {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: var(--radius-sm);
+    color: white;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.15s ease;
+    margin-right: 4px;
+}
+
+.btn-header-link:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+}
+
+.widget-nota .widget-content {
+    flex: 1;
+    padding: 12px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.nota-titulo {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 4px 0;
+    border-bottom: 2px solid var(--accent-warning);
+    margin-bottom: 8px;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.nota-titulo:focus {
+    border-bottom-color: var(--accent-primary);
+}
+
+.nota-titulo::placeholder {
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+.campos-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex: 1;
+}
+
+.campo-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 8px;
+}
+
+.controles-fonte-campo {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    display: flex;
+    gap: 2px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.campo-wrapper:hover .controles-fonte-campo {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.btn-fonte {
+    background-color: rgba(0, 0, 0, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: var(--radius-sm);
+    color: white;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 0.65rem;
+    font-weight: 600;
+    transition: all 0.15s ease;
+    backdrop-filter: blur(2px);
+}
+
+.btn-fonte:hover {
+    background-color: var(--accent-warning);
+    border-color: var(--accent-warning);
+    color: var(--bg-primary);
+    transform: scale(1.1);
+}
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+}
+
+.campo-nota {
+    background-color: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 8px;
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    resize: vertical;
+    min-height: 60px;
+    outline: none;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+.campo-nota:focus {
+    border-color: var(--accent-warning);
+    background-color: var(--bg-primary);
+    box-shadow: 0 0 0 2px rgba(255, 193, 7, 0.2);
+}
+
+.campo-nota::placeholder {
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+.botoes-nota {
+    display: flex;
+    gap: 6px;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid var(--border-color);
+}
+
+.btn-adicionar-campo {
+    flex: 1;
+    padding: 6px 12px;
+    background-color: var(--accent-success);
+    border: none;
+    border-radius: var(--radius-sm);
+    color: white;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.btn-adicionar-campo:hover {
+    background-color: #43a047;
+    transform: translateY(-1px);
+}
+
+/* Links entre notas */
+.links-nota {
+    margin-top: 8px;
+    padding: 8px;
+    background-color: var(--bg-tertiary);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+}
+
+.links-nota h4 {
+    margin: 0 0 6px 0;
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.link-nota {
+    display: inline-block;
+    padding: 4px 8px;
+    margin: 2px;
+    background-color: var(--accent-info);
+    color: white;
+    text-decoration: none;
+    border-radius: var(--radius-sm);
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.link-nota:hover {
+    background-color: #1976d2;
+    transform: scale(1.05);
 }

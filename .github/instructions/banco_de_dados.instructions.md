@@ -401,6 +401,39 @@ conn.execute("PRAGMA synchronous = NORMAL")
 
 ---
 
+### 9. `notas_sessao` - Sistema de Notas
+
+| Coluna | Tipo | Padrão | Descrição |
+|--------|------|--------|-----------|
+| `id` | INTEGER | AUTO | PK |
+| `sessao_id` | INTEGER | | FK para sessões |
+| `titulo` | TEXT | 'Nova Nota' | Título da nota |
+| `campos` | TEXT/JSON | `[]` | Array de campos de texto |
+| `links` | TEXT/JSON | `[]` | Array de links (futuro) |
+| `posicao_x` | INTEGER | 100 | Posição X do widget |
+| `posicao_y` | INTEGER | 100 | Posição Y do widget |
+| `largura` | INTEGER | 350 | Largura do widget |
+| `altura` | INTEGER | 250 | Altura do widget |
+| `criado_em` | TEXT | NOW | Data de criação |
+| `atualizado_em` | TEXT | NOW | Última atualização |
+
+**Estrutura JSON dos campos:**
+```json
+[
+    { "texto": "Conteúdo do primeiro campo" },
+    { "texto": "Conteúdo do segundo campo" }
+]
+```
+
+**Estrutura JSON dos links (futuro):**
+```json
+[
+    { "url": "https://...", "titulo": "Link externo" }
+]
+```
+
+---
+
 ### 9. Tabelas de Regras D&D
 
 #### `racas`

@@ -521,3 +521,110 @@ class CombateRepository(BaseRepository):
                 (id,)
             )
         return cls.get_by_id(id)
+
+
+# ==================== NOTAS DE SESSÃO ====================
+
+class NotasSessaoRepository(BaseRepository):
+    table_name = "notas_sessao"
+    
+    @classmethod
+    def get_by_id(cls, id: int) -> Optional[Dict]:
+        """Retorna nota com campos JSON parseados"""
+        data = super().get_by_id(id)
+        if data:
+            cls._parse_json_fields(data)
+        return data
+    
+    @classmethod
+    def get_all(cls, where: str = None, params: tuple = None) -> List[Dict]:
+        """Retorna todas as notas com JSON parseado"""
+        results = super().get_all(where, params)
+        for r in results:
+            cls._parse_json_fields(r)
+        return results
+    
+    @classmethod
+    def criar(cls, dados: Dict) -> Dict:
+        """Cria uma nova nota"""
+        # Prepara os dados convertendo JSON para strings
+        dados_preparados = {
+            'titulo': dados.get('titulo', 'Nova Nota'),
+            'posicao_x': dados.get('posicao_x', 100),
+            'posicao_y': dados.get('posicao_y', 100),
+            'largura': dados.get('largura', 350),
+            'altura': dados.get('altura', 250)
+        }
+        
+        # Converte campos JSON para strings
+        if 'campos' in dados:
+            dados_preparados['campos'] = json_dumps(dados['campos'])
+        else:
+            dados_preparados['campos'] = json_dumps([{'texto': ''}])
+        
+        if 'links' in dados:
+            dados_preparados['links'] = json_dumps(dados['links'])
+        else:
+            dados_preparados['links'] = json_dumps([])
+        
+        id = cls.insert(dados_preparados)
+        return cls.get_by_id(id)
+    
+    @classmethod
+    def atualizar_campos(cls, id: int, campos: List[Dict]) -> Dict:
+        """Atualiza os campos de texto da nota"""
+        with get_connection() as conn:
+            conn.execute(
+                "UPDATE notas_sessao SET campos = ?, atualizado_em = CURRENT_TIMESTAMP WHERE id = ?",
+                (json_dumps(campos), id)
+            )
+        return cls.get_by_id(id)
+    
+    @classmethod
+    def atualizar_titulo(cls, id: int, titulo: str) -> Dict:
+        """Atualiza o título da nota"""
+        with get_connection() as conn:
+            conn.execute(
+                "UPDATE notas_sessao SET titulo = ?, atualizado_em = CURRENT_TIMESTAMP WHERE id = ?",
+                (titulo, id)
+            )
+        return cls.get_by_id(id)
+    
+    @classmethod
+    def atualizar_links(cls, id: int, links: List[int]) -> Dict:
+        """Atualiza os links da nota"""
+        with get_connection() as conn:
+            conn.execute(
+                "UPDATE notas_sessao SET links = ?, atualizado_em = CURRENT_TIMESTAMP WHERE id = ?",
+                (json_dumps(links), id)
+            )
+        return cls.get_by_id(id)
+    
+    @classmethod
+    def atualizar_posicao(cls, id: int, x: int, y: int, largura: int = None, altura: int = None) -> Dict:
+        """Atualiza posição e tamanho da nota"""
+        with get_connection() as conn:
+            if largura is not None and altura is not None:
+                conn.execute(
+                    "UPDATE notas_sessao SET posicao_x = ?, posicao_y = ?, largura = ?, altura = ? WHERE id = ?",
+                    (x, y, largura, altura, id)
+                )
+            else:
+                conn.execute(
+                    "UPDATE notas_sessao SET posicao_x = ?, posicao_y = ? WHERE id = ?",
+                    (x, y, id)
+                )
+        return cls.get_by_id(id)
+    
+    @classmethod
+    def deletar(cls, id: int) -> bool:
+        """Remove uma nota"""
+        return super().delete(id)
+    
+    @classmethod
+    def _parse_json_fields(cls, data: Dict) -> None:
+        """Parse de campos JSON específicos"""
+        if 'campos' in data:
+            data['campos'] = json_loads_safe(data['campos'], [])
+        if 'links' in data:
+            data['links'] = json_loads_safe(data['links'], [])

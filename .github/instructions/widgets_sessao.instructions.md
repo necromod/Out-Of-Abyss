@@ -1121,6 +1121,221 @@ Ordem fixa para manter consistência:
 
 ---
 
+## 16. Sistema de Notas da Sessão
+
+O sistema de notas permite criar, editar e gerenciar notas flutuantes durante as sessões de jogo.
+
+### 16.1. Visão Geral
+
+- **Backend**: Tabela `notas_sessao` com campos JSON (campos, links)
+- **Frontend**: Widgets flutuantes com auto-save
+- **API**: CRUD completo em `/api/notas/*`
+- **Navegação**: Dropdown na navbar da sessão
+
+### 16.2. Estrutura de Dados
+
+```sql
+-- Tabela notas_sessao
+id INTEGER PRIMARY KEY
+sessao_id INTEGER
+titulo TEXT
+campos TEXT (JSON)
+links TEXT (JSON)
+posicao_x INTEGER
+posicao_y INTEGER
+largura INTEGER
+altura INTEGER
+criado_em DATETIME
+atualizado_em DATETIME
+```
+
+```javascript
+// Estrutura dos campos JSON
+campos: [
+    { texto: "Conteúdo do campo" },
+    { texto: "Outro campo" }
+]
+
+// Estrutura dos links JSON (para futuro)
+links: [
+    { url: "http://...", titulo: "Link externo" }
+]
+```
+
+### 16.3. API Endpoints
+
+| Método | Rota | Descrição |
+|--------|------|-----------|
+| GET | `/api/notas` | Lista todas as notas da sessão |
+| GET | `/api/notas/{id}` | Obtém nota específica |
+| POST | `/api/notas` | Cria nova nota |
+| PATCH | `/api/notas/{id}` | Atualiza título da nota |
+| PATCH | `/api/notas/{id}/campos` | Atualiza campos da nota |
+| DELETE | `/api/notas/{id}` | Remove nota |
+
+### 16.4. Widget de Nota
+
+#### Estrutura do Widget
+```javascript
+// Configuração do widget
+const widget = new Widget({
+    tipo: 'nota',
+    dados: {
+        id: nota.id,
+        titulo: nota.titulo,
+        largura: nota.largura || 350,
+        altura: nota.altura || 250,
+        campos: nota.campos || [],
+        links: nota.links || []
+    }
+});
+```
+
+#### HTML Gerado
+```html
+<div class="nota-widget">
+    <div class="nota-header">
+        <input type="text" class="nota-titulo" value="Título da Nota">
+        <button onclick="adicionarCampoNota(ID)">+ Campo</button>
+    </div>
+    <div class="nota-campos">
+        <div class="campo-wrapper">
+            <div class="controles-fonte-campo">
+                <button onclick="alterarFonteCampo(ID, 0, 'diminuir')">A-</button>
+                <button onclick="alterarFonteCampo(ID, 0, 'aumentar')">A+</button>
+            </div>
+            <textarea class="campo-texto" data-campo-index="0"></textarea>
+            <button onclick="removerCampoNota(ID, 0)">🗑️</button>
+        </div>
+    </div>
+</div>
+```
+
+### 16.5. Funcionalidades
+
+#### Auto-Save
+- **Título**: Salva após 1000ms de inatividade
+- **Campos**: Salva após 1500ms de inatividade
+- **Posição/Tamanho**: Salva no `salvarEstadoSessao()`
+
+#### Gerenciamento de Campos
+```javascript
+// Adicionar campo
+async function adicionarCampoNota(notaId) {
+    // Encontra widget → adiciona campo → atualiza HTML → salva API
+}
+
+// Remover campo
+async function removerCampoNota(notaId, campoIndex) {
+    // Remove do array → atualiza HTML → salva API
+}
+
+// Alterar fonte
+function alterarFonteCampo(notaId, campoIndex, acao) {
+    // 'aumentar': +2px | 'diminuir': -2px
+    // Min: 10px | Max: 24px
+}
+```
+
+#### Navegação por Dropdown
+- **Lista**: Notas ordenadas por mais recente primeiro
+- **Indicadores**: 📄 (fechada) | 📂 (aberta) + " (aberta)"
+- **Reabertura**: Clique reabre nota fechada ou foca nota aberta
+- **Limpeza**: Remove widgets órfãos automaticamente
+
+### 16.6. Estados e Persistência
+
+#### Widget Órfão
+```javascript
+// Problema: Widget no SessaoState mas elemento DOM removido
+// Solução: Verificação antes de manipular
+if (!widget.element || !document.contains(widget.element)) {
+    // Remove do estado e recria widget
+}
+```
+
+#### Restauração de Sessão
+```javascript
+// Widgets de nota são restaurados automaticamente
+// com posição, tamanho e conteúdo preservados
+await restaurarEstado(estado);
+```
+
+### 16.7. Estilos CSS
+
+#### Layout Principal
+```css
+.nota-widget {
+    padding: 10px;
+    background: var(--widget-bg);
+    border-radius: 5px;
+}
+
+.nota-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.campo-wrapper {
+    position: relative;
+    margin-bottom: 8px;
+}
+```
+
+#### Controles de Fonte
+```css
+.controles-fonte-campo {
+    position: absolute;
+    top: 5px;
+    right: 30px;
+    z-index: 10;
+    opacity: 0.7;
+}
+
+.campo-wrapper:hover .controles-fonte-campo {
+    opacity: 1;
+}
+```
+
+### 16.8. Integração com Sessão
+
+#### Dropdown de Navegação
+```html
+<!-- Navbar da sessão -->
+<div class="dropdown">
+    <button onclick="toggleDropdown('dropdown-notas')">📝 Notas</button>
+    <div id="dropdown-notas" class="dropdown-content">
+        <button onclick="criarNovaNota()">+ Nova Nota</button>
+        <hr>
+        <div id="lista-notas-dropdown"></div>
+    </div>
+</div>
+```
+
+#### Atualização Automática
+- **Criação**: Lista atualizada após criar nota
+- **Remoção**: Lista atualizada quando widget é fechado
+- **Estado**: Indicadores de aberto/fechado atualizados dinamicamente
+
+### 16.9. Debugging e Logs
+
+#### Logs de Debug
+```javascript
+console.log('[criarWidgetNota] Criando widget para nota:', nota);
+console.log('[abrirNota] Widget órfão detectado, limpando...');
+console.log('[alterarFonteCampo] Iniciando:', { notaId, campoIndex, acao });
+```
+
+#### Funções de Teste
+```javascript
+// Disponíveis no console do browser
+window.testeAdicionarCampo(notaId);
+window.testeFonte(notaId, campoIndex, acao);
+```
+
+---
+
 ## 15. Checklist para Novas Funcionalidades
 
 - [ ] Adicionar estilos em `sessao.css` ou `widgets.css`

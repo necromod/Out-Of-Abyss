@@ -1,9 +1,9 @@
 # Script para executar o Out of the Abyss System
 $ErrorActionPreference = "Stop"
 
-# Verifica se ja tem servidor rodando na porta 5000
-$existingProcess = Get-NetTCPConnection -LocalPort 5000 -ErrorAction SilentlyContinue | Select-Object -First 1
-if ($existingProcess) {
+# Verifica se ja tem servidor rodando na porta 5000 (apenas LISTENING, não TIME_WAIT)
+$listeningProcess = Get-NetTCPConnection -LocalPort 5000 -State Listen -ErrorAction SilentlyContinue | Select-Object -First 1
+if ($listeningProcess) {
     Write-Host "Servidor ja esta rodando! Abrindo navegador..." -ForegroundColor Yellow
     Start-Process "http://127.0.0.1:5000"
     exit 0

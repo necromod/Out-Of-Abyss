@@ -162,6 +162,35 @@ sessao = SessaoRepository.criar_sessao()  # Auto-incrementa número
 atual = SessaoRepository.get_sessao_atual()
 ```
 
+### NotasSessaoRepository
+```python
+from app.modulos.repositories import NotasSessaoRepository
+
+# CRUD básico
+nota = NotasSessaoRepository.criar({
+    'sessao_id': 1,
+    'titulo': 'Nova Nota',
+    'campos': [{'texto': 'Conteúdo inicial'}],
+    'links': []
+})
+
+# Buscar por sessão
+notas = NotasSessaoRepository.get_by_sessao(sessao_id=1)
+
+# Atualizar título
+NotasSessaoRepository.atualizar(nota_id, {'titulo': 'Novo Título'})
+
+# Atualizar campos específicos
+NotasSessaoRepository.atualizar_campos(nota_id, [
+    {'texto': 'Campo 1'},
+    {'texto': 'Campo 2'}
+])
+
+# Campos JSON tratados automaticamente:
+# campos (lista de objetos com 'texto')
+# links (lista de objetos com 'url' e 'titulo')
+```
+
 ---
 
 ## 3. regras_base.py
@@ -374,6 +403,10 @@ condicoes = get_condicoes(tipo='personagem', id=1)
 - `/api/npcs/<id>` - GET NPC por ID
 - `/api/npcs/<id>/dano` - POST aplicar dano a NPC
 - `/api/npcs/<id>/curar` - POST curar NPC
+- `/api/notas` - GET lista de notas, POST criar nova nota
+- `/api/notas/<id>` - GET nota específica, DELETE remover nota
+- `/api/notas/<id>` - PATCH atualizar título da nota
+- `/api/notas/<id>/campos` - PATCH atualizar campos da nota
 
 ---
 
