@@ -450,6 +450,59 @@ def atualizar_npc(id):
     return jsonify(NPCRepository.get_by_id(id))
 
 
+@api_bp.route('/npcs/<int:id>/dano', methods=['POST'])
+def aplicar_dano_npc(id):
+    """Aplica dano a um NPC"""
+    from ..modulos.repositories import NPCRepository
+    from ..modulos.database import get_connection
+    
+    data = request.get_json()
+    dano = data.get('dano', 0)
+    
+    npc = NPCRepository.get_by_id(id)
+    if not npc:
+        return jsonify({'erro': 'NPC não encontrado'}), 404
+    
+    hp_atual = npc.get('hp_atual') or npc.get('hp_maximo') or 10
+    novo_hp = max(0, hp_atual - dano)
+    
+    with get_connection() as conn:
+        conn.execute(
+            "UPDATE npcs SET hp_atual = ?, atualizado_em = CURRENT_TIMESTAMP WHERE id = ?",
+            (novo_hp, id)
+        )
+        conn.commit()
+    
+    return jsonify(NPCRepository.get_by_id(id))
+
+
+@api_bp.route('/npcs/<int:id>/curar', methods=['POST'])
+def curar_npc(id):
+    """Cura um NPC"""
+    from ..modulos.repositories import NPCRepository
+    from ..modulos.database import get_connection
+    
+    data = request.get_json()
+    quantidade = data.get('quantidade', 0)
+    
+    npc = NPCRepository.get_by_id(id)
+    if not npc:
+        return jsonify({'erro': 'NPC não encontrado'}), 404
+    
+    hp_atual = npc.get('hp_atual') or npc.get('hp_maximo') or 10
+    hp_maximo = npc.get('hp_maximo') or 10
+    novo_hp = min(hp_maximo, hp_atual + quantidade)
+    
+    with get_connection() as conn:
+        conn.execute(
+            "UPDATE npcs SET hp_atual = ?, atualizado_em = CURRENT_TIMESTAMP WHERE id = ?",
+            (novo_hp, id)
+        )
+        conn.commit()
+    
+    return jsonify(NPCRepository.get_by_id(id))
+
+
 # ==================== PERSONAGENS ====================
 
 @api_bp.route('/personagens')

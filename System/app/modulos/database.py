@@ -674,7 +674,16 @@ class BaseRepository:
     def update(cls, id: int, data: Dict) -> bool:
         with get_connection() as conn:
             sets = ", ".join([f"{k} = ?" for k in data.keys()])
-            sql = f"UPDATE {cls.table_name} SET {sets}, atualizado_em = CURRENT_TIMESTAMP WHERE id = ?"
+            
+            # Verifica se a tabela tem coluna atualizado_em
+            cursor = conn.execute(f"PRAGMA table_info({cls.table_name})")
+            colunas = [row[1] for row in cursor.fetchall()]
+            
+            if 'atualizado_em' in colunas:
+                sql = f"UPDATE {cls.table_name} SET {sets}, atualizado_em = CURRENT_TIMESTAMP WHERE id = ?"
+            else:
+                sql = f"UPDATE {cls.table_name} SET {sets} WHERE id = ?"
+            
             conn.execute(sql, (*data.values(), id))
             return True
     

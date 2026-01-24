@@ -137,8 +137,21 @@ inst = InstanciaMonstroRepository.get_completo(inst_id)
 ```python
 from app.modulos.repositories import NpcRepository
 
+# CRUD básico
 npc = NpcRepository.criar({'nome': 'Mercador', 'localizacao': 'Cidade'})
-npcs = NpcRepository.get_all()
+npc = NpcRepository.get_by_id(1)  # Auto-parse de JSON (atributos, acoes)
+npcs = NpcRepository.get_all()    # Lista com JSON parseado
+
+# Campos JSON tratados automaticamente:
+# atributos (dict com 6 atributos)
+# acoes (lista de ações de combate)
+
+# Estrutura de ações:
+# [{ nome, tipo, bonus, dados[], tipo_dano, cd, descricao }]
+
+# Dano/cura (via API)
+# POST /api/npcs/{id}/dano { dano: number }
+# POST /api/npcs/{id}/curar { quantidade: number }
 ```
 
 ### SessaoRepository
@@ -345,6 +358,7 @@ condicoes = get_condicoes(tipo='personagem', id=1)
 - `/fichas/monstros` - Bestiário
 - `/fichas/monstro/<id>` - Ficha de monstro
 - `/fichas/npcs` - Lista de NPCs
+- `/fichas/npc/<id>` - Ficha de NPC
 - `/fichas/api/*` - APIs JSON
 
 ### sessao.py
@@ -357,6 +371,9 @@ condicoes = get_condicoes(tipo='personagem', id=1)
 
 ### api.py
 - APIs gerais e utilitárias
+- `/api/npcs/<id>` - GET NPC por ID
+- `/api/npcs/<id>/dano` - POST aplicar dano a NPC
+- `/api/npcs/<id>/curar` - POST curar NPC
 
 ---
 
@@ -421,11 +438,14 @@ class WidgetManager {
 - Estado da sessão (`SessaoState`)
 - Sistema de combate (turnos, rounds)
 - Sistema de ataques com rolagem automática
+- Sistema de testes de perícias com atributos clicáveis
 - Condições D&D 5e (`CONDICOES_DND`)
+- Mapeamento de perícias (`PERICIAS_POR_ATRIBUTO`)
 - Widgets de personagem/monstro
 - Dano/cura rápida
 - Testes de morte
 - Log de combate formatado
+- Persistência de estado
 
 **Estado Global:**
 ```javascript
@@ -437,50 +457,153 @@ const SessaoState = {
     contadorMonstros: {},
     logCombate: []      // Histórico de ações
 };
+
+const CONDICOES_DND = {
+    'agarrado': { nome: 'Agarrado', descricao: '...' },
+    // ... todas as 15 condições D&D 5e
+};
+
+const PERICIAS_POR_ATRIBUTO = {
+    forca: [
+        { id: 'forca', nome: 'Força (puro)', isPuro: true },
+        { id: 'atletismo', nome: 'Atletismo' }
+    ],
+    destreza: [
+        { id: 'destreza', nome: 'Destreza (puro)', isPuro: true },
+        { id: 'acrobacia', nome: 'Acrobacia' },
+        { id: 'furtividade', nome: 'Furtividade' },
+        { id: 'prestidigitacao', nome: 'Prestidigitação' }
+    ],
+    // ... mapeamento completo de 18 perícias em 6 atributos
+};
 ```
 
 **Funções Principais:**
+
+### Combate
 ```javascript
-// Combate
 iniciarCombate()          // Inicia combate, ordena turnos
 proximoTurno()            // Avança turno, incrementa round se necessário
 finalizarCombate()        // Encerra combate
 adicionarAosTurnos(tipo, id, nome, iniciativa, modDestreza)
 editarIniciativa(event, index)
+```
 
-// Ataques (rola automaticamente ao clicar)
+### Ataques (rola automaticamente ao clicar)
+```javascript
 rolarAtaque(event, nomeAtacante, nomeAtaque, bonusAtaque, dados, tipoDano)
 // Rola 1d20+bonus, detecta crítico/falha, rola dano (dobrado em crit)
+```
 
-// Log de Combate
+### Testes de Perícias (NOVO)
+```javascript
+// Atributos clicáveis abrem submenu de perícias
+abrirSubmenuPericias(event, id, tipo, atributo, valorAtributo, proficientes, expertise, bonusProf)
+// Parâmetros:
+//   - event: evento de clique
+//   - id: ID da criatura
+//   - tipo: 'personagem' | 'instancia'
+//   - atributo: 'forca' | 'destreza' | etc
+//   - valorAtributo: valor numérico do atributo (8-20)
+//   - proficientes: ["atletismo", "acrobacia"]
+//   - expertise: ["percepcao"]
+//   - bonusProf: bônus de proficiência (+2 a +6)
+
+// Rola 1d20 + modificador (com proficiência/expertise se aplicável)
+rolarTeste(event, id, tipo, testeId, testeNome, bonus)
+// Cálculo: 1d20 + modificador_atributo [+ bonusProf | + bonusProf*2]
+// Detecta: crítico (20) e falha crítica (1)
+```
+
+### Resistências
+```javascript
+// Menu horizontal com os 6 atributos
+toggleMenuResistencia(event, id, tipo, atributos)
+
+// Rola salvaguarda (1d20 + mod + prof se proficiente)
+rolarResistencia(event, id, tipo, atributo, nomeAttr, modificador)
+```
+
+### Log de Combate
+```javascript
 adicionarLogCombate(mensagem, tipo)  // tipo: info, ataque, crit, fumble, dano, cura
 atualizarWidgetLog()
+```
 
-// Widgets de ficha
+### Widgets de ficha
+```javascript
 carregarPersonagemWidget(widgetId, personagemId)
+// Carrega dados, salva IMEDIATAMENTE com dadosCriatura
 gerarHTMLPersonagemWidget(p)  // Inclui PP: 👁{percepcaoPassiva}
-atualizarWidgetCriatura(tipo, id, dadosAtualizados)
+// Atributos clicáveis para testes de perícias
 
-// Dano/Cura
+carregarMonstroInstanciaWidget(widgetId, instanciaId)
+// Carrega instância, salva IMEDIATAMENTE com dadosCriatura
+gerarHTMLInstanciaMonstroWidget(inst, nomeBase)
+
+carregarNPCWidget(widgetId, npcId)
+// Carrega NPC com ações de combate
+gerarHTMLNPCWidget(npc)  // Widget com ataques, magias, habilidades
+
+atualizarWidgetCriatura(tipo, id, dadosAtualizados)
+// Atualiza HP, testes de morte, efeitos dinamicamente
+```
+
+### Ações de NPC
+```javascript
+// Rola dados de magia (sem d20, alvo faz salvaguarda)
+rolarMagiaNPC(event, nomeNPC, nomeMagia, dados, tipoDano, cd)
+
+// Usa habilidade (log sem rolagem)
+usarHabilidadeNPC(event, nomeNPC, nomeHabilidade, descricao, cd)
+
+// Adiciona NPC à ordem de iniciativa
+adicionarNPCAoCombate(id, nome, modDestreza)
+
+// Rola expressão de dados localmente (ex: "2d6+3")
+rolarExpressao(expressao)
+// Retorna: { dados: [...], soma: n, expressao, texto }
+```
+
+### Dano/Cura
+```javascript
 abrirDanoRapido(event, id, nome, tipo)
 abrirCuraRapida(event, id, nome, tipo)
+```
 
-// Efeitos D&D 5e
+### Efeitos D&D 5e
+```javascript
 abrirModalEfeito(event, tipo, id)  // Modal com style="display: flex;"
 adicionarEfeito(tipo, id)
 removerEfeito(btn)  // Recebe o botão clicado
 atualizarContadoresEfeitos()  // Decrementa turnos, remove expirados
-
-// Testes de Morte
-marcarTesteMorte(event, id, tipo, valor)
 ```
 
-**Constante de Condições:**
+### Testes de Morte
 ```javascript
-const CONDICOES_DND = {
-    'agarrado': { nome: 'Agarrado', descricao: '...' },
-    'amedrontado': { nome: 'Amedrontado', descricao: '...' },
-    // ... todas as 15 condições D&D 5e
+marcarTesteMorte(event, id, tipo, valor)
+// PATCH para atualizar sucesso_morte ou falha_morte
+```
+
+### Persistência (CRÍTICO)
+```javascript
+salvarEstadoSessao()  // POST /sessao/api/estado
+// Chamado: a cada 10s (auto-save) + IMEDIATAMENTE após carregar dados no widget
+
+restaurarEstado(estado)
+// Recria widgets, carrega dados de personagens/monstros, log, turnos
+// Usa dadosCriatura para determinar tipo e ID da criatura
+```
+
+**Estrutura de dadosCriatura (Widget):**
+```javascript
+widget.dadosCriatura = {
+    tipo: 'personagem' | 'instancia' | 'npc',
+    id: 1,
+    nome: 'Azazel Ireth',
+    nomeBase: 'Goblin',  // Apenas para instancias
+    modDestreza: 3       // Para iniciativa
 };
+// ⚠️ Após definir dadosCriatura, SEMPRE chamar salvarEstadoSessao()
 ```
 

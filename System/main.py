@@ -11,6 +11,13 @@ import os
 # Adiciona o diretório do sistema ao path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
+# Garante que sys.executable aponta para o Python do venv
+if hasattr(sys, 'real_prefix') or (hasattr(sys, 'base_prefix') and sys.base_prefix != sys.prefix):
+    # Está em um venv
+    venv_python = os.path.join(sys.prefix, 'Scripts', 'python.exe')
+    if os.path.exists(venv_python):
+        sys.executable = venv_python
+
 from app import create_app
 
 app = create_app()
@@ -26,5 +33,5 @@ if __name__ == '__main__':
     app.run(
         host='127.0.0.1',
         port=5000,
-        debug=True
+        debug=False
     )

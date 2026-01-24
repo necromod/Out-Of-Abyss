@@ -9,6 +9,23 @@ Flask + SQLite + Jinja2 | Python 3.14
 
 ---
 
+## ⚠️ IMPORTANTE - Consultar Instruções
+
+**Antes de fazer alterações no banco de dados, estrutura ou funcionalidades, SEMPRE consulte TODOS os arquivos de instrução em `.github/instructions/`:**
+
+```
+.github/instructions/
+├── instrucao_base.instructions.md      # Este arquivo - visão geral
+├── banco_de_dados.instructions.md      # ⚠️ OBRIGATÓRIO para mudanças em tabelas/JSON
+├── fluxos_crud.instructions.md         # Criação/edição de entidades
+├── padroes_codigo.instructions.md      # Convenções de código
+├── modulos_sistema.instructions.md     # Descrição de módulos Python
+├── componentes_interface.instructions.md # Componentes visuais
+└── widgets_sessao.instructions.md      # ⚠️ Widgets, combate, NPCs, efeitos
+```
+
+---
+
 ## Arquivos de Instrução Relacionados
 
 | Arquivo | Conteúdo |
@@ -19,7 +36,7 @@ Flask + SQLite + Jinja2 | Python 3.14
 | `padroes_codigo.instructions.md` | Convenções Python, JS, CSS, HTML |
 | `modulos_sistema.instructions.md` | Descrição de cada módulo Python |
 | `componentes_interface.instructions.md` | Componentes visuais reutilizáveis |
-| `widgets_sessao.instructions.md` | Sistema de widgets, combate e efeitos |
+| `widgets_sessao.instructions.md` | Sistema de widgets, combate, NPCs e efeitos |
 
 ---
 
@@ -29,6 +46,7 @@ Este é um sistema web local para auxiliar na mestragem de D&D 5e, com foco em:
 - Gerenciamento de fichas (personagens, monstros, NPCs)
 - Controle de combate em tempo real (rounds, iniciativa, turnos)
 - Sistema de widgets flutuantes para sessão de jogo
+- **Widgets de NPC** com ataques e magias funcionais
 - Sistema de efeitos/condições D&D 5e com contador de turnos
 - Sistema de ataques com rolagem automática (d20 + dano)
 - Testes de morte automáticos (HP <= 0)
@@ -40,18 +58,19 @@ Este é um sistema web local para auxiliar na mestragem de D&D 5e, com foco em:
 
 | Funcionalidade | Descrição |
 |----------------|-----------|
-| **Armas/Ataques** | Formato novo: Nome, Bônus, Dados[], Tipo de Dano |
+| **Armas/Ataques** | Formato: Nome, Bônus, Dados[], Tipo de Dano |
 | **Rolagem de Ataque** | Clica no botão → rola d20 + dano → log formatado |
 | **Crítico/Falha** | Detecta 20 (🎯 dobra dados) e 1 (💀 sem dano) |
+| **Testes de Perícias** | Clica no atributo → submenu com perícias + modificadores |
+| **Proficiências** | ✓ = +prof, ⭐ = +prof×2 (expertise) |
 | **Percepção Passiva** | Calculado automaticamente (10 + mod SAB) |
-| **Efeitos** | Modal para adicionar condições com contador de turnos |
+| **Efeitos D&D 5e** | Modal para adicionar condições com contador de turnos |
 | **Tipos de Dano** | 13 tipos com cores e tooltips |
-| **Log de Combate** | Horário no hover, linha de dano separada |
-- Sistema de widgets flutuantes para sessão de jogo
-- Sistema de efeitos/condições D&D 5e com contador de turnos
-- Testes de morte automáticos (HP <= 0)
-- Rastreamento de sessões
-- Automação de regras D&D 5e
+| **Log de Combate** | Horário no hover, rolagens formatadas com resultado |
+| **Persistência de Widgets** | Auto-save a cada 10s + save imediato após carregar dados |
+| **Testes de Morte** | Automático quando HP ≤ 0, 3 sucessos/falhas |
+| **Widgets de NPC** | Fichas funcionais com ataques, magias, dano/cura |
+| **Ações de NPC** | Sistema completo de ataques e magias para NPCs |
 
 ---
 

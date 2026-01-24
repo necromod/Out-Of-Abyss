@@ -361,7 +361,190 @@ Documentação dos componentes visuais reutilizáveis.
 
 ---
 
-## 5. Modal
+## 6. Componentes de NPC (Widgets de Sessão)
+
+### Widget de NPC (sessao.css / widgets.css)
+
+```css
+/* Container principal do widget NPC */
+.widget-npc-conteudo {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    height: 100%;
+}
+
+/* Seção de ações de combate */
+.npc-acoes-combate {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm);
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: var(--radius-sm);
+}
+
+.acoes-grupo {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.grupo-titulo {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Botões de ação por tipo */
+.btn-ataque {
+    background: linear-gradient(135deg, #c0392b, #e74c3c);
+    border: none;
+    color: white;
+    padding: 6px 10px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.15s ease;
+}
+
+.btn-ataque:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(231, 76, 60, 0.4);
+}
+
+.btn-magia {
+    background: linear-gradient(135deg, #2980b9, #3498db);
+    border: none;
+    color: white;
+    padding: 6px 10px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.15s ease;
+}
+
+.btn-magia:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(52, 152, 219, 0.4);
+}
+
+.btn-habilidade {
+    background: linear-gradient(135deg, #27ae60, #2ecc71);
+    border: none;
+    color: white;
+    padding: 6px 10px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.15s ease;
+}
+
+.btn-habilidade:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(46, 204, 113, 0.4);
+}
+
+/* Footer de ações */
+.npc-widget-botoes {
+    display: flex;
+    gap: var(--spacing-xs);
+    padding-top: var(--spacing-sm);
+    border-top: 1px solid var(--border-color);
+}
+
+.npc-widget-botoes .btn-small {
+    flex: 1;
+    padding: 6px 8px;
+    font-size: 0.8rem;
+}
+
+/* Observações do NPC */
+.npc-observacoes {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-style: italic;
+    padding: var(--spacing-sm);
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: var(--radius-sm);
+}
+
+/* Log de magia no combate */
+.log-magia {
+    border-left-color: var(--accent-primary);
+}
+```
+
+### Estrutura HTML do Widget NPC
+
+```html
+<div class="widget-npc-conteudo">
+    <div class="npc-widget-header">
+        <span class="npc-nome">Nome</span>
+        <span class="npc-info">Título | Raça Classe</span>
+    </div>
+    
+    <!-- HP com barra visual -->
+    <div class="npc-widget-hp">
+        <div class="hp-barra-container">
+            <div class="hp-barra" style="width: 80%"></div>
+        </div>
+        <div class="hp-valores">24/30</div>
+    </div>
+    
+    <!-- Stats básicos -->
+    <div class="npc-widget-stats">
+        CA: 15 | Vel: 9m
+    </div>
+    
+    <!-- Atributos clicáveis -->
+    <div class="npc-widget-attrs">
+        <span class="attr-clicavel" title="Clique para rolar">FOR +1</span>
+        ...
+    </div>
+    
+    <!-- Ações de combate -->
+    <div class="npc-acoes-combate">
+        <div class="acoes-grupo">
+            <div class="grupo-titulo">⚔️ Ataques</div>
+            <button class="btn-ataque" onclick="rolarAtaque(...)">
+                Espada +4 (1d8+2)
+            </button>
+        </div>
+        <div class="acoes-grupo">
+            <div class="grupo-titulo">✨ Magias</div>
+            <button class="btn-magia" onclick="rolarMagiaNPC(...)">
+                Bola de Fogo (CD 15)
+            </button>
+        </div>
+        <div class="acoes-grupo">
+            <div class="grupo-titulo">🔮 Habilidades</div>
+            <button class="btn-habilidade" onclick="usarHabilidadeNPC(...)">
+                Cura Ferimentos
+            </button>
+        </div>
+    </div>
+    
+    <!-- Botões de ação rápida -->
+    <div class="npc-widget-botoes">
+        <button class="btn-small btn-dano">⚔️ Dano</button>
+        <button class="btn-small btn-cura">💚 Cura</button>
+        <button class="btn-small btn-iniciativa">⏱️ Turnos</button>
+    </div>
+    
+    <!-- Efeitos -->
+    <div class="widget-efeitos" data-criatura-tipo="npc" data-criatura-id="...">
+        <div class="efeitos-lista"></div>
+        <button onclick="abrirModalEfeito(...)">+ Efeito</button>
+    </div>
+</div>
+```
+
+---
+
+## 7. Modal
 
 ```css
 .modal {
@@ -480,7 +663,7 @@ Documentação dos componentes visuais reutilizáveis.
 
 ---
 
-## 3. Componentes JavaScript
+## 8. Componentes JavaScript
 
 ### Auto-Expand Textarea
 
@@ -646,7 +829,7 @@ function mostrarNotificacao(mensagem, tipo = 'info') {
 
 ---
 
-## 4. Templates Jinja2
+## 9. Templates Jinja2
 
 ### Base de Atributos (Personagem)
 

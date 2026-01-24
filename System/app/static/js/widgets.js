@@ -30,8 +30,9 @@ class Widget {
         this.element.style.width = `${this.width}px`;
         this.element.style.height = `${this.height}px`;
         
-        // Determina se é widget de ficha (personagem ou monstro)
+        // Determina se é widget de ficha (personagem, monstro ou NPC)
         const isFicha = this.tipo === 'ficha_personagem' || this.tipo === 'ficha_monstro';
+        const isNPC = this.tipo === 'ficha_npc';
         
         // Header
         const header = document.createElement('div');
@@ -41,6 +42,9 @@ class Widget {
             <div class="widget-controls">
                 ${isFicha ? `
                     <button class="widget-control turnos" title="Adicionar aos Turnos" data-widget-id="${this.id}">⏱️</button>
+                    <button class="widget-control ficha" title="Abrir Ficha Completa" data-widget-id="${this.id}">📋</button>
+                ` : ''}
+                ${isNPC ? `
                     <button class="widget-control ficha" title="Abrir Ficha Completa" data-widget-id="${this.id}">📋</button>
                 ` : ''}
                 <button class="widget-control minimize" title="Minimizar">−</button>
@@ -172,14 +176,27 @@ class Widget {
     abrirFichaCompleta() {
         // Tenta abrir a ficha completa baseado no tipo do widget
         if (this.dadosCriatura) {
-            const url = this.dadosCriatura.tipo === 'personagem' 
-                ? `/fichas/personagem/${this.dadosCriatura.id}`
-                : `/fichas/monstro/${this.dadosCriatura.monstroId || this.dadosCriatura.id}`;
+            let url;
+            if (this.dadosCriatura.tipo === 'personagem') {
+                url = `/fichas/personagem/${this.dadosCriatura.id}`;
+            } else if (this.dadosCriatura.tipo === 'npc') {
+                url = `/fichas/npc/${this.dadosCriatura.id}`;
+            } else {
+                // Monstro ou instância
+                url = `/fichas/monstro/${this.dadosCriatura.monstroId || this.dadosCriatura.id}`;
+            }
             window.open(url, '_blank');
         } else {
             // Tenta extrair do conteúdo
-            const conteudo = this.element.querySelector('.widget-personagem-conteudo, .widget-monstro-conteudo');
+            const conteudo = this.element.querySelector('.widget-personagem-conteudo, .widget-monstro-conteudo, .widget-npc-conteudo');
             if (conteudo) {
+                // Verifica se é NPC
+                const npcId = conteudo.dataset.npcId;
+                if (npcId) {
+                    window.open(`/fichas/npc/${npcId}`, '_blank');
+                    return;
+                }
+                
                 const btnDano = conteudo.querySelector('.btn-danger');
                 if (btnDano) {
                     const onclick = btnDano.getAttribute('onclick') || '';
@@ -339,6 +356,7 @@ class WidgetManager {
         const titulos = {
             'ficha_personagem': '👤 Personagem',
             'ficha_monstro': '👹 Monstro',
+            'ficha_npc': '🎭 NPC',
             'iniciativa': '⏱️ Iniciativa',
             'log_combate': '📜 Log de Combate',
             'notas': '📝 Notas',
@@ -353,6 +371,7 @@ class WidgetManager {
         const larguras = {
             'ficha_personagem': 320,
             'ficha_monstro': 350,
+            'ficha_npc': 320,
             'iniciativa': 280,
             'log_combate': 350,
             'notas': 300,
@@ -365,6 +384,7 @@ class WidgetManager {
         const alturas = {
             'ficha_personagem': 400,
             'ficha_monstro': 450,
+            'ficha_npc': 400,
             'iniciativa': 300,
             'log_combate': 350,
             'notas': 250,
@@ -407,11 +427,15 @@ class WidgetManager {
     }
     
     restaurarWidget(config) {
+        console.log('[WidgetManager.restaurarWidget] Iniciando restauração:', config);
+        
         // Normaliza tipo (pode vir como objeto de sessões antigas corrompidas)
         let tipo = config.tipo;
         if (typeof tipo === 'object' && tipo !== null) {
             tipo = tipo.tipo || 'desconhecido';
         }
+        
+        console.log('[WidgetManager.restaurarWidget] Tipo normalizado:', tipo);
         
         // Verifica se já existe (para singletons)
         const existente = Array.from(this.widgets.values()).find(w => w.tipo === tipo && 
@@ -477,13 +501,37 @@ class WidgetManager {
                 }
                 break;
             case 'ficha_personagem':
-                if (config.dadosCriatura && typeof carregarPersonagemWidget === 'function') {
+                console.log('[restaurarWidget] Restaurando personagem:', config.dadosCriatura);
+                if (config.dadosCriatura && config.dadosCriatura.id && typeof carregarPersonagemWidget === 'function') {
                     carregarPersonagemWidget(widget.id, config.dadosCriatura.id);
+                } else {
+                    console.warn('Widget de personagem sem dados válidos:', config);
+                    // Não fecha automaticamente - aguarda carregamento
                 }
                 break;
             case 'ficha_monstro':
-                if (config.dadosCriatura && typeof carregarMonstroWidget === 'function') {
-                    carregarMonstroWidget(widget.id, config.dadosCriatura.id);
+                // Verifica se tem dados de criatura
+                console.log('[restaurarWidget] Restaurando monstro:', config.dadosCriatura);
+                if (config.dadosCriatura && config.dadosCriatura.id) {
+                    // Verifica se é instância ou monstro base pelo tipo
+                    if (config.dadosCriatura.tipo === 'instancia' && typeof carregarMonstroInstanciaWidget === 'function') {
+                        console.log('[restaurarWidget] Carregando instância de monstro:', config.dadosCriatura.id);
+                        carregarMonstroInstanciaWidget(widget.id, config.dadosCriatura.id);
+                    } else if (typeof carregarMonstroWidget === 'function') {
+                        console.log('[restaurarWidget] Carregando monstro base:', config.dadosCriatura.id);
+                        carregarMonstroWidget(widget.id, config.dadosCriatura.id);
+                    }
+                } else {
+                    console.warn('Widget de monstro sem dados válidos:', config);
+                    // Não fecha automaticamente - aguarda carregamento
+                }
+                break;
+            case 'ficha_npc':
+                console.log('[restaurarWidget] Restaurando NPC:', config.dadosCriatura);
+                if (config.dadosCriatura && config.dadosCriatura.id && typeof carregarNPCWidget === 'function') {
+                    carregarNPCWidget(widget.id, config.dadosCriatura.id);
+                } else {
+                    console.warn('Widget de NPC sem dados válidos:', config);
                 }
                 break;
         }

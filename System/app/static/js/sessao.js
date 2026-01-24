@@ -18,121 +18,226 @@ const SessaoState = {
     turnoContador: 0  // Contador de turnos da batalha (era roundAtual)
 };
 
-// Condições do D&D 5e com descrições
+// Condições do D&D 5e com descrições e efeitos mecânicos
 const CONDICOES_DND = {
     'agarrado': {
         nome: 'Agarrado',
-        descricao: 'Deslocamento 0, não se beneficia de bônus de deslocamento. Encerra se quem agarrou ficar incapacitado ou se um efeito remover do alcance.'
+        descricao: 'Deslocamento 0, não se beneficia de bônus de deslocamento. Encerra se quem agarrou ficar incapacitado ou se um efeito remover do alcance.',
+        efeitos: { deslocamento: 0 }
     },
     'amedrontado': {
         nome: 'Amedrontado',
-        descricao: 'Desvantagem em testes de habilidade e ataques enquanto a fonte do medo estiver visível. Não pode se mover voluntariamente para mais perto da fonte.'
+        descricao: 'Desvantagem em testes de habilidade e ataques enquanto a fonte do medo estiver visível. Não pode se mover voluntariamente para mais perto da fonte.',
+        efeitos: {}
     },
     'atordoado': {
         nome: 'Atordoado',
-        descricao: 'Incapacitado, não pode se mover, fala hesitante. Falha automática em resistências de FOR/DES. Ataques contra têm vantagem.'
+        descricao: 'Incapacitado, não pode se mover, fala hesitante. Falha automática em resistências de FOR/DES. Ataques contra têm vantagem.',
+        efeitos: {
+            deslocamento: 0,
+            falhaAutoForca: true,
+            falhaAutoDestreza: true,
+            pularTurno: true
+        }
     },
     'caido': {
         nome: 'Caído',
-        descricao: 'Só pode rastejar. Desvantagem em ataques. Ataques até 1,5m têm vantagem, outros têm desvantagem.'
+        descricao: 'Só pode rastejar. Desvantagem em ataques. Ataques até 1,5m têm vantagem, outros têm desvantagem.',
+        efeitos: { desvantagemAtaques: true }
     },
     'cego': {
         nome: 'Cego',
-        descricao: 'Falha automática em testes que precisem de visão. Ataques contra têm vantagem, seus ataques têm desvantagem.'
+        descricao: 'Falha automática em testes que precisem de visão. Ataques contra têm vantagem, seus ataques têm desvantagem.',
+        efeitos: { desvantagemAtaques: true }
     },
     'enfeiticado': {
         nome: 'Enfeitiçado',
-        descricao: 'Não pode atacar quem o enfeitiçou ou usar habilidades nocivas contra ele. Quem enfeitiçou tem vantagem em testes sociais.'
+        descricao: 'Não pode atacar quem o enfeitiçou ou usar habilidades nocivas contra ele. Quem enfeitiçou tem vantagem em testes sociais.',
+        efeitos: {}
     },
     'envenenado': {
         nome: 'Envenenado',
-        descricao: 'Desvantagem em jogadas de ataque e testes de habilidade.'
+        descricao: 'Desvantagem em jogadas de ataque e testes de habilidade.',
+        efeitos: {
+            desvantagemAtaques: true,
+            desvantagemTestes: true,
+            desvantagemResistencias: true
+        }
     },
     'impedido': {
         nome: 'Impedido',
-        descricao: 'Deslocamento 0. Ataques contra têm vantagem, seus ataques têm desvantagem. Desvantagem em resistências de DES.'
+        descricao: 'Deslocamento 0. Ataques contra têm vantagem, seus ataques têm desvantagem. Desvantagem em resistências de DES.',
+        efeitos: {
+            deslocamento: 0,
+            desvantagemAtaques: true,
+            desvantagemResistDestreza: true
+        }
     },
     'incapacitado': {
         nome: 'Incapacitado',
-        descricao: 'Não pode realizar ações ou reações.'
+        descricao: 'Não pode realizar ações ou reações.',
+        efeitos: { pularTurno: true }
     },
     'inconsciente': {
         nome: 'Inconsciente',
-        descricao: 'Incapacitado, não pode se mover/falar, sem ciência dos arredores. Larga objetos, fica caído. Falha em FOR/DES. Ataques têm vantagem, crítico até 1,5m.'
+        descricao: 'Incapacitado, não pode se mover/falar, sem ciência dos arredores. Larga objetos, fica caído. Falha em FOR/DES. Ataques têm vantagem, crítico até 1,5m.',
+        efeitos: {
+            pularTurno: true,
+            desvantagemAtaques: true,
+            falhaAutoForca: true,
+            falhaAutoDestreza: true
+        }
     },
     'invisivel': {
         nome: 'Invisível',
-        descricao: 'Impossível de ver sem magia. Considerado em escuridão densa. Ataques contra têm desvantagem, seus ataques têm vantagem.'
+        descricao: 'Impossível de ver sem magia. Considerado em escuridão densa. Ataques contra têm desvantagem, seus ataques têm vantagem.',
+        efeitos: { vantagemAtaques: true }
     },
     'paralisado': {
         nome: 'Paralisado',
-        descricao: 'Incapacitado, não pode se mover ou falar. Falha em FOR/DES. Ataques têm vantagem, crítico até 1,5m.'
+        descricao: 'Incapacitado, não pode se mover ou falar. Falha em FOR/DES. Ataques têm vantagem, crítico até 1,5m.',
+        efeitos: {
+            pularTurno: true,
+            falhaAutoForca: true,
+            falhaAutoDestreza: true
+        }
     },
     'petrificado': {
         nome: 'Petrificado',
-        descricao: 'Transformado em pedra, peso x10, para de envelhecer. Incapacitado. Resistência a todos os danos. Imune a veneno/doença.'
+        descricao: 'Transformado em pedra, peso x10, para de envelhecer. Incapacitado. Resistência a todos os danos. Imune a veneno/doença.',
+        efeitos: {
+            pularTurno: true,
+            falhaAutoForca: true,
+            falhaAutoDestreza: true,
+            resistenciaTodosDanos: true,
+            ignoraVeneno: true,
+            ignoraDoenca: true
+        }
     },
     'surdo': {
         nome: 'Surdo',
-        descricao: 'Falha automática em testes que precisem de audição.'
+        descricao: 'Falha automática em testes que precisem de audição.',
+        efeitos: {}
     },
     'exaustao': {
         nome: 'Exaustão',
-        descricao: '1: Desv. em testes. 2: Veloc./2. 3: Desv. ataques/resistências. 4: HP máx./2. 5: Veloc.=0. 6: Morte.'
+        descricao: '1: Desv. em testes. 2: Veloc./2. 3: Desv. ataques/resistências. 4: HP máx./2. 5: Veloc.=0. 6: Morte.',
+        efeitos: { niveis: true }, // Tratamento especial
+        niveis: {
+            1: { desvantagemTestes: true },
+            2: { desvantagemTestes: true, deslocamentoDividido: 2 },
+            3: { desvantagemTestes: true, deslocamentoDividido: 2, desvantagemAtaques: true, desvantagemResistencias: true },
+            4: { desvantagemTestes: true, deslocamentoDividido: 2, desvantagemAtaques: true, desvantagemResistencias: true, hpMaxDividido: 2 },
+            5: { desvantagemTestes: true, deslocamento: 0, desvantagemAtaques: true, desvantagemResistencias: true, hpMaxDividido: 2 },
+            6: { morte: true }
+        }
     },
     // Tipos de Dano como condições (para efeitos persistentes)
     'dano_acido': {
         nome: '🧪 Ácido',
-        descricao: 'Recebendo dano ácido contínuo. Substância corrosiva causa queimaduras.'
+        descricao: 'Recebendo dano ácido contínuo. Substância corrosiva causa queimaduras.',
+        efeitos: { danoRecorrente: true, tipoDano: 'acido' }
     },
     'dano_contundente': {
         nome: '🔨 Contundente',
-        descricao: 'Recebendo dano contundente. Impacto físico causando hematomas.'
+        descricao: 'Recebendo dano contundente. Impacto físico causando hematomas.',
+        efeitos: {}
     },
     'dano_cortante': {
         nome: '⚔️ Cortante',
-        descricao: 'Recebendo dano cortante. Ferimentos abertos sangrando.'
+        descricao: 'Recebendo dano cortante. Ferimentos abertos sangrando.',
+        efeitos: {}
     },
     'dano_eletrico': {
         nome: '⚡ Elétrico',
-        descricao: 'Recebendo dano elétrico. Choque percorrendo o corpo.'
+        descricao: 'Recebendo dano elétrico. Choque percorrendo o corpo. Diminui Destreza.',
+        efeitos: { modificadorDestreza: -1 }
     },
     'dano_energetico': {
         nome: '💫 Energético',
-        descricao: 'Recebendo dano energético (força). Energia mágica pura.'
+        descricao: 'Recebendo dano energético (força). Energia mágica pura.',
+        efeitos: {}
     },
     'dano_gelido': {
         nome: '❄️ Gélido',
-        descricao: 'Recebendo dano gélido. Congelamento e hipotermia.'
+        descricao: 'Recebendo dano gélido. Congelamento e hipotermia. Movimento reduzido.',
+        efeitos: { reducaoDeslocamento: 3 }
     },
     'dano_igneo': {
         nome: '🔥 Ígneo',
-        descricao: 'Recebendo dano ígneo. Queimando, em chamas.'
+        descricao: 'Recebendo dano ígneo. Queimando, em chamas.',
+        efeitos: { danoRecorrente: true, tipoDano: 'igneo' }
     },
     'dano_necrotico': {
         nome: '💀 Necrótico',
-        descricao: 'Recebendo dano necrótico. Energia vital sendo drenada.'
+        descricao: 'Recebendo dano necrótico. Energia vital sendo drenada. Dano extra.',
+        efeitos: { danoExtra: '1d4' }
     },
     'dano_perfurante': {
         nome: '🗡️ Perfurante',
-        descricao: 'Recebendo dano perfurante. Feridas profundas penetrantes.'
+        descricao: 'Recebendo dano perfurante. Feridas profundas penetrantes. Sangrando.',
+        efeitos: { danoRecorrente: true, tipoDano: 'perfurante' }
     },
     'dano_psiquico': {
         nome: '🧠 Psíquico',
-        descricao: 'Recebendo dano psíquico. Mente sendo atacada.'
+        descricao: 'Recebendo dano psíquico. Mente sendo atacada. Desvantagem em Sabedoria.',
+        efeitos: { desvantagemSabedoria: true }
     },
     'dano_radiante': {
         nome: '✨ Radiante',
-        descricao: 'Recebendo dano radiante. Luz divina queimando.'
+        descricao: 'Recebendo dano radiante. Luz divina queimando. Dano extra.',
+        efeitos: { danoExtra: '1d6' }
     },
     'dano_trovejante': {
         nome: '🌩️ Trovejante',
-        descricao: 'Recebendo dano trovejante. Ondas sonoras devastadoras.'
+        descricao: 'Recebendo dano trovejante. Ondas sonoras devastadoras. Diminui Destreza.',
+        efeitos: { modificadorDestreza: -1 }
     },
     'dano_venenoso': {
         nome: '☠️ Venenoso',
-        descricao: 'Recebendo dano venenoso. Toxina no sistema.'
+        descricao: 'Recebendo dano venenoso. Toxina no sistema.',
+        efeitos: { danoRecorrente: true, tipoDano: 'veneno' }
     }
+};
+
+// Mapeamento de perícias por atributo D&D 5e
+const PERICIAS_POR_ATRIBUTO = {
+    forca: [
+        { id: 'forca', nome: 'Força (puro)', isPuro: true },
+        { id: 'atletismo', nome: 'Atletismo' }
+    ],
+    destreza: [
+        { id: 'destreza', nome: 'Destreza (puro)', isPuro: true },
+        { id: 'acrobacia', nome: 'Acrobacia' },
+        { id: 'furtividade', nome: 'Furtividade' },
+        { id: 'prestidigitacao', nome: 'Prestidigitação' }
+    ],
+    constituicao: [
+        { id: 'constituicao', nome: 'Constituição (puro)', isPuro: true }
+    ],
+    inteligencia: [
+        { id: 'inteligencia', nome: 'Inteligência (puro)', isPuro: true },
+        { id: 'arcanismo', nome: 'Arcanismo' },
+        { id: 'historia', nome: 'História' },
+        { id: 'investigacao', nome: 'Investigação' },
+        { id: 'natureza', nome: 'Natureza' },
+        { id: 'religiao', nome: 'Religião' }
+    ],
+    sabedoria: [
+        { id: 'sabedoria', nome: 'Sabedoria (puro)', isPuro: true },
+        { id: 'adestrar_animais', nome: 'Adestrar Animais' },
+        { id: 'intuicao', nome: 'Intuição' },
+        { id: 'medicina', nome: 'Medicina' },
+        { id: 'percepcao', nome: 'Percepção' },
+        { id: 'sobrevivencia', nome: 'Sobrevivência' }
+    ],
+    carisma: [
+        { id: 'carisma', nome: 'Carisma (puro)', isPuro: true },
+        { id: 'atuacao', nome: 'Atuação' },
+        { id: 'enganacao', nome: 'Enganação' },
+        { id: 'intimidacao', nome: 'Intimidação' },
+        { id: 'persuasao', nome: 'Persuasão' }
+    ]
 };
 
 // =========================================
@@ -210,6 +315,103 @@ function fecharInputFlutuante() {
 function fecharInputFlutuanteClickFora(e) {
     if (inputFlutuanteAtivo && !inputFlutuanteAtivo.contains(e.target)) {
         fecharInputFlutuante();
+    }
+}
+
+// =========================================
+// Sistema de Efeitos de Condições
+// =========================================
+
+/**
+ * Obtém efeitos ativos de uma criatura baseado em suas condições
+ * @param {Array} condicoes - Lista de condições ativas [{nome, turnos, nivel}]
+ * @returns {Object} Objeto com efeitos combinados
+ */
+function obterEfeitosAtivos(condicoes) {
+    if (!condicoes || condicoes.length === 0) return {};
+    
+    const efeitosCombinados = {};
+    
+    condicoes.forEach(cond => {
+        const condicao = CONDICOES_DND[cond.nome];
+        if (!condicao) return;
+        
+        // Exaustão é especial, usa níveis
+        if (cond.nome === 'exaustao' && cond.nivel) {
+            const nivel = parseInt(cond.nivel) || 1;
+            const efeitosNivel = condicao.niveis[nivel];
+            if (efeitosNivel) {
+                Object.assign(efeitosCombinados, efeitosNivel);
+            }
+        } else if (condicao.efeitos) {
+            Object.assign(efeitosCombinados, condicao.efeitos);
+        }
+    });
+    
+    return efeitosCombinados;
+}
+
+/**
+ * Verifica se uma criatura deve ter vantagem ou desvantagem em um tipo de rolagem
+ * @param {Array} condicoes - Condições ativas
+ * @param {string} tipoRolagem - 'ataque', 'teste', 'resistencia'
+ * @param {string} atributo - Atributo específico (opcional)
+ * @returns {string} 'vantagem', 'desvantagem' ou null
+ */
+function verificarVantagemDesvantagem(condicoes, tipoRolagem, atributo = null) {
+    const efeitos = obterEfeitosAtivos(condicoes);
+    
+    // Verifica desvantagem primeiro (prioridade em caso de conflito)
+    if (tipoRolagem === 'ataque' && efeitos.desvantagemAtaques) return 'desvantagem';
+    if (tipoRolagem === 'teste') {
+        if (efeitos.desvantagemTestes) return 'desvantagem';
+        // Desvantagem específica em Sabedoria (psíquico)
+        if (atributo === 'sabedoria' && efeitos.desvantagemSabedoria) return 'desvantagem';
+    }
+    if (tipoRolagem === 'resistencia') {
+        if (efeitos.desvantagemResistencias) return 'desvantagem';
+        if (atributo === 'destreza' && efeitos.desvantagemResistDestreza) return 'desvantagem';
+    }
+    
+    // Verifica vantagem
+    if (tipoRolagem === 'ataque' && efeitos.vantagemAtaques) return 'vantagem';
+    
+    return null;
+}
+
+/**
+ * Verifica se há falha automática em testes de atributo
+ * @param {Array} condicoes - Condições ativas
+ * @param {string} atributo - 'forca' ou 'destreza'
+ * @returns {boolean}
+ */
+function verificarFalhaAutomatica(condicoes, atributo) {
+    const efeitos = obterEfeitosAtivos(condicoes);
+    
+    if (atributo === 'forca' && efeitos.falhaAutoForca) return true;
+    if (atributo === 'destreza' && efeitos.falhaAutoDestreza) return true;
+    
+    return false;
+}
+
+/**
+ * Rola um d20 com vantagem ou desvantagem
+ * @param {string} tipo - 'vantagem', 'desvantagem' ou null
+ * @returns {Object} {d20: valor escolhido, dados: [d20_1, d20_2] ou [d20]}
+ */
+function rolarD20ComModificador(tipo) {
+    if (!tipo) {
+        const d20 = Math.floor(Math.random() * 20) + 1;
+        return { d20, dados: [d20] };
+    }
+    
+    const d20_1 = Math.floor(Math.random() * 20) + 1;
+    const d20_2 = Math.floor(Math.random() * 20) + 1;
+    
+    if (tipo === 'vantagem') {
+        return { d20: Math.max(d20_1, d20_2), dados: [d20_1, d20_2] };
+    } else {
+        return { d20: Math.min(d20_1, d20_2), dados: [d20_1, d20_2] };
     }
 }
 
@@ -337,6 +539,9 @@ function adicionarWidget(tipo) {
             break;
         case 'ficha_monstro':
             abrirSeletorMonstro(widget);
+            break;
+        case 'ficha_npc':
+            abrirSeletorNPC(widget);
             break;
         default:
             widget.setConteudo('<p class="text-muted">Conteúdo não disponível</p>');
@@ -487,6 +692,12 @@ async function carregarPersonagemWidget(widgetId, personagemId) {
     if (widget) {
         try {
             const p = await API.get(`/fichas/api/personagem/${personagemId}`);
+            if (!p || p.erro) {
+                console.warn('Personagem não encontrado:', personagemId);
+                widget.fechar();
+                return;
+            }
+            
             widget.setConteudo(gerarHTMLPersonagemWidget(p));
             widget.element.querySelector('.widget-title').textContent = `👤 ${p.nome}`;
             
@@ -501,11 +712,53 @@ async function carregarPersonagemWidget(widgetId, personagemId) {
                 nome: p.nome,
                 modDestreza: modDes
             };
+            
+            // Atualiza visualização do deslocamento baseado nas condições carregadas
+            atualizarDeslocamentoWidget(widget.element);
+            
+            // Salva estado imediatamente
+            salvarEstadoSessao();
         } catch (error) {
             console.error('Erro ao carregar personagem:', error);
-            widget.setConteudo('<p class="text-muted">Erro ao carregar personagem</p>');
+            widget.fechar();
         }
     }
+}
+
+/**
+ * Gera HTML dos efeitos salvos (para restauração)
+ * @param {Array} condicoes - Array de objetos {condicao, turnos, descricao, nivel}
+ * @returns {string} HTML dos efeitos
+ */
+function gerarHTMLEfeitos(condicoes) {
+    if (!Array.isArray(condicoes) || condicoes.length === 0) return '';
+    
+    return condicoes.map(cond => {
+        const condicaoObj = CONDICOES_DND[cond.condicao];
+        if (!condicaoObj) return '';
+        
+        const turnos = cond.turnos || 0;
+        const textoTurnos = turnos > 0 
+            ? `${turnos} ${turnos === 1 ? 'turno' : 'turnos'}` 
+            : '∞';
+        
+        const textoNivel = cond.nivel ? ` <span class="efeito-nivel">Nv${cond.nivel}</span>` : '';
+        
+        // Só mostra dano se a condição tem danoRecorrente: true
+        const textoDano = (cond.dano && condicaoObj.efeitos?.danoRecorrente) 
+            ? ` <span class="efeito-dano">${cond.dano} dano/turno</span>` 
+            : '';
+        
+        const textoDescricao = cond.descricao ? ` <span class="efeito-desc">(${cond.descricao})</span>` : '';
+        
+        return `
+            <div class="efeito-item" data-condicao="${cond.condicao}" data-turnos="${turnos}" data-descricao="${cond.descricao || ''}" ${cond.nivel ? `data-nivel="${cond.nivel}"` : ''} ${cond.dano ? `data-dano="${cond.dano}"` : ''}>
+                <span class="efeito-nome" title="${condicaoObj.descricao}">${condicaoObj.nome}</span>${textoNivel}${textoDano}
+                <span class="efeito-turnos">${textoTurnos}</span>${textoDescricao}
+                <button class="btn-mini btn-remover" onclick="removerEfeito(this)">✕</button>
+            </div>
+        `;
+    }).join('');
 }
 
 function gerarHTMLPersonagemWidget(p) {
@@ -551,16 +804,16 @@ function gerarHTMLPersonagemWidget(p) {
             <div class="personagem-widget-stats">
                 <div class="stat-box"><span class="valor">CA${p.ca || 10}</span></div>
                 <div class="stat-box"><span class="valor">Inic${formatMod(attrs.destreza)}</span></div>
-                <div class="stat-box"><span class="valor">${p.velocidade || '9m'}</span></div>
+                <div class="stat-box stat-velocidade"><span class="valor velocidade-valor" data-velocidade-base="${p.velocidade || '9m'}">${p.velocidade || '9m'}</span></div>
                 <div class="stat-box" title="Percepção Passiva"><span class="valor">👁${percepcaoPassiva}</span></div>
             </div>
             <div class="personagem-widget-attrs">
-                <span title="Força">FOR ${formatMod(attrs.forca)}</span>
-                <span title="Destreza">DES ${formatMod(attrs.destreza)}</span>
-                <span title="Constituição">CON ${formatMod(attrs.constituicao)}</span>
-                <span title="Inteligência">INT ${formatMod(attrs.inteligencia)}</span>
-                <span title="Sabedoria">SAB ${formatMod(attrs.sabedoria)}</span>
-                <span title="Carisma">CAR ${formatMod(attrs.carisma)}</span>
+                <span class="attr-clicavel" title="Clique para rolar FOR" onclick="abrirSubmenuPericias(event, ${p.id}, 'personagem', 'forca', ${attrs.forca}, ${JSON.stringify(p.pericias_proficientes || []).replace(/"/g, '&quot;')}, ${JSON.stringify(p.pericias_expertise || []).replace(/"/g, '&quot;')}, ${p.bonus_proficiencia || 2})">FOR ${formatMod(attrs.forca)}</span>
+                <span class="attr-clicavel" title="Clique para rolar DES" onclick="abrirSubmenuPericias(event, ${p.id}, 'personagem', 'destreza', ${attrs.destreza}, ${JSON.stringify(p.pericias_proficientes || []).replace(/"/g, '&quot;')}, ${JSON.stringify(p.pericias_expertise || []).replace(/"/g, '&quot;')}, ${p.bonus_proficiencia || 2})">DES ${formatMod(attrs.destreza)}</span>
+                <span class="attr-clicavel" title="Clique para rolar CON" onclick="abrirSubmenuPericias(event, ${p.id}, 'personagem', 'constituicao', ${attrs.constituicao}, ${JSON.stringify(p.pericias_proficientes || []).replace(/"/g, '&quot;')}, ${JSON.stringify(p.pericias_expertise || []).replace(/"/g, '&quot;')}, ${p.bonus_proficiencia || 2})">CON ${formatMod(attrs.constituicao)}</span>
+                <span class="attr-clicavel" title="Clique para rolar INT" onclick="abrirSubmenuPericias(event, ${p.id}, 'personagem', 'inteligencia', ${attrs.inteligencia}, ${JSON.stringify(p.pericias_proficientes || []).replace(/"/g, '&quot;')}, ${JSON.stringify(p.pericias_expertise || []).replace(/"/g, '&quot;')}, ${p.bonus_proficiencia || 2})">INT ${formatMod(attrs.inteligencia)}</span>
+                <span class="attr-clicavel" title="Clique para rolar SAB" onclick="abrirSubmenuPericias(event, ${p.id}, 'personagem', 'sabedoria', ${attrs.sabedoria}, ${JSON.stringify(p.pericias_proficientes || []).replace(/"/g, '&quot;')}, ${JSON.stringify(p.pericias_expertise || []).replace(/"/g, '&quot;')}, ${p.bonus_proficiencia || 2})">SAB ${formatMod(attrs.sabedoria)}</span>
+                <span class="attr-clicavel" title="Clique para rolar CAR" onclick="abrirSubmenuPericias(event, ${p.id}, 'personagem', 'carisma', ${attrs.carisma}, ${JSON.stringify(p.pericias_proficientes || []).replace(/"/g, '&quot;')}, ${JSON.stringify(p.pericias_expertise || []).replace(/"/g, '&quot;')}, ${p.bonus_proficiencia || 2})">CAR ${formatMod(attrs.carisma)}</span>
             </div>
             <div class="personagem-widget-acoes">
                 <div class="acoes-titulo">⚔️ Ações</div>
@@ -569,6 +822,7 @@ function gerarHTMLPersonagemWidget(p) {
             <div class="personagem-widget-botoes">
                 <button class="btn btn-sm btn-danger" onclick="abrirDanoRapido(event, ${p.id}, '${p.nome}', 'personagem')">💔 Dano</button>
                 <button class="btn btn-sm btn-success" onclick="abrirCuraRapida(event, ${p.id}, '${p.nome}', 'personagem')">💚 Cura</button>
+                <button class="btn btn-sm btn-outline" onclick="toggleMenuResistencia(event, ${p.id}, 'personagem', ${JSON.stringify(attrs).replace(/"/g, '&quot;')})">🎲 Resist.</button>
             </div>
             ${p.hp_atual !== undefined && p.hp_atual <= 0 ? `
             <div class="testes-morte ${(p.falha_morte || 0) >= 3 ? 'personagem-morto' : ''}" data-criatura-tipo="personagem" data-criatura-id="${p.id}">
@@ -593,7 +847,7 @@ function gerarHTMLPersonagemWidget(p) {
             </div>
             ` : ''}
             <div class="widget-efeitos" data-criatura-tipo="personagem" data-criatura-id="${p.id}">
-                <div class="efeitos-lista"></div>
+                <div class="efeitos-lista">${gerarHTMLEfeitos(p.condicoes || [])}</div>
                 <button class="btn btn-sm btn-outline" onclick="abrirModalEfeito(event, 'personagem', ${p.id})">+ Efeito</button>
             </div>
             <div class="widget-observacoes">
@@ -649,6 +903,412 @@ async function marcarTesteMorte(event, id, tipo, valor) {
 }
 
 /**
+ * Abre/fecha menu flutuante de testes de resistência
+ */
+function toggleMenuTestes(event, id, tipo, atributos, proficientes = [], expertise = [], bonusProf = 2) {
+    event.stopPropagation();
+    
+    // Remove menus existentes
+    document.querySelectorAll('.menu-testes, .submenu-pericias').forEach(m => m.remove());
+    
+    const calcMod = (val) => Math.floor(((val || 10) - 10) / 2);
+    const formatMod = (val) => { const mod = calcMod(val); return mod >= 0 ? `+${mod}` : mod; };
+    
+    // Nomes dos atributos
+    const nomeAtrs = {
+        forca: 'FOR',
+        destreza: 'DES',
+        constituicao: 'CON',
+        inteligencia: 'INT',
+        sabedoria: 'SAB',
+        carisma: 'CAR'
+    };
+    
+    // Cria menu principal com atributos
+    const menu = document.createElement('div');
+    menu.className = 'menu-testes';
+    menu.innerHTML = Object.keys(nomeAtrs).map(attr => {
+        const mod = formatMod(atributos[attr]);
+        return `<button class="btn-atributo" data-attr="${attr}" onclick="abrirSubmenuPericias(event, ${id}, '${tipo}', '${attr}', ${atributos[attr]}, ${JSON.stringify(proficientes).replace(/"/g, '&quot;')}, ${JSON.stringify(expertise).replace(/"/g, '&quot;')}, ${bonusProf})">${mod} ${nomeAtrs[attr]} ▸</button>`;
+    }).join('');
+    
+    // Posiciona menu acima do botão
+    const btn = event.target;
+    const rect = btn.getBoundingClientRect();
+    menu.style.position = 'fixed';
+    menu.style.left = rect.left + 'px';
+    menu.style.top = (rect.top - 10) + 'px';
+    
+    document.body.appendChild(menu);
+    
+    // Ajusta posição após renderização
+    setTimeout(() => {
+        const menuRect = menu.getBoundingClientRect();
+        menu.style.top = (rect.top - menuRect.height - 5) + 'px';
+        
+        // Se sair da tela à esquerda
+        if (menuRect.left < 0) {
+            menu.style.left = '5px';
+        }
+        // Se sair da tela à direita
+        if (menuRect.right > window.innerWidth) {
+            menu.style.left = (window.innerWidth - menuRect.width - 5) + 'px';
+        }
+    }, 10);
+    
+    // Fecha ao clicar fora
+    setTimeout(() => {
+        document.addEventListener('click', function fecharMenu(e) {
+            if (!menu.contains(e.target) && e.target !== btn && !e.target.closest('.submenu-pericias')) {
+                menu.remove();
+                document.querySelectorAll('.submenu-pericias').forEach(m => m.remove());
+                document.removeEventListener('click', fecharMenu);
+            }
+        });
+    }, 100);
+}
+
+function abrirSubmenuPericias(event, id, tipo, atributo, valorAtributo, proficientes, expertise, bonusProf) {
+    event.stopPropagation();
+    
+    // Remove submenus existentes
+    document.querySelectorAll('.submenu-pericias').forEach(m => m.remove());
+    
+    const calcMod = (val) => Math.floor(((val || 10) - 10) / 2);
+    const modAtributo = calcMod(valorAtributo);
+    
+    // Pega perícias do atributo
+    const pericias = PERICIAS_POR_ATRIBUTO[atributo] || [];
+    
+    // Cria submenu
+    const submenu = document.createElement('div');
+    submenu.className = 'submenu-pericias';
+    submenu.innerHTML = pericias.map(pericia => {
+        let bonus = modAtributo;
+        let marcador = '';
+        
+        // Verifica se tem proficiência ou expertise
+        if (!pericia.isPuro) {
+            if (expertise.includes(pericia.id)) {
+                bonus += bonusProf * 2;
+                marcador = '⭐ ';
+            } else if (proficientes.includes(pericia.id)) {
+                bonus += bonusProf;
+                marcador = '✓ ';
+            }
+        }
+        
+        const formatBonus = bonus >= 0 ? `+${bonus}` : bonus;
+        return `<button class="btn-pericia" onclick="rolarTeste(event, ${id}, '${tipo}', '${pericia.id}', '${pericia.nome}', ${bonus})">${marcador}${formatBonus} ${pericia.nome}</button>`;
+    }).join('');
+    
+    // Posiciona submenu ao lado direito do menu principal
+    const btnAttr = event.target;
+    const rect = btnAttr.getBoundingClientRect();
+    submenu.style.position = 'fixed';
+    submenu.style.left = (rect.right + 5) + 'px';
+    submenu.style.top = rect.top + 'px';
+    
+    document.body.appendChild(submenu);
+    
+    // Ajusta posição se sair da tela
+    setTimeout(() => {
+        const submenuRect = submenu.getBoundingClientRect();
+        
+        // Se sair da tela à direita, coloca à esquerda
+        if (submenuRect.right > window.innerWidth) {
+            submenu.style.left = (rect.left - submenuRect.width - 5) + 'px';
+        }
+        
+        // Se sair da tela embaixo
+        if (submenuRect.bottom > window.innerHeight) {
+            submenu.style.top = (window.innerHeight - submenuRect.height - 5) + 'px';
+        }
+    }, 10);
+    
+    // Fecha ao clicar fora
+    setTimeout(() => {
+        document.addEventListener('click', function fecharSubmenu(e) {
+            if (!submenu.contains(e.target) && e.target !== btnAttr) {
+                submenu.remove();
+                document.removeEventListener('click', fecharSubmenu);
+            }
+        });
+    }, 100);
+}
+
+function rolarTeste(event, id, tipo, testeId, testeNome, bonus) {
+    event.stopPropagation();
+    
+    // Fecha menus
+    document.querySelectorAll('.menu-testes, .submenu-pericias').forEach(m => m.remove());
+    
+    // Busca condições da criatura
+    let condicoesCriatura = [];
+    const widgetEl = tipo === 'personagem' 
+        ? document.querySelector(`[data-personagem-id="${id}"]`)
+        : document.querySelector(`[data-instancia-id="${id}"]`);
+    
+    if (widgetEl) {
+        const widget = widgetEl.closest('.widget');
+        if (widget) {
+            const efeitosDiv = widget.querySelector('.widget-efeitos');
+            if (efeitosDiv) {
+                condicoesCriatura = Array.from(efeitosDiv.querySelectorAll('.efeito-item')).map(e => ({
+                    nome: e.dataset.condicao,
+                    turnos: parseInt(e.dataset.turnos) || 0,
+                    nivel: e.dataset.nivel ? parseInt(e.dataset.nivel) : null
+                }));
+            }
+        }
+    }
+    
+    // Identifica atributo do teste (de PERICIAS_POR_ATRIBUTO)
+    let atributoTeste = null;
+    for (const [attr, pericias] of Object.entries(PERICIAS_POR_ATRIBUTO)) {
+        if (pericias.some(p => p.id === testeId)) {
+            atributoTeste = attr;
+            break;
+        }
+    }
+    
+    // Verifica vantagem/desvantagem
+    const modificador = verificarVantagemDesvantagem(condicoesCriatura, 'teste', atributoTeste);
+    
+    // Rola d20 com vantagem/desvantagem
+    const rolagemD20 = rolarD20ComModificador(modificador);
+    const d20 = rolagemD20.d20;
+    const total = d20 + bonus;
+    
+    // Texto de vantagem/desvantagem
+    let textoModificador = '';
+    if (modificador && rolagemD20.dados.length > 1) {
+        const [d1, d2] = rolagemD20.dados;
+        textoModificador = ` <span class="ataque-modificador">[${modificador === 'vantagem' ? '↑' : '↓'} ${d1},${d2}]</span>`;
+    }
+    
+    // Formata resultado
+    let resultado = '';
+    if (d20 === 20) {
+        resultado = `🎯 <strong>CRÍTICO!</strong> ${testeNome}: <strong>1d20(${d20}) + ${bonus} = ${total}</strong>${textoModificador}`;
+    } else if (d20 === 1) {
+        resultado = `💀 <strong>FALHA CRÍTICA!</strong> ${testeNome}: <strong>1d20(${d20}) + ${bonus} = ${total}</strong>${textoModificador}`;
+    } else {
+        resultado = `🎲 ${testeNome}: <strong>1d20(${d20}) + ${bonus} = ${total}</strong>${textoModificador}`;
+    }
+    
+    // Adiciona ao log
+    adicionarLogCombate(resultado, d20 === 20 ? 'crit' : (d20 === 1 ? 'fumble' : 'info'));
+}
+
+// =========================================
+// Sistema de Testes (Atributos e Perícias)
+// =========================================
+
+function toggleMenuTestes(event, id, tipo, atributos, proficientes = [], expertise = [], bonusProf = 2) {
+    event.stopPropagation();
+    
+    // Remove menus existentes
+    document.querySelectorAll('.menu-testes, .submenu-pericias').forEach(m => m.remove());
+    
+    const calcMod = (val) => Math.floor(((val || 10) - 10) / 2);
+    const formatMod = (val) => { const mod = calcMod(val); return mod >= 0 ? `+${mod}` : mod; };
+    
+    // Nomes dos atributos
+    const nomeAtrs = {
+        forca: 'FOR',
+        destreza: 'DES',
+        constituicao: 'CON',
+        inteligencia: 'INT',
+        sabedoria: 'SAB',
+        carisma: 'CAR'
+    };
+    
+    // Cria menu principal com atributos
+    const menu = document.createElement('div');
+    menu.className = 'menu-testes';
+    menu.innerHTML = Object.keys(nomeAtrs).map(attr => {
+        const mod = formatMod(atributos[attr]);
+        return `<button class="btn-atributo" data-attr="${attr}" onclick="abrirSubmenuPericias(event, ${id}, '${tipo}', '${attr}', ${atributos[attr]}, ${JSON.stringify(proficientes).replace(/"/g, '&quot;')}, ${JSON.stringify(expertise).replace(/"/g, '&quot;')}, ${bonusProf})">${mod} ${nomeAtrs[attr]} ▸</button>`;
+    }).join('');
+    
+    // Posiciona menu acima do botão
+    const btn = event.target;
+    const rect = btn.getBoundingClientRect();
+    menu.style.position = 'fixed';
+    menu.style.left = rect.left + 'px';
+    menu.style.top = (rect.top - 10) + 'px';
+    
+    document.body.appendChild(menu);
+    
+    // Ajusta posição após renderização
+    setTimeout(() => {
+        const menuRect = menu.getBoundingClientRect();
+        menu.style.top = (rect.top - menuRect.height - 5) + 'px';
+        
+        // Se sair da tela à esquerda
+        if (menuRect.left < 0) {
+            menu.style.left = '5px';
+        }
+        // Se sair da tela à direita
+        if (menuRect.right > window.innerWidth) {
+            menu.style.left = (window.innerWidth - menuRect.width - 5) + 'px';
+        }
+    }, 10);
+    
+    // Fecha ao clicar fora
+    setTimeout(() => {
+        document.addEventListener('click', function fecharMenu(e) {
+            if (!menu.contains(e.target) && e.target !== btn && !e.target.closest('.submenu-pericias')) {
+                menu.remove();
+                document.querySelectorAll('.submenu-pericias').forEach(m => m.remove());
+                document.removeEventListener('click', fecharMenu);
+            }
+        });
+    }, 100);
+}
+
+// =========================================
+// Sistema de Resistências
+// =========================================
+
+function toggleMenuResistencia(event, id, tipo, atributos) {
+    event.stopPropagation();
+    
+    // Remove menu existente se houver
+    const menuExistente = document.querySelector('.menu-resistencia');
+    if (menuExistente) {
+        menuExistente.remove();
+        return;
+    }
+    
+    const calcMod = (val) => Math.floor(((val || 10) - 10) / 2);
+    const formatMod = (val) => { const mod = calcMod(val); return mod >= 0 ? `+${mod}` : mod; };
+    
+    // Nomes dos atributos
+    const nomeAtrs = {
+        forca: 'FOR',
+        destreza: 'DES',
+        constituicao: 'CON',
+        inteligencia: 'INT',
+        sabedoria: 'SAB',
+        carisma: 'CAR'
+    };
+    
+    // Cria menu
+    const menu = document.createElement('div');
+    menu.className = 'menu-resistencia';
+    menu.innerHTML = Object.keys(nomeAtrs).map(attr => {
+        const mod = formatMod(atributos[attr]);
+        return `<button class="btn-resist" onclick="rolarResistencia(event, ${id}, '${tipo}', '${attr}', '${nomeAtrs[attr]}', ${calcMod(atributos[attr])})">${mod} ${nomeAtrs[attr]}</button>`;
+    }).join('');
+    
+    // Posiciona menu acima do botão
+    const btn = event.target;
+    const rect = btn.getBoundingClientRect();
+    menu.style.position = 'fixed';
+    menu.style.left = rect.left + 'px';
+    menu.style.top = (rect.top - menu.offsetHeight - 5) + 'px';
+    
+    document.body.appendChild(menu);
+    
+    // Ajusta posição após renderização
+    setTimeout(() => {
+        const menuRect = menu.getBoundingClientRect();
+        menu.style.top = (rect.top - menuRect.height - 5) + 'px';
+        
+        // Se sair da tela à esquerda
+        if (menuRect.left < 0) {
+            menu.style.left = '5px';
+        }
+        // Se sair da tela à direita
+        if (menuRect.right > window.innerWidth) {
+            menu.style.left = (window.innerWidth - menuRect.width - 5) + 'px';
+        }
+    }, 10);
+    
+    // Fecha ao clicar fora
+    setTimeout(() => {
+        document.addEventListener('click', function fecharMenu(e) {
+            if (!menu.contains(e.target) && e.target !== btn) {
+                menu.remove();
+                document.removeEventListener('click', fecharMenu);
+            }
+        });
+    }, 100);
+}
+
+/**
+ * Rola teste de resistência (1d20 + modificador)
+ */
+async function rolarResistencia(event, id, tipo, atributo, nomeAttr, modificador) {
+    event.stopPropagation();
+    
+    // Fecha o menu
+    const menu = document.querySelector('.menu-resistencia');
+    if (menu) menu.remove();
+    
+    // Busca nome e condições da criatura
+    let nome = 'Criatura';
+    let condicoesCriatura = [];
+    
+    const widgetEl = tipo === 'personagem' 
+        ? document.querySelector(`[data-personagem-id="${id}"]`)
+        : document.querySelector(`[data-instancia-id="${id}"]`);
+    
+    if (widgetEl) {
+        nome = widgetEl.dataset.personagemNome || widgetEl.dataset.instanciaNome || nome;
+        const widget = widgetEl.closest('.widget');
+        if (widget) {
+            const efeitosDiv = widget.querySelector('.widget-efeitos');
+            if (efeitosDiv) {
+                condicoesCriatura = Array.from(efeitosDiv.querySelectorAll('.efeito-item')).map(e => ({
+                    nome: e.dataset.condicao,
+                    turnos: parseInt(e.dataset.turnos) || 0,
+                    nivel: e.dataset.nivel ? parseInt(e.dataset.nivel) : null
+                }));
+            }
+        }
+    }
+    
+    // Verifica falha automática
+    if (verificarFalhaAutomatica(condicoesCriatura, atributo)) {
+        const logMsg = `<strong>${nome}</strong> Resist de ${nomeAttr} <span class="ataque-total fumble">FALHA AUTOMÁTICA</span> 💀 <span class="ataque-detalhes">(condição)</span>`;
+        adicionarLogCombate(logMsg, 'fumble');
+        return;
+    }
+    
+    // Verifica vantagem/desvantagem
+    const vd = verificarVantagemDesvantagem(condicoesCriatura, 'resistencia', atributo);
+    
+    // Rola d20 com vantagem/desvantagem
+    const rolagemD20 = rolarD20ComModificador(vd);
+    const d20 = rolagemD20.d20;
+    const bonusStr = modificador >= 0 ? `+${modificador}` : `${modificador}`;
+    const total = d20 + modificador;
+    const isCrit = d20 === 20;
+    const isFumble = d20 === 1;
+    
+    // Texto de vantagem/desvantagem
+    let textoModificador = '';
+    if (vd && rolagemD20.dados.length > 1) {
+        const [d1, d2] = rolagemD20.dados;
+        textoModificador = ` <span class="ataque-modificador">[${vd === 'vantagem' ? '↑' : '↓'} ${d1},${d2}]</span>`;
+    }
+    
+    // Ícone de status
+    const statusIcon = isCrit ? '🎯' : (isFumble ? '💀' : '');
+    const statusClass = isCrit ? 'crit' : (isFumble ? 'fumble' : 'info');
+    
+    let logMsg = `<strong>${nome}</strong> Resist de ${nomeAttr} `;
+    logMsg += `<span class="ataque-total ${statusClass}">${total}</span>`;
+    if (statusIcon) logMsg += ` ${statusIcon}`;
+    logMsg += ` <span class="ataque-detalhes">(d20: ${d20}${bonusStr})</span>${textoModificador}`;
+    
+    adicionarLogCombate(logMsg, statusClass);
+}
+
+/**
  * Reseta os testes de morte de um personagem
  */
 async function resetarTestesMorte(event, id) {
@@ -688,7 +1348,19 @@ function abrirModalEfeito(event, tipo, id) {
                 <h3>Adicionar Efeito</h3>
                 <div class="form-group">
                     <label>Condição</label>
-                    <select id="efeito-condicao">${opcoesCondicoes}</select>
+                    <select id="efeito-condicao" onchange="toggleCamposEfeito()">${opcoesCondicoes}</select>
+                </div>
+                <div id="efeito-nivel-exaustao" class="form-group" style="display: none;">
+                    <label>Nível de Exaustão (1-6)</label>
+                    <input type="number" id="efeito-nivel" value="1" min="1" max="6">
+                    <small class="text-muted">
+                        1: Desv. testes | 2: Veloc./2 | 3: Desv. ataques/resist. | 4: HP máx./2 | 5: Veloc.=0 | 6: Morte
+                    </small>
+                </div>
+                <div id="efeito-dano-recorrente" class="form-group" style="display: none;">
+                    <label>Dano por Turno</label>
+                    <input type="number" id="efeito-dano" value="5" min="1" placeholder="Ex: 5">
+                    <small class="text-muted">Quantidade de dano aplicado automaticamente a cada turno</small>
                 </div>
                 <div class="form-group">
                     <label>Turnos (0 = permanente)</label>
@@ -713,10 +1385,43 @@ function abrirModalEfeito(event, tipo, id) {
     document.body.insertAdjacentHTML('beforeend', modalHTML);
 }
 
+function toggleCamposEfeito() {
+    const condicao = document.getElementById('efeito-condicao').value;
+    const nivelDiv = document.getElementById('efeito-nivel-exaustao');
+    const danoDiv = document.getElementById('efeito-dano-recorrente');
+    
+    // Exaustão
+    if (condicao === 'exaustao') {
+        nivelDiv.style.display = 'block';
+        danoDiv.style.display = 'none';
+        // Exaustão é sempre permanente (turnos = 0)
+        document.getElementById('efeito-turnos').value = 0;
+    } else {
+        nivelDiv.style.display = 'none';
+        
+        // Verifica se a condição tem dano recorrente
+        const condicaoObj = CONDICOES_DND[condicao];
+        if (condicaoObj && condicaoObj.efeitos && condicaoObj.efeitos.danoRecorrente) {
+            danoDiv.style.display = 'block';
+        } else {
+            danoDiv.style.display = 'none';
+        }
+        
+        document.getElementById('efeito-turnos').value = 1;
+    }
+}
+
 function adicionarEfeito(tipo, id) {
     const condicaoKey = document.getElementById('efeito-condicao').value;
-    const turnos = parseInt(document.getElementById('efeito-turnos').value) || 0;
+    let turnos = parseInt(document.getElementById('efeito-turnos').value) || 0;
     const descricao = document.getElementById('efeito-descricao').value.trim();
+    const nivel = condicaoKey === 'exaustao' ? parseInt(document.getElementById('efeito-nivel').value) || 1 : null;
+    const dano = document.getElementById('efeito-dano')?.value ? parseInt(document.getElementById('efeito-dano').value) : null;
+    
+    // Exaustão é sempre permanente
+    if (condicaoKey === 'exaustao') {
+        turnos = 0;
+    }
     
     const condicao = CONDICOES_DND[condicaoKey];
     if (!condicao) return;
@@ -733,6 +1438,12 @@ function adicionarEfeito(tipo, id) {
         ? `${turnos} ${turnos === 1 ? 'turno' : 'turnos'}` 
         : '∞';
     
+    // Para exaustão, mostra o nível
+    const textoNivel = nivel ? ` <span class="efeito-nivel">Nv${nivel}</span>` : '';
+    
+    // Para dano recorrente, mostra o dano
+    const textoDano = dano ? ` <span class="efeito-dano">${dano} dano/turno</span>` : '';
+    
     // Descrição entre parênteses se existir
     const textoDescricao = descricao ? ` <span class="efeito-desc">(${descricao})</span>` : '';
     
@@ -742,8 +1453,11 @@ function adicionarEfeito(tipo, id) {
     efeito.dataset.condicao = condicaoKey;
     efeito.dataset.turnos = turnos;
     efeito.dataset.descricao = descricao;
+    if (nivel) efeito.dataset.nivel = nivel;
+    if (dano) efeito.dataset.dano = dano;
+    
     efeito.innerHTML = `
-        <span class="efeito-nome" title="${condicao.descricao}">${condicao.nome}</span>
+        <span class="efeito-nome" title="${condicao.descricao}">${condicao.nome}</span>${textoNivel}${textoDano}
         <span class="efeito-turnos">${textoTurnos}</span>${textoDescricao}
         <button class="btn-mini btn-remover" onclick="removerEfeito(this)">✕</button>
     `;
@@ -751,16 +1465,65 @@ function adicionarEfeito(tipo, id) {
     listaEfeitos.appendChild(efeito);
     fecharModal('modal-efeito');
     
-    // Log com descrição se houver
-    const logDesc = descricao ? ` (${descricao})` : '';
-    adicionarLogCombate(`Efeito <strong>${condicao.nome}</strong>${logDesc} aplicado`, 'info');
+    // Atualiza visualização do deslocamento
+    atualizarDeslocamentoWidget(widgetEfeitos.closest('.widget'));
+    
+    // Log com nível e descrição se houver
+    const logNivel = nivel ? ` (Nível ${nivel})` : '';
+    const logDesc = descricao ? ` - ${descricao}` : '';
+    adicionarLogCombate(`Efeito <strong>${condicao.nome}</strong>${logNivel}${logDesc} aplicado`, 'info');
+    
+    // Salva no banco de dados
+    salvarCondicoesNoBanco(tipo, id, listaEfeitos);
 }
 
 function removerEfeito(btn) {
     const efeito = btn.closest('.efeito-item');
     const nome = efeito.querySelector('.efeito-nome').textContent;
+    const widget = efeito.closest('.widget');
+    const widgetEfeitos = efeito.closest('.widget-efeitos');
+    const tipo = widgetEfeitos?.dataset.criaturaTipo;
+    const id = widgetEfeitos?.dataset.criaturaId;
+    const listaEfeitos = widgetEfeitos?.querySelector('.efeitos-lista');
+    
     efeito.remove();
+    
+    // Atualiza visualização do deslocamento
+    if (widget) {
+        atualizarDeslocamentoWidget(widget);
+    }
+    
     adicionarLogCombate(`Efeito <strong>${nome}</strong> removido`, 'info');
+    
+    // Salva no banco de dados
+    if (tipo && id && listaEfeitos) {
+        salvarCondicoesNoBanco(tipo, id, listaEfeitos);
+    }
+}
+
+/**
+ * Salva as condições atuais no banco de dados
+ */
+async function salvarCondicoesNoBanco(tipo, id, listaEfeitos) {
+    try {
+        // Coleta todas as condições da lista
+        const efeitos = Array.from(listaEfeitos.querySelectorAll('.efeito-item')).map(item => ({
+            condicao: item.dataset.condicao,
+            turnos: parseInt(item.dataset.turnos) || 0,
+            descricao: item.dataset.descricao || '',
+            nivel: item.dataset.nivel ? parseInt(item.dataset.nivel) : null,
+            dano: item.dataset.dano ? parseInt(item.dataset.dano) : null
+        }));
+        
+        // Envia para o backend
+        const endpoint = tipo === 'personagem' 
+            ? `/fichas/api/personagem/${id}`
+            : `/fichas/api/monstro/instancia/${id}`;
+        
+        await API.patch(endpoint, { condicoes: efeitos });
+    } catch (error) {
+        console.error('Erro ao salvar condições:', error);
+    }
 }
 
 function atualizarContadoresEfeitos() {
@@ -768,6 +1531,22 @@ function atualizarContadoresEfeitos() {
     document.querySelectorAll('.efeito-item').forEach(efeito => {
         const turnosSpan = efeito.querySelector('.efeito-turnos');
         let turnos = parseInt(efeito.dataset.turnos) || 0;
+        
+        // Aplica dano recorrente APENAS se a condição tem danoRecorrente: true
+        const condicaoId = efeito.dataset.condicao;
+        const condicao = CONDICOES_DND[condicaoId];
+        const dano = parseInt(efeito.dataset.dano) || 0;
+        
+        if (condicao?.efeitos?.danoRecorrente && dano > 0) {
+            const widgetEfeitos = efeito.closest('.widget-efeitos');
+            const tipo = widgetEfeitos?.dataset.criaturaTipo;
+            const id = widgetEfeitos?.dataset.criaturaId;
+            const nomeEfeito = efeito.querySelector('.efeito-nome')?.textContent;
+            
+            if (tipo && id) {
+                aplicarDanoRecorrente(tipo, id, dano, nomeEfeito);
+            }
+        }
         
         if (turnos > 0) {
             turnos--;
@@ -779,13 +1558,122 @@ function atualizarContadoresEfeitos() {
                 const descricao = efeito.dataset.descricao;
                 const logDesc = descricao ? ` (${descricao})` : '';
                 adicionarLogCombate(`Efeito <strong>${nome}</strong>${logDesc} expirou`, 'cura');
+                
+                const widget = efeito.closest('.widget');
+                const widgetEfeitos = efeito.closest('.widget-efeitos');
+                const tipo = widgetEfeitos?.dataset.criaturaTipo;
+                const id = widgetEfeitos?.dataset.criaturaId;
+                const listaEfeitos = widgetEfeitos?.querySelector('.efeitos-lista');
+                
                 efeito.remove();
+                
+                // Atualiza visualização do deslocamento
+                if (widget) {
+                    atualizarDeslocamentoWidget(widget);
+                }
+                
+                // Salva no banco de dados
+                if (tipo && id && listaEfeitos) {
+                    salvarCondicoesNoBanco(tipo, id, listaEfeitos);
+                }
             } else {
                 // Atualiza texto com singular/plural
                 turnosSpan.textContent = `${turnos} ${turnos === 1 ? 'turno' : 'turnos'}`;
             }
         }
     });
+}
+
+/**
+ * Aplica dano recorrente de efeitos (ex: fogo, ácido)
+ */
+async function aplicarDanoRecorrente(tipo, id, dano, nomeEfeito) {
+    try {
+        console.log('[aplicarDanoRecorrente] Iniciando:', { tipo, id, dano, nomeEfeito });
+        
+        // Busca dados atuais da criatura
+        const endpoint = tipo === 'personagem' 
+            ? `/fichas/api/personagem/${id}`
+            : `/fichas/api/monstro/instancia/${id}`;
+        
+        console.log('[aplicarDanoRecorrente] Endpoint:', endpoint);
+        
+        const criatura = await API.get(endpoint);
+        if (!criatura || criatura.erro) {
+            console.warn('[aplicarDanoRecorrente] Criatura não encontrada:', criatura);
+            return;
+        }
+        
+        console.log('[aplicarDanoRecorrente] Criatura encontrada:', criatura.nome, 'HP:', criatura.hp_atual);
+        
+        // Calcula novo HP
+        const novoHp = Math.max(0, (criatura.hp_atual || 0) - dano);
+        console.log('[aplicarDanoRecorrente] Novo HP:', novoHp);
+        
+        // Atualiza no banco
+        await API.patch(endpoint, { hp_atual: novoHp });
+        console.log('[aplicarDanoRecorrente] HP atualizado no banco');
+        
+        // Atualiza widget visualmente
+        atualizarWidgetCriatura(tipo, id, { ...criatura, hp_atual: novoHp, hp_maximo: criatura.hp_maximo });
+        console.log('[aplicarDanoRecorrente] Widget atualizado');
+        
+        // Log de combate
+        const emoji = nomeEfeito.includes('🔥') ? '🔥' : 
+                      nomeEfeito.includes('❄️') ? '❄️' : 
+                      nomeEfeito.includes('🧪') ? '🧪' : 
+                      nomeEfeito.includes('☠️') ? '☠️' : '💢';
+        adicionarLogCombate(
+            `${emoji} <strong>${criatura.nome}</strong> recebe <strong>${dano}</strong> de dano de ${nomeEfeito}`,
+            'dano'
+        );
+    } catch (error) {
+        console.error('[aplicarDanoRecorrente] Erro:', error);
+    }
+}
+
+/**
+ * Atualiza a visualização do deslocamento no widget baseado nos efeitos ativos
+ */
+function atualizarDeslocamentoWidget(widget) {
+    if (!widget) return;
+    
+    const velocidadeElement = widget.querySelector('.velocidade-valor');
+    if (!velocidadeElement) return;
+    
+    const velocidadeBase = velocidadeElement.dataset.velocidadeBase || '9m';
+    const efeitosDiv = widget.querySelector('.efeitos-lista');
+    
+    if (!efeitosDiv) {
+        velocidadeElement.innerHTML = velocidadeBase;
+        return;
+    }
+    
+    const condicoes = Array.from(efeitosDiv.querySelectorAll('.efeito-item')).map(e => ({
+        nome: e.dataset.condicao,
+        turnos: parseInt(e.dataset.turnos) || 0,
+        nivel: e.dataset.nivel ? parseInt(e.dataset.nivel) : null
+    }));
+    
+    const efeitos = obterEfeitosAtivos(condicoes);
+    
+    // Extrai valor numérico da velocidade
+    const valorBase = parseFloat(velocidadeBase.toString().replace('m', '').replace(',', '.')) || 9;
+    
+    // Aplica efeitos de deslocamento
+    if (efeitos.deslocamento === 0) {
+        velocidadeElement.innerHTML = `<span style="color: #e74c3c; text-decoration: line-through;">${velocidadeBase}</span> <span style="color: #e74c3c; font-weight: bold;">0m</span>`;
+    } else if (efeitos.deslocamentoDividido) {
+        const novoValor = valorBase / efeitos.deslocamentoDividido;
+        const novoTexto = `${novoValor}m`.replace('.', ',');
+        velocidadeElement.innerHTML = `<span style="color: #e67e22; text-decoration: line-through;">${velocidadeBase}</span> <span style="color: #e67e22; font-weight: bold;">${novoTexto}</span>`;
+    } else if (efeitos.reducaoDeslocamento) {
+        const novoValor = Math.max(0, valorBase - efeitos.reducaoDeslocamento);
+        const novoTexto = `${novoValor}m`.replace('.', ',');
+        velocidadeElement.innerHTML = `<span style="color: #e67e22; text-decoration: line-through;">${velocidadeBase}</span> <span style="color: #e67e22; font-weight: bold;">${novoTexto}</span>`;
+    } else {
+        velocidadeElement.innerHTML = velocidadeBase;
+    }
 }
 
 // =========================================
@@ -811,64 +1699,144 @@ async function rolarAtaque(event, nomeAtacante, nomeAtaque, bonusAtaque, dados, 
     // Normaliza dados para array (compatibilidade com estrutura antiga)
     const dadosArray = Array.isArray(dados) ? dados : [dados];
     
+    // Busca condições do atacante (se existir widget)
+    let condicoesAtacante = [];
+    const widgetAtacante = Array.from(document.querySelectorAll('.widget')).find(w => {
+        const conteudo = w.querySelector('.widget-content');
+        return conteudo && conteudo.textContent.includes(nomeAtacante);
+    });
+    
+    if (widgetAtacante) {
+        const efeitosDiv = widgetAtacante.querySelector('.widget-efeitos');
+        if (efeitosDiv) {
+            condicoesAtacante = Array.from(efeitosDiv.querySelectorAll('.efeito-item')).map(e => ({
+                nome: e.dataset.condicao,
+                turnos: parseInt(e.dataset.turnos) || 0,
+                nivel: e.dataset.nivel ? parseInt(e.dataset.nivel) : null
+            }));
+        }
+    }
+    
+    // Verifica vantagem/desvantagem em ataques
+    const modificador = verificarVantagemDesvantagem(condicoesAtacante, 'ataque');
+    
     try {
-        // Rola o d20 para acerto
-        const resultadoAtaque = await API.post('/api/dados/rolar', { expressao: `1d20${bonusStr}` });
+        // Rola o d20 para acerto com vantagem/desvantagem
+        const rolagemD20 = rolarD20ComModificador(modificador);
+        const d20 = rolagemD20.d20;
+        const totalAtaque = d20 + bonusNum;
+        const isCrit = d20 === 20;
+        const isFumble = d20 === 1;
         
-        if (resultadoAtaque && !resultadoAtaque.erro) {
-            const d20 = resultadoAtaque.dados ? resultadoAtaque.dados[0] : resultadoAtaque.total - bonusNum;
-            const totalAtaque = resultadoAtaque.total;
-            const isCrit = d20 === 20;
-            const isFumble = d20 === 1;
+        // Ícone de status
+        const statusIcon = isCrit ? '🎯' : (isFumble ? '💀' : '');
+        const statusClass = isCrit ? 'crit' : (isFumble ? 'fumble' : '');
+        
+        // Texto de vantagem/desvantagem
+        let textoModificador = '';
+        if (modificador && rolagemD20.dados.length > 1) {
+            const [d1, d2] = rolagemD20.dados;
+            textoModificador = ` <span class="ataque-modificador">[${modificador === 'vantagem' ? '↑' : '↓'} ${d1},${d2}]</span>`;
+        }
+        
+        // Linha 1: Nome usa Ataque TOTAL [ícone] (detalhes)
+        let logMsg = `<strong>${nomeAtacante}</strong> usa <em>${nomeAtaque}</em> `;
+        logMsg += `<span class="ataque-total ${statusClass}">${totalAtaque}</span>`;
+        if (statusIcon) logMsg += ` ${statusIcon}`;
+        logMsg += ` <span class="ataque-detalhes">(${d20}${bonusStr})</span>${textoModificador}`;
+        
+        // Se acertou (não fumble), rola dano
+        if (!isFumble) {
+            let totalDano = 0;
+            let expressoesDano = [];
             
-            // Ícone de status
-            const statusIcon = isCrit ? '🎯' : (isFumble ? '💀' : '');
-            const statusClass = isCrit ? 'crit' : (isFumble ? 'fumble' : '');
-            
-            // Linha 1: Nome usa Ataque TOTAL [ícone] (detalhes)
-            let logMsg = `<strong>${nomeAtacante}</strong> usa <em>${nomeAtaque}</em> `;
-            logMsg += `<span class="ataque-total ${statusClass}">${totalAtaque}</span>`;
-            if (statusIcon) logMsg += ` ${statusIcon}`;
-            logMsg += ` <span class="ataque-detalhes">(${d20}${bonusStr})</span>`;
-            
-            // Se acertou (não fumble), rola dano
-            if (!isFumble) {
-                let totalDano = 0;
-                let expressoesDano = [];
-                
-                // Rola cada dado de dano separadamente
-                for (const expr of dadosArray) {
-                    // Prepara expressão de dano (dobra dados em crítico)
-                    let expressaoDano = expr;
-                    let expressaoOriginal = expr;
-                    if (isCrit) {
-                        // Dobra os dados (ex: 1d8+3 -> 2d8+3)
-                        expressaoDano = expressaoDano.replace(/(\d+)d(\d+)/g, (match, qtd, faces) => {
-                            return `${parseInt(qtd) * 2}d${faces}`;
-                        });
-                    }
-                    
-                    const resultadoDano = await API.post('/api/dados/rolar', { expressao: expressaoDano });
-                    
-                    if (resultadoDano && !resultadoDano.erro) {
-                        totalDano += resultadoDano.total;
-                        expressoesDano.push(expressaoDano);
-                    }
+            // Rola cada dado de dano separadamente
+            for (const expr of dadosArray) {
+                // Prepara expressão de dano (dobra dados em crítico)
+                let expressaoDano = expr;
+                let expressaoOriginal = expr;
+                if (isCrit) {
+                    // Dobra os dados (ex: 1d8+3 -> 2d8+3)
+                    expressaoDano = expressaoDano.replace(/(\d+)d(\d+)/g, (match, qtd, faces) => {
+                        return `${parseInt(qtd) * 2}d${faces}`;
+                    });
                 }
                 
-                // Linha 2: X dano tipo (expressão)
-                const tipoLower = tipoDano ? tipoDano.toLowerCase() : '';
-                const tipoStr = tipoLower ? ` <span class="tipo-dano" data-tipo="${tipoDano}">${tipoLower}</span>` : '';
-                const expressaoStr = expressoesDano.join(' + ');
-                logMsg += `<br><span class="dano-linha"><span class="dano">${totalDano}</span> dano${tipoStr} <span class="dano-expressao">(${expressaoStr})</span></span>`;
+                const resultadoDano = await API.post('/api/dados/rolar', { expressao: expressaoDano });
+                
+                if (resultadoDano && !resultadoDano.erro) {
+                    totalDano += resultadoDano.total;
+                    expressoesDano.push(expressaoDano);
+                }
             }
             
-            adicionarLogCombate(logMsg, isCrit ? 'crit' : (isFumble ? 'fumble' : 'ataque'));
+            // Linha 2: X dano tipo (expressão)
+            const tipoLower = tipoDano ? tipoDano.toLowerCase() : '';
+            const tipoStr = tipoLower ? ` <span class="tipo-dano" data-tipo="${tipoDano}">${tipoLower}</span>` : '';
+            const expressaoStr = expressoesDano.join(' + ');
+            logMsg += `<br><span class="dano-linha"><span class="dano">${totalDano}</span> dano${tipoStr} <span class="dano-expressao">(${expressaoStr})</span></span>`;
+            
+            // Se acerto >= 15 E há tipo de dano, aplica efeito persistente
+            if (totalAtaque >= 15 && tipoDano) {
+                await aplicarEfeitoDanoPersistente(nomeAtacante, tipoDano, totalAtaque);
+            }
         }
+        
+        adicionarLogCombate(logMsg, isCrit ? 'crit' : (isFumble ? 'fumble' : 'ataque'));
     } catch (error) {
         console.error('Erro ao rolar ataque:', error);
         adicionarLogCombate(`Erro ao rolar ataque de ${nomeAtacante}`, 'erro');
     }
+}
+
+/**
+ * Aplica efeito persistente baseado no tipo de dano quando acerto >= 15
+ */
+async function aplicarEfeitoDanoPersistente(nomeAlvo, tipoDano, totalAtaque) {
+    // Normaliza nome do tipo de dano
+    const tipoNorm = tipoDano.toLowerCase().replace(/\s+/g, '_');
+    
+    // Mapeamento de tipos de dano para condições
+    const mapeamento = {
+        'acido': { condicao: 'dano_acido', turnos: '1d4', dano: ['1d6', '2d6', '3d6'] },
+        'eletrico': { condicao: 'dano_eletrico', turnos: 0, descricao: 'Mod DES -1' },
+        'igneo': { condicao: 'dano_igneo', turnos: '1d4', dano: ['1d6', '2d6', '3d6'] },
+        'gelido': { condicao: 'dano_gelido', turnos: '1d4', descricao: 'Deslocamento -3m' },
+        'necrotico': { condicao: 'dano_necrotico', turnos: 0, descricao: '+1d4 dano' },
+        'perfurante': { condicao: 'dano_perfurante', turnos: '1d4', dano: '1d4' },
+        'psiquico': { condicao: 'dano_psiquico', turnos: '1d4', descricao: 'Desv. em SAB' },
+        'radiante': { condicao: 'dano_radiante', turnos: 0, descricao: '+1d6 dano' },
+        'trovejante': { condicao: 'dano_trovejante', turnos: 0, descricao: 'Mod DES -1' },
+        'venenoso': { condicao: 'dano_venenoso', turnos: '1d4', dano: ['1d6', '2d6', '3d6'] }
+    };
+    
+    const config = mapeamento[tipoNorm];
+    if (!config) return; // Tipo de dano não tem efeito persistente
+    
+    // Rola turnos se necessário
+    let turnos = 0;
+    if (typeof config.turnos === 'string' && config.turnos.includes('d')) {
+        const resultado = await API.post('/api/dados/rolar', { expressao: config.turnos });
+        turnos = resultado.total || 0;
+    } else {
+        turnos = config.turnos;
+    }
+    
+    // Descrição do efeito
+    let descricao = config.descricao || '';
+    
+    // Se tem dano recorrente, escolhe ou rola
+    if (config.dano) {
+        if (Array.isArray(config.dano)) {
+            // Escolhe aleatoriamente entre as opções
+            const danoEscolhido = config.dano[Math.floor(Math.random() * config.dano.length)];
+            descricao = `${turnos > 0 ? turnos + ' turnos, ' : ''}${danoEscolhido} dano`;
+        } else {
+            descricao = `${turnos > 0 ? turnos + ' turnos, ' : ''}${config.dano} dano`;
+        }
+    }
+    
+    adicionarLogCombate(`<strong>${nomeAlvo}</strong> sofre efeito de <em>${CONDICOES_DND[config.condicao].nome}</em>: ${descricao}`, 'dano');
 }
 
 /**
@@ -895,9 +1863,14 @@ function abrirDanoRapido(event, id, nome, tipo) {
     
     criarInputFlutuante(botao, 'dano', async (valor) => {
         try {
-            const endpoint = tipo === 'personagem' 
-                ? `/api/personagens/${id}/dano`
-                : `/api/monstros/instancias/${id}/dano`;
+            let endpoint;
+            if (tipo === 'personagem') {
+                endpoint = `/api/personagens/${id}/dano`;
+            } else if (tipo === 'npc') {
+                endpoint = `/api/npcs/${id}/dano`;
+            } else {
+                endpoint = `/api/monstros/instancias/${id}/dano`;
+            }
             
             const resultado = await API.post(endpoint, { dano: valor });
             
@@ -920,9 +1893,14 @@ function abrirCuraRapida(event, id, nome, tipo) {
     
     criarInputFlutuante(botao, 'cura', async (valor) => {
         try {
-            const endpoint = tipo === 'personagem' 
-                ? `/api/personagens/${id}/curar`
-                : `/api/monstros/instancias/${id}/curar`;
+            let endpoint;
+            if (tipo === 'personagem') {
+                endpoint = `/api/personagens/${id}/curar`;
+            } else if (tipo === 'npc') {
+                endpoint = `/api/npcs/${id}/curar`;
+            } else {
+                endpoint = `/api/monstros/instancias/${id}/curar`;
+            }
             
             const resultado = await API.post(endpoint, { quantidade: valor });
             
@@ -940,94 +1918,131 @@ function abrirCuraRapida(event, id, nome, tipo) {
 }
 
 function atualizarWidgetCriatura(tipo, id, dadosAtualizados) {
+    console.log('[atualizarWidgetCriatura] Iniciando:', { tipo, id, hp_atual: dadosAtualizados.hp_atual, hp_maximo: dadosAtualizados.hp_maximo });
+    
     // Encontra todos os widgets que mostram essa criatura
     const widgets = document.querySelectorAll('.widget');
+    let encontrouWidget = false;
     
     widgets.forEach(widget => {
-        const conteudo = widget.querySelector('.widget-personagem-conteudo, .widget-monstro-conteudo');
+        const conteudo = widget.querySelector('.widget-personagem-conteudo, .widget-monstro-conteudo, .widget-instancia, .widget-npc-conteudo');
         if (!conteudo) return;
         
-        // Verifica se o botão de dano tem o ID correto
-        const btnDano = conteudo.querySelector('.btn-danger');
-        if (!btnDano) return;
+        // Método 1: Verifica pelo data-*-id do conteúdo
+        const dataIdPersonagem = conteudo.dataset.personagemId;
+        const dataIdInstancia = conteudo.dataset.instanciaId;
+        const dataIdNpc = conteudo.dataset.npcId;
         
-        const onclickAttr = btnDano.getAttribute('onclick') || '';
-        if (onclickAttr.includes(`${id},`) || onclickAttr.includes(`${id})`)) {
-            // Atualiza a barra de HP
-            const hpBarra = conteudo.querySelector('.hp-barra-mini');
-            const hpTexto = conteudo.querySelector('.hp-texto');
-            const hpContainer = conteudo.querySelector('.personagem-widget-hp');
+        let pertenceACriatura = false;
+        if (tipo === 'personagem' && dataIdPersonagem == id) {
+            pertenceACriatura = true;
+        } else if (tipo === 'instancia' && dataIdInstancia == id) {
+            pertenceACriatura = true;
+        } else if (tipo === 'npc' && dataIdNpc == id) {
+            pertenceACriatura = true;
+        }
+        
+        // Método 2: Verifica pelo widget-efeitos (backup)
+        if (!pertenceACriatura) {
+            const widgetEfeitos = conteudo.querySelector('.widget-efeitos');
+            if (widgetEfeitos && 
+                widgetEfeitos.dataset.criaturaTipo === tipo && 
+                widgetEfeitos.dataset.criaturaId == id) {
+                pertenceACriatura = true;
+            }
+        }
+        
+        if (!pertenceACriatura) return;
+        
+        encontrouWidget = true;
+        console.log('[atualizarWidgetCriatura] Widget encontrado para:', tipo, id);
+        
+        // Atualiza a barra de HP
+        const hpBarra = conteudo.querySelector('.hp-barra-mini, .hp-bar-mini');
+        const hpTexto = conteudo.querySelector('.hp-texto');
+        const hpContainer = conteudo.querySelector('.personagem-widget-hp, .npc-hp');
+        
+        if (hpBarra && hpTexto && dadosAtualizados.hp_atual !== undefined) {
+            const hpAtual = dadosAtualizados.hp_atual;
+            const hpMax = dadosAtualizados.hp_maximo;
+            const hpPct = hpMax ? Math.round((hpAtual / hpMax) * 100) : 100;
             
-            if (hpBarra && hpTexto && dadosAtualizados.hp_atual !== undefined) {
-                const hpAtual = dadosAtualizados.hp_atual;
-                const hpMax = dadosAtualizados.hp_maximo;
-                const hpPct = hpMax ? Math.round((hpAtual / hpMax) * 100) : 100;
-                
-                const hpFill = hpBarra.querySelector('.hp-fill');
-                if (hpFill) {
-                    hpFill.style.width = `${Math.max(0, Math.min(100, hpPct))}%`;
-                }
+            console.log('[atualizarWidgetCriatura] Atualizando HP:', hpAtual, '/', hpMax, '=', hpPct, '%');
+            
+            const hpFill = hpBarra.querySelector('.hp-fill');
+            if (hpFill) {
+                hpFill.style.width = `${Math.max(0, Math.min(100, hpPct))}%`;
+            }
+            
+            // Formato do texto varia conforme o tipo de widget
+            if (tipo === 'npc') {
+                hpTexto.textContent = `❤️ ${hpAtual}/${hpMax}`;
+            } else {
                 hpTexto.textContent = `HP ${hpAtual}/${hpMax}`;
-                
-                // Atualiza classes de estado
-                if (hpContainer) {
-                    hpContainer.classList.remove('hp-critico', 'hp-baixo');
-                    if (hpPct <= 25) {
-                        hpContainer.classList.add('hp-critico');
-                    } else if (hpPct <= 50) {
-                        hpContainer.classList.add('hp-baixo');
-                    }
+            }
+            
+            // Atualiza classes de estado
+            if (hpContainer) {
+                hpContainer.classList.remove('hp-critico', 'hp-baixo');
+                if (hpPct <= 25) {
+                    hpContainer.classList.add('hp-critico');
+                } else if (hpPct <= 50) {
+                    hpContainer.classList.add('hp-baixo');
                 }
+            }
+            
+            // Mostra/esconde testes de morte para personagens (HP = 0)
+            if (tipo === 'personagem') {
+                let testesMorte = conteudo.querySelector('.testes-morte');
+                const widgetEfeitos = conteudo.querySelector('.widget-efeitos');
                 
-                // Mostra/esconde testes de morte para personagens (HP = 0)
-                if (tipo === 'personagem') {
-                    let testesMorte = conteudo.querySelector('.testes-morte');
-                    const widgetEfeitos = conteudo.querySelector('.widget-efeitos');
+                if (hp_atual <= 0) {
+                    const sucessoMorte = dadosAtualizados.sucesso_morte || 0;
+                    const falhaMorte = dadosAtualizados.falha_morte || 0;
+                    const estaMorto = falhaMorte >= 3;
                     
-                    if (hpAtual <= 0) {
-                        const sucessoMorte = dadosAtualizados.sucesso_morte || 0;
-                        const falhaMorte = dadosAtualizados.falha_morte || 0;
-                        const estaMorto = falhaMorte >= 3;
-                        
-                        // Atualiza ou cria testes de morte
-                        const testesMorteHTML = `
-                            <div class="testes-morte ${estaMorto ? 'personagem-morto' : ''}" data-criatura-tipo="personagem" data-criatura-id="${id}">
-                                ${estaMorto ? '<div class="morte-label">💀 MORTO</div>' : ''}
-                                <div class="teste-linha">
-                                    <span class="teste-label">Vida</span>
-                                    <span class="teste-checks" data-tipo="sucesso" data-id="${id}">
-                                        <span class="teste-check ${sucessoMorte >= 1 ? 'marcado' : ''}" onclick="marcarTesteMorte(event, ${id}, 'sucesso', 1)">☐</span>
-                                        <span class="teste-check ${sucessoMorte >= 2 ? 'marcado' : ''}" onclick="marcarTesteMorte(event, ${id}, 'sucesso', 2)">☐</span>
-                                        <span class="teste-check ${sucessoMorte >= 3 ? 'marcado' : ''}" onclick="marcarTesteMorte(event, ${id}, 'sucesso', 3)">☐</span>
-                                    </span>
-                                </div>
-                                <div class="teste-linha">
-                                    <span class="teste-label">Morte</span>
-                                    <span class="teste-checks" data-tipo="falha" data-id="${id}">
-                                        <span class="teste-check ${falhaMorte >= 1 ? 'marcado' : ''}" onclick="marcarTesteMorte(event, ${id}, 'falha', 1)">☐</span>
-                                        <span class="teste-check ${falhaMorte >= 2 ? 'marcado' : ''}" onclick="marcarTesteMorte(event, ${id}, 'falha', 2)">☐</span>
-                                        <span class="teste-check ${falhaMorte >= 3 ? 'marcado' : ''}" onclick="marcarTesteMorte(event, ${id}, 'falha', 3)">☐</span>
-                                    </span>
-                                </div>
-                                <button class="btn btn-xs btn-outline" onclick="resetarTestesMorte(event, ${id})">Resetar</button>
+                    // Atualiza ou cria testes de morte
+                    const testesMorteHTML = `
+                        <div class="testes-morte ${estaMorto ? 'personagem-morto' : ''}" data-criatura-tipo="personagem" data-criatura-id="${id}">
+                            ${estaMorto ? '<div class="morte-label">💀 MORTO</div>' : ''}
+                            <div class="teste-linha">
+                                <span class="teste-label">Vida</span>
+                                <span class="teste-checks" data-tipo="sucesso" data-id="${id}">
+                                    <span class="teste-check ${sucessoMorte >= 1 ? 'marcado' : ''}" onclick="marcarTesteMorte(event, ${id}, 'sucesso', 1)">☐</span>
+                                    <span class="teste-check ${sucessoMorte >= 2 ? 'marcado' : ''}" onclick="marcarTesteMorte(event, ${id}, 'sucesso', 2)">☐</span>
+                                    <span class="teste-check ${sucessoMorte >= 3 ? 'marcado' : ''}" onclick="marcarTesteMorte(event, ${id}, 'sucesso', 3)">☐</span>
+                                </span>
                             </div>
-                        `;
-                        
-                        if (testesMorte) {
-                            testesMorte.outerHTML = testesMorteHTML;
-                        } else if (widgetEfeitos) {
-                            widgetEfeitos.insertAdjacentHTML('beforebegin', testesMorteHTML);
-                        }
-                    } else {
-                        // Remove testes de morte se HP > 0
-                        if (testesMorte) {
-                            testesMorte.remove();
-                        }
+                            <div class="teste-linha">
+                                <span class="teste-label">Morte</span>
+                                <span class="teste-checks" data-tipo="falha" data-id="${id}">
+                                    <span class="teste-check ${falhaMorte >= 1 ? 'marcado' : ''}" onclick="marcarTesteMorte(event, ${id}, 'falha', 1)">☐</span>
+                                    <span class="teste-check ${falhaMorte >= 2 ? 'marcado' : ''}" onclick="marcarTesteMorte(event, ${id}, 'falha', 2)">☐</span>
+                                    <span class="teste-check ${falhaMorte >= 3 ? 'marcado' : ''}" onclick="marcarTesteMorte(event, ${id}, 'falha', 3)">☐</span>
+                                </span>
+                            </div>
+                            <button class="btn btn-xs btn-outline" onclick="resetarTestesMorte(event, ${id})">Resetar</button>
+                        </div>
+                    `;
+                    
+                    if (testesMorte) {
+                        testesMorte.outerHTML = testesMorteHTML;
+                    } else if (widgetEfeitos) {
+                        widgetEfeitos.insertAdjacentHTML('beforebegin', testesMorteHTML);
+                    }
+                } else {
+                    // Remove testes de morte se HP > 0
+                    if (testesMorte) {
+                        testesMorte.remove();
                     }
                 }
             }
         }
     });
+    
+    if (!encontrouWidget) {
+        console.warn('[atualizarWidgetCriatura] Nenhum widget encontrado para:', tipo, id);
+    }
 }
 
 async function criarInstanciaCombate(monstroId) {
@@ -1135,10 +2150,7 @@ async function adicionarMonstroAoCombate(widgetId, monstroId, nomeBase) {
                 };
             }
             
-            // Log
-            adicionarLogCombate(`<strong>${nome}</strong> entrou no combate`, 'info');
-            
-            // Adiciona automaticamente à lista de turnos
+            // Adiciona automaticamente à lista de turnos (já faz log da iniciativa)
             adicionarAosTurnos('instancia', resultado.id, nome, null, modDes);
         }
     } catch (error) {
@@ -1153,6 +2165,250 @@ function formatarND(nd) {
     return nd || 0;
 }
 
+// =========================================
+// Widgets de NPC
+// =========================================
+
+async function abrirSeletorNPC(widget) {
+    document.getElementById('modal-widget-titulo').textContent = 'Selecionar NPC';
+    
+    const npcs = await API.get('/fichas/api/npcs');
+    const conteudo = document.getElementById('modal-widget-conteudo');
+    
+    if (!npcs || npcs.length === 0) {
+        conteudo.innerHTML = `
+            <p class="text-muted">Nenhum NPC cadastrado</p>
+            <a href="/fichas/npc/novo" class="btn btn-primary mt-2">Criar NPC</a>
+        `;
+    } else {
+        // Agrupa por status (conhecidos primeiro)
+        const conhecidos = npcs.filter(n => n.conhecido && n.vivo);
+        const desconhecidos = npcs.filter(n => !n.conhecido && n.vivo);
+        const mortos = npcs.filter(n => !n.vivo);
+        
+        let html = '<div class="lista-selecao">';
+        
+        if (conhecidos.length > 0) {
+            html += '<div class="grupo-label">👥 NPCs Conhecidos</div>';
+            html += conhecidos.map(n => gerarItemNPCSelecao(n, widget.id)).join('');
+        }
+        
+        if (desconhecidos.length > 0) {
+            html += '<div class="grupo-label" style="margin-top: 1rem;">❓ NPCs Desconhecidos</div>';
+            html += desconhecidos.map(n => gerarItemNPCSelecao(n, widget.id)).join('');
+        }
+        
+        if (mortos.length > 0) {
+            html += '<div class="grupo-label" style="margin-top: 1rem;">💀 NPCs Mortos</div>';
+            html += mortos.map(n => gerarItemNPCSelecao(n, widget.id)).join('');
+        }
+        
+        html += '</div>';
+        conteudo.innerHTML = html;
+    }
+    
+    abrirModalTransparente('modal-widget');
+}
+
+function gerarItemNPCSelecao(npc, widgetId) {
+    const statusIcon = npc.alinhamento === 'amigavel' ? '💚' : 
+                      npc.alinhamento === 'hostil' ? '❤️' : '💛';
+    const localTexto = npc.localizacao || 'Local desconhecido';
+    const mortoClass = !npc.vivo ? 'item-morto' : '';
+    
+    return `
+        <div class="item-selecao ${mortoClass}" onclick="carregarNPCWidget('${widgetId}', ${npc.id})">
+            <div class="item-info">
+                <strong>${statusIcon} ${npc.nome}</strong>
+                <span class="item-detalhes">${npc.raca || 'Humanoide'} • ${localTexto}</span>
+            </div>
+            ${!npc.vivo ? '<span class="tag-morto">💀</span>' : ''}
+        </div>
+    `;
+}
+
+async function carregarNPCWidget(widgetId, npcId) {
+    fecharModal('modal-widget');
+    
+    const widget = window.widgetManager.obter(widgetId);
+    if (!widget) return;
+    
+    try {
+        const npc = await API.get(`/fichas/api/npc/${npcId}`);
+        if (!npc || npc.erro) {
+            console.warn('NPC não encontrado:', npcId);
+            widget.fechar();
+            return;
+        }
+        
+        widget.setConteudo(gerarHTMLNPCWidget(npc));
+        widget.element.querySelector('.widget-title').textContent = `🎭 ${npc.nome}`;
+        
+        // Salva dados do NPC no widget
+        widget.dadosCriatura = {
+            tipo: 'npc',
+            id: npc.id,
+            nome: npc.nome
+        };
+        
+        // Salva estado
+        salvarEstadoSessao();
+        
+    } catch (error) {
+        console.error('Erro ao carregar NPC:', error);
+        widget.fechar();
+    }
+}
+
+function gerarHTMLNPCWidget(npc) {
+    const statusIcon = npc.alinhamento === 'amigavel' ? '💚 Amigável' : 
+                      npc.alinhamento === 'hostil' ? '❤️ Hostil' : '💛 Neutro';
+    
+    // Parse atributos
+    const attrs = npc.atributos 
+        ? (typeof npc.atributos === 'string' ? JSON.parse(npc.atributos) : npc.atributos)
+        : {forca: 10, destreza: 10, constituicao: 10, inteligencia: 10, sabedoria: 10, carisma: 10};
+    
+    const calcMod = (val) => Math.floor((val - 10) / 2);
+    const fmtMod = (val) => { const m = calcMod(val); return m >= 0 ? `+${m}` : `${m}`; };
+    const modDes = calcMod(attrs.destreza || 10);
+    
+    // Atributos HTML
+    const atributosHTML = `
+        <div class="npc-atributos">
+            <span title="Força ${attrs.forca || 10}"><b>FOR</b> ${fmtMod(attrs.forca || 10)}</span>
+            <span title="Destreza ${attrs.destreza || 10}"><b>DES</b> ${fmtMod(attrs.destreza || 10)}</span>
+            <span title="Constituição ${attrs.constituicao || 10}"><b>CON</b> ${fmtMod(attrs.constituicao || 10)}</span>
+            <span title="Inteligência ${attrs.inteligencia || 10}"><b>INT</b> ${fmtMod(attrs.inteligencia || 10)}</span>
+            <span title="Sabedoria ${attrs.sabedoria || 10}"><b>SAB</b> ${fmtMod(attrs.sabedoria || 10)}</span>
+            <span title="Carisma ${attrs.carisma || 10}"><b>CAR</b> ${fmtMod(attrs.carisma || 10)}</span>
+        </div>
+    `;
+    
+    // HP e CA
+    const hpAtual = npc.hp_atual ?? npc.hp_maximo ?? 10;
+    const hpMax = npc.hp_maximo ?? 10;
+    const porcentagem = Math.max(0, Math.min(100, (hpAtual / hpMax) * 100));
+    const hpClass = porcentagem <= 25 ? 'hp-critico' : porcentagem <= 50 ? 'hp-baixo' : '';
+    
+    // Parse ações do NPC
+    const acoes = npc.acoes 
+        ? (typeof npc.acoes === 'string' ? JSON.parse(npc.acoes) : npc.acoes)
+        : [];
+    
+    // Separa ataques e magias
+    const ataques = acoes.filter(a => a.tipo === 'ataque');
+    const magias = acoes.filter(a => a.tipo === 'magia');
+    
+    // Gera botões de ataque (com rolagem)
+    const ataquesHTML = ataques.length > 0 
+        ? ataques.map(a => {
+            const dadosStr = a.dados && a.dados.length > 0 
+                ? JSON.stringify(a.dados).replace(/"/g, "'") 
+                : "['1d4']";
+            const tipo = a.tipo_dano || '';
+            const titulo = `${a.descricao || ''} | ${a.dados ? a.dados.join(' + ') : ''} ${tipo}`;
+            return `<button class="btn btn-xs btn-ataque" onclick="rolarAtaque(event, '${npc.nome}', '${a.nome}', '${a.bonus || '+0'}', ${dadosStr}, '${tipo}')" title="${titulo}">⚔️ ${a.nome} ${a.bonus || ''}</button>`;
+        }).join('')
+        : '';
+    
+    // Gera botões de magia/habilidade
+    const magiasHTML = magias.length > 0 
+        ? magias.map(m => {
+            const temDano = m.dados && m.dados.length > 0;
+            const dadosStr = temDano ? JSON.stringify(m.dados).replace(/"/g, "'") : "[]";
+            const tipo = m.tipo_dano || '';
+            const cdText = m.cd ? `CD ${m.cd}` : '';
+            const titulo = `${m.descricao || ''} ${cdText} ${temDano ? '| ' + m.dados.join(' + ') : ''} ${tipo}`;
+            
+            if (temDano && m.bonus) {
+                // Magia com ataque
+                return `<button class="btn btn-xs btn-magia" onclick="rolarAtaque(event, '${npc.nome}', '${m.nome}', '${m.bonus}', ${dadosStr}, '${tipo}')" title="${titulo}">✨ ${m.nome}</button>`;
+            } else if (temDano) {
+                // Magia/habilidade com dano direto (usa CD ou só rola dano)
+                return `<button class="btn btn-xs btn-magia" onclick="rolarMagiaNPC(event, '${npc.nome}', '${m.nome}', ${dadosStr}, '${tipo}', ${m.cd || 0})" title="${titulo}">✨ ${m.nome}${cdText ? ' ' + cdText : ''}</button>`;
+            } else {
+                // Magia/habilidade utilitária (só loga)
+                return `<button class="btn btn-xs btn-magia" onclick="usarHabilidadeNPC(event, '${npc.nome}', '${m.nome}', '${m.descricao || ''}', ${m.cd || 0})" title="${titulo}">✨ ${m.nome}${cdText ? ' ' + cdText : ''}</button>`;
+            }
+        }).join('')
+        : '';
+    
+    return `
+        <div class="widget-npc-conteudo" data-npc-id="${npc.id}" data-npc-nome="${npc.nome}" data-mod-destreza="${modDes}">
+            <div class="npc-header-mini">
+                <div class="npc-info">
+                    <span class="npc-status">${statusIcon}</span>
+                    <span class="npc-tipo">${npc.raca || 'Humanoide'}</span>
+                    ${npc.classe ? `<span class="npc-classe">• ${npc.classe}</span>` : ''}
+                    <button class="btn-add-combate" onclick="adicionarNPCAoCombate(${npc.id}, '${npc.nome}', ${modDes})" title="Adicionar ao combate">⚔️</button>
+                </div>
+                <div class="npc-local">📍 ${npc.localizacao || 'Local desconhecido'}</div>
+            </div>
+            
+            <div class="npc-stats-row">
+                <div class="npc-hp ${hpClass}">
+                    <div class="hp-bar-mini">
+                        <div class="hp-fill" style="width: ${porcentagem}%"></div>
+                    </div>
+                    <span class="hp-texto">❤️ ${hpAtual}/${hpMax}</span>
+                </div>
+                <span class="npc-ca">🛡️ CA ${npc.ca || 10}</span>
+            </div>
+            
+            ${atributosHTML}
+            
+            ${(ataquesHTML || magiasHTML) ? `
+                <div class="npc-acoes-combate">
+                    ${ataquesHTML ? `
+                        <div class="acoes-grupo">
+                            <div class="acoes-titulo">⚔️ Ataques</div>
+                            <div class="acoes-lista">${ataquesHTML}</div>
+                        </div>
+                    ` : ''}
+                    ${magiasHTML ? `
+                        <div class="acoes-grupo">
+                            <div class="acoes-titulo">✨ Magias/Habilidades</div>
+                            <div class="acoes-lista">${magiasHTML}</div>
+                        </div>
+                    ` : ''}
+                </div>
+            ` : ''}
+            
+            <div class="npc-widget-botoes">
+                <button class="btn btn-sm btn-danger" onclick="abrirDanoRapido(event, ${npc.id}, '${npc.nome}', 'npc')">💔 Dano</button>
+                <button class="btn btn-sm btn-success" onclick="abrirCuraRapida(event, ${npc.id}, '${npc.nome}', 'npc')">💚 Cura</button>
+                <button class="btn btn-sm btn-outline" onclick="toggleMenuResistencia(event, ${npc.id}, 'npc', ${JSON.stringify(attrs).replace(/"/g, '&quot;')})">🎲 Resist.</button>
+            </div>
+            
+            ${npc.segredo ? `
+                <div class="npc-secao npc-segredo">
+                    <strong>🤫 Segredo</strong>
+                    <p>${npc.segredo}</p>
+                </div>
+            ` : ''}
+            
+            ${npc.observacoes ? `
+                <div class="npc-secao npc-observacoes">
+                    <strong>⚠️ Observações</strong>
+                    <p>${npc.observacoes}</p>
+                </div>
+            ` : ''}
+            
+            ${npc.notas ? `
+                <div class="npc-secao">
+                    <strong>📝 Notas</strong>
+                    <p>${npc.notas}</p>
+                </div>
+            ` : ''}
+            
+            <div class="npc-acoes-footer">
+                <a href="/fichas/npc/${npc.id}" class="btn-mini" target="_blank">📝 Editar</a>
+            </div>
+        </div>
+    `;
+}
+
 async function carregarMonstroWidget(widgetId, monstroId) {
     fecharModal('modal-widget');
     
@@ -1161,12 +2417,57 @@ async function carregarMonstroWidget(widgetId, monstroId) {
     if (widget) {
         try {
             const monstro = await API.get(`/fichas/api/monstro/${monstroId}`);
+            if (!monstro || monstro.erro) {
+                console.warn('Monstro não encontrado:', monstroId);
+                widget.fechar();
+                return;
+            }
+            
             widget.setConteudo(gerarHTMLMonstroWidget(monstro));
             widget.element.querySelector('.widget-title').textContent = `👹 ${monstro.nome}`;
         } catch (error) {
             console.error('Erro ao carregar monstro:', error);
-            widget.setConteudo('<p class="text-muted">Erro ao carregar monstro</p>');
+            widget.fechar();
         }
+    }
+}
+
+async function carregarMonstroInstanciaWidget(widgetId, instanciaId) {
+    const widget = window.widgetManager.obter(widgetId);
+    if (!widget) return;
+    
+    try {
+        const instancia = await API.get(`/fichas/api/monstro/instancia/${instanciaId}`);
+        if (!instancia || instancia.erro) {
+            console.warn('Instância não encontrada:', instanciaId);
+            widget.fechar();
+            return;
+        }
+        
+        // Usa o nome base salvo ou extrai do nome da instância
+        const nomeBase = widget.dadosCriatura?.nomeBase || instancia.nome.replace(/\s+\d+$/, '');
+        widget.setConteudo(gerarHTMLInstanciaMonstroWidget(instancia, nomeBase));
+        widget.element.querySelector('.widget-title').textContent = `👹 ${instancia.nome}`;
+        
+        // Atualiza dadosCriatura
+        const attrs = instancia.atributos || {};
+        const modDes = Math.floor(((attrs.destreza || 10) - 10) / 2);
+        widget.dadosCriatura = {
+            tipo: 'instancia',
+            id: instancia.id,
+            nome: instancia.nome,
+            nomeBase: nomeBase,
+            modDestreza: modDes
+        };
+        
+        // Atualiza visualização do deslocamento baseado nas condições carregadas
+        atualizarDeslocamentoWidget(widget.element);
+        
+        // Salva estado imediatamente
+        salvarEstadoSessao();
+    } catch (error) {
+        console.error('Erro ao carregar instância de monstro:', error);
+        widget.fechar();
     }
 }
 
@@ -1241,7 +2542,7 @@ function gerarHTMLInstanciaMonstroWidget(inst, nomeBase) {
         : `<button class="btn btn-xs btn-acao" onclick="rolarAtaque(event, '${inst.nome}', 'Ataque Básico', '${formatMod(attrs.forca)}', ['1d4${modFor >= 0 ? '+' + modFor : modFor}'], '')" title="1d4${modFor >= 0 ? '+' + modFor : modFor}">Ataque Básico ${formatMod(attrs.forca)}</button>`;
     
     return `
-        <div class="widget-monstro-conteudo widget-instancia" data-instancia-id="${inst.id}" data-nome-base="${nomeBase}" data-mod-destreza="${modDes}">
+        <div class="widget-monstro-conteudo widget-instancia" data-instancia-id="${inst.id}" data-instancia-nome="${inst.nome}" data-nome-base="${nomeBase}" data-mod-destreza="${modDes}">
             <div class="monstro-widget-header">
                 <span class="monstro-tipo">${inst.tamanho || 'Médio'} ${inst.tipo || 'Criatura'}</span>
                 <button class="btn-add-combate" onclick="adicionarInstanciaAoCombate(${inst.id}, '${inst.nome}', ${modDes})" title="Adicionar ao combate">⚔️</button>
@@ -1255,16 +2556,16 @@ function gerarHTMLInstanciaMonstroWidget(inst, nomeBase) {
             <div class="monstro-widget-stats">
                 <div class="stat-box"><span class="valor">CA${inst.ca || 10}</span></div>
                 <div class="stat-box"><span class="valor">ND ${formatarND(inst.nd)}</span></div>
-                <div class="stat-box"><span class="valor">${inst.velocidade?.terrestre || inst.velocidade?.normal || 9}m</span></div>
+                <div class="stat-box stat-velocidade"><span class="valor velocidade-valor" data-velocidade-base="${inst.velocidade?.terrestre || inst.velocidade?.normal || 9}m">${inst.velocidade?.terrestre || inst.velocidade?.normal || 9}m</span></div>
                 <div class="stat-box" title="Percepção Passiva"><span class="valor">👁${percepcaoPassiva}</span></div>
             </div>
             <div class="monstro-widget-attrs">
-                <span title="Força">FOR ${formatMod(attrs.forca)}</span>
-                <span title="Destreza">DES ${formatMod(attrs.destreza)}</span>
-                <span title="Constituição">CON ${formatMod(attrs.constituicao)}</span>
-                <span title="Inteligência">INT ${formatMod(attrs.inteligencia)}</span>
-                <span title="Sabedoria">SAB ${formatMod(attrs.sabedoria)}</span>
-                <span title="Carisma">CAR ${formatMod(attrs.carisma)}</span>
+                <span class="attr-clicavel" title="Clique para rolar FOR" onclick="abrirSubmenuPericias(event, ${inst.id}, 'instancia', 'forca', ${attrs.forca}, [], [], 2)">FOR ${formatMod(attrs.forca)}</span>
+                <span class="attr-clicavel" title="Clique para rolar DES" onclick="abrirSubmenuPericias(event, ${inst.id}, 'instancia', 'destreza', ${attrs.destreza}, [], [], 2)">DES ${formatMod(attrs.destreza)}</span>
+                <span class="attr-clicavel" title="Clique para rolar CON" onclick="abrirSubmenuPericias(event, ${inst.id}, 'instancia', 'constituicao', ${attrs.constituicao}, [], [], 2)">CON ${formatMod(attrs.constituicao)}</span>
+                <span class="attr-clicavel" title="Clique para rolar INT" onclick="abrirSubmenuPericias(event, ${inst.id}, 'instancia', 'inteligencia', ${attrs.inteligencia}, [], [], 2)">INT ${formatMod(attrs.inteligencia)}</span>
+                <span class="attr-clicavel" title="Clique para rolar SAB" onclick="abrirSubmenuPericias(event, ${inst.id}, 'instancia', 'sabedoria', ${attrs.sabedoria}, [], [], 2)">SAB ${formatMod(attrs.sabedoria)}</span>
+                <span class="attr-clicavel" title="Clique para rolar CAR" onclick="abrirSubmenuPericias(event, ${inst.id}, 'instancia', 'carisma', ${attrs.carisma}, [], [], 2)">CAR ${formatMod(attrs.carisma)}</span>
             </div>
             <div class="monstro-widget-acoes">
                 <div class="acoes-titulo">⚔️ Ações</div>
@@ -1273,9 +2574,10 @@ function gerarHTMLInstanciaMonstroWidget(inst, nomeBase) {
             <div class="monstro-widget-botoes">
                 <button class="btn btn-sm btn-danger" onclick="abrirDanoRapido(event, ${inst.id}, '${inst.nome}', 'instancia')">💔 Dano</button>
                 <button class="btn btn-sm btn-success" onclick="abrirCuraRapida(event, ${inst.id}, '${inst.nome}', 'instancia')">💚 Cura</button>
+                <button class="btn btn-sm btn-outline" onclick="toggleMenuResistencia(event, ${inst.id}, 'instancia', ${JSON.stringify(attrs).replace(/"/g, '&quot;')})">🎲 Resist.</button>
             </div>
             <div class="widget-efeitos" data-criatura-tipo="instancia" data-criatura-id="${inst.id}">
-                <div class="efeitos-lista"></div>
+                <div class="efeitos-lista">${gerarHTMLEfeitos(inst.condicoes || [])}</div>
                 <button class="btn btn-sm btn-outline" onclick="abrirModalEfeito(event, 'instancia', ${inst.id})">+ Efeito</button>
             </div>
             <div class="widget-observacoes">
@@ -1721,6 +3023,113 @@ function adicionarInstanciaAoCombate(id, nome, modDestreza = 0) {
     abrirWidgetIniciativa();
 }
 
+/**
+ * Adiciona um NPC à lista de turnos
+ */
+function adicionarNPCAoCombate(id, nome, modDestreza = 0) {
+    adicionarAosTurnos('npc', id, nome, null, modDestreza);
+    
+    // Abre widget de iniciativa se não existir
+    abrirWidgetIniciativa();
+}
+
+/**
+ * Rola uma expressão de dados (ex: "1d6+3", "2d8", "+2")
+ * Retorna objeto com { total, dados[], modificador }
+ */
+function rolarExpressao(expressao) {
+    // Normaliza a expressão
+    expressao = expressao.toString().toLowerCase().trim();
+    
+    // Se for apenas um modificador (+2, -1)
+    if (/^[+-]?\d+$/.test(expressao)) {
+        return { total: parseInt(expressao), dados: [], modificador: parseInt(expressao) };
+    }
+    
+    // Parse da expressão (ex: 2d6+3, 1d20-2, 3d8)
+    const match = expressao.match(/^(\d*)d(\d+)([+-]\d+)?$/);
+    if (!match) {
+        console.warn('Expressão de dados inválida:', expressao);
+        return { total: 0, dados: [], modificador: 0 };
+    }
+    
+    const quantidade = parseInt(match[1]) || 1;
+    const lados = parseInt(match[2]);
+    const modificador = parseInt(match[3]) || 0;
+    
+    const dados = [];
+    let soma = 0;
+    
+    for (let i = 0; i < quantidade; i++) {
+        const resultado = Math.floor(Math.random() * lados) + 1;
+        dados.push(resultado);
+        soma += resultado;
+    }
+    
+    return {
+        total: soma + modificador,
+        dados,
+        modificador,
+        expressao
+    };
+}
+
+/**
+ * Rola magia de NPC com dano
+ */
+async function rolarMagiaNPC(event, nomeNPC, nomeMagia, dados, tipoDano, cd = 0) {
+    event.stopPropagation();
+    
+    const agora = new Date();
+    const hora = agora.toLocaleTimeString('pt-BR', {hour: '2-digit', minute: '2-digit', second: '2-digit'});
+    
+    let mensagem = `<span class="log-hora" title="${hora}">[${hora.substring(0,5)}]</span> `;
+    mensagem += `<strong>${nomeNPC}</strong> usa <span class="log-magia">${nomeMagia}</span>`;
+    
+    if (cd > 0) {
+        mensagem += ` (CD ${cd})`;
+    }
+    
+    // Se tem dados de dano, rola
+    if (dados && dados.length > 0) {
+        let totalDano = 0;
+        const resultados = [];
+        
+        for (const expressao of dados) {
+            const resultado = rolarExpressao(expressao);
+            totalDano += resultado.total;
+            resultados.push(`${expressao}=${resultado.total}`);
+        }
+        
+        mensagem += ` → <span class="log-dano">${totalDano} ${tipoDano}</span> [${resultados.join(', ')}]`;
+    }
+    
+    adicionarLogCombate(mensagem, 'magia');
+}
+
+/**
+ * Usa habilidade utilitária de NPC (sem dano)
+ */
+function usarHabilidadeNPC(event, nomeNPC, nomeHabilidade, descricao, cd = 0) {
+    event.stopPropagation();
+    
+    const agora = new Date();
+    const hora = agora.toLocaleTimeString('pt-BR', {hour: '2-digit', minute: '2-digit', second: '2-digit'});
+    
+    let mensagem = `<span class="log-hora" title="${hora}">[${hora.substring(0,5)}]</span> `;
+    mensagem += `<strong>${nomeNPC}</strong> usa <span class="log-magia">${nomeHabilidade}</span>`;
+    
+    if (cd > 0) {
+        mensagem += ` (CD ${cd})`;
+    }
+    
+    if (descricao) {
+        mensagem += ` - <em>${descricao}</em>`;
+    }
+    
+    adicionarLogCombate(mensagem, 'info');
+}
+
 // =========================================
 // Sistema de Turnos
 // =========================================
@@ -1729,7 +3138,6 @@ function adicionarAosTurnos(tipo, id, nome, iniciativa = null, modDestreza = 0, 
     // Verifica se já está na lista
     const jaExiste = SessaoState.ordemTurnos.find(p => p.tipo === tipo && p.id === id);
     if (jaExiste) {
-        adicionarLogCombate(`<strong>${nome}</strong> já está nos turnos`, 'info');
         return;
     }
     
@@ -1760,9 +3168,6 @@ function adicionarAosTurnos(tipo, id, nome, iniciativa = null, modDestreza = 0, 
     SessaoState.ordemTurnos.sort((a, b) => b.iniciativa - a.iniciativa);
     
     atualizarWidgetIniciativa();
-    
-    // Abre widget de iniciativa se não existir
-    abrirWidgetIniciativa();
 }
 
 function removerDosTurnos(tipo, id) {
@@ -1814,26 +3219,79 @@ function proximoTurno() {
         SessaoState.turnoAtual = 0;
         SessaoState.turnoContador++;
         adicionarLogCombate(`🔄 <strong>Turno ${SessaoState.turnoContador}</strong>`, 'info');
-        adicionarLogCombate(`➡️ Turno de <strong>${SessaoState.ordemTurnos[0].nome}</strong>`, 'info');
+        
+        // Verifica se o participante pode agir
+        const participante = SessaoState.ordemTurnos[0];
+        if (verificarPodeTurno(participante)) {
+            adicionarLogCombate(`➡️ Turno de <strong>${participante.nome}</strong>`, 'info');
+        }
+        
         atualizarContadoresEfeitos();
     } else {
         // Múltiplos participantes: avança normalmente
-        SessaoState.turnoAtual = (SessaoState.turnoAtual + 1) % SessaoState.ordemTurnos.length;
+        let tentativas = 0;
+        let encontrou = false;
         
-        // Se voltou ao início, incrementa turno
-        if (SessaoState.turnoAtual === 0 && turnoAnteriorIdx !== 0) {
-            SessaoState.turnoContador++;
-            adicionarLogCombate(`🔄 <strong>Turno ${SessaoState.turnoContador}</strong>`, 'info');
-            atualizarContadoresEfeitos();
-        }
-        
-        const atual = SessaoState.ordemTurnos[SessaoState.turnoAtual];
-        adicionarLogCombate(`➡️ Turno de <strong>${atual.nome}</strong>`, 'info');
+        do {
+            SessaoState.turnoAtual = (SessaoState.turnoAtual + 1) % SessaoState.ordemTurnos.length;
+            tentativas++;
+            
+            // Se voltou ao início, incrementa turno
+            if (SessaoState.turnoAtual === 0 && turnoAnteriorIdx !== 0) {
+                SessaoState.turnoContador++;
+                adicionarLogCombate(`🔄 <strong>Turno ${SessaoState.turnoContador}</strong>`, 'info');
+                atualizarContadoresEfeitos();
+            }
+            
+            const atual = SessaoState.ordemTurnos[SessaoState.turnoAtual];
+            
+            // Verifica se pode agir
+            if (verificarPodeTurno(atual)) {
+                adicionarLogCombate(`➡️ Turno de <strong>${atual.nome}</strong>`, 'info');
+                encontrou = true;
+            } else {
+                // Pula turno por condição
+                adicionarLogCombate(`⏭️ <strong>${atual.nome}</strong> não pode agir (condição)`, 'info');
+            }
+            
+            // Evita loop infinito
+        } while (!encontrou && tentativas < SessaoState.ordemTurnos.length);
     }
     
     atualizarWidgetIniciativa();
     atualizarIndicadorTurno();
     salvarEstadoSessao();
+}
+
+/**
+ * Verifica se um participante pode realizar seu turno (não está incapacitado/etc)
+ */
+function verificarPodeTurno(participante) {
+    // Busca widget do participante para verificar condições
+    const widgetEl = participante.tipo === 'personagem' 
+        ? document.querySelector(`[data-personagem-id="${participante.id}"]`)
+        : document.querySelector(`[data-instancia-id="${participante.id}"]`);
+    
+    if (!widgetEl) return true; // Se não tem widget, pode agir
+    
+    const widget = widgetEl.closest('.widget');
+    if (!widget) return true;
+    
+    const efeitosDiv = widget.querySelector('.widget-efeitos');
+    if (!efeitosDiv) return true;
+    
+    const condicoes = Array.from(efeitosDiv.querySelectorAll('.efeito-item')).map(e => ({
+        nome: e.dataset.condicao,
+        turnos: parseInt(e.dataset.turnos) || 0,
+        nivel: e.dataset.nivel ? parseInt(e.dataset.nivel) : null
+    }));
+    
+    const efeitos = obterEfeitosAtivos(condicoes);
+    
+    // Se tem efeito que pula turno, não pode agir
+    if (efeitos.pularTurno) return false;
+    
+    return true;
 }
 
 function turnoAnterior() {
@@ -1875,6 +3333,18 @@ function atualizarWidgetIniciativa() {
         </div>
         `;
     }).join('');
+    
+    // Adiciona event listener de middle-click para remover
+    document.querySelectorAll('.iniciativa-item').forEach(item => {
+        item.addEventListener('mousedown', (e) => {
+            if (e.button === 1) { // Middle button
+                e.preventDefault();
+                const tipo = item.dataset.tipo;
+                const id = item.dataset.id;
+                removerDosTurnos(tipo, id);
+            }
+        });
+    });
 }
 
 function editarIniciativa(event, index) {
@@ -2096,6 +3566,8 @@ document.addEventListener('click', (e) => {
 });
 
 function restaurarEstado(estado) {
+    console.log('[restaurarEstado] Estado completo:', estado);
+    
     // Restaura mapa usando a função aplicarCenario
     if (estado.mapa_atual) {
         console.log('[restaurarEstado] Restaurando cenário:', estado.mapa_atual);
@@ -2123,13 +3595,16 @@ function restaurarEstado(estado) {
     
     // Restaura widgets
     if (estado.widgets && estado.widgets.length > 0 && window.widgetManager) {
+        console.log('[restaurarEstado] Restaurando', estado.widgets.length, 'widgets:', estado.widgets);
         estado.widgets.forEach(w => {
             try {
                 window.widgetManager.restaurarWidget(w);
             } catch (e) {
-                console.warn('Erro ao restaurar widget:', e);
+                console.warn('Erro ao restaurar widget:', e, w);
             }
         });
+    } else {
+        console.log('[restaurarEstado] Nenhum widget para restaurar. widgets:', estado.widgets);
     }
 }
 

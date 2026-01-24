@@ -1,82 +1,870 @@
-﻿{
-    "numero":  2,
-    "data":  "2026-01-23",
-    "criada_em":  "2026-01-23T14:08:52.356776",
-    "atualizada_em":  "2026-01-23T14:48:33.181472",
-    "estado":  {
-                   "mapa_atual":  null,
-                   "combate_ativo":  true,
-                   "turno_contador":  1,
-                   "turno_atual":  0,
-                   "ordem_turnos":  [
-                                        {
-                                            "tipo":  "instancia",
-                                            "id":  16,
-                                            "nome":  "Quaggoth 1",
-                                            "iniciativa":  6,
-                                            "ativo":  true
-                                        }
-                                    ],
-                   "widgets":  [
-                                   {
-                                       "id":  "widget-1769187763453",
-                                       "tipo":  "log_combate",
-                                       "titulo":  "ðŸ“œ Log de Combate",
-                                       "x":  1358,
-                                       "y":  80,
-                                       "width":  350,
-                                       "height":  350,
-                                       "minimizado":  false,
-                                       "dadosCriatura":  null
-                                   },
-                                   {
-                                       "id":  "widget-1769187766120",
-                                       "tipo":  "ficha_personagem",
-                                       "titulo":  "ðŸ‘¤ Vralktar",
-                                       "x":  130,
-                                       "y":  110,
-                                       "width":  320,
-                                       "height":  400,
-                                       "minimizado":  false,
-                                       "dadosCriatura":  {
-                                                             "tipo":  "personagem",
-                                                             "id":  2,
-                                                             "nome":  "Vralktar",
-                                                             "modDestreza":  -1
-                                                         }
-                                   },
-                                   {
-                                       "id":  "widget-1769187769922",
-                                       "tipo":  "ficha_monstro",
-                                       "titulo":  "ðŸ‘¹ Quaggoth 1",
-                                       "x":  427,
-                                       "y":  146,
-                                       "width":  350,
-                                       "height":  450,
-                                       "minimizado":  false,
-                                       "dadosCriatura":  {
-                                                             "tipo":  "instancia",
-                                                             "id":  16,
-                                                             "nome":  "Quaggoth 1",
-                                                             "nomeBase":  "Quaggoth",
-                                                             "modDestreza":  1
-                                                         }
-                                   },
-                                   {
-                                       "id":  "widget-1769187792062",
-                                       "tipo":  "iniciativa",
-                                       "titulo":  "â±ï¸ Iniciativa",
-                                       "x":  939,
-                                       "y":  180,
-                                       "width":  200,
-                                       "height":  150,
-                                       "minimizado":  false,
-                                       "dadosCriatura":  null
-                                   }
-                               ]
-               },
-    "log":  [
-
-            ],
-    "id":  "1"
+{
+  "numero": 1,
+  "id": "1",
+  "data": "2026-01-24",
+  "criada_em": "2026-01-24T00:43:28.694933",
+  "atualizada_em": "2026-01-24T02:28:48.238985",
+  "estado": {
+    "mapa_atual": null,
+    "combate_ativo": false,
+    "turno_contador": 31,
+    "turno_atual": 0,
+    "ordem_turnos": [
+      {
+        "ativo": true,
+        "id": 59,
+        "iniciativa": 14,
+        "nome": "Drow Elite Warrior 1",
+        "tipo": "instancia"
+      },
+      {
+        "ativo": true,
+        "id": 60,
+        "iniciativa": 10,
+        "nome": "Quaggoth 1",
+        "tipo": "instancia"
+      }
+    ],
+    "widgets": [
+      {
+        "id": "widget-1769232378247",
+        "tipo": "log_combate",
+        "titulo": "📜 Log de Combate",
+        "x": 1090,
+        "y": 119,
+        "width": 350,
+        "height": 350,
+        "minimizado": false,
+        "dadosCriatura": null
+      },
+      {
+        "id": "widget-1769232430938",
+        "tipo": "ficha_personagem",
+        "titulo": "👤 Azazel Ireth",
+        "x": 100,
+        "y": 80,
+        "width": 320,
+        "height": 400,
+        "minimizado": false,
+        "dadosCriatura": {
+          "tipo": "personagem",
+          "id": 1,
+          "nome": "Azazel Ireth",
+          "modDestreza": 3
+        }
+      }
+    ]
+  },
+  "log": [
+    {
+      "timestamp": "2026-01-24T00:48:21.342957",
+      "tipo": "fumble",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Adaga</em> <span class=\"ataque-total fumble\">6</span> 💀 <span class=\"ataque-detalhes\">(1+5)</span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:48:25.491423",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Adaga</em> <span class=\"ataque-total \">15</span> <span class=\"ataque-detalhes\">(10+5)</span><br><span class=\"dano-linha\"><span class=\"dano\">6</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d4+3)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:48:27.543962",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Adaga</em> <span class=\"ataque-total \">17</span> <span class=\"ataque-detalhes\">(12+5)</span><br><span class=\"dano-linha\"><span class=\"dano\">5</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d4+3)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:48:31.043311",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Adaga</em> <span class=\"ataque-total \">24</span> <span class=\"ataque-detalhes\">(19+5)</span><br><span class=\"dano-linha\"><span class=\"dano\">4</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d4+3)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:48:32.829689",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Raio de fogo</em> <span class=\"ataque-total \">19</span> <span class=\"ataque-detalhes\">(13+6)</span><br><span class=\"dano-linha\"><span class=\"dano\">5</span> dano <span class=\"tipo-dano\" data-tipo=\"Ígneo\">ígneo</span> <span class=\"dano-expressao\">(1d10)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:48:33.910340",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Raio de fogo</em> <span class=\"ataque-total \">15</span> <span class=\"ataque-detalhes\">(9+6)</span><br><span class=\"dano-linha\"><span class=\"dano\">3</span> dano <span class=\"tipo-dano\" data-tipo=\"Ígneo\">ígneo</span> <span class=\"dano-expressao\">(1d10)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:48:34.070021",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Raio de fogo</em> <span class=\"ataque-total \">15</span> <span class=\"ataque-detalhes\">(9+6)</span><br><span class=\"dano-linha\"><span class=\"dano\">4</span> dano <span class=\"tipo-dano\" data-tipo=\"Ígneo\">ígneo</span> <span class=\"dano-expressao\">(1d10)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:48:34.239996",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Raio de fogo</em> <span class=\"ataque-total \">14</span> <span class=\"ataque-detalhes\">(8+6)</span><br><span class=\"dano-linha\"><span class=\"dano\">1</span> dano <span class=\"tipo-dano\" data-tipo=\"Ígneo\">ígneo</span> <span class=\"dano-expressao\">(1d10)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:48:34.386982",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Raio de fogo</em> <span class=\"ataque-total \">20</span> <span class=\"ataque-detalhes\">(14+6)</span><br><span class=\"dano-linha\"><span class=\"dano\">2</span> dano <span class=\"tipo-dano\" data-tipo=\"Ígneo\">ígneo</span> <span class=\"dano-expressao\">(1d10)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:48:34.563374",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Raio de fogo</em> <span class=\"ataque-total \">24</span> <span class=\"ataque-detalhes\">(18+6)</span><br><span class=\"dano-linha\"><span class=\"dano\">9</span> dano <span class=\"tipo-dano\" data-tipo=\"Ígneo\">ígneo</span> <span class=\"dano-expressao\">(1d10)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:48:34.707286",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Raio de fogo</em> <span class=\"ataque-total \">17</span> <span class=\"ataque-detalhes\">(11+6)</span><br><span class=\"dano-linha\"><span class=\"dano\">7</span> dano <span class=\"tipo-dano\" data-tipo=\"Ígneo\">ígneo</span> <span class=\"dano-expressao\">(1d10)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:48:35.138650",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Raio de fogo</em> <span class=\"ataque-total \">19</span> <span class=\"ataque-detalhes\">(13+6)</span><br><span class=\"dano-linha\"><span class=\"dano\">4</span> dano <span class=\"tipo-dano\" data-tipo=\"Ígneo\">ígneo</span> <span class=\"dano-expressao\">(1d10)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:48:35.320545",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Raio de fogo</em> <span class=\"ataque-total \">21</span> <span class=\"ataque-detalhes\">(15+6)</span><br><span class=\"dano-linha\"><span class=\"dano\">6</span> dano <span class=\"tipo-dano\" data-tipo=\"Ígneo\">ígneo</span> <span class=\"dano-expressao\">(1d10)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:48:35.481353",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Raio de fogo</em> <span class=\"ataque-total \">11</span> <span class=\"ataque-detalhes\">(5+6)</span><br><span class=\"dano-linha\"><span class=\"dano\">6</span> dano <span class=\"tipo-dano\" data-tipo=\"Ígneo\">ígneo</span> <span class=\"dano-expressao\">(1d10)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:48:35.787944",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Raio de fogo</em> <span class=\"ataque-total \">15</span> <span class=\"ataque-detalhes\">(9+6)</span><br><span class=\"dano-linha\"><span class=\"dano\">2</span> dano <span class=\"tipo-dano\" data-tipo=\"Ígneo\">ígneo</span> <span class=\"dano-expressao\">(1d10)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:48:35.924064",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Raio de fogo</em> <span class=\"ataque-total \">16</span> <span class=\"ataque-detalhes\">(10+6)</span><br><span class=\"dano-linha\"><span class=\"dano\">7</span> dano <span class=\"tipo-dano\" data-tipo=\"Ígneo\">ígneo</span> <span class=\"dano-expressao\">(1d10)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:48:36.244256",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Raio de fogo</em> <span class=\"ataque-total \">8</span> <span class=\"ataque-detalhes\">(2+6)</span><br><span class=\"dano-linha\"><span class=\"dano\">10</span> dano <span class=\"tipo-dano\" data-tipo=\"Ígneo\">ígneo</span> <span class=\"dano-expressao\">(1d10)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:48:36.415216",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Raio de fogo</em> <span class=\"ataque-total \">16</span> <span class=\"ataque-detalhes\">(10+6)</span><br><span class=\"dano-linha\"><span class=\"dano\">4</span> dano <span class=\"tipo-dano\" data-tipo=\"Ígneo\">ígneo</span> <span class=\"dano-expressao\">(1d10)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:48:36.588701",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Raio de fogo</em> <span class=\"ataque-total \">23</span> <span class=\"ataque-detalhes\">(17+6)</span><br><span class=\"dano-linha\"><span class=\"dano\">10</span> dano <span class=\"tipo-dano\" data-tipo=\"Ígneo\">ígneo</span> <span class=\"dano-expressao\">(1d10)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:48:36.779454",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Raio de fogo</em> <span class=\"ataque-total \">8</span> <span class=\"ataque-detalhes\">(2+6)</span><br><span class=\"dano-linha\"><span class=\"dano\">9</span> dano <span class=\"tipo-dano\" data-tipo=\"Ígneo\">ígneo</span> <span class=\"dano-expressao\">(1d10)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:48:36.964980",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Raio de fogo</em> <span class=\"ataque-total \">22</span> <span class=\"ataque-detalhes\">(16+6)</span><br><span class=\"dano-linha\"><span class=\"dano\">2</span> dano <span class=\"tipo-dano\" data-tipo=\"Ígneo\">ígneo</span> <span class=\"dano-expressao\">(1d10)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:48:37.136363",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Raio de fogo</em> <span class=\"ataque-total \">14</span> <span class=\"ataque-detalhes\">(8+6)</span><br><span class=\"dano-linha\"><span class=\"dano\">9</span> dano <span class=\"tipo-dano\" data-tipo=\"Ígneo\">ígneo</span> <span class=\"dano-expressao\">(1d10)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:48:37.335682",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Raio de fogo</em> <span class=\"ataque-total \">14</span> <span class=\"ataque-detalhes\">(8+6)</span><br><span class=\"dano-linha\"><span class=\"dano\">2</span> dano <span class=\"tipo-dano\" data-tipo=\"Ígneo\">ígneo</span> <span class=\"dano-expressao\">(1d10)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:48:37.804133",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Raio de fogo</em> <span class=\"ataque-total \">18</span> <span class=\"ataque-detalhes\">(12+6)</span><br><span class=\"dano-linha\"><span class=\"dano\">9</span> dano <span class=\"tipo-dano\" data-tipo=\"Ígneo\">ígneo</span> <span class=\"dano-expressao\">(1d10)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:48:38.029281",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Raio de fogo</em> <span class=\"ataque-total \">21</span> <span class=\"ataque-detalhes\">(15+6)</span><br><span class=\"dano-linha\"><span class=\"dano\">10</span> dano <span class=\"tipo-dano\" data-tipo=\"Ígneo\">ígneo</span> <span class=\"dano-expressao\">(1d10)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:48:38.229324",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Raio de fogo</em> <span class=\"ataque-total \">25</span> <span class=\"ataque-detalhes\">(19+6)</span><br><span class=\"dano-linha\"><span class=\"dano\">3</span> dano <span class=\"tipo-dano\" data-tipo=\"Ígneo\">ígneo</span> <span class=\"dano-expressao\">(1d10)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:48:38.403075",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Raio de fogo</em> <span class=\"ataque-total \">9</span> <span class=\"ataque-detalhes\">(3+6)</span><br><span class=\"dano-linha\"><span class=\"dano\">3</span> dano <span class=\"tipo-dano\" data-tipo=\"Ígneo\">ígneo</span> <span class=\"dano-expressao\">(1d10)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:48:38.564905",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Raio de fogo</em> <span class=\"ataque-total \">16</span> <span class=\"ataque-detalhes\">(10+6)</span><br><span class=\"dano-linha\"><span class=\"dano\">1</span> dano <span class=\"tipo-dano\" data-tipo=\"Ígneo\">ígneo</span> <span class=\"dano-expressao\">(1d10)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:48:38.763512",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Raio de fogo</em> <span class=\"ataque-total \">16</span> <span class=\"ataque-detalhes\">(10+6)</span><br><span class=\"dano-linha\"><span class=\"dano\">8</span> dano <span class=\"tipo-dano\" data-tipo=\"Ígneo\">ígneo</span> <span class=\"dano-expressao\">(1d10)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:48:38.937301",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Raio de fogo</em> <span class=\"ataque-total \">21</span> <span class=\"ataque-detalhes\">(15+6)</span><br><span class=\"dano-linha\"><span class=\"dano\">2</span> dano <span class=\"tipo-dano\" data-tipo=\"Ígneo\">ígneo</span> <span class=\"dano-expressao\">(1d10)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:48:39.110226",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Raio de fogo</em> <span class=\"ataque-total \">10</span> <span class=\"ataque-detalhes\">(4+6)</span><br><span class=\"dano-linha\"><span class=\"dano\">9</span> dano <span class=\"tipo-dano\" data-tipo=\"Ígneo\">ígneo</span> <span class=\"dano-expressao\">(1d10)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:48:39.262621",
+      "tipo": "fumble",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Raio de fogo</em> <span class=\"ataque-total fumble\">7</span> 💀 <span class=\"ataque-detalhes\">(1+6)</span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:48:39.445927",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Raio de fogo</em> <span class=\"ataque-total \">14</span> <span class=\"ataque-detalhes\">(8+6)</span><br><span class=\"dano-linha\"><span class=\"dano\">3</span> dano <span class=\"tipo-dano\" data-tipo=\"Ígneo\">ígneo</span> <span class=\"dano-expressao\">(1d10)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:48:39.643171",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Raio de fogo</em> <span class=\"ataque-total \">17</span> <span class=\"ataque-detalhes\">(11+6)</span><br><span class=\"dano-linha\"><span class=\"dano\">10</span> dano <span class=\"tipo-dano\" data-tipo=\"Ígneo\">ígneo</span> <span class=\"dano-expressao\">(1d10)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:48:46.674177",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Adaga</em> <span class=\"ataque-total \">14</span> <span class=\"ataque-detalhes\">(9+5)</span><br><span class=\"dano-linha\"><span class=\"dano\">4</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d4+3)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:48:46.831352",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Adaga</em> <span class=\"ataque-total \">15</span> <span class=\"ataque-detalhes\">(10+5)</span><br><span class=\"dano-linha\"><span class=\"dano\">6</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d4+3)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:48:46.994334",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Adaga</em> <span class=\"ataque-total \">13</span> <span class=\"ataque-detalhes\">(8+5)</span><br><span class=\"dano-linha\"><span class=\"dano\">6</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d4+3)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:48:47.154764",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Adaga</em> <span class=\"ataque-total \">11</span> <span class=\"ataque-detalhes\">(6+5)</span><br><span class=\"dano-linha\"><span class=\"dano\">7</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d4+3)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:48:47.314818",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Adaga</em> <span class=\"ataque-total \">20</span> <span class=\"ataque-detalhes\">(15+5)</span><br><span class=\"dano-linha\"><span class=\"dano\">5</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d4+3)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:48:47.475071",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Adaga</em> <span class=\"ataque-total \">15</span> <span class=\"ataque-detalhes\">(10+5)</span><br><span class=\"dano-linha\"><span class=\"dano\">7</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d4+3)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:48:47.594533",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Adaga</em> <span class=\"ataque-total \">20</span> <span class=\"ataque-detalhes\">(15+5)</span><br><span class=\"dano-linha\"><span class=\"dano\">7</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d4+3)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:48:47.752205",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Adaga</em> <span class=\"ataque-total \">19</span> <span class=\"ataque-detalhes\">(14+5)</span><br><span class=\"dano-linha\"><span class=\"dano\">6</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d4+3)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:48:48.170504",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Adaga</em> <span class=\"ataque-total \">9</span> <span class=\"ataque-detalhes\">(4+5)</span><br><span class=\"dano-linha\"><span class=\"dano\">7</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d4+3)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:48:48.467509",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Adaga</em> <span class=\"ataque-total \">14</span> <span class=\"ataque-detalhes\">(9+5)</span><br><span class=\"dano-linha\"><span class=\"dano\">6</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d4+3)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:48:48.606229",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Adaga</em> <span class=\"ataque-total \">8</span> <span class=\"ataque-detalhes\">(3+5)</span><br><span class=\"dano-linha\"><span class=\"dano\">6</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d4+3)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:48:48.752592",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Adaga</em> <span class=\"ataque-total \">21</span> <span class=\"ataque-detalhes\">(16+5)</span><br><span class=\"dano-linha\"><span class=\"dano\">4</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d4+3)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:48:48.891079",
+      "tipo": "crit",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Adaga</em> <span class=\"ataque-total crit\">25</span> 🎯 <span class=\"ataque-detalhes\">(20+5)</span><br><span class=\"dano-linha\"><span class=\"dano\">8</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(2d4+3)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:48:49.050611",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Adaga</em> <span class=\"ataque-total \">19</span> <span class=\"ataque-detalhes\">(14+5)</span><br><span class=\"dano-linha\"><span class=\"dano\">6</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d4+3)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:48:49.182173",
+      "tipo": "fumble",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Adaga</em> <span class=\"ataque-total fumble\">6</span> 💀 <span class=\"ataque-detalhes\">(1+5)</span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:48:49.313412",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Adaga</em> <span class=\"ataque-total \">24</span> <span class=\"ataque-detalhes\">(19+5)</span><br><span class=\"dano-linha\"><span class=\"dano\">6</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d4+3)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:49:04.608423",
+      "tipo": "info",
+      "mensagem": "Efeito <strong>Agarrado</strong> aplicado",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:49:08.666472",
+      "tipo": "cura",
+      "mensagem": "Efeito <strong>Agarrado</strong> expirou",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:49:14.068263",
+      "tipo": "cura",
+      "mensagem": "<strong>Azazel Ireth</strong> +6 HP",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:49:18.263394",
+      "tipo": "info",
+      "mensagem": "Efeito <strong>Agarrado</strong> aplicado",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:49:19.478809",
+      "tipo": "info",
+      "mensagem": "🔄 <strong>Turno 3</strong>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:49:20.777447",
+      "tipo": "info",
+      "mensagem": "🔄 <strong>Turno 4</strong>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:49:43.706637",
+      "tipo": "info",
+      "mensagem": "<strong>Drow Elite Warrior 1</strong> rolou iniciativa: 10+4 = 14",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:49:50.958772",
+      "tipo": "info",
+      "mensagem": "Efeito <strong>🧪 Ácido</strong> aplicado",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:49:53.605089",
+      "tipo": "info",
+      "mensagem": "🔄 <strong>Turno 5</strong>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:49:54.255053",
+      "tipo": "info",
+      "mensagem": "🔄 <strong>Turno 6</strong>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:49:54.734600",
+      "tipo": "info",
+      "mensagem": "🔄 <strong>Turno 7</strong>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:49:55.188427",
+      "tipo": "info",
+      "mensagem": "➡️ Turno de <strong>Drow Elite Warrior 1</strong>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:49:55.388078",
+      "tipo": "info",
+      "mensagem": "🔄 <strong>Turno 10</strong>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:49:55.607208",
+      "tipo": "cura",
+      "mensagem": "Efeito <strong>🧪 Ácido</strong> expirou",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:49:55.814989",
+      "tipo": "info",
+      "mensagem": "🔄 <strong>Turno 12</strong>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:50:29.067512",
+      "tipo": "info",
+      "mensagem": "Efeito <strong>🧪 Ácido</strong> aplicado",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:50:34.788808",
+      "tipo": "info",
+      "mensagem": "🔄 <strong>Turno 14</strong>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:50:35.348577",
+      "tipo": "info",
+      "mensagem": "➡️ Turno de <strong>Drow Elite Warrior 1</strong>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:50:35.974640",
+      "tipo": "info",
+      "mensagem": "🔄 <strong>Turno 16</strong>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:53:28.258064",
+      "tipo": "cura",
+      "mensagem": "<strong>Azazel Ireth</strong> +8 HP",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:53:31.932219",
+      "tipo": "cura",
+      "mensagem": "<strong>Azazel Ireth</strong> +4 HP",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:53:38.605456",
+      "tipo": "info",
+      "mensagem": "Efeito <strong>Agarrado</strong> aplicado",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:53:41.328375",
+      "tipo": "cura",
+      "mensagem": "Efeito <strong>Agarrado</strong> expirou",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:53:42.461826",
+      "tipo": "info",
+      "mensagem": "➡️ Turno de <strong>Drow Elite Warrior 1</strong>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:53:42.730412",
+      "tipo": "info",
+      "mensagem": "➡️ Turno de <strong>Drow Elite Warrior 1</strong>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:53:46.387731",
+      "tipo": "info",
+      "mensagem": "Efeito <strong>Agarrado</strong> aplicado",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:53:49.342656",
+      "tipo": "info",
+      "mensagem": "<strong>Quaggoth 1</strong> rolou iniciativa: 9+1 = 10",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:53:53.244308",
+      "tipo": "info",
+      "mensagem": "Efeito <strong>Agarrado</strong> aplicado",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:53:59.117013",
+      "tipo": "info",
+      "mensagem": "Efeito <strong>🧪 Ácido</strong> aplicado",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:54:02.946165",
+      "tipo": "info",
+      "mensagem": "➡️ Turno de <strong>Quaggoth 1</strong>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:54:04.532882",
+      "tipo": "info",
+      "mensagem": "➡️ Turno de <strong>Drow Elite Warrior 1</strong>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:54:04.922163",
+      "tipo": "info",
+      "mensagem": "➡️ Turno de <strong>Quaggoth 1</strong>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:54:05.190043",
+      "tipo": "info",
+      "mensagem": "➡️ Turno de <strong>Drow Elite Warrior 1</strong>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:54:05.435191",
+      "tipo": "info",
+      "mensagem": "➡️ Turno de <strong>Quaggoth 1</strong>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:54:06.060242",
+      "tipo": "cura",
+      "mensagem": "Efeito <strong>Agarrado</strong> expirou",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:54:06.405765",
+      "tipo": "info",
+      "mensagem": "🔄 <strong>Turno 24</strong>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:55:43.444210",
+      "tipo": "info",
+      "mensagem": "Efeito <strong>Agarrado</strong> aplicado",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:55:47.183237",
+      "tipo": "info",
+      "mensagem": "➡️ Turno de <strong>Quaggoth 1</strong>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:55:49.550824",
+      "tipo": "info",
+      "mensagem": "➡️ Turno de <strong>Drow Elite Warrior 1</strong>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:55:51.736782",
+      "tipo": "cura",
+      "mensagem": "Efeito <strong>Agarrado</strong> expirou",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:55:57.848866",
+      "tipo": "info",
+      "mensagem": "Efeito <strong>🔥 Ígneo</strong> aplicado",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:55:59.405134",
+      "tipo": "dano",
+      "mensagem": "🔥 <strong>Quaggoth 1</strong> recebe <strong>5</strong> de dano de 🔥 Ígneo",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:55:59.583278",
+      "tipo": "info",
+      "mensagem": "➡️ Turno de <strong>Quaggoth 1</strong>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:56:00.403057",
+      "tipo": "dano",
+      "mensagem": "🔥 <strong>Quaggoth 1</strong> recebe <strong>5</strong> de dano de 🔥 Ígneo",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:56:19.423323",
+      "tipo": "info",
+      "mensagem": "Efeito <strong>Agarrado</strong> aplicado",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:56:59.126011",
+      "tipo": "info",
+      "mensagem": "Efeito <strong>Agarrado</strong> removido",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:57:01.197837",
+      "tipo": "info",
+      "mensagem": "Efeito <strong>Agarrado</strong> aplicado",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:57:02.820444",
+      "tipo": "info",
+      "mensagem": "Efeito <strong>Agarrado</strong> removido",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T00:57:05.885737",
+      "tipo": "info",
+      "mensagem": "Efeito <strong>Agarrado</strong> aplicado",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T01:00:03.664250",
+      "tipo": "info",
+      "mensagem": "Efeito <strong>Agarrado</strong> removido",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T01:51:29.608167",
+      "tipo": "info",
+      "mensagem": "<strong>Giant Spider 1</strong> rolou iniciativa: 8+3 = 11",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T02:23:53.982371",
+      "tipo": "ataque",
+      "mensagem": "<strong>Ilvara Mizzrym</strong> usa <em>Chicote de Tentáculos</em> <span class=\"ataque-total \">22</span> <span class=\"ataque-detalhes\">(16+6)</span><br><span class=\"dano-linha\"><span class=\"dano\">21</span> dano <span class=\"tipo-dano\" data-tipo=\"perfurante/veneno\">perfurante/veneno</span> <span class=\"dano-expressao\">(1d6+4 + 3d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T02:23:55.427000",
+      "tipo": "ataque",
+      "mensagem": "<strong>Ilvara Mizzrym</strong> usa <em>Raio Sagrado de Lolth</em> <span class=\"ataque-total \">25</span> <span class=\"ataque-detalhes\">(19+6)</span><br><span class=\"dano-linha\"><span class=\"dano\">10</span> dano <span class=\"tipo-dano\" data-tipo=\"necromântico\">necromântico</span> <span class=\"dano-expressao\">(2d8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T02:26:21.375035",
+      "tipo": "dano",
+      "mensagem": "<strong>Ilvara Mizzrym</strong> -50 HP",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T02:26:25.641818",
+      "tipo": "cura",
+      "mensagem": "<strong>Ilvara Mizzrym</strong> +60 HP",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T02:26:27.181889",
+      "tipo": "ataque",
+      "mensagem": "<strong>Ilvara Mizzrym</strong> usa <em>Chicote de Tentáculos</em> <span class=\"ataque-total \">25</span> <span class=\"ataque-detalhes\">(19+6)</span><br><span class=\"dano-linha\"><span class=\"dano\">28</span> dano <span class=\"tipo-dano\" data-tipo=\"perfurante/veneno\">perfurante/veneno</span> <span class=\"dano-expressao\">(1d6+4 + 3d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T02:26:35.110957",
+      "tipo": "fumble",
+      "mensagem": "<strong>Ilvara Mizzrym</strong> usa <em>Chicote de Tentáculos</em> <span class=\"ataque-total fumble\">7</span> 💀 <span class=\"ataque-detalhes\">(1+6)</span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T02:26:37.961173",
+      "tipo": "ataque",
+      "mensagem": "<strong>Ilvara Mizzrym</strong> usa <em>Chicote de Tentáculos</em> <span class=\"ataque-total \">11</span> <span class=\"ataque-detalhes\">(5+6)</span><br><span class=\"dano-linha\"><span class=\"dano\">11</span> dano <span class=\"tipo-dano\" data-tipo=\"perfurante/veneno\">perfurante/veneno</span> <span class=\"dano-expressao\">(1d6+4 + 3d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T02:26:39.560981",
+      "tipo": "ataque",
+      "mensagem": "<strong>Ilvara Mizzrym</strong> usa <em>Chicote de Tentáculos</em> <span class=\"ataque-total \">11</span> <span class=\"ataque-detalhes\">(5+6)</span><br><span class=\"dano-linha\"><span class=\"dano\">16</span> dano <span class=\"tipo-dano\" data-tipo=\"perfurante/veneno\">perfurante/veneno</span> <span class=\"dano-expressao\">(1d6+4 + 3d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T02:26:40.176609",
+      "tipo": "ataque",
+      "mensagem": "<strong>Ilvara Mizzrym</strong> usa <em>Chicote de Tentáculos</em> <span class=\"ataque-total \">18</span> <span class=\"ataque-detalhes\">(12+6)</span><br><span class=\"dano-linha\"><span class=\"dano\">19</span> dano <span class=\"tipo-dano\" data-tipo=\"perfurante/veneno\">perfurante/veneno</span> <span class=\"dano-expressao\">(1d6+4 + 3d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T02:26:40.455746",
+      "tipo": "ataque",
+      "mensagem": "<strong>Ilvara Mizzrym</strong> usa <em>Chicote de Tentáculos</em> <span class=\"ataque-total \">8</span> <span class=\"ataque-detalhes\">(2+6)</span><br><span class=\"dano-linha\"><span class=\"dano\">18</span> dano <span class=\"tipo-dano\" data-tipo=\"perfurante/veneno\">perfurante/veneno</span> <span class=\"dano-expressao\">(1d6+4 + 3d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T02:26:40.840657",
+      "tipo": "ataque",
+      "mensagem": "<strong>Ilvara Mizzrym</strong> usa <em>Chicote de Tentáculos</em> <span class=\"ataque-total \">23</span> <span class=\"ataque-detalhes\">(17+6)</span><br><span class=\"dano-linha\"><span class=\"dano\">18</span> dano <span class=\"tipo-dano\" data-tipo=\"perfurante/veneno\">perfurante/veneno</span> <span class=\"dano-expressao\">(1d6+4 + 3d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T02:26:41.058072",
+      "tipo": "ataque",
+      "mensagem": "<strong>Ilvara Mizzrym</strong> usa <em>Chicote de Tentáculos</em> <span class=\"ataque-total \">22</span> <span class=\"ataque-detalhes\">(16+6)</span><br><span class=\"dano-linha\"><span class=\"dano\">19</span> dano <span class=\"tipo-dano\" data-tipo=\"perfurante/veneno\">perfurante/veneno</span> <span class=\"dano-expressao\">(1d6+4 + 3d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T02:26:41.199863",
+      "tipo": "ataque",
+      "mensagem": "<strong>Ilvara Mizzrym</strong> usa <em>Chicote de Tentáculos</em> <span class=\"ataque-total \">17</span> <span class=\"ataque-detalhes\">(11+6)</span><br><span class=\"dano-linha\"><span class=\"dano\">24</span> dano <span class=\"tipo-dano\" data-tipo=\"perfurante/veneno\">perfurante/veneno</span> <span class=\"dano-expressao\">(1d6+4 + 3d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T02:26:41.387296",
+      "tipo": "ataque",
+      "mensagem": "<strong>Ilvara Mizzrym</strong> usa <em>Chicote de Tentáculos</em> <span class=\"ataque-total \">23</span> <span class=\"ataque-detalhes\">(17+6)</span><br><span class=\"dano-linha\"><span class=\"dano\">15</span> dano <span class=\"tipo-dano\" data-tipo=\"perfurante/veneno\">perfurante/veneno</span> <span class=\"dano-expressao\">(1d6+4 + 3d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T02:26:41.543695",
+      "tipo": "ataque",
+      "mensagem": "<strong>Ilvara Mizzrym</strong> usa <em>Chicote de Tentáculos</em> <span class=\"ataque-total \">20</span> <span class=\"ataque-detalhes\">(14+6)</span><br><span class=\"dano-linha\"><span class=\"dano\">12</span> dano <span class=\"tipo-dano\" data-tipo=\"perfurante/veneno\">perfurante/veneno</span> <span class=\"dano-expressao\">(1d6+4 + 3d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T02:26:41.709311",
+      "tipo": "fumble",
+      "mensagem": "<strong>Ilvara Mizzrym</strong> usa <em>Chicote de Tentáculos</em> <span class=\"ataque-total fumble\">7</span> 💀 <span class=\"ataque-detalhes\">(1+6)</span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T02:26:41.863133",
+      "tipo": "ataque",
+      "mensagem": "<strong>Ilvara Mizzrym</strong> usa <em>Chicote de Tentáculos</em> <span class=\"ataque-total \">10</span> <span class=\"ataque-detalhes\">(4+6)</span><br><span class=\"dano-linha\"><span class=\"dano\">16</span> dano <span class=\"tipo-dano\" data-tipo=\"perfurante/veneno\">perfurante/veneno</span> <span class=\"dano-expressao\">(1d6+4 + 3d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T02:26:42.021326",
+      "tipo": "fumble",
+      "mensagem": "<strong>Ilvara Mizzrym</strong> usa <em>Chicote de Tentáculos</em> <span class=\"ataque-total fumble\">7</span> 💀 <span class=\"ataque-detalhes\">(1+6)</span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T02:26:42.224114",
+      "tipo": "ataque",
+      "mensagem": "<strong>Ilvara Mizzrym</strong> usa <em>Chicote de Tentáculos</em> <span class=\"ataque-total \">25</span> <span class=\"ataque-detalhes\">(19+6)</span><br><span class=\"dano-linha\"><span class=\"dano\">14</span> dano <span class=\"tipo-dano\" data-tipo=\"perfurante/veneno\">perfurante/veneno</span> <span class=\"dano-expressao\">(1d6+4 + 3d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T02:26:42.416342",
+      "tipo": "ataque",
+      "mensagem": "<strong>Ilvara Mizzrym</strong> usa <em>Chicote de Tentáculos</em> <span class=\"ataque-total \">23</span> <span class=\"ataque-detalhes\">(17+6)</span><br><span class=\"dano-linha\"><span class=\"dano\">18</span> dano <span class=\"tipo-dano\" data-tipo=\"perfurante/veneno\">perfurante/veneno</span> <span class=\"dano-expressao\">(1d6+4 + 3d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T02:26:42.608871",
+      "tipo": "ataque",
+      "mensagem": "<strong>Ilvara Mizzrym</strong> usa <em>Chicote de Tentáculos</em> <span class=\"ataque-total \">23</span> <span class=\"ataque-detalhes\">(17+6)</span><br><span class=\"dano-linha\"><span class=\"dano\">19</span> dano <span class=\"tipo-dano\" data-tipo=\"perfurante/veneno\">perfurante/veneno</span> <span class=\"dano-expressao\">(1d6+4 + 3d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T02:26:42.770129",
+      "tipo": "ataque",
+      "mensagem": "<strong>Ilvara Mizzrym</strong> usa <em>Chicote de Tentáculos</em> <span class=\"ataque-total \">18</span> <span class=\"ataque-detalhes\">(12+6)</span><br><span class=\"dano-linha\"><span class=\"dano\">17</span> dano <span class=\"tipo-dano\" data-tipo=\"perfurante/veneno\">perfurante/veneno</span> <span class=\"dano-expressao\">(1d6+4 + 3d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T02:26:43.570539",
+      "tipo": "ataque",
+      "mensagem": "<strong>Ilvara Mizzrym</strong> usa <em>Raio Sagrado de Lolth</em> <span class=\"ataque-total \">11</span> <span class=\"ataque-detalhes\">(5+6)</span><br><span class=\"dano-linha\"><span class=\"dano\">13</span> dano <span class=\"tipo-dano\" data-tipo=\"necromântico\">necromântico</span> <span class=\"dano-expressao\">(2d8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T02:26:43.747395",
+      "tipo": "ataque",
+      "mensagem": "<strong>Ilvara Mizzrym</strong> usa <em>Raio Sagrado de Lolth</em> <span class=\"ataque-total \">22</span> <span class=\"ataque-detalhes\">(16+6)</span><br><span class=\"dano-linha\"><span class=\"dano\">13</span> dano <span class=\"tipo-dano\" data-tipo=\"necromântico\">necromântico</span> <span class=\"dano-expressao\">(2d8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T02:26:43.939112",
+      "tipo": "ataque",
+      "mensagem": "<strong>Ilvara Mizzrym</strong> usa <em>Raio Sagrado de Lolth</em> <span class=\"ataque-total \">19</span> <span class=\"ataque-detalhes\">(13+6)</span><br><span class=\"dano-linha\"><span class=\"dano\">5</span> dano <span class=\"tipo-dano\" data-tipo=\"necromântico\">necromântico</span> <span class=\"dano-expressao\">(2d8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T02:26:44.082225",
+      "tipo": "ataque",
+      "mensagem": "<strong>Ilvara Mizzrym</strong> usa <em>Raio Sagrado de Lolth</em> <span class=\"ataque-total \">13</span> <span class=\"ataque-detalhes\">(7+6)</span><br><span class=\"dano-linha\"><span class=\"dano\">4</span> dano <span class=\"tipo-dano\" data-tipo=\"necromântico\">necromântico</span> <span class=\"dano-expressao\">(2d8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T02:26:44.226381",
+      "tipo": "ataque",
+      "mensagem": "<strong>Ilvara Mizzrym</strong> usa <em>Raio Sagrado de Lolth</em> <span class=\"ataque-total \">23</span> <span class=\"ataque-detalhes\">(17+6)</span><br><span class=\"dano-linha\"><span class=\"dano\">9</span> dano <span class=\"tipo-dano\" data-tipo=\"necromântico\">necromântico</span> <span class=\"dano-expressao\">(2d8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T02:26:45.219299",
+      "tipo": "info",
+      "mensagem": "<span class=\"log-hora\" title=\"02:26:45\">[02:26]</span> <strong>Ilvara Mizzrym</strong> usa <span class=\"log-magia\">Hold Person</span> (CD 14) - <em>Humanoide paralisado</em>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T02:26:46.304563",
+      "tipo": "magia",
+      "mensagem": "<span class=\"log-hora\" title=\"02:26:46\">[02:26]</span> <strong>Ilvara Mizzrym</strong> usa <span class=\"log-magia\">Spirit Guardians</span> (CD 14) → <span class=\"log-dano\">13 necromântico</span> [3d8=13]",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T02:26:57.153533",
+      "tipo": "info",
+      "mensagem": "<span class=\"log-hora\" title=\"02:26:57\">[02:26]</span> <strong>Ilvara Mizzrym</strong> usa <span class=\"log-magia\">Hold Person</span> (CD 14) - <em>Humanoide paralisado</em>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T02:27:14.189274",
+      "tipo": "dano",
+      "mensagem": "<strong>Azazel Ireth</strong> -4 HP",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T02:27:18.257275",
+      "tipo": "info",
+      "mensagem": "Efeito <strong>Agarrado</strong> aplicado",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T02:27:24.921156",
+      "tipo": "cura",
+      "mensagem": "Efeito <strong>Agarrado</strong> expirou",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T02:27:25.448195",
+      "tipo": "info",
+      "mensagem": "➡️ Turno de <strong>Quaggoth 1</strong>",
+      "dados": {}
+    }
+  ]
 }

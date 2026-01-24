@@ -11,12 +11,20 @@ if ($existingProcess) {
 
 Write-Host "Iniciando Out of the Abyss System..." -ForegroundColor Cyan
 
-# Caminho do venv (está uma pasta acima de System)
-$venvPath = Join-Path (Split-Path $PSScriptRoot -Parent) ".venv\Scripts\Activate.ps1"
+# Configurar caminhos do ambiente virtual
+$projectRoot = Split-Path $PSScriptRoot -Parent
+$venvScripts = Join-Path $projectRoot ".venv\Scripts"
+$venvPython = Join-Path $venvScripts "python.exe"
 
-if (Test-Path $venvPath) {
-    Write-Host "Ativando ambiente virtual..." -ForegroundColor Green
-    & $venvPath
+if (Test-Path $venvPython) {
+    Write-Host "Configurando ambiente virtual..." -ForegroundColor Green
+    
+    # Configura variáveis de ambiente
+    $env:VIRTUAL_ENV = Join-Path $projectRoot ".venv"
+    $env:PATH = "$venvScripts;$env:PATH"
+    $env:PYTHONPATH = $projectRoot
+    
+    Write-Host "Ambiente virtual ativado!" -ForegroundColor Green
 } else {
     Write-Host "Ambiente virtual nao encontrado!" -ForegroundColor Red
     Write-Host "Execute: python -m venv .venv" -ForegroundColor Yellow
@@ -33,4 +41,4 @@ Start-Job -ScriptBlock {
 # Executa o webapp
 $appPath = Join-Path $PSScriptRoot "main.py"
 Write-Host "Executando aplicacao..." -ForegroundColor Cyan
-python $appPath
+& $venvPython $appPath

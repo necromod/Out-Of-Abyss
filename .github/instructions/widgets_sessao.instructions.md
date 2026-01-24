@@ -58,6 +58,7 @@ class Widget {
 | `generico` | Widget básico | - |
 | `ficha_personagem` | Ficha de PC | ⏱️ Turnos, 📋 Ficha |
 | `ficha_monstro` | Ficha de monstro | ⏱️ Turnos, 📋 Ficha |
+| `ficha_npc` | Ficha de NPC | ⏱️ Turnos, 📋 Ficha |
 | `iniciativa` | Ordem de combate | - |
 | `log` | Log de combate | - |
 
@@ -126,7 +127,112 @@ const SessaoState = {
 
 ---
 
-## 5. Sistema de Condições D&D 5e
+## 5. Sistema de Testes e Perícias
+
+### Atributos Clicáveis
+
+Os atributos nos widgets de personagem e monstro são **clicáveis** e abrem automaticamente o submenu de perícias:
+
+```html
+<span class="attr-clicavel" 
+      title="Clique para rolar FOR" 
+      onclick="abrirSubmenuPericias(event, id, tipo, 'forca', valor, proficientes, expertise, bonusProf)">
+    FOR +3
+</span>
+```
+
+**Comportamento:**
+- Clique direto no atributo (FOR, DES, CON, INT, SAB, CAR)
+- Abre submenu ao lado direito com perícias daquele atributo
+- Primeiro item: Teste puro do atributo (ex: "Força (puro)")
+- Demais itens: Perícias relacionadas
+
+### Mapeamento de Perícias (PERICIAS_POR_ATRIBUTO)
+
+```javascript
+const PERICIAS_POR_ATRIBUTO = {
+    forca: [
+        { id: 'forca', nome: 'Força (puro)', isPuro: true },
+        { id: 'atletismo', nome: 'Atletismo' }
+    ],
+    destreza: [
+        { id: 'destreza', nome: 'Destreza (puro)', isPuro: true },
+        { id: 'acrobacia', nome: 'Acrobacia' },
+        { id: 'furtividade', nome: 'Furtividade' },
+        { id: 'prestidigitacao', nome: 'Prestidigitação' }
+    ],
+    constituicao: [
+        { id: 'constituicao', nome: 'Constituição (puro)', isPuro: true }
+    ],
+    inteligencia: [
+        { id: 'inteligencia', nome: 'Inteligência (puro)', isPuro: true },
+        { id: 'arcanismo', nome: 'Arcanismo' },
+        { id: 'historia', nome: 'História' },
+        { id: 'investigacao', nome: 'Investigação' },
+        { id: 'natureza', nome: 'Natureza' },
+        { id: 'religiao', nome: 'Religião' }
+    ],
+    sabedoria: [
+        { id: 'sabedoria', nome: 'Sabedoria (puro)', isPuro: true },
+        { id: 'adestrar_animais', nome: 'Adestrar Animais' },
+        { id: 'intuicao', nome: 'Intuição' },
+        { id: 'medicina', nome: 'Medicina' },
+        { id: 'percepcao', nome: 'Percepção' },
+        { id: 'sobrevivencia', nome: 'Sobrevivência' }
+    ],
+    carisma: [
+        { id: 'carisma', nome: 'Carisma (puro)', isPuro: true },
+        { id: 'atuacao', nome: 'Atuação' },
+        { id: 'enganacao', nome: 'Enganação' },
+        { id: 'intimidacao', nome: 'Intimidação' },
+        { id: 'persuasao', nome: 'Persuasão' }
+    ]
+};
+```
+
+### Funções de Teste
+
+```javascript
+// Abre submenu de perícias ao clicar no atributo
+abrirSubmenuPericias(event, id, tipo, atributo, valorAtributo, proficientes, expertise, bonusProf)
+
+// Rola 1d20 + modificador da perícia
+rolarTeste(event, id, tipo, testeId, testeNome, bonus)
+```
+
+### Cálculo de Bônus
+
+```javascript
+// Teste puro: apenas modificador do atributo
+bonus = modAtributo
+
+// Perícia proficiente: mod + bonus proficiência
+if (proficientes.includes(pericia.id)) {
+    bonus = modAtributo + bonusProf;
+    marcador = '✓ ';
+}
+
+// Perícia com expertise: mod + (bonus proficiência × 2)
+if (expertise.includes(pericia.id)) {
+    bonus = modAtributo + (bonusProf * 2);
+    marcador = '⭐ ';
+}
+```
+
+### Resultado da Rolagem
+
+```javascript
+// d20 === 20: Crítico (🎯)
+// d20 === 1: Falha Crítica (💀)
+// Outros: Rolagem normal (🎲)
+
+// Adiciona ao log de combate formatado:
+"🎲 Percepção: 1d20(15) + 5 = 20"
+```
+
+---
+
+## 6. Sistema de Condições D&D 5e
 
 ### Constante CONDICOES_DND
 
@@ -150,19 +256,19 @@ const CONDICOES_DND = {
     'exaustao': { nome: 'Exaustão', descricao: '...' },
     
     // Tipos de Dano (para resistências/vulnerabilidades)
-    'dano_acido': { nome: 'Dano Ácido', descricao: '...' },
-    'dano_contundente': { nome: 'Dano Contundente', descricao: '...' },
-    'dano_cortante': { nome: 'Dano Cortante', descricao: '...' },
-    'dano_eletrico': { nome: 'Dano Elétrico', descricao: '...' },
-    'dano_energetico': { nome: 'Dano Energético', descricao: '...' },
-    'dano_gelido': { nome: 'Dano Gélido', descricao: '...' },
-    'dano_igneo': { nome: 'Dano Ígneo', descricao: '...' },
-    'dano_necrotico': { nome: 'Dano Necrótico', descricao: '...' },
-    'dano_perfurante': { nome: 'Dano Perfurante', descricao: '...' },
-    'dano_psiquico': { nome: 'Dano Psíquico', descricao: '...' },
-    'dano_radiante': { nome: 'Dano Radiante', descricao: '...' },
-    'dano_trovejante': { nome: 'Dano Trovejante', descricao: '...' },
-    'dano_venenoso': { nome: 'Dano Venenoso', descricao: '...' }
+    'dano_acido': { nome: '🧪 Ácido', descricao: '...' },
+    'dano_contundente': { nome: '🔨 Contundente', descricao: '...' },
+    'dano_cortante': { nome: '⚔️ Cortante', descricao: '...' },
+    'dano_eletrico': { nome: '⚡ Elétrico', descricao: '...' },
+    'dano_energetico': { nome: '✨ Energético', descricao: '...' },
+    'dano_gelido': { nome: '❄️ Gélido', descricao: '...' },
+    'dano_igneo': { nome: '🔥 Ígneo', descricao: '...' },
+    'dano_necrotico': { nome: '💀 Necrótico', descricao: '...' },
+    'dano_perfurante': { nome: '🗡️ Perfurante', descricao: '...' },
+    'dano_psiquico': { nome: '🧠 Psíquico', descricao: '...' },
+    'dano_radiante': { nome: '✨ Radiante', descricao: '...' },
+    'dano_trovejante': { nome: '🌩️ Trovejante', descricao: '...' },
+    'dano_venenoso': { nome: '☠️ Venenoso', descricao: '...' }
 };
 ```
 
@@ -197,7 +303,7 @@ atualizarContadoresEfeitos()
 
 ---
 
-## 6. Sistema de Combate
+## 7. Sistema de Combate
 
 ### Fluxo de Combate
 
@@ -492,7 +598,127 @@ marcarTesteMorte(event, id, tipo, valor)
 
 ---
 
-## 10. CSS - Classes Importantes
+## 10. Persistência de Widgets
+
+### Sistema de Salvamento
+
+O estado da sessão (incluindo widgets) é salvo **automaticamente** de duas formas:
+
+1. **Auto-save periódico**: A cada 10 segundos
+2. **Save imediato**: Após carregar dados de personagem/monstro no widget
+
+```javascript
+// Auto-save configurado em DOMContentLoaded
+setInterval(() => {
+    salvarEstadoSessao();
+}, 10000); // 10 segundos
+
+// Save imediato após carregar dados
+widget.dadosCriatura = { tipo, id, nome, modDestreza };
+salvarEstadoSessao(); // ⚠️ CRÍTICO: Chama imediatamente
+```
+
+### Estrutura de Widget Salvo
+
+```javascript
+{
+    id: 'widget-123',
+    tipo: 'personagem' | 'instancia' | 'iniciativa' | 'log_combate' | 'dados' | 'notas',
+    titulo: 'Azazel Ireth',
+    x: 100,
+    y: 200,
+    width: 300,
+    height: 400,
+    minimizado: false,
+    dadosCriatura: {  // ⚠️ Essencial para restaurar dados
+        tipo: 'personagem' | 'instancia',
+        id: 1,
+        nome: 'Azazel Ireth',
+        nomeBase: 'Goblin',  // Só para instancias
+        modDestreza: 3
+    }
+}
+```
+
+### Restauração de Estado
+
+```javascript
+// Chamado no carregamento da página
+restaurarEstado(estado)
+
+// Para cada widget salvo:
+1. Cria widget com WidgetManager
+2. Se é 'personagem': carrega dados de /fichas/api/personagem/{id}
+3. Se é 'instancia': carrega dados de /fichas/api/monstro/instancia/{id}
+4. Se é 'iniciativa': renderiza lista de turnos
+5. Se é 'log_combate': renderiza log de combate
+```
+
+### ⚠️ Erros Comuns de Persistência
+
+**Problema**: Widgets salvos antes de `dadosCriatura` ser populado
+```javascript
+// ❌ ERRADO
+widget.setConteudo(html);
+// Auto-save pode acontecer aqui sem dadosCriatura!
+
+// ✅ CORRETO
+widget.setConteudo(html);
+widget.dadosCriatura = { tipo, id, nome, modDestreza };
+salvarEstadoSessao(); // Save imediato garante dados completos
+```
+
+**Problema**: Widget não reconhece tipo ao restaurar
+```javascript
+// Verificar se widget.tipo está correto:
+// 'personagem' - carrega de /fichas/api/personagem/{id}
+// 'instancia' - carrega de /fichas/api/monstro/instancia/{id}
+// Outros tipos não têm dadosCriatura
+```
+
+### API de Persistência
+
+```javascript
+// Salvar estado
+POST /sessao/api/estado
+Body: {
+    combateAtivo: false,
+    ordemTurnos: [],
+    turnoAtual: 0,
+    roundAtual: 0,
+    widgets: [...],  // Array de widgets serializados
+    logCombate: [...],
+    mapaAtual: 'Cenários/mapa.png'
+}
+
+// Carregar estado (automático ao abrir /sessao/)
+GET /sessao/api/atual
+Response: { estado: {...}, log: [...], ... }
+```
+
+### Fallback de Salvamento (Google Drive)
+
+Se ocorrer `PermissionError` no Google Drive:
+
+```python
+# Sistema com retry em sessao.py
+max_tentativas = 3
+for tentativa in range(max_tentativas):
+    try:
+        os.replace(temp_path, caminho)
+        break
+    except PermissionError:
+        if tentativa < max_tentativas - 1:
+            time.sleep(0.1)  # Aguarda 100ms
+        else:
+            # Força sobrescrita direta
+            with open(caminho, 'w') as f:
+                json.dump(sessao, f)
+```
+
+---
+
+## 11. CSS - Classes Importantes
 
 ### Widgets
 
@@ -538,15 +764,337 @@ marcarTesteMorte(event, id, tipo, valor)
 .teste-check.marcado { }
 ```
 
+### Atributos Clicáveis e Submenus
+
+```css
+/* Atributos clicáveis nos widgets */
+.attr-clicavel {
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.attr-clicavel:hover {
+    background-color: var(--accent-success) !important;
+    color: var(--bg-primary) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(46, 204, 113, 0.3);
+}
+
+/* Submenu de perícias */
+.submenu-pericias {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 6px;
+    background-color: var(--bg-elevated);
+    border: 2px solid var(--accent-success);
+    border-radius: var(--radius-sm);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    z-index: 10001;
+    animation: slideLeft 0.15s ease-out;
+    min-width: 150px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+@keyframes slideLeft {
+    from { opacity: 0; transform: translateX(-10px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+.btn-pericia {
+    padding: 6px 10px;
+    background-color: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.btn-pericia:hover {
+    background-color: var(--accent-success);
+    border-color: var(--accent-success);
+    color: var(--bg-primary);
+    transform: translateX(2px);
+}
+
+/* Menu de resistências */
+.menu-resistencia {
+    position: fixed;
+    display: flex;
+    gap: 4px;
+    padding: 6px;
+    background-color: var(--bg-elevated);
+    border: 2px solid var(--accent-primary);
+    border-radius: var(--radius-sm);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    z-index: 10000;
+    animation: slideDown 0.15s ease-out;
+}
+
+.btn-resist {
+    min-width: 55px;
+    padding: 6px 8px;
+    background-color: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    text-align: center;
+}
+
+.btn-resist:hover {
+    background-color: var(--accent-primary);
+    border-color: var(--accent-primary);
+    color: var(--bg-primary);
+    transform: translateY(-2px);
+}
+```
+
 ---
 
-## 11. Integrações Críticas
+## 12. Widgets de NPC
+
+Os NPCs possuem widgets completos com ataques, magias e habilidades funcionais para uso em combate.
+
+### Estrutura HTML do Widget de NPC
+
+```html
+<div class="widget-npc-conteudo">
+    <div class="npc-widget-header">
+        <span class="npc-nome">Nome do NPC</span>
+        <span class="npc-info">Título | Raça Classe</span>
+    </div>
+    
+    <!-- HP -->
+    <div class="npc-widget-hp">
+        <div class="hp-barra-container">
+            <div class="hp-barra" style="width: 80%"></div>
+        </div>
+        <div class="hp-valores">
+            <span>24/30</span>
+        </div>
+    </div>
+    
+    <!-- Stats -->
+    <div class="npc-widget-stats">
+        CA: 15 | Vel: 9m
+    </div>
+    
+    <!-- Atributos -->
+    <div class="npc-widget-attrs">
+        <span title="Clique para rolar">FOR +1</span>
+        <span title="Clique para rolar">DES +2</span>
+        ...
+    </div>
+    
+    <!-- Ações de Combate -->
+    <div class="npc-acoes-combate">
+        <div class="acoes-grupo">
+            <div class="grupo-titulo">⚔️ Ataques</div>
+            <button class="btn-ataque" onclick="rolarAtaque(...)">
+                Espada +4 (1d8+2)
+            </button>
+        </div>
+        <div class="acoes-grupo">
+            <div class="grupo-titulo">✨ Magias</div>
+            <button class="btn-magia" onclick="rolarMagiaNPC(...)">
+                Bola de Fogo (CD 15)
+            </button>
+        </div>
+        <div class="acoes-grupo">
+            <div class="grupo-titulo">🔮 Habilidades</div>
+            <button class="btn-habilidade" onclick="usarHabilidadeNPC(...)">
+                Cura Ferimentos
+            </button>
+        </div>
+    </div>
+    
+    <!-- Dano/Cura -->
+    <div class="npc-widget-botoes">
+        <button class="btn-small btn-dano" onclick="abrirDanoRapido(...)">⚔️ Dano</button>
+        <button class="btn-small btn-cura" onclick="abrirCuraRapida(...)">💚 Cura</button>
+        <button class="btn-small btn-iniciativa" onclick="adicionarNPCAoCombate(...)">⏱️ Turnos</button>
+    </div>
+    
+    <!-- Observações (visíveis ao grupo) -->
+    <div class="npc-observacoes">
+        <span>Observações públicas...</span>
+    </div>
+    
+    <!-- Efeitos -->
+    <div class="widget-efeitos" data-criatura-tipo="npc" data-criatura-id="...">
+        <div class="efeitos-lista"></div>
+        <button onclick="abrirModalEfeito(...)">+ Efeito</button>
+    </div>
+</div>
+```
+
+### Funções de NPC (sessao.js)
+
+```javascript
+/**
+ * Gera HTML do widget de NPC com ações de combate
+ * @param {Object} npc - Dados do NPC da API
+ * @returns {string} HTML do widget
+ */
+function gerarHTMLNPCWidget(npc)
+
+/**
+ * Rola dados de uma magia de NPC (sem d20)
+ * @param {Event} event - Evento do clique
+ * @param {string} nomeNPC - Nome do NPC
+ * @param {string} nomeMagia - Nome da magia
+ * @param {string[]} dados - Array de dados ["8d6"]
+ * @param {string} tipoDano - Tipo de dano
+ * @param {number|null} cd - CD da salvaguarda
+ */
+function rolarMagiaNPC(event, nomeNPC, nomeMagia, dados, tipoDano, cd)
+
+/**
+ * Usa habilidade de NPC (log sem rolagem)
+ * @param {Event} event - Evento do clique
+ * @param {string} nomeNPC - Nome do NPC
+ * @param {string} nomeHabilidade - Nome da habilidade
+ * @param {string} descricao - Descrição da habilidade
+ * @param {number|null} cd - CD se houver
+ */
+function usarHabilidadeNPC(event, nomeNPC, nomeHabilidade, descricao, cd)
+
+/**
+ * Adiciona NPC à ordem de iniciativa
+ * @param {number} id - ID do NPC
+ * @param {string} nome - Nome do NPC
+ * @param {number} modDestreza - Modificador de DES
+ */
+function adicionarNPCAoCombate(id, nome, modDestreza)
+
+/**
+ * Rola expressão de dados localmente
+ * @param {string} expressao - Ex: "2d6+3", "1d8", "3d10"
+ * @returns {Object} { dados: [...], soma: n, expressao, texto }
+ */
+function rolarExpressao(expressao)
+```
+
+### Tipos de Ação de NPC
+
+| Tipo | Rolagem | Uso |
+|------|---------|-----|
+| `ataque` | d20 + bônus, depois dano | Armas corpo-a-corpo/distância |
+| `magia` | Apenas dados de dano | Magias de dano (alvo faz save) |
+| `habilidade` | Nenhuma (descrição) | Curas, buffs, utilitários |
+
+### Estrutura JSON de Ações
+
+```json
+[
+  {
+    "nome": "Espada Curta",
+    "tipo": "ataque",
+    "bonus": "+4",
+    "dados": ["1d6+2"],
+    "tipo_dano": "Perfurante"
+  },
+  {
+    "nome": "Bola de Fogo",
+    "tipo": "magia",
+    "dados": ["8d6"],
+    "tipo_dano": "Ígneo",
+    "cd": 15,
+    "descricao": "CD 15 DES, metade em sucesso"
+  },
+  {
+    "nome": "Cura Ferimentos",
+    "tipo": "habilidade",
+    "cd": null,
+    "descricao": "Cura 2d8+3 pontos de vida"
+  }
+]
+```
+
+### API de NPC
+
+```javascript
+// Obter NPC por ID
+GET /api/npcs/{id}
+Response: { id, nome, titulo, hp_atual, hp_maximo, ca, atributos, acoes, ... }
+
+// Aplicar dano ao NPC
+POST /api/npcs/{id}/dano
+Body: { dano: number }
+Response: { sucesso: true, hp_atual: n, hp_maximo: n }
+
+// Curar NPC
+POST /api/npcs/{id}/curar
+Body: { quantidade: number }
+Response: { sucesso: true, hp_atual: n, hp_maximo: n }
+```
+
+### CSS de Ações de NPC
+
+```css
+.npc-acoes-combate {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.acoes-grupo {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.grupo-titulo {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.btn-ataque {
+    background: linear-gradient(135deg, #c0392b, #e74c3c);
+    border: none;
+    color: white;
+}
+
+.btn-magia {
+    background: linear-gradient(135deg, #2980b9, #3498db);
+    border: none;
+    color: white;
+}
+
+.btn-habilidade {
+    background: linear-gradient(135deg, #27ae60, #2ecc71);
+    border: none;
+    color: white;
+}
+
+/* Log de magia */
+.log-magia {
+    border-left-color: var(--accent-primary);
+}
+```
+
+---
+
+## 13. Integrações Críticas
 
 ### Manter Sincronizados
 
-1. **IDs de criatura**: `data-criatura-id` e `data-personagem-id` / `data-monstro-id`
-2. **Tipos de criatura**: `'personagem'` vs `'instancia'` (não 'monstro')
-3. **Seletores CSS**: Classes como `.widget-personagem-conteudo` devem existir no HTML
+1. **IDs de criatura**: `data-criatura-id` e `data-personagem-id` / `data-monstro-id` / `data-npc-id`
+2. **Tipos de criatura**: `'personagem'` vs `'instancia'` vs `'npc'`
+3. **Seletores CSS**: Classes como `.widget-personagem-conteudo`, `.widget-npc-conteudo` devem existir no HTML
 4. **APIs de dano/cura**: Retornam objeto completo com `hp_atual`, `hp_maximo`, `sucesso_morte`, `falha_morte`
 
 ### Ao Modificar Fichas
@@ -558,7 +1106,7 @@ marcarTesteMorte(event, id, tipo, valor)
 
 ---
 
-## 12. Ordem de Seções no Widget de Ficha
+## 14. Ordem de Seções no Widget de Ficha
 
 Ordem fixa para manter consistência:
 
@@ -573,7 +1121,7 @@ Ordem fixa para manter consistência:
 
 ---
 
-## 13. Checklist para Novas Funcionalidades
+## 15. Checklist para Novas Funcionalidades
 
 - [ ] Adicionar estilos em `sessao.css` ou `widgets.css`
 - [ ] Implementar lógica em `sessao.js`
@@ -582,3 +1130,4 @@ Ordem fixa para manter consistência:
 - [ ] Testar dano/cura (verificar testes de morte)
 - [ ] Testar efeitos (adicionar, remover, countdown)
 - [ ] Verificar middle-click fecha widget
+- [ ] Testar ações de NPC (ataques, magias, habilidades)

@@ -251,6 +251,8 @@ conn.execute("PRAGMA synchronous = NORMAL")
 | `hp_maximo` | INTEGER | | HP máximo |
 | `hp_atual` | INTEGER | | HP atual |
 | `ca` | INTEGER | 10 | Classe de Armadura |
+| `atributos` | TEXT/JSON | `{forca:10,...}` | 6 atributos |
+| `acoes` | TEXT/JSON | `[]` | Ataques e magias do NPC |
 | `monstro_id` | INTEGER | | FK → monstros (se usar stats de monstro) |
 | `alinhamento` | TEXT | 'neutro' | amigável/indiferente/hostil |
 | `aliado` | INTEGER | 0 | Se é aliado |
@@ -259,9 +261,55 @@ conn.execute("PRAGMA synchronous = NORMAL")
 | `vivo` | INTEGER | 1 | Se está vivo |
 | `conhecido` | INTEGER | 0 | Se o grupo conhece |
 | `imagem` | TEXT | | Caminho da imagem |
+| `observacoes` | TEXT | | Observações visíveis ao grupo |
+| `segredo` | TEXT | | Informações secretas do mestre |
 | `notas` | TEXT | | Notas do mestre |
 | `criado_em` | TEXT | TIMESTAMP | Data criação |
 | `atualizado_em` | TEXT | TIMESTAMP | Última atualização |
+
+**Estrutura JSON de Atributos (NPCs):**
+```json
+{
+  "forca": 10,
+  "destreza": 14,
+  "constituicao": 12,
+  "inteligencia": 10,
+  "sabedoria": 11,
+  "carisma": 13
+}
+```
+
+**Estrutura JSON de Ações de NPC:**
+```json
+[
+  {
+    "nome": "Espada Curta",
+    "tipo": "ataque",
+    "bonus": "+4",
+    "dados": ["1d6+2"],
+    "tipo_dano": "Perfurante"
+  },
+  {
+    "nome": "Bola de Fogo",
+    "tipo": "magia",
+    "dados": ["8d6"],
+    "tipo_dano": "Ígneo",
+    "cd": 15,
+    "descricao": "CD 15 DEX, metade em sucesso"
+  },
+  {
+    "nome": "Cura Ferimentos",
+    "tipo": "habilidade",
+    "cd": null,
+    "descricao": "Cura 2d8+3 pontos de vida"
+  }
+]
+```
+
+**Tipos de Ação:**
+- `ataque`: Rolagem d20 + bônus, depois dados de dano
+- `magia`: Rolagem de dano direto (alvo faz salvaguarda)
+- `habilidade`: Ação com descrição, sem rolagem automática
 
 ---
 

@@ -483,3 +483,272 @@
     outline: none;
     border-color: var(--accent-primary);
 }
+
+/* =========================================
+   Widget de NPC
+   ========================================= */
+
+.widget-npc-conteudo {
+    padding: var(--spacing-sm);
+    font-size: 0.8rem;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.npc-header-mini {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-sm);
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.npc-info {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    flex-wrap: wrap;
+}
+
+.npc-status {
+    font-weight: 600;
+}
+
+.npc-tipo {
+    color: var(--text-secondary);
+}
+
+.npc-classe {
+    color: var(--text-muted);
+}
+
+.npc-local {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.npc-stats-row {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-sm);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background-color: var(--bg-tertiary);
+    border-radius: var(--radius-sm);
+}
+
+.npc-hp {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    flex: 1;
+}
+
+.hp-bar-mini {
+    flex: 1;
+    height: 6px;
+    background-color: var(--bg-primary);
+    border-radius: 3px;
+    overflow: hidden;
+    min-width: 60px;
+}
+
+.hp-bar-mini .hp-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-danger), var(--accent-warning));
+    transition: width 0.3s ease;
+}
+
+.hp-texto {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    white-space: nowrap;
+}
+
+.npc-ca {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    padding: 2px 8px;
+    background-color: var(--bg-primary);
+    border-radius: var(--radius-sm);
+}
+
+.npc-atributos {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-sm);
+    padding: var(--spacing-xs);
+    background-color: var(--bg-tertiary);
+    border-radius: var(--radius-sm);
+    font-size: 0.7rem;
+    text-align: center;
+}
+
+.npc-atributos span {
+    padding: 4px 2px;
+    background-color: var(--bg-primary);
+    border-radius: var(--radius-xs);
+}
+
+.npc-atributos span b {
+    display: block;
+    font-size: 0.6rem;
+    color: var(--text-muted);
+    margin-bottom: 2px;
+}
+
+.npc-secao {
+    margin-bottom: var(--spacing-sm);
+    padding: var(--spacing-xs);
+    background-color: var(--bg-tertiary);
+    border-radius: var(--radius-sm);
+}
+
+.npc-secao strong {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+}
+
+.npc-secao p {
+    margin: 0;
+    line-height: 1.4;
+    color: var(--text-primary);
+    font-size: 0.75rem;
+}
+
+.npc-segredo {
+    background-color: rgba(255, 193, 7, 0.1);
+    border-left: 3px solid var(--accent-warning);
+}
+
+.npc-observacoes {
+    background-color: rgba(220, 53, 69, 0.1);
+    border-left: 3px solid var(--accent-danger);
+}
+
+.npc-observacoes strong {
+    color: var(--accent-danger);
+}
+
+/* Ações de combate do NPC */
+.npc-acoes-combate {
+    margin-bottom: var(--spacing-sm);
+}
+
+.npc-acoes-combate .acoes-grupo {
+    margin-bottom: var(--spacing-xs);
+}
+
+.npc-acoes-combate .acoes-titulo {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+}
+
+.npc-acoes-combate .acoes-lista {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.btn-ataque {
+    background: linear-gradient(135deg, rgba(220, 53, 69, 0.2) 0%, rgba(220, 53, 69, 0.1) 100%);
+    border: 1px solid rgba(220, 53, 69, 0.4);
+    color: var(--text-primary);
+}
+
+.btn-ataque:hover {
+    background: linear-gradient(135deg, rgba(220, 53, 69, 0.3) 0%, rgba(220, 53, 69, 0.2) 100%);
+    border-color: rgba(220, 53, 69, 0.6);
+}
+
+.btn-magia {
+    background: linear-gradient(135deg, rgba(138, 43, 226, 0.2) 0%, rgba(138, 43, 226, 0.1) 100%);
+    border: 1px solid rgba(138, 43, 226, 0.4);
+    color: var(--text-primary);
+}
+
+.btn-magia:hover {
+    background: linear-gradient(135deg, rgba(138, 43, 226, 0.3) 0%, rgba(138, 43, 226, 0.2) 100%);
+    border-color: rgba(138, 43, 226, 0.6);
+}
+
+/* Botões de ação do NPC (Dano/Cura/Resist) */
+.npc-widget-botoes {
+    display: flex;
+    gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-sm);
+}
+
+/* Footer com link para editar */
+.npc-acoes-footer {
+    display: flex;
+    gap: var(--spacing-xs);
+    margin-top: var(--spacing-sm);
+    padding-top: var(--spacing-sm);
+    border-top: 1px solid var(--border-color);
+}
+
+/* Botão de adicionar ao combate */
+.npc-header-mini .btn-add-combate {
+    margin-left: auto;
+    padding: 2px 6px;
+    font-size: 0.7rem;
+    background-color: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.npc-header-mini .btn-add-combate:hover {
+    background-color: rgba(220, 53, 69, 0.2);
+    border-color: var(--accent-danger);
+}
+
+.btn-mini {
+    padding: 4px 8px;
+    font-size: 0.7rem;
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+.btn-mini:hover {
+    background-color: var(--bg-hover);
+}
+
+/* Item de seleção para NPC morto */
+.item-selecao.item-morto {
+    opacity: 0.6;
+}
+
+.item-selecao.item-morto strong {
+    text-decoration: line-through;
+}
+
+.grupo-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background-color: var(--bg-tertiary);
+    border-radius: var(--radius-sm);
+}
+
+/* Log de magia */
+.log-magia {
+    color: #a855f7;
+    font-weight: 600;

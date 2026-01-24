@@ -783,6 +783,24 @@ body.sessao-mode .toolbar {
     overflow: hidden;
 }
 
+/* Atributos clicáveis */
+.attr-clicavel {
+    cursor: pointer;
+    transition: all 0.15s ease;
+    position: relative;
+}
+
+.attr-clicavel:hover {
+    background-color: var(--accent-success) !important;
+    color: var(--bg-primary) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(46, 204, 113, 0.3);
+}
+
+.attr-clicavel:active {
+    transform: translateY(0);
+}
+
 .monstro-widget-attrs {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
@@ -1430,6 +1448,27 @@ body.sessao-mode .toolbar {
     cursor: help;
 }
 
+.efeito-nivel {
+    color: var(--bg-primary);
+    background-color: rgba(0,0,0,0.3);
+    padding: 0 4px;
+    border-radius: 2px;
+    font-weight: bold;
+    font-size: 0.65rem;
+    margin-left: 2px;
+}
+
+.efeito-dano {
+    color: var(--bg-primary);
+    background-color: rgba(220, 53, 69, 0.8);
+    padding: 0 4px;
+    border-radius: 2px;
+    font-weight: bold;
+    font-size: 0.65rem;
+    margin-left: 2px;
+    white-space: nowrap;
+}
+
 .efeito-turnos {
     color: var(--bg-primary);
     background-color: rgba(0,0,0,0.2);
@@ -1659,4 +1698,149 @@ body.sessao-mode .toolbar {
 
 .widget-instancia {
     border-left: 3px solid var(--accent-danger);
+}
+
+/* =========================================
+   Menu de Testes de Resistência
+   ========================================= */
+
+.menu-resistencia {
+    position: fixed;
+    display: flex;
+    gap: 4px;
+    padding: 6px;
+    background-color: var(--bg-elevated);
+    border: 2px solid var(--accent-primary);
+    border-radius: var(--radius-sm);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    z-index: 10000;
+    animation: slideDown 0.15s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.btn-resist {
+    min-width: 55px;
+    padding: 6px 8px;
+    background-color: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.btn-resist:hover {
+    background-color: var(--accent-primary);
+    border-color: var(--accent-primary);
+    color: var(--bg-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 2px 6px rgba(233, 69, 96, 0.4);
+}
+
+.btn-resist:active {
+    transform: translateY(0);
+}
+/* =========================================
+   Menu de Testes (Atributos e Perícias)
+   ========================================= */
+
+.menu-testes {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 6px;
+    background-color: var(--bg-elevated);
+    border: 2px solid var(--accent-success);
+    border-radius: var(--radius-sm);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    z-index: 10000;
+    animation: slideDown 0.15s ease-out;
+    min-width: 80px;
+}
+
+.btn-atributo {
+    padding: 6px 10px;
+    background-color: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    text-align: left;
+    white-space: nowrap;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-atributo:hover {
+    background-color: var(--accent-success);
+    border-color: var(--accent-success);
+    color: var(--bg-primary);
+    transform: translateX(2px);
+}
+
+.submenu-pericias {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 6px;
+    background-color: var(--bg-elevated);
+    border: 2px solid var(--accent-success);
+    border-radius: var(--radius-sm);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    z-index: 10001;
+    animation: slideLeft 0.15s ease-out;
+    min-width: 150px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+@keyframes slideLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.btn-pericia {
+    padding: 5px 8px;
+    background-color: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.btn-pericia:hover {
+    background-color: var(--accent-info);
+    border-color: var(--accent-info);
+    color: var(--bg-primary);
+    transform: translateX(2px);
 }

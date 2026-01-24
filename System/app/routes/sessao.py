@@ -9,6 +9,7 @@ import json
 import os
 import tempfile
 import threading
+import time
 from pathlib import Path
 
 sessao_bp = Blueprint('sessao', __name__)
@@ -109,15 +110,34 @@ def salvar_sessao(sessao):
             with os.fdopen(fd, 'w', encoding='utf-8') as f:
                 json.dump(sessao, f, ensure_ascii=False, indent=2)
             
-            # Renomeia atomicamente (substitui o arquivo antigo)
-            if os.path.exists(caminho):
-                os.replace(temp_path, caminho)
-            else:
-                os.rename(temp_path, caminho)
+            # Tenta renomear com retry (Google Drive pode bloquear)
+            max_tentativas = 3
+            for tentativa in range(max_tentativas):
+                try:
+                    if os.path.exists(caminho):
+                        os.replace(temp_path, caminho)
+                    else:
+                        os.rename(temp_path, caminho)
+                    break  # Sucesso
+                except PermissionError as pe:
+                    if tentativa < max_tentativas - 1:
+                        time.sleep(0.1)  # Aguarda 100ms e tenta novamente
+                    else:
+                        # Última tentativa: força sobrescrita direta
+                        try:
+                            with open(caminho, 'w', encoding='utf-8') as f:
+                                json.dump(sessao, f, ensure_ascii=False, indent=2)
+                            if os.path.exists(temp_path):
+                                os.remove(temp_path)
+                        except:
+                            raise pe
         except Exception as e:
             # Limpa arquivo temporário em caso de erro
             if 'temp_path' in locals() and os.path.exists(temp_path):
-                os.remove(temp_path)
+                try:
+                    os.remove(temp_path)
+                except:
+                    pass
             raise e
 
 def get_ou_criar_sessao_atual():

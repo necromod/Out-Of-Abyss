@@ -236,6 +236,19 @@ class InstanciaMonstroRepository(BaseRepository):
     table_name = "monstros_instancias"
     
     @classmethod
+    def update(cls, id: int, dados: Dict) -> bool:
+        """Atualiza instância, tratando campos JSON"""
+        # Prepara campos JSON
+        json_fields = ['condicoes', 'acoes_usadas']
+        prepared = {}
+        for k, v in dados.items():
+            if k in json_fields and not isinstance(v, str):
+                prepared[k] = json_dumps(v)
+            else:
+                prepared[k] = v
+        return super().update(id, prepared)
+    
+    @classmethod
     def criar_instancia(cls, monstro_id: int, nome: str, sessao_id: int = None) -> Dict:
         """Cria uma instância de monstro para combate"""
         monstro = MonstroRepository.get_by_id(monstro_id)
@@ -333,6 +346,30 @@ class InstanciaMonstroRepository(BaseRepository):
 
 class NPCRepository(BaseRepository):
     table_name = "npcs"
+    
+    @classmethod
+    def _parse_json_fields(cls, data: Dict) -> None:
+        """Parseia campos JSON do NPC"""
+        json_fields = ['atributos', 'acoes']
+        for field in json_fields:
+            if field in data and data[field]:
+                data[field] = json_loads_safe(data[field], default=[])
+    
+    @classmethod
+    def get_by_id(cls, id: int) -> Optional[Dict]:
+        """Retorna NPC com campos JSON parseados"""
+        data = super().get_by_id(id)
+        if data:
+            cls._parse_json_fields(data)
+        return data
+    
+    @classmethod
+    def get_all(cls, where: str = None, params: tuple = None) -> List[Dict]:
+        """Retorna todos os NPCs com campos JSON parseados"""
+        results = super().get_all(where, params)
+        for r in results:
+            cls._parse_json_fields(r)
+        return results
     
     @classmethod
     def get_conhecidos(cls) -> List[Dict]:

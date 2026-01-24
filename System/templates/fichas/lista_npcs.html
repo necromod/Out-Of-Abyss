@@ -34,11 +34,11 @@
             <option value="menzoberranzan">Menzoberranzan</option>
         </select>
         <label class="checkbox-label">
-            <input type="checkbox" id="filtro-vivo" checked onchange="filtrarLista()">
+            <input type="checkbox" id="filtro-vivo" onchange="filtrarLista()">
             Apenas vivos
         </label>
         <label class="checkbox-label">
-            <input type="checkbox" id="filtro-conhecido" checked onchange="filtrarLista()">
+            <input type="checkbox" id="filtro-conhecido" onchange="filtrarLista()">
             Apenas conhecidos
         </label>
     </div>
@@ -52,9 +52,9 @@
 <template id="template-card-npc">
     <div class="card-npc-compacto" data-id="" data-status="" data-local="" data-vivo="" data-conhecido="">
         <!-- HEADER: Nome + Status -->
-        <div class="card-npc-header">
-            <h3 class="card-nome"></h3>
-            <span class="card-status-badge"></span>
+        <div class="card-npc-header"  onclick="verNPC(this)" >
+            <h3 class="card-nome"  onclick="verNPC(this)" ></h3>
+            <span class="card-status-badge"  onclick="verNPC(this)" ></span>
         </div>
         
         <!-- INFO BÁSICA: Raça + Classe/Ocupação -->
@@ -106,12 +106,12 @@ document.addEventListener('DOMContentLoaded', carregarNPCs);
 
 async function carregarNPCs() {
     const container = document.getElementById('lista-npcs');
-    const apenasConhecidos = document.getElementById('filtro-conhecido').checked;
     
     try {
-        const url = apenasConhecidos ? '/api/npcs?conhecidos=1' : '/api/npcs?conhecidos=0';
-        const response = await fetch(url);
+        const response = await fetch('/fichas/api/npcs');
         const npcs = await response.json();
+        
+        lista_npcs = npcs;
         
         container.innerHTML = '';
         
@@ -194,6 +194,7 @@ async function carregarNPCs() {
     } catch (error) {
         console.error('Erro ao carregar NPCs:', error);
         container.innerHTML = '<div class="erro">Erro ao carregar NPCs</div>';
+        mostrarNotificacao('Erro ao carregar NPCs', 'danger');
     }
 }
 

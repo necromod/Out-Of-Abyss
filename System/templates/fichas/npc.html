@@ -19,7 +19,7 @@
         <div class="npc-status-container">
             <select class="status-select" data-campo="alinhamento">
                 <option value="amigavel" {{ 'selected' if npc and npc.alinhamento == 'amigavel' else '' }}>💚 Amigável</option>
-                <option value="indiferente" {{ 'selected' if npc and npc.alinhamento == 'indiferente' else '' }}>💛 Indiferente</option>
+                <option value="indiferente" {{ 'selected' if (not npc) or (npc and npc.alinhamento == 'indiferente') else '' }}>💛 Indiferente</option>
                 <option value="hostil" {{ 'selected' if npc and npc.alinhamento == 'hostil' else '' }}>❤️ Hostil</option>
             </select>
             <label class="checkbox-vivo">
@@ -59,15 +59,15 @@
                 <div class="stats-grid">
                     <div class="stat-item">
                         <label>HP Máximo</label>
-                        <input type="number" data-campo="hp_maximo" value="{{ npc.hp_maximo if npc else '' }}" placeholder="—">
+                        <input type="number" data-campo="hp_maximo" value="{{ npc.hp_maximo if npc and npc.hp_maximo else '' }}" placeholder="—">
                     </div>
                     <div class="stat-item">
                         <label>HP Atual</label>
-                        <input type="number" data-campo="hp_atual" value="{{ npc.hp_atual if npc else '' }}" placeholder="—">
+                        <input type="number" data-campo="hp_atual" value="{{ npc.hp_atual if npc and npc.hp_atual else '' }}" placeholder="—">
                     </div>
                     <div class="stat-item">
                         <label>CA</label>
-                        <input type="number" data-campo="ca" value="{{ npc.ca if npc else 10 }}" placeholder="10">
+                        <input type="number" data-campo="ca" value="{{ npc.ca if npc and npc.ca else 10 }}" placeholder="10">
                     </div>
                 </div>
                 <p class="stat-hint">Deixe HP vazio se não for relevante para combate. Pode vincular a um monstro do bestiário para stats completas.</p>
@@ -128,6 +128,7 @@
         <button class="btn-acao btn-salvar" onclick="salvarNPC()">💾 Salvar</button>
         <button class="btn-acao btn-matar" onclick="toggleVivo()">{{ '💀 Marcar como Morto' if npc.vivo else '✨ Ressuscitar' }}</button>
         <button class="btn-acao btn-revelar" onclick="toggleConhecido()">{{ '👁️ Revelar ao Grupo' if not npc.conhecido else '🙈 Ocultar do Grupo' }}</button>
+        <button class="btn-acao btn-danger" onclick="deletarNPC()" style="margin-left: auto;">🗑️ Deletar NPC</button>
         {% else %}
         <button class="btn-acao btn-criar" onclick="criarNPC()">✅ Criar NPC</button>
         {% endif %}
@@ -217,8 +218,41 @@ async function toggleConhecido() {
     location.reload();
 }
 
+async function deletarNPC() {
+    const id = document.getElementById('npc-id').value;
+    const nomeNPC = document.querySelector('.npc-nome').textContent;
+    
+    if (!confirm(`Tem certeza que deseja DELETAR permanentemente o NPC "${nomeNPC}"?\n\nEsta ação NÃO pode ser desfeita!`)) {
+        return;
+    }
+    
+    try {
+        const response = await fetch(`/fichas/api/npc/${id}`, {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' }
+        });
+        
+        if (response.ok) {
+            mostrarNotificacao('NPC deletado com sucesso!', 'success');
+            setTimeout(() => {
+                window.location.href = '{{ url_for("fichas.lista_npcs") }}';
+            }, 500);
+        } else {
+            mostrarNotificacao('Erro ao deletar NPC', 'danger');
+        }
+    } catch (error) {
+        console.error('Erro ao deletar NPC:', error);
+        mostrarNotificacao('Erro ao deletar NPC', 'danger');
+    }
+}
+
 async function criarNPC() {
     const dados = coletarDadosFormulario();
+    
+    // Valida dados
+    if (!dados) return;
+    
+    console.log('Criando NPC:', dados);
     
     try {
         const response = await fetch('/api/npcs', {
@@ -230,10 +264,14 @@ async function criarNPC() {
         if (response.ok) {
             const npc = await response.json();
             window.location.href = `/fichas/npc/${npc.id}`;
+        } else {
+            const erro = await response.text();
+            console.error('Erro do servidor:', erro);
+            alert('Erro ao criar NPC: ' + erro);
         }
     } catch (error) {
         console.error('Erro ao criar NPC:', error);
-        alert('Erro ao criar NPC');
+        alert('Erro ao criar NPC: ' + error.message);
     }
 }
 
@@ -271,11 +309,26 @@ function coletarDadosFormulario() {
         if (el.type === 'checkbox') {
             dados[campo] = el.checked ? 1 : 0;
         } else if (el.type === 'number') {
-            dados[campo] = el.value ? parseInt(el.value) : null;
+            const val = el.value ? parseInt(el.value) : null;
+            // Só envia se for um número válido
+            if (val !== null && !isNaN(val)) {
+                dados[campo] = val;
+            }
         } else {
-            dados[campo] = el.value;
+            dados[campo] = el.value || null;
         }
     });
+    
+    // Garante valores mínimos obrigatórios
+    if (!dados.nome) {
+        alert('Nome é obrigatório!');
+        return null;
+    }
+    
+    // Valores padrão se não definidos
+    if (dados.vivo === undefined) dados.vivo = 1;
+    if (dados.conhecido === undefined) dados.conhecido = 1;
+    if (dados.alinhamento === undefined) dados.alinhamento = 'indiferente';
     
     return dados;
 }
