@@ -3,31 +3,16 @@
   "id": "1",
   "data": "2026-01-24",
   "criada_em": "2026-01-24T00:43:28.694933",
-  "atualizada_em": "2026-01-24T02:28:48.238985",
+  "atualizada_em": "2026-01-24T11:25:42.984518",
   "estado": {
-    "mapa_atual": null,
+    "mapa_atual": "Cenários/Caverna_Iluminada.png",
     "combate_ativo": false,
-    "turno_contador": 31,
+    "turno_contador": 33,
     "turno_atual": 0,
-    "ordem_turnos": [
-      {
-        "ativo": true,
-        "id": 59,
-        "iniciativa": 14,
-        "nome": "Drow Elite Warrior 1",
-        "tipo": "instancia"
-      },
-      {
-        "ativo": true,
-        "id": 60,
-        "iniciativa": 10,
-        "nome": "Quaggoth 1",
-        "tipo": "instancia"
-      }
-    ],
+    "ordem_turnos": [],
     "widgets": [
       {
-        "id": "widget-1769232378247",
+        "id": "widget-1769264702354",
         "tipo": "log_combate",
         "titulo": "📜 Log de Combate",
         "x": 1090,
@@ -38,20 +23,36 @@
         "dadosCriatura": null
       },
       {
-        "id": "widget-1769232430938",
+        "id": "widget-1769264709247",
         "tipo": "ficha_personagem",
-        "titulo": "👤 Azazel Ireth",
-        "x": 100,
-        "y": 80,
+        "titulo": "⚔️ Eu não sei quem",
+        "x": 7,
+        "y": 76,
         "width": 320,
         "height": 400,
         "minimizado": false,
         "dadosCriatura": {
-          "tipo": "personagem",
-          "id": 1,
-          "nome": "Azazel Ireth",
-          "modDestreza": 3
+          "id": "temp_pc_1769264721439",
+          "nome": "Eu não sei quem",
+          "hp_atual": 15,
+          "hp_maximo": 15,
+          "ca": 16,
+          "nivel": 1,
+          "bonus_iniciativa": 4,
+          "mod_destreza": 4,
+          "temporario": true
         }
+      },
+      {
+        "id": "widget-1769264733982",
+        "tipo": "iniciativa",
+        "titulo": "⏱️ Iniciativa",
+        "x": 733,
+        "y": 304,
+        "width": 302,
+        "height": 389,
+        "minimizado": false,
+        "dadosCriatura": null
       }
     ]
   },
@@ -864,6 +865,924 @@
       "timestamp": "2026-01-24T02:27:25.448195",
       "tipo": "info",
       "mensagem": "➡️ Turno de <strong>Quaggoth 1</strong>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:35:18.217097",
+      "tipo": "ataque",
+      "mensagem": "<strong>Vralktar</strong> usa <em>Espada Larga</em> <span class=\"ataque-total \">20</span> <span class=\"ataque-detalhes\">(16+4)</span><br><span class=\"dano-linha\"><span class=\"dano\">8</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d8 + 1d10)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:35:20.930865",
+      "tipo": "dano",
+      "mensagem": "<strong>Azazel Ireth</strong> -2 HP",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:35:22.613924",
+      "tipo": "cura",
+      "mensagem": "<strong>Azazel Ireth</strong> +7 HP",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:48:15.280755",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">4</span> <span class=\"ataque-detalhes\">(4+0)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:48:16.467094",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">14</span> <span class=\"ataque-detalhes\">(14+0)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:48:16.866879",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">19</span> <span class=\"ataque-detalhes\">(19+0)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:48:17.253089",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">11</span> <span class=\"ataque-detalhes\">(11+0)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:48:18.334434",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">15</span> <span class=\"ataque-detalhes\">(15+0)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:48:18.656651",
+      "tipo": "crit",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total crit\">20</span> 🎯 <span class=\"ataque-detalhes\">(20+0)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:48:18.857121",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">18</span> <span class=\"ataque-detalhes\">(18+0)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:48:19.041222",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">6</span> <span class=\"ataque-detalhes\">(6+0)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:48:29.751550",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">3</span> <span class=\"ataque-detalhes\">(3+0)</span><br><span class=\"dano-linha\"><span class=\"dano\">7</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d6+4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:48:30.324849",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">15</span> <span class=\"ataque-detalhes\">(15+0)</span><br><span class=\"dano-linha\"><span class=\"dano\">5</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d6+4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:48:31.392977",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">12</span> <span class=\"ataque-detalhes\">(12+0)</span><br><span class=\"dano-linha\"><span class=\"dano\">8</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d6+4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:48:31.565065",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">12</span> <span class=\"ataque-detalhes\">(12+0)</span><br><span class=\"dano-linha\"><span class=\"dano\">7</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d6+4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:48:31.785742",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">17</span> <span class=\"ataque-detalhes\">(17+0)</span><br><span class=\"dano-linha\"><span class=\"dano\">8</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d6+4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:48:48.896289",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">11</span> <span class=\"ataque-detalhes\">(11+0)</span><br><span class=\"dano-linha\"><span class=\"dano\">7</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d6+4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:48:49.375762",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">16</span> <span class=\"ataque-detalhes\">(16+0)</span><br><span class=\"dano-linha\"><span class=\"dano\">6</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d6+4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:48:50.066305",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">15</span> <span class=\"ataque-detalhes\">(15+0)</span><br><span class=\"dano-linha\"><span class=\"dano\">5</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d6+4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:48:50.212993",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">14</span> <span class=\"ataque-detalhes\">(14+0)</span><br><span class=\"dano-linha\"><span class=\"dano\">7</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d6+4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:48:54.161322",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">7</span> <span class=\"ataque-detalhes\">(7+0)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:48:54.614840",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">10</span> <span class=\"ataque-detalhes\">(10+0)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:48:54.791270",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">17</span> <span class=\"ataque-detalhes\">(17+0)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:48:54.974538",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">13</span> <span class=\"ataque-detalhes\">(13+0)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:48:55.135552",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">4</span> <span class=\"ataque-detalhes\">(4+0)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:48:55.309674",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">10</span> <span class=\"ataque-detalhes\">(10+0)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:48:55.468571",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">12</span> <span class=\"ataque-detalhes\">(12+0)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:49:16.239801",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">8</span> <span class=\"ataque-detalhes\">(8+0)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:49:16.838608",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">10</span> <span class=\"ataque-detalhes\">(10+0)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:49:16.982646",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">2</span> <span class=\"ataque-detalhes\">(2+0)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:49:20.610640",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">7</span> <span class=\"ataque-detalhes\">(7+0)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:49:33.187363",
+      "tipo": "fumble",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total fumble\">1</span> 💀 <span class=\"ataque-detalhes\">(1+0)</span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:49:33.845167",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">5</span> <span class=\"ataque-detalhes\">(5+0)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:49:34.402696",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">19</span> <span class=\"ataque-detalhes\">(19+0)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:49:34.536074",
+      "tipo": "fumble",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total fumble\">1</span> 💀 <span class=\"ataque-detalhes\">(1+0)</span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:49:37.483388",
+      "tipo": "crit",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total crit\">22</span> 🎯 <span class=\"ataque-detalhes\">(20+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:49:38.550951",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">10</span> <span class=\"ataque-detalhes\">(8+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:49:39.485682",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">10</span> <span class=\"ataque-detalhes\">(8+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:49:39.886187",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">16</span> <span class=\"ataque-detalhes\">(14+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:49:40.304081",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">10</span> <span class=\"ataque-detalhes\">(8+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:49:40.510969",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">13</span> <span class=\"ataque-detalhes\">(11+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:49:40.697579",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">15</span> <span class=\"ataque-detalhes\">(13+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:49:58.451970",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">15</span> <span class=\"ataque-detalhes\">(13+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">5</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d6+4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:50:00.268652",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">10</span> <span class=\"ataque-detalhes\">(8+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">5</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d6+4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:50:00.671155",
+      "tipo": "fumble",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total fumble\">3</span> 💀 <span class=\"ataque-detalhes\">(1+2)</span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:50:05.685775",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">11</span> <span class=\"ataque-detalhes\">(9+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">6</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d6+4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:50:06.606174",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">10</span> <span class=\"ataque-detalhes\">(8+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">9</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d6+4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:50:23.696995",
+      "tipo": "crit",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total crit\">22</span> 🎯 <span class=\"ataque-detalhes\">(20+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">21</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(2d6+4 + 2d6+5)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:50:25.573499",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">11</span> <span class=\"ataque-detalhes\">(9+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">14</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d6+4 + 1d6+5)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:50:44.502042",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">6</span> <span class=\"ataque-detalhes\">(4+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">8</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d6+4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:50:45.052967",
+      "tipo": "fumble",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total fumble\">3</span> 💀 <span class=\"ataque-detalhes\">(1+2)</span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:50:46.928628",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">16</span> <span class=\"ataque-detalhes\">(14+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">6</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d6+4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:50:47.608146",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">19</span> <span class=\"ataque-detalhes\">(17+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">9</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d6+4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:50:50.489196",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">11</span> <span class=\"ataque-detalhes\">(9+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">9</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d6+4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:50:51.639296",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">5</span> <span class=\"ataque-detalhes\">(3+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">7</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d6+4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:50:51.839025",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">11</span> <span class=\"ataque-detalhes\">(9+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">5</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d6+4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:50:55.679487",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">9</span> <span class=\"ataque-detalhes\">(7+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">6</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d6+4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:50:55.933037",
+      "tipo": "fumble",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total fumble\">3</span> 💀 <span class=\"ataque-detalhes\">(1+2)</span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:50:56.118750",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">15</span> <span class=\"ataque-detalhes\">(13+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">7</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d6+4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:51:02.814655",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">21</span> <span class=\"ataque-detalhes\">(19+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">9</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d6+4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:51:16.946829",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">13</span> <span class=\"ataque-detalhes\">(11+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:51:17.680451",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">4</span> <span class=\"ataque-detalhes\">(2+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:51:18.308385",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">11</span> <span class=\"ataque-detalhes\">(9+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:51:19.240766",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">13</span> <span class=\"ataque-detalhes\">(11+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:51:19.881013",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">11</span> <span class=\"ataque-detalhes\">(9+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:51:21.273351",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">12</span> <span class=\"ataque-detalhes\">(10+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:51:21.577058",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">18</span> <span class=\"ataque-detalhes\">(16+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:51:24.575528",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">12</span> <span class=\"ataque-detalhes\">(10+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:51:25.992709",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">8</span> <span class=\"ataque-detalhes\">(6+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:51:53.974145",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">9</span> <span class=\"ataque-detalhes\">(7+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:51:54.468584",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">14</span> <span class=\"ataque-detalhes\">(12+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:51:54.631992",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">20</span> <span class=\"ataque-detalhes\">(18+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:51:54.815192",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">11</span> <span class=\"ataque-detalhes\">(9+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:51:58.869312",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">8</span> <span class=\"ataque-detalhes\">(6+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:51:59.482284",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">9</span> <span class=\"ataque-detalhes\">(7+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:52:45.475135",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>profciencia</em> <span class=\"ataque-total \">18</span> <span class=\"ataque-detalhes\">(15+3)</span><br><span class=\"dano-linha\"><span class=\"dano\">3</span> dano <span class=\"dano-expressao\">(1d4+2)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:52:46.742537",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>profciencia</em> <span class=\"ataque-total \">16</span> <span class=\"ataque-detalhes\">(13+3)</span><br><span class=\"dano-linha\"><span class=\"dano\">5</span> dano <span class=\"dano-expressao\">(1d4+2)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:52:47.073738",
+      "tipo": "crit",
+      "mensagem": "<strong>Bilbo</strong> usa <em>profciencia</em> <span class=\"ataque-total crit\">23</span> 🎯 <span class=\"ataque-detalhes\">(20+3)</span><br><span class=\"dano-linha\"><span class=\"dano\">5</span> dano <span class=\"dano-expressao\">(2d4+2)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:52:47.420335",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>profciencia</em> <span class=\"ataque-total \">13</span> <span class=\"ataque-detalhes\">(10+3)</span><br><span class=\"dano-linha\"><span class=\"dano\">3</span> dano <span class=\"dano-expressao\">(1d4+2)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:52:52.199073",
+      "tipo": "fumble",
+      "mensagem": "<strong>Bilbo</strong> usa <em>força</em> <span class=\"ataque-total fumble\">3</span> 💀 <span class=\"ataque-detalhes\">(1+2)</span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:52:55.582781",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>força</em> <span class=\"ataque-total \">7</span> <span class=\"ataque-detalhes\">(5+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">8</span> dano <span class=\"dano-expressao\">(1d4+5)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:52:56.237759",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>força</em> <span class=\"ataque-total \">16</span> <span class=\"ataque-detalhes\">(14+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">6</span> dano <span class=\"dano-expressao\">(1d4+5)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:52:56.893127",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>força</em> <span class=\"ataque-total \">14</span> <span class=\"ataque-detalhes\">(12+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">9</span> dano <span class=\"dano-expressao\">(1d4+5)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:53:07.286194",
+      "tipo": "crit",
+      "mensagem": "<strong>Bilbo</strong> usa <em>força</em> <span class=\"ataque-total crit\">22</span> 🎯 <span class=\"ataque-detalhes\">(20+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:53:08.068005",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>força</em> <span class=\"ataque-total \">11</span> <span class=\"ataque-detalhes\">(9+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:53:08.388427",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>força</em> <span class=\"ataque-total \">21</span> <span class=\"ataque-detalhes\">(19+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:53:17.952514",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>força</em> <span class=\"ataque-total \">20</span> <span class=\"ataque-detalhes\">(18+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:53:19.993417",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">18</span> <span class=\"ataque-detalhes\">(16+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:53:20.660523",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">11</span> <span class=\"ataque-detalhes\">(9+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:53:21.473155",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>força</em> <span class=\"ataque-total \">10</span> <span class=\"ataque-detalhes\">(8+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:53:21.820328",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>força</em> <span class=\"ataque-total \">11</span> <span class=\"ataque-detalhes\">(9+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:53:30.734545",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>força</em> <span class=\"ataque-total \">7</span> <span class=\"ataque-detalhes\">(5+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:53:31.386837",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>força</em> <span class=\"ataque-total \">17</span> <span class=\"ataque-detalhes\">(15+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:53:48.221954",
+      "tipo": "fumble",
+      "mensagem": "<strong>Bilbo</strong> usa <em>força</em> <span class=\"ataque-total fumble\">3</span> 💀 <span class=\"ataque-detalhes\">(1+2)</span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:53:48.776980",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>força</em> <span class=\"ataque-total \">10</span> <span class=\"ataque-detalhes\">(8+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:53:54.525761",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>força</em> <span class=\"ataque-total \">18</span> <span class=\"ataque-detalhes\">(16+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:53:55.542772",
+      "tipo": "crit",
+      "mensagem": "<strong>Bilbo</strong> usa <em>força</em> <span class=\"ataque-total crit\">22</span> 🎯 <span class=\"ataque-detalhes\">(20+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:55:08.304571",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>força</em> <span class=\"ataque-total \">11</span> <span class=\"ataque-detalhes\">(9+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:55:14.138959",
+      "tipo": "fumble",
+      "mensagem": "<strong>Bilbo</strong> usa <em>força</em> <span class=\"ataque-total fumble\">3</span> 💀 <span class=\"ataque-detalhes\">(1+2)</span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:55:14.889630",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>força</em> <span class=\"ataque-total \">4</span> <span class=\"ataque-detalhes\">(2+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:56:42.921170",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>profciencia</em> <span class=\"ataque-total \">18</span> <span class=\"ataque-detalhes\">(15+3)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:56:43.763665",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>profciencia</em> <span class=\"ataque-total \">11</span> <span class=\"ataque-detalhes\">(8+3)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:56:44.147887",
+      "tipo": "crit",
+      "mensagem": "<strong>Bilbo</strong> usa <em>profciencia</em> <span class=\"ataque-total crit\">23</span> 🎯 <span class=\"ataque-detalhes\">(20+3)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:56:44.976866",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>força</em> <span class=\"ataque-total \">16</span> <span class=\"ataque-detalhes\">(14+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:56:45.419654",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>força</em> <span class=\"ataque-total \">8</span> <span class=\"ataque-detalhes\">(6+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:56:46.442886",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Teste</em> <span class=\"ataque-total \">17</span> <span class=\"ataque-detalhes\">(16+1)</span><br><span class=\"dano-linha\"><span class=\"dano\">4</span> dano <span class=\"dano-expressao\">(1d20+1)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:56:46.803814",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Teste</em> <span class=\"ataque-total \">18</span> <span class=\"ataque-detalhes\">(17+1)</span><br><span class=\"dano-linha\"><span class=\"dano\">7</span> dano <span class=\"dano-expressao\">(1d20+1)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:56:48.389315",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">20</span> <span class=\"ataque-detalhes\">(18+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:56:48.949185",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">21</span> <span class=\"ataque-detalhes\">(19+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:56:49.402854",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">19</span> <span class=\"ataque-detalhes\">(17+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:57:06.609271",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>força</em> <span class=\"ataque-total \">19</span> <span class=\"ataque-detalhes\">(17+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:57:07.102897",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>força</em> <span class=\"ataque-total \">13</span> <span class=\"ataque-detalhes\">(11+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:59:49.429328",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>profciencia</em> <span class=\"ataque-total \">17</span> <span class=\"ataque-detalhes\">(14+3)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T10:59:50.045146",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>profciencia</em> <span class=\"ataque-total \">12</span> <span class=\"ataque-detalhes\">(9+3)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T11:04:18.849587",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>profciencia</em> <span class=\"ataque-total \">11</span> <span class=\"ataque-detalhes\">(8+3)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T11:04:20.776704",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>força</em> <span class=\"ataque-total \">16</span> <span class=\"ataque-detalhes\">(14+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T11:06:17.335946",
+      "tipo": "fumble",
+      "mensagem": "<strong>Bilbo</strong> usa <em>profciencia</em> <span class=\"ataque-total fumble\">4</span> 💀 <span class=\"ataque-detalhes\">(1+3)</span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T11:06:18.643999",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>profciencia</em> <span class=\"ataque-total \">18</span> <span class=\"ataque-detalhes\">(15+3)</span><br><span class=\"dano-linha\"><span class=\"dano\">11</span> dano <span class=\"dano-expressao\">(1d8+5+2)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T11:06:19.228572",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>força</em> <span class=\"ataque-total \">5</span> <span class=\"ataque-detalhes\">(3+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">12</span> dano <span class=\"dano-expressao\">(1d8+5+2)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T11:06:19.868521",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>força</em> <span class=\"ataque-total \">8</span> <span class=\"ataque-detalhes\">(6+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">15</span> dano <span class=\"dano-expressao\">(1d8+5+2)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T11:06:20.032126",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>força</em> <span class=\"ataque-total \">21</span> <span class=\"ataque-detalhes\">(19+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">12</span> dano <span class=\"dano-expressao\">(1d8+5+2)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T11:06:34.394067",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>profciencia</em> <span class=\"ataque-total \">10</span> <span class=\"ataque-detalhes\">(7+3)</span><br><span class=\"dano-linha\"><span class=\"dano\">10</span> dano <span class=\"dano-expressao\">(1d8+5+2)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T11:06:35.899692",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>força</em> <span class=\"ataque-total \">13</span> <span class=\"ataque-detalhes\">(11+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">13</span> dano <span class=\"dano-expressao\">(1d8+5+2)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T11:06:51.947356",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">14</span> <span class=\"ataque-detalhes\">(14+0)</span><br><span class=\"dano-linha\"><span class=\"dano\">18</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d6+4d6+5+1+2)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T11:06:53.666481",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">3</span> <span class=\"ataque-detalhes\">(3+0)</span><br><span class=\"dano-linha\"><span class=\"dano\">16</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d6+4d6+5+1+2)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T11:10:14.891303",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">11</span> <span class=\"ataque-detalhes\">(6+5)</span><br><span class=\"dano-linha\"><span class=\"dano\">14</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d6+4d6+5+1+2)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T11:10:16.691481",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">12</span> <span class=\"ataque-detalhes\">(7+5)</span><br><span class=\"dano-linha\"><span class=\"dano\">14</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d6+4d6+5+1+2)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T11:10:17.342516",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">19</span> <span class=\"ataque-detalhes\">(14+5)</span><br><span class=\"dano-linha\"><span class=\"dano\">13</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d6+4d6+5+1+2)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T11:10:18.626620",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">12</span> <span class=\"ataque-detalhes\">(7+5)</span><br><span class=\"dano-linha\"><span class=\"dano\">18</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d6+4d6+5+1+2)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T11:10:30.858749",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">16</span> <span class=\"ataque-detalhes\">(9+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">18</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d6+4d6+5+1+2)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T11:12:55.120159",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">17</span> <span class=\"ataque-detalhes\">(17+0)</span><br><span class=\"dano-linha\"><span class=\"dano\">12</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d6+4d6+5+2)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T11:13:02.804629",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">13</span> <span class=\"ataque-detalhes\">(13+0)</span><br><span class=\"dano-linha\"><span class=\"dano\">15</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d6+4d6+5+2)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T11:13:03.537868",
+      "tipo": "crit",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total crit\">20</span> 🎯 <span class=\"ataque-detalhes\">(20+0)</span><br><span class=\"dano-linha\"><span class=\"dano\">23</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(2d6+8d6+5+2)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T11:13:15.276233",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">3</span> <span class=\"ataque-detalhes\">(3+0)</span><br><span class=\"dano-linha\"><span class=\"dano\">15</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d6+4d6+5+2)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T11:13:37.601235",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">10</span> <span class=\"ataque-detalhes\">(10+0)</span><br><span class=\"dano-linha\"><span class=\"dano\">13</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d6+4d6+5+2)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T11:13:44.685617",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">12</span> <span class=\"ataque-detalhes\">(12+0)</span><br><span class=\"dano-linha\"><span class=\"dano\">16</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d6+4d6+5+2)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T11:13:45.105206",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">15</span> <span class=\"ataque-detalhes\">(15+0)</span><br><span class=\"dano-linha\"><span class=\"dano\">16</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d6+4d6+5+2)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T11:13:55.837055",
+      "tipo": "fumble",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total fumble\">1</span> 💀 <span class=\"ataque-detalhes\">(1+0)</span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T11:13:56.585861",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">9</span> <span class=\"ataque-detalhes\">(9+0)</span><br><span class=\"dano-linha\"><span class=\"dano\">20</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d6+4d6+5+5+5)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T11:13:57.050163",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">9</span> <span class=\"ataque-detalhes\">(9+0)</span><br><span class=\"dano-linha\"><span class=\"dano\">20</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d6+4d6+5+5+5)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T11:13:58.441627",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">8</span> <span class=\"ataque-detalhes\">(8+0)</span><br><span class=\"dano-linha\"><span class=\"dano\">22</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d6+4d6+5+5+5)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T11:14:39.826326",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">10</span> <span class=\"ataque-detalhes\">(8+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">23</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d6+4d6+5+5+5)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T11:14:50.472821",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>Garras</em> <span class=\"ataque-total \">11</span> <span class=\"ataque-detalhes\">(4+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">23</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d6+4d6+5+5+5)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T11:15:09.755652",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>profciencia</em> <span class=\"ataque-total \">20</span> <span class=\"ataque-detalhes\">(17+3)</span><br><span class=\"dano-linha\"><span class=\"dano\">1</span> dano <span class=\"dano-expressao\">(1d8+0)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T11:15:10.439361",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>profciencia</em> <span class=\"ataque-total \">15</span> <span class=\"ataque-detalhes\">(12+3)</span><br><span class=\"dano-linha\"><span class=\"dano\">1</span> dano <span class=\"dano-expressao\">(1d8+0)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T11:15:10.864111",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>profciencia</em> <span class=\"ataque-total \">14</span> <span class=\"ataque-detalhes\">(11+3)</span><br><span class=\"dano-linha\"><span class=\"dano\">2</span> dano <span class=\"dano-expressao\">(1d8+0)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T11:15:11.121609",
+      "tipo": "fumble",
+      "mensagem": "<strong>Bilbo</strong> usa <em>profciencia</em> <span class=\"ataque-total fumble\">4</span> 💀 <span class=\"ataque-detalhes\">(1+3)</span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T11:15:12.359189",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>profciencia</em> <span class=\"ataque-total \">18</span> <span class=\"ataque-detalhes\">(15+3)</span><br><span class=\"dano-linha\"><span class=\"dano\">1</span> dano <span class=\"dano-expressao\">(1d8+0)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T11:18:20.746662",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>profciencia</em> <span class=\"ataque-total \">5</span> <span class=\"ataque-detalhes\">(2+3)</span><br><span class=\"dano-linha\"><span class=\"dano\">7</span> dano <span class=\"dano-expressao\">(1d8+3)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T11:18:21.040644",
+      "tipo": "ataque",
+      "mensagem": "<strong>Bilbo</strong> usa <em>profciencia</em> <span class=\"ataque-total \">10</span> <span class=\"ataque-detalhes\">(7+3)</span><br><span class=\"dano-linha\"><span class=\"dano\">5</span> dano <span class=\"dano-expressao\">(1d8+3)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T11:24:29.312139",
+      "tipo": "ataque",
+      "mensagem": "<strong>Takano</strong> usa <em>Ataque Básico</em> <span class=\"ataque-total \">17</span> <span class=\"ataque-detalhes\">(15+2)</span><br><span class=\"dano-linha\"><span class=\"dano\">4</span> dano <span class=\"dano-expressao\">(1d4+2)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T11:25:05.349488",
+      "tipo": "ataque",
+      "mensagem": "<strong>Takano</strong> usa <em>Ataque Básico</em> <span class=\"ataque-total \">22</span> <span class=\"ataque-detalhes\">(19+3)</span><br><span class=\"dano-linha\"><span class=\"dano\">4</span> dano <span class=\"dano-expressao\">(1d4+3)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-01-24T11:25:40.969959",
+      "tipo": "info",
+      "mensagem": "🔄 <strong>Turno 32</strong>",
       "dados": {}
     }
   ]

@@ -21,20 +21,7 @@
         <input type="text" id="filtro-nome" placeholder="🔍 Buscar por nome..." oninput="filtrarLista()">
         <select id="filtro-tipo" onchange="filtrarLista()">
             <option value="">Todos os Tipos</option>
-            <option value="aberração">Aberração</option>
-            <option value="besta">Besta</option>
-            <option value="celestial">Celestial</option>
-            <option value="constructo">Constructo</option>
-            <option value="dragão">Dragão</option>
-            <option value="elemental">Elemental</option>
-            <option value="fada">Fada</option>
-            <option value="fera monstruosa">Fera Monstruosa</option>
-            <option value="gigante">Gigante</option>
-            <option value="humanóide">Humanóide</option>
-            <option value="monstruosidade">Monstruosidade</option>
-            <option value="morto-vivo">Morto-Vivo</option>
-            <option value="planta">Planta</option>
-            <option value="vasa">Vasa</option>
+            <!-- Carregado dinamicamente via JavaScript -->
         </select>
         <select id="filtro-nd" onchange="filtrarLista()">
             <option value="">Todos os NDs</option>
@@ -127,7 +114,41 @@
 
 {% block extra_js %}
 <script>
-document.addEventListener('DOMContentLoaded', carregarMonstros);
+document.addEventListener('DOMContentLoaded', async function() {
+    await carregarTiposCriatura();
+    await carregarMonstros();
+});
+
+async function carregarTiposCriatura() {
+    const select = document.getElementById('filtro-tipo');
+    
+    try {
+        const response = await fetch('/api/dnd/tipos-criatura');
+        const tipos = await response.json();
+        
+        tipos.forEach(tipo => {
+            const option = document.createElement('option');
+            option.value = tipo.nome;
+            option.textContent = tipo.nome_display;
+            select.appendChild(option);
+        });
+    } catch (error) {
+        console.error('Erro ao carregar tipos de criatura:', error);
+        // Fallback com tipos básicos
+        const tiposFallback = [
+            {nome: 'aberracao', display: 'Aberração'},
+            {nome: 'besta', display: 'Besta'},
+            {nome: 'humanoide', display: 'Humanóide'},
+            {nome: 'morto-vivo', display: 'Morto-vivo'}
+        ];
+        tiposFallback.forEach(t => {
+            const option = document.createElement('option');
+            option.value = t.nome;
+            option.textContent = t.display;
+            select.appendChild(option);
+        });
+    }
+}
 
 async function carregarMonstros() {
     const container = document.getElementById('lista-monstros');

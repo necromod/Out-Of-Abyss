@@ -20,34 +20,37 @@ def rolar_dados(quantidade: int, faces: int) -> List[int]:
 def rolar_expressao(expressao: str) -> Dict[str, Any]:
     """
     Interpreta e rola uma expressão de dados no formato D&D
-    Exemplos: "1d20", "2d6+3", "4d8-2", "1d20+5"
+    Suporta múltiplos modificadores: "1d20", "2d6+3", "4d8-2", "1d6+6+2", "2d8+3-1"
     
     Retorna:
     {
-        'expressao': '2d6+3',
+        'expressao': '2d6+3+2',
         'dados': [4, 2],
         'soma_dados': 6,
-        'modificador': 3,
-        'total': 9
+        'modificador': 5,
+        'total': 11
     }
     """
     expressao = expressao.lower().replace(' ', '')
     
-    # Padrão: XdY+Z ou XdY-Z ou XdY
-    padrao = r'^(\d+)d(\d+)([+-]\d+)?$'
-    match = re.match(padrao, expressao)
+    # Padrão para o dado: XdY
+    padrao_dado = r'^(\d+)d(\d+)'
+    match_dado = re.match(padrao_dado, expressao)
     
-    if not match:
+    if not match_dado:
         return {
             'erro': f'Expressão inválida: {expressao}',
             'expressao': expressao,
             'total': 0
         }
     
-    quantidade = int(match.group(1))
-    faces = int(match.group(2))
-    modificador_str = match.group(3)
-    modificador = int(modificador_str) if modificador_str else 0
+    quantidade = int(match_dado.group(1))
+    faces = int(match_dado.group(2))
+    
+    # Extrai todos os modificadores após o dado (ex: +3+2-1)
+    resto_expressao = expressao[match_dado.end():]
+    modificadores = re.findall(r'[+-]\d+', resto_expressao)
+    modificador = sum(int(m) for m in modificadores) if modificadores else 0
     
     dados = rolar_dados(quantidade, faces)
     soma_dados = sum(dados)

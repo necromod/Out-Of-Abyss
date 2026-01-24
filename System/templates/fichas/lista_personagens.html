@@ -21,18 +21,7 @@
         <input type="text" id="filtro-nome" placeholder="🔍 Buscar por nome..." oninput="filtrarLista()">
         <select id="filtro-classe" onchange="filtrarLista()">
             <option value="">Todas as Classes</option>
-            <option value="barbaro">Bárbaro</option>
-            <option value="bardo">Bardo</option>
-            <option value="bruxo">Bruxo</option>
-            <option value="clerigo">Clérigo</option>
-            <option value="druida">Druida</option>
-            <option value="feiticeiro">Feiticeiro</option>
-            <option value="guerreiro">Guerreiro</option>
-            <option value="ladino">Ladino</option>
-            <option value="mago">Mago</option>
-            <option value="monge">Monge</option>
-            <option value="paladino">Paladino</option>
-            <option value="patrulheiro">Patrulheiro</option>
+            <!-- Carregado dinamicamente via JS -->
         </select>
     </div>
 
@@ -99,8 +88,28 @@
 
 {% block extra_js %}
 <script>
-// Carrega personagens ao abrir página
-document.addEventListener('DOMContentLoaded', carregarPersonagens);
+// Carrega personagens e classes ao abrir página
+document.addEventListener('DOMContentLoaded', () => {
+    carregarClasses();
+    carregarPersonagens();
+});
+
+async function carregarClasses() {
+    try {
+        const response = await fetch('/api/dnd/classes');
+        const classes = await response.json();
+        
+        const select = document.getElementById('filtro-classe');
+        classes.forEach(c => {
+            const option = document.createElement('option');
+            option.value = c.nome.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+            option.textContent = c.nome;
+            select.appendChild(option);
+        });
+    } catch (error) {
+        console.error('Erro ao carregar classes:', error);
+    }
+}
 
 async function carregarPersonagens() {
     const container = document.getElementById('lista-personagens');

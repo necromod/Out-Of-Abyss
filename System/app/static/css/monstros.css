@@ -160,8 +160,8 @@
     color: var(--ficha-text);
     font-size: 0.8rem;
     padding: 0.4rem;
-    resize: none;
-    overflow: hidden;
+    resize: vertical;
+    overflow-y: auto;
 }
 
 .caracteristicas-inline textarea::placeholder {

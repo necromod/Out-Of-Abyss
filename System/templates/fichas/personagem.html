@@ -25,90 +25,53 @@
             <div class="info-linha">
                 <div class="info-campo">
                     <label>Raça</label>
-                    <select data-campo="raca">
-                        <option value="">-- Selecione --</option>
-                        <optgroup label="Livro do Jogador">
-                            <option value="Anão" {{ 'selected' if p and p.raca == 'Anão' else '' }}>Anão</option>
-                            <option value="Anão da Colina" {{ 'selected' if p and p.raca == 'Anão da Colina' else '' }}>Anão da Colina</option>
-                            <option value="Anão da Montanha" {{ 'selected' if p and p.raca == 'Anão da Montanha' else '' }}>Anão da Montanha</option>
-                            <option value="Elfo" {{ 'selected' if p and p.raca == 'Elfo' else '' }}>Elfo</option>
-                            <option value="Alto Elfo" {{ 'selected' if p and p.raca == 'Alto Elfo' else '' }}>Alto Elfo</option>
-                            <option value="Elfo da Floresta" {{ 'selected' if p and p.raca == 'Elfo da Floresta' else '' }}>Elfo da Floresta</option>
-                            <option value="Drow" {{ 'selected' if p and p.raca == 'Drow' else '' }}>Drow (Elfo Negro)</option>
-                            <option value="Halfling" {{ 'selected' if p and p.raca == 'Halfling' else '' }}>Halfling</option>
-                            <option value="Halfling Pés Leves" {{ 'selected' if p and p.raca == 'Halfling Pés Leves' else '' }}>Halfling Pés Leves</option>
-                            <option value="Halfling Robusto" {{ 'selected' if p and p.raca == 'Halfling Robusto' else '' }}>Halfling Robusto</option>
-                            <option value="Humano" {{ 'selected' if p and p.raca == 'Humano' else '' }}>Humano</option>
-                            <option value="Draconato" {{ 'selected' if p and p.raca == 'Draconato' else '' }}>Draconato</option>
-                            <option value="Gnomo" {{ 'selected' if p and p.raca == 'Gnomo' else '' }}>Gnomo</option>
-                            <option value="Gnomo da Floresta" {{ 'selected' if p and p.raca == 'Gnomo da Floresta' else '' }}>Gnomo da Floresta</option>
-                            <option value="Gnomo das Rochas" {{ 'selected' if p and p.raca == 'Gnomo das Rochas' else '' }}>Gnomo das Rochas</option>
-                            <option value="Meio-Elfo" {{ 'selected' if p and p.raca == 'Meio-Elfo' else '' }}>Meio-Elfo</option>
-                            <option value="Meio-Orc" {{ 'selected' if p and p.raca == 'Meio-Orc' else '' }}>Meio-Orc</option>
-                            <option value="Tiefling" {{ 'selected' if p and p.raca == 'Tiefling' else '' }}>Tiefling</option>
-                        </optgroup>
-                        <optgroup label="Guia de Volo">
-                            <option value="Aasimar" {{ 'selected' if p and p.raca == 'Aasimar' else '' }}>Aasimar</option>
-                            <option value="Firbolg" {{ 'selected' if p and p.raca == 'Firbolg' else '' }}>Firbolg</option>
-                            <option value="Goliath" {{ 'selected' if p and p.raca == 'Goliath' else '' }}>Goliath</option>
-                            <option value="Kenku" {{ 'selected' if p and p.raca == 'Kenku' else '' }}>Kenku</option>
-                            <option value="Lizardfolk" {{ 'selected' if p and p.raca == 'Lizardfolk' else '' }}>Lizardfolk</option>
-                            <option value="Tabaxi" {{ 'selected' if p and p.raca == 'Tabaxi' else '' }}>Tabaxi</option>
-                            <option value="Tritão" {{ 'selected' if p and p.raca == 'Tritão' else '' }}>Tritão</option>
-                            <option value="Bugbear" {{ 'selected' if p and p.raca == 'Bugbear' else '' }}>Bugbear</option>
-                            <option value="Goblin" {{ 'selected' if p and p.raca == 'Goblin' else '' }}>Goblin</option>
-                            <option value="Hobgoblin" {{ 'selected' if p and p.raca == 'Hobgoblin' else '' }}>Hobgoblin</option>
-                            <option value="Kobold" {{ 'selected' if p and p.raca == 'Kobold' else '' }}>Kobold</option>
-                            <option value="Orc" {{ 'selected' if p and p.raca == 'Orc' else '' }}>Orc</option>
-                            <option value="Yuan-ti Puro-Sangue" {{ 'selected' if p and p.raca == 'Yuan-ti Puro-Sangue' else '' }}>Yuan-ti Puro-Sangue</option>
-                        </optgroup>
-                        <optgroup label="Suplementos">
-                            <option value="Aarakocra" {{ 'selected' if p and p.raca == 'Aarakocra' else '' }}>Aarakocra</option>
-                            <option value="Genasi" {{ 'selected' if p and p.raca == 'Genasi' else '' }}>Genasi</option>
-                            <option value="Genasi da Água" {{ 'selected' if p and p.raca == 'Genasi da Água' else '' }}>Genasi da Água</option>
-                            <option value="Genasi da Terra" {{ 'selected' if p and p.raca == 'Genasi da Terra' else '' }}>Genasi da Terra</option>
-                            <option value="Genasi do Ar" {{ 'selected' if p and p.raca == 'Genasi do Ar' else '' }}>Genasi do Ar</option>
-                            <option value="Genasi do Fogo" {{ 'selected' if p and p.raca == 'Genasi do Fogo' else '' }}>Genasi do Fogo</option>
-                            <option value="Tortle" {{ 'selected' if p and p.raca == 'Tortle' else '' }}>Tortle</option>
-                            <option value="Changeling" {{ 'selected' if p and p.raca == 'Changeling' else '' }}>Changeling</option>
-                            <option value="Kalashtar" {{ 'selected' if p and p.raca == 'Kalashtar' else '' }}>Kalashtar</option>
-                            <option value="Shifter" {{ 'selected' if p and p.raca == 'Shifter' else '' }}>Shifter</option>
-                            <option value="Warforged" {{ 'selected' if p and p.raca == 'Warforged' else '' }}>Warforged</option>
-                            <option value="Centauro" {{ 'selected' if p and p.raca == 'Centauro' else '' }}>Centauro</option>
-                            <option value="Minotauro" {{ 'selected' if p and p.raca == 'Minotauro' else '' }}>Minotauro</option>
-                            <option value="Sátiro" {{ 'selected' if p and p.raca == 'Sátiro' else '' }}>Sátiro</option>
-                            <option value="Harengon" {{ 'selected' if p and p.raca == 'Harengon' else '' }}>Harengon</option>
-                            <option value="Owlin" {{ 'selected' if p and p.raca == 'Owlin' else '' }}>Owlin</option>
-                        </optgroup>
-                        <optgroup label="Subterrâneo">
-                            <option value="Duergar" {{ 'selected' if p and p.raca == 'Duergar' else '' }}>Duergar (Anão Cinzento)</option>
-                            <option value="Svirfneblin" {{ 'selected' if p and p.raca == 'Svirfneblin' else '' }}>Svirfneblin (Gnomo das Profundezas)</option>
-                        </optgroup>
-                    </select>
+                    <div class="combobox-container" data-combobox="raca">
+                        <select data-campo="raca" data-combobox-select>
+                            <option value="">-- Selecione --</option>
+                            <optgroup label="📝 Personalizado">
+                                <option value="__custom__">✏️ Digitar raça...</option>
+                            </optgroup>
+                            {# Mapeamento de códigos de fonte para nomes legíveis #}
+                            {% set fonte_nomes = {
+                                'PHB': 'Livro do Jogador',
+                                'MPMM': 'Monsters of the Multiverse',
+                                'ERLW': 'Eberron',
+                                'GGR': 'Ravnica',
+                                'SCAG': 'Sword Coast',
+                                'TCE': "Tasha's Cauldron",
+                                'VGM': "Volo's Guide"
+                            } %}
+                            {% for fonte, lista_racas in racas.items() %}
+                            <optgroup label="{{ fonte_nomes.get(fonte, fonte) }}">
+                                {% for raca_info in lista_racas %}
+                                <option value="{{ raca_info.nome }}" {{ 'selected' if p and p.raca == raca_info.nome else '' }}>{{ raca_info.nome }}</option>
+                                {% endfor %}
+                            </optgroup>
+                            {% endfor %}
+                        </select>
+                        <input type="text" class="combobox-input" data-combobox-input placeholder="Digite a raça..." value="{{ p.raca if p else '' }}">
+                        <button type="button" class="combobox-toggle" title="Alternar entre lista e digitação" data-combobox-toggle>📝</button>
+                    </div>
                 </div>
                 <div class="info-campo">
                     <label>Classe</label>
-                    <select data-campo="classe">
-                        <option value="">-- Selecione --</option>
-                        <optgroup label="Livro do Jogador">
-                            <option value="Bárbaro" {{ 'selected' if p and p.classe == 'Bárbaro' else '' }}>Bárbaro</option>
-                            <option value="Bardo" {{ 'selected' if p and p.classe == 'Bardo' else '' }}>Bardo</option>
-                            <option value="Bruxo" {{ 'selected' if p and p.classe == 'Bruxo' else '' }}>Bruxo</option>
-                            <option value="Clérigo" {{ 'selected' if p and p.classe == 'Clérigo' else '' }}>Clérigo</option>
-                            <option value="Druida" {{ 'selected' if p and p.classe == 'Druida' else '' }}>Druida</option>
-                            <option value="Feiticeiro" {{ 'selected' if p and p.classe == 'Feiticeiro' else '' }}>Feiticeiro</option>
-                            <option value="Guerreiro" {{ 'selected' if p and p.classe == 'Guerreiro' else '' }}>Guerreiro</option>
-                            <option value="Ladino" {{ 'selected' if p and p.classe == 'Ladino' else '' }}>Ladino</option>
-                            <option value="Mago" {{ 'selected' if p and p.classe == 'Mago' else '' }}>Mago</option>
-                            <option value="Monge" {{ 'selected' if p and p.classe == 'Monge' else '' }}>Monge</option>
-                            <option value="Paladino" {{ 'selected' if p and p.classe == 'Paladino' else '' }}>Paladino</option>
-                            <option value="Patrulheiro" {{ 'selected' if p and p.classe == 'Patrulheiro' else '' }}>Patrulheiro</option>
-                        </optgroup>
-                        <optgroup label="Suplementos">
-                            <option value="Artífice" {{ 'selected' if p and p.classe == 'Artífice' else '' }}>Artífice</option>
-                            <option value="Sangue Caçador" {{ 'selected' if p and p.classe == 'Sangue Caçador' else '' }}>Sangue Caçador</option>
-                        </optgroup>
-                    </select>
+                    <div class="combobox-container" data-combobox="classe">
+                        <select data-campo="classe" data-combobox-select>
+                            <option value="">-- Selecione --</option>
+                            <optgroup label="📝 Personalizado">
+                                <option value="__custom__">✏️ Digitar classe...</option>
+                            </optgroup>
+                            {% for fonte, lista_classes in classes.items() %}
+                            <optgroup label="{{ fonte_nomes.get(fonte, fonte) }}">
+                                {% for classe_nome in lista_classes %}
+                                <option value="{{ classe_nome }}" {{ 'selected' if p and p.classe == classe_nome else '' }}>{{ classe_nome }}</option>
+                                {% endfor %}
+                            </optgroup>
+                            {% endfor %}
+                        </select>
+                        <input type="text" class="combobox-input" data-combobox-input placeholder="Digite a classe..." value="{{ p.classe if p else '' }}">
+                        <button type="button" class="combobox-toggle" title="Alternar entre lista e digitação" data-combobox-toggle>📝</button>
+                    </div>
                 </div>
                 <div class="info-campo pequeno">
                     <label>Nível</label>
@@ -124,44 +87,24 @@
             <div class="info-linha">
                 <div class="info-campo">
                     <label>Antecedente</label>
-                    <select data-campo="antecedente">
-                        <option value="">-- Selecione --</option>
-                        <optgroup label="Livro do Jogador">
-                            <option value="Acólito" {{ 'selected' if p and p.antecedente == 'Acólito' else '' }}>Acólito</option>
-                            <option value="Artesão de Guilda" {{ 'selected' if p and p.antecedente == 'Artesão de Guilda' else '' }}>Artesão de Guilda</option>
-                            <option value="Artista" {{ 'selected' if p and p.antecedente == 'Artista' else '' }}>Artista</option>
-                            <option value="Charlatão" {{ 'selected' if p and p.antecedente == 'Charlatão' else '' }}>Charlatão</option>
-                            <option value="Criminoso" {{ 'selected' if p and p.antecedente == 'Criminoso' else '' }}>Criminoso</option>
-                            <option value="Eremita" {{ 'selected' if p and p.antecedente == 'Eremita' else '' }}>Eremita</option>
-                            <option value="Forasteiro" {{ 'selected' if p and p.antecedente == 'Forasteiro' else '' }}>Forasteiro</option>
-                            <option value="Herói do Povo" {{ 'selected' if p and p.antecedente == 'Herói do Povo' else '' }}>Herói do Povo</option>
-                            <option value="Marinheiro" {{ 'selected' if p and p.antecedente == 'Marinheiro' else '' }}>Marinheiro</option>
-                            <option value="Nobre" {{ 'selected' if p and p.antecedente == 'Nobre' else '' }}>Nobre</option>
-                            <option value="Órfão" {{ 'selected' if p and p.antecedente == 'Órfão' else '' }}>Órfão</option>
-                            <option value="Sábio" {{ 'selected' if p and p.antecedente == 'Sábio' else '' }}>Sábio</option>
-                            <option value="Soldado" {{ 'selected' if p and p.antecedente == 'Soldado' else '' }}>Soldado</option>
-                        </optgroup>
-                        <optgroup label="Guia de Xanathar">
-                            <option value="Arqueólogo" {{ 'selected' if p and p.antecedente == 'Arqueólogo' else '' }}>Arqueólogo</option>
-                            <option value="Caçador de Recompensas Urbano" {{ 'selected' if p and p.antecedente == 'Caçador de Recompensas Urbano' else '' }}>Caçador de Recompensas Urbano</option>
-                            <option value="Cavaleiro" {{ 'selected' if p and p.antecedente == 'Cavaleiro' else '' }}>Cavaleiro</option>
-                            <option value="Clã Mercante" {{ 'selected' if p and p.antecedente == 'Clã Mercante' else '' }}>Clã Mercante</option>
-                            <option value="Investigador" {{ 'selected' if p and p.antecedente == 'Investigador' else '' }}>Investigador</option>
-                            <option value="Marinheiro de Águas Profundas" {{ 'selected' if p and p.antecedente == 'Marinheiro de Águas Profundas' else '' }}>Marinheiro de Águas Profundas</option>
-                        </optgroup>
-                        <optgroup label="Valda">
-                            <option value="Alquimista Ambulante" {{ 'selected' if p and p.antecedente == 'Alquimista Ambulante' else '' }}>Alquimista Ambulante</option>
-                            <option value="Cultista Arrependido" {{ 'selected' if p and p.antecedente == 'Cultista Arrependido' else '' }}>Cultista Arrependido</option>
-                            <option value="Exilado" {{ 'selected' if p and p.antecedente == 'Exilado' else '' }}>Exilado</option>
-                            <option value="Gladiador" {{ 'selected' if p and p.antecedente == 'Gladiador' else '' }}>Gladiador</option>
-                            <option value="Nômade" {{ 'selected' if p and p.antecedente == 'Nômade' else '' }}>Nômade</option>
-                        </optgroup>
-                        <optgroup label="Out of the Abyss">
-                            <option value="Prisioneiro do Subterrâneo" {{ 'selected' if p and p.antecedente == 'Prisioneiro do Subterrâneo' else '' }}>Prisioneiro do Subterrâneo</option>
-                            <option value="Escravo Drow" {{ 'selected' if p and p.antecedente == 'Escravo Drow' else '' }}>Escravo Drow</option>
-                            <option value="Fugitivo do Abismo" {{ 'selected' if p and p.antecedente == 'Fugitivo do Abismo' else '' }}>Fugitivo do Abismo</option>
-                        </optgroup>
-                    </select>
+                    <div class="combobox-container" data-combobox="antecedente">
+                        <select data-campo="antecedente" data-combobox-select>
+                            <option value="">-- Selecione --</option>
+                            <optgroup label="📝 Personalizado">
+                                <option value="__custom__">✏️ Digitar antecedente...</option>
+                            </optgroup>
+                            {% set fonte_nomes = {'PHB': 'Livro do Jogador', 'XGE': 'Guia de Xanathar', 'TCE': 'Caldeirão de Tasha', 'MPMM': 'Monstros do Multiverso', 'OotA': 'Fora do Abismo', 'VSS': "Valda's Spire"} %}
+                            {% for fonte, lista_ant in antecedentes.items() %}
+                            <optgroup label="{{ fonte_nomes.get(fonte, fonte) }}">
+                                {% for ant_nome in lista_ant %}
+                                <option value="{{ ant_nome }}" {{ 'selected' if p and p.antecedente == ant_nome else '' }}>{{ ant_nome }}</option>
+                                {% endfor %}
+                            </optgroup>
+                            {% endfor %}
+                        </select>
+                        <input type="text" class="combobox-input" data-combobox-input placeholder="Digite o antecedente..." value="{{ p.antecedente if p else '' }}">
+                        <button type="button" class="combobox-toggle" title="Alternar entre lista e digitação" data-combobox-toggle>📝</button>
+                    </div>
                 </div>
                 <div class="info-campo">
                     <label>Jogador</label>
@@ -373,7 +316,7 @@
                     {% set total = mod + (bonus_prof if prof else 0) %}
                     <div class="save-item">
                         <input type="checkbox" data-campo="salvaguardas_proficientes" data-valor="{{ salv_key }}" {{ 'checked' if prof else '' }}>
-                        <span class="save-mod">{{ '%+d' % total }}</span>
+                        <span class="save-mod" data-salvaguarda-valor="{{ salv_key }}">{{ '%+d' % total }}</span>
                         <span class="save-nome">{{ salv_nome }}</span>
                     </div>
                     {% endfor %}
@@ -386,7 +329,7 @@
                     {% set total = mod + (bonus_prof if prof else 0) %}
                     <div class="save-item">
                         <input type="checkbox" data-campo="salvaguardas_proficientes" data-valor="{{ salv_key }}" {{ 'checked' if prof else '' }}>
-                        <span class="save-mod">{{ '%+d' % total }}</span>
+                        <span class="save-mod" data-salvaguarda-valor="{{ salv_key }}">{{ '%+d' % total }}</span>
                         <span class="save-nome">{{ salv_nome }}</span>
                     </div>
                     {% endfor %}
@@ -411,13 +354,13 @@
                             {% for arma in p.armas %}
                             <tr>
                                 <td><input type="text" value="{{ arma.nome }}" data-campo="armas.{{ loop.index0 }}.nome"></td>
-                                <td><input type="text" value="{{ arma.bonus }}" data-campo="armas.{{ loop.index0 }}.bonus" class="input-bonus" placeholder="+0"></td>
+                                <td><input type="text" value="{{ arma.bonus }}" data-campo="armas.{{ loop.index0 }}.bonus" class="input-bonus" placeholder="/f/p" title="Ex: +5, /f/p, /d/p&#10;Tags: /f /d /c /i /s /c /p"></td>
                                 <td class="td-dados">
                                     <div class="dados-container" data-index="{{ loop.index0 }}">
                                         {% set dados_list = arma.dados if arma.dados else [arma.dano|replace(' ' ~ arma.tipo, '') if arma.tipo else arma.dano] %}
                                         {% for dado in dados_list %}
                                         <div class="dado-linha">
-                                            <input type="text" value="{{ dado }}" class="input-dado" placeholder="1d8+3">
+                                            <input type="text" value="{{ dado }}" class="input-dado" placeholder="1d8/f" title="Ex: 1d6/f, 2d8/d/p&#10;Tags: /f /d /c /i /s /c /p">
                                             <button type="button" class="btn-remover-dado" onclick="removerDado(this)">×</button>
                                         </div>
                                         {% endfor %}
@@ -448,11 +391,11 @@
                         {% else %}
                             <tr>
                                 <td><input type="text" placeholder="Nome da Arma/Magia" data-campo="armas.0.nome"></td>
-                                <td><input type="text" placeholder="+0" data-campo="armas.0.bonus" class="input-bonus"></td>
+                                <td><input type="text" placeholder="/f/p" data-campo="armas.0.bonus" class="input-bonus" title="Ex: +5, /f/p, /d/p&#10;Tags: /f /d /c /i /s /c /p"></td>
                                 <td class="td-dados">
                                     <div class="dados-container" data-index="0">
                                         <div class="dado-linha">
-                                            <input type="text" class="input-dado" placeholder="1d8+3">
+                                            <input type="text" class="input-dado" placeholder="1d8/f" title="Ex: 1d6/f, 2d8/d/p&#10;Tags: /f /d /c /i /s /c /p">
                                             <button type="button" class="btn-remover-dado" onclick="removerDado(this)">×</button>
                                         </div>
                                     </div>

@@ -3,15 +3,18 @@ Inicialização do Banco de Dados
 Cria dados iniciais para teste e uso
 """
 
-from .database import init_database, get_connection, json_dumps
-from .regras_dnd_data import popular_regras_dnd
+from .database import init_database, get_connection, json_dumps, migrate_database
+from .regras import popular_todas_regras
 
 
 def popular_dados_iniciais():
     """Popula o banco com dados iniciais"""
     
-    # Primeiro, popular regras D&D
-    popular_regras_dnd()
+    # Primeiro, executar migrações pendentes
+    migrate_database()
+    
+    # Popular regras D&D (sistema modular)
+    popular_todas_regras()
     
     with get_connection() as conn:
         # Verifica se já tem dados

@@ -1,0 +1,59 @@
+{
+  "numero": 2,
+  "id": "2",
+  "data": "2026-01-24",
+  "criada_em": "2026-01-24T11:25:45.485892",
+  "atualizada_em": "2026-01-24T11:41:08.190691",
+  "estado": {
+    "mapa_atual": "Cenários/Caverna Iluminada.png",
+    "combate_ativo": false,
+    "turno_contador": 31,
+    "turno_atual": 0,
+    "ordem_turnos": [
+      {
+        "ativo": true,
+        "id": 59,
+        "iniciativa": 14,
+        "nome": "Drow Elite Warrior 1",
+        "tipo": "instancia"
+      },
+      {
+        "ativo": true,
+        "id": 60,
+        "iniciativa": 10,
+        "nome": "Quaggoth 1",
+        "tipo": "instancia"
+      }
+    ],
+    "widgets": [
+      {
+        "id": "widget-1769265668136",
+        "tipo": "log_combate",
+        "titulo": "📜 Log de Combate",
+        "x": 1090,
+        "y": 119,
+        "width": 350,
+        "height": 350,
+        "minimizado": false,
+        "dadosCriatura": null
+      },
+      {
+        "id": "widget-1769265668137",
+        "tipo": "ficha_personagem",
+        "titulo": "👤 Bilbo",
+        "x": 100,
+        "y": 80,
+        "width": 320,
+        "height": 400,
+        "minimizado": false,
+        "dadosCriatura": {
+          "tipo": "personagem",
+          "id": 59,
+          "nome": "Bilbo",
+          "modDestreza": 1
+        }
+      }
+    ]
+  },
+  "log": []
+}

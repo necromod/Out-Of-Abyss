@@ -42,7 +42,10 @@
     <!-- SUB-INFO: Tamanho, Tipo, Alinhamento, Fórmula HP -->
     <div class="monstro-sub-info">
         <input type="text" data-campo="tamanho" value="{{ m.tamanho if m else 'Médio' }}" placeholder="Tamanho" style="width: 60px;">
-        <input type="text" data-campo="tipo" value="{{ m.tipo if m else '' }}" placeholder="Tipo (humanóide, besta...)" style="width: 130px;">
+        <input type="text" data-campo="tipo" value="{{ m.tipo if m else '' }}" placeholder="Tipo" style="width: 130px;" list="lista-tipos-criatura">
+        <datalist id="lista-tipos-criatura">
+            <!-- Carregado dinamicamente via JavaScript -->
+        </datalist>
         <input type="text" data-campo="alinhamento" value="{{ m.alinhamento if m else '' }}" placeholder="Alinhamento" style="width: 100px;">
         <input type="text" data-campo="hp_formula" value="{{ m.hp_formula if m else '2d8' }}" placeholder="(2d8+2)" style="width: 70px;">
     </div>
@@ -276,8 +279,30 @@ async function deletarMonstro() {
     }
 }
 
+// Carrega tipos de criatura do banco para autocomplete
+async function carregarTiposCriatura() {
+    const datalist = document.getElementById('lista-tipos-criatura');
+    if (!datalist) return;
+    
+    try {
+        const response = await fetch('/api/dnd/tipos-criatura');
+        const tipos = await response.json();
+        
+        tipos.forEach(tipo => {
+            const option = document.createElement('option');
+            option.value = tipo.nome_display;
+            datalist.appendChild(option);
+        });
+    } catch (error) {
+        console.error('Erro ao carregar tipos de criatura:', error);
+    }
+}
+
 // Inicializa auto-expand e listeners de atributos
 document.addEventListener('DOMContentLoaded', function() {
+    // Carrega tipos de criatura para autocomplete
+    carregarTiposCriatura();
+    
     // Auto-expand textareas
     document.querySelectorAll('.auto-expand').forEach(textarea => {
         const autoExpand = () => {

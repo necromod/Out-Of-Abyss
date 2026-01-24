@@ -246,6 +246,18 @@ def listar_antecedentes():
     return jsonify(antecedentes)
 
 
+@api_bp.route('/dnd/tipos-criatura')
+def listar_tipos_criatura():
+    """Lista todos os tipos de criatura D&D 5e"""
+    from ..modulos.database import get_connection
+    
+    with get_connection() as conn:
+        cursor = conn.execute("SELECT * FROM tipos_criatura ORDER BY nome_display")
+        tipos = [dict(row) for row in cursor.fetchall()]
+    
+    return jsonify(tipos)
+
+
 @api_bp.route('/dnd/regras-completas')
 def obter_regras_completas():
     """
@@ -304,6 +316,10 @@ def obter_regras_completas():
             ant['pericias'] = json_loads_safe(ant['pericias'], [])
             ant['ferramentas'] = json_loads_safe(ant['ferramentas'], [])
             antecedentes[ant['nome']] = ant
+        
+        # Tipos de Criatura
+        cursor = conn.execute("SELECT * FROM tipos_criatura ORDER BY nome_display")
+        tipos_criatura = [dict(row) for row in cursor.fetchall()]
     
     return jsonify({
         'racas': racas,
@@ -311,6 +327,7 @@ def obter_regras_completas():
         'pericias': pericias,
         'idiomas': idiomas,
         'antecedentes': antecedentes,
+        'tipos_criatura': tipos_criatura,
         # Constantes para criação de personagem
         'point_buy': {
             'pontos_disponiveis': 27,

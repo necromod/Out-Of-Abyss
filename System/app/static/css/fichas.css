@@ -1786,6 +1786,73 @@
     font-weight: 600;
 }
 
+/* ==========================================================================
+   COMBOBOX - Select com Input Personalizado
+   ========================================================================== */
+.combobox-container {
+    position: relative;
+    width: 100%;
+}
+
+.combobox-container select {
+    width: 100%;
+    padding-right: 28px;
+}
+
+.combobox-toggle {
+    position: absolute;
+    right: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: var(--ficha-text-muted);
+    cursor: pointer;
+    padding: 2px 6px;
+    font-size: 0.75rem;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.combobox-toggle:hover {
+    opacity: 1;
+    color: var(--ficha-accent);
+}
+
+.combobox-input {
+    display: none;
+    width: 100%;
+    background: var(--ficha-bg);
+    border: 1px solid var(--ficha-border);
+    border-radius: 4px;
+    color: var(--ficha-text);
+    padding: 0.35rem 0.5rem;
+    padding-right: 28px;
+    font-size: 0.85rem;
+}
+
+.combobox-input:focus {
+    outline: none;
+    border-color: var(--ficha-accent);
+}
+
+.combobox-input::placeholder {
+    color: var(--ficha-text-muted);
+    font-style: italic;
+}
+
+.combobox-container.modo-input select {
+    display: none;
+}
+
+.combobox-container.modo-input .combobox-input {
+    display: block;
+}
+
+.combobox-container.modo-input .combobox-toggle {
+    color: var(--ficha-accent);
+}
+
 /* HP Box no Cabeçalho */
 .cabecalho-stats {
     display: flex;
@@ -2537,13 +2604,19 @@
 /* Auto-expand textarea */
 .auto-expand {
     overflow: hidden;
-    resize: none;
+    resize: vertical;  /* Permite redimensionamento manual vertical */
     min-height: 45px;
     transition: height 0.1s ease;
 }
 
 .textarea-bloco.auto-expand {
     min-height: 60px;
+}
+
+/* Textareas maiores para descrições longas */
+.textarea-grande {
+    min-height: 120px;
+    resize: vertical;
 }
 
 /* Lista de Equipamentos */

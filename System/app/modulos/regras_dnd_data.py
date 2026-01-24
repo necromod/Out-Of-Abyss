@@ -387,6 +387,617 @@ def popular_regras_dnd():
                 ]),
                 'resistencias': json_dumps(['fogo']),
             },
+            
+            # ==================== MONSTERS OF THE MULTIVERSE ====================
+            # Raças com sistema de bônus flexível (+2/+1 ou +1/+1/+1 à escolha)
+            
+            # Aarakocra
+            {
+                'nome': 'Aarakocra',
+                'categoria': 'Monsters of the Multiverse',
+                'bonus_atributos': json_dumps({}),
+                'atributos_escolha': 3,  # Sistema flexível
+                'velocidade': 9,
+                'tamanho': 'Médio',
+                'idiomas': json_dumps(['Comum']),
+                'idiomas_escolha': 1,
+                'caracteristicas': json_dumps([
+                    'Voo (velocidade igual à terrestre)',
+                    'Garras: Ataque desarmado 1d6 + FOR cortante',
+                    'Rajada de Vento: 1x/descanso longo'
+                ]),
+            },
+            
+            # Aasimar
+            {
+                'nome': 'Aasimar',
+                'categoria': 'Monsters of the Multiverse',
+                'bonus_atributos': json_dumps({}),
+                'atributos_escolha': 3,
+                'velocidade': 9,
+                'tamanho': 'Médio ou Pequeno',
+                'idiomas': json_dumps(['Comum', 'Celestial']),
+                'caracteristicas': json_dumps([
+                    'Visão no Escuro (18m)',
+                    'Resistência Celestial: Resistência a necrótico e radiante',
+                    'Mãos Curativas: Cura PV = bônus de proficiência (1x/descanso longo)',
+                    'Portador da Luz: Truque Luz',
+                    'Revelação Celestial (nível 3): Transformação 1x/descanso longo'
+                ]),
+                'resistencias': json_dumps(['necrótico', 'radiante']),
+            },
+            
+            # Bugbear
+            {
+                'nome': 'Bugbear',
+                'categoria': 'Monsters of the Multiverse',
+                'bonus_atributos': json_dumps({}),
+                'atributos_escolha': 3,
+                'velocidade': 9,
+                'tamanho': 'Médio',
+                'idiomas': json_dumps(['Comum']),
+                'idiomas_escolha': 1,
+                'pericias_bonus': json_dumps(['furtividade']),
+                'caracteristicas': json_dumps([
+                    'Visão no Escuro (18m)',
+                    'Constituição Feérica: Vantagem contra encantamento, imune a sono mágico',
+                    'Membros Longos: +1,5m de alcance em ataques corpo a corpo no seu turno',
+                    'Físico Poderoso: Conta como Grande para capacidade de carga',
+                    'Ataque Surpresa: +2d6 de dano em criaturas surpresas'
+                ]),
+            },
+            
+            # Centauro
+            {
+                'nome': 'Centauro',
+                'categoria': 'Monsters of the Multiverse',
+                'bonus_atributos': json_dumps({}),
+                'atributos_escolha': 3,
+                'velocidade': 12,
+                'tamanho': 'Médio',
+                'idiomas': json_dumps(['Comum']),
+                'idiomas_escolha': 1,
+                'caracteristicas': json_dumps([
+                    'Investida: Bônus de dano após mover 9m em linha reta',
+                    'Forma Equina: Velocidade 12m, conta como montaria',
+                    'Cascos: Ataque desarmado 1d6 + FOR contundente'
+                ]),
+            },
+            
+            # Changeling
+            {
+                'nome': 'Changeling',
+                'categoria': 'Monsters of the Multiverse',
+                'bonus_atributos': json_dumps({}),
+                'atributos_escolha': 3,
+                'velocidade': 9,
+                'tamanho': 'Médio ou Pequeno',
+                'idiomas': json_dumps(['Comum']),
+                'idiomas_escolha': 2,
+                'caracteristicas': json_dumps([
+                    'Instintos do Changeling: Proficiência em 2 perícias à escolha',
+                    'Metamorfose: Pode alterar aparência como ação'
+                ]),
+                'pericias_escolha': 2,
+            },
+            
+            # Deep Gnome (Svirfneblin)
+            {
+                'nome': 'Gnomo das Profundezas',
+                'categoria': 'Monsters of the Multiverse',
+                'bonus_atributos': json_dumps({}),
+                'atributos_escolha': 3,
+                'velocidade': 9,
+                'tamanho': 'Pequeno',
+                'idiomas': json_dumps(['Comum', 'Gnômico', 'Subcomum']),
+                'caracteristicas': json_dumps([
+                    'Visão no Escuro (36m)',
+                    'Presente da Svrifrenblin: Disfarçar-se, Passos sem Pegadas ou Nondetection',
+                    'Camuflagem Gnômica: Vantagem em Furtividade em terreno rochoso',
+                    'Esperteza Gnômica: Vantagem contra magia (INT, SAB, CAR)'
+                ]),
+            },
+            
+            # Duergar
+            {
+                'nome': 'Duergar',
+                'categoria': 'Monsters of the Multiverse',
+                'bonus_atributos': json_dumps({}),
+                'atributos_escolha': 3,
+                'velocidade': 9,
+                'tamanho': 'Médio',
+                'idiomas': json_dumps(['Comum', 'Anão']),
+                'caracteristicas': json_dumps([
+                    'Visão no Escuro (36m)',
+                    'Resiliência Duergar: Vantagem contra ilusões, encantamento e paralisia',
+                    'Magia Duergar: Ampliar/Reduzir (nível 3), Invisibilidade (nível 5)',
+                    'Constituição Anã: Resistência a veneno'
+                ]),
+                'resistencias': json_dumps(['veneno']),
+            },
+            
+            # Eladrin
+            {
+                'nome': 'Eladrin',
+                'categoria': 'Monsters of the Multiverse',
+                'bonus_atributos': json_dumps({}),
+                'atributos_escolha': 3,
+                'velocidade': 9,
+                'tamanho': 'Médio',
+                'idiomas': json_dumps(['Comum', 'Élfico']),
+                'caracteristicas': json_dumps([
+                    'Visão no Escuro (18m)',
+                    'Ancestralidade Feérica: Vantagem contra encantamento, imune a sono mágico',
+                    'Passo Feérico: Teleporte bônus 9m (bônus de prof/descanso longo)',
+                    'Transe: 4h de meditação = 8h de sono'
+                ]),
+            },
+            
+            # Fairy
+            {
+                'nome': 'Fada',
+                'categoria': 'Monsters of the Multiverse',
+                'bonus_atributos': json_dumps({}),
+                'atributos_escolha': 3,
+                'velocidade': 9,
+                'tamanho': 'Pequeno',
+                'idiomas': json_dumps(['Comum']),
+                'idiomas_escolha': 1,
+                'caracteristicas': json_dumps([
+                    'Voo (velocidade igual à terrestre)',
+                    'Magia Feérica: Druídico, Fogo das Fadas (nv3), Ampliar/Reduzir (nv5)',
+                    'Passagem Feérica: Pode atravessar espaços de criaturas maiores'
+                ]),
+            },
+            
+            # Firbolg
+            {
+                'nome': 'Firbolg',
+                'categoria': 'Monsters of the Multiverse',
+                'bonus_atributos': json_dumps({}),
+                'atributos_escolha': 3,
+                'velocidade': 9,
+                'tamanho': 'Médio',
+                'idiomas': json_dumps(['Comum']),
+                'idiomas_escolha': 1,
+                'caracteristicas': json_dumps([
+                    'Magia Firbolg: Detectar Magia, Disfarçar-se',
+                    'Passo Oculto: Bônus invisibilidade até início do próximo turno',
+                    'Físico Poderoso: Conta como Grande para carga',
+                    'Fala das Bestas e Folhas: Comunicação limitada com plantas e animais'
+                ]),
+            },
+            
+            # Genasi (4 tipos)
+            {
+                'nome': 'Genasi do Ar',
+                'categoria': 'Monsters of the Multiverse',
+                'bonus_atributos': json_dumps({}),
+                'atributos_escolha': 3,
+                'velocidade': 10,
+                'tamanho': 'Médio ou Pequeno',
+                'idiomas': json_dumps(['Comum']),
+                'idiomas_escolha': 1,
+                'caracteristicas': json_dumps([
+                    'Visão no Escuro (18m)',
+                    'Não precisa respirar',
+                    'Resistência a raios',
+                    'Respiração Interminável: Pode prender respiração indefinidamente',
+                    'Misturar-se ao Vento: Levitação (nv3), Passo Nebuloso (nv5)'
+                ]),
+                'resistencias': json_dumps(['elétrico']),
+            },
+            {
+                'nome': 'Genasi da Terra',
+                'categoria': 'Monsters of the Multiverse',
+                'bonus_atributos': json_dumps({}),
+                'atributos_escolha': 3,
+                'velocidade': 9,
+                'tamanho': 'Médio ou Pequeno',
+                'idiomas': json_dumps(['Comum']),
+                'idiomas_escolha': 1,
+                'caracteristicas': json_dumps([
+                    'Visão no Escuro (18m)',
+                    'Caminhada na Terra: Pode mover por terreno difícil não-mágico sem custo extra',
+                    'Mesclar-se à Pedra: Passar sem Deixar Rastro, Pico de Pedra (nv5)'
+                ]),
+            },
+            {
+                'nome': 'Genasi do Fogo',
+                'categoria': 'Monsters of the Multiverse',
+                'bonus_atributos': json_dumps({}),
+                'atributos_escolha': 3,
+                'velocidade': 9,
+                'tamanho': 'Médio ou Pequeno',
+                'idiomas': json_dumps(['Comum']),
+                'idiomas_escolha': 1,
+                'caracteristicas': json_dumps([
+                    'Visão no Escuro (18m)',
+                    'Resistência a fogo',
+                    'Alcançar as Chamas: Produzir Chamas, Mãos Flamejantes (nv3), Lâmina Flamejante (nv5)'
+                ]),
+                'resistencias': json_dumps(['fogo']),
+            },
+            {
+                'nome': 'Genasi da Água',
+                'categoria': 'Monsters of the Multiverse',
+                'bonus_atributos': json_dumps({}),
+                'atributos_escolha': 3,
+                'velocidade': 9,
+                'tamanho': 'Médio ou Pequeno',
+                'idiomas': json_dumps(['Comum']),
+                'idiomas_escolha': 1,
+                'caracteristicas': json_dumps([
+                    'Visão no Escuro (18m)',
+                    'Anfíbio: Pode respirar ar e água',
+                    'Resistência a ácido',
+                    'Natação: Velocidade de natação igual à terrestre',
+                    'Chamado das Ondas: Moldar Água, Criar/Destruir Água (nv3), Caminhar na Água (nv5)'
+                ]),
+                'resistencias': json_dumps(['ácido']),
+            },
+            
+            # Githyanki
+            {
+                'nome': 'Githyanki',
+                'categoria': 'Monsters of the Multiverse',
+                'bonus_atributos': json_dumps({}),
+                'atributos_escolha': 3,
+                'velocidade': 9,
+                'tamanho': 'Médio',
+                'idiomas': json_dumps(['Comum', 'Gith']),
+                'caracteristicas': json_dumps([
+                    'Resistência Astral: Vantagem contra encantamento',
+                    'Prodigio Githyanki: Proficiências à escolha',
+                    'Psiônicos Githyanki: Mão Mágica, Salto (nv3), Passo Nebuloso (nv5)'
+                ]),
+            },
+            
+            # Githzerai
+            {
+                'nome': 'Githzerai',
+                'categoria': 'Monsters of the Multiverse',
+                'bonus_atributos': json_dumps({}),
+                'atributos_escolha': 3,
+                'velocidade': 9,
+                'tamanho': 'Médio',
+                'idiomas': json_dumps(['Comum', 'Gith']),
+                'caracteristicas': json_dumps([
+                    'Resistência Mental: Vantagem contra encantamento',
+                    'Disciplina Githzerai: Pode usar reação para cancelar Amedrontado/Enfeitiçado',
+                    'Psiônicos Githzerai: Mão Mágica, Escudo (nv3), Detectar Pensamentos (nv5)'
+                ]),
+            },
+            
+            # Goblin
+            {
+                'nome': 'Goblin',
+                'categoria': 'Monsters of the Multiverse',
+                'bonus_atributos': json_dumps({}),
+                'atributos_escolha': 3,
+                'velocidade': 9,
+                'tamanho': 'Pequeno',
+                'idiomas': json_dumps(['Comum', 'Goblin']),
+                'caracteristicas': json_dumps([
+                    'Visão no Escuro (18m)',
+                    'Fúria dos Pequenos: Dano extra = bônus de proficiência (prof/descanso longo)',
+                    'Fuga Ágil: Desengajar ou Esconder como ação bônus'
+                ]),
+            },
+            
+            # Goliath
+            {
+                'nome': 'Goliath',
+                'categoria': 'Monsters of the Multiverse',
+                'bonus_atributos': json_dumps({}),
+                'atributos_escolha': 3,
+                'velocidade': 9,
+                'tamanho': 'Médio',
+                'idiomas': json_dumps(['Comum']),
+                'idiomas_escolha': 1,
+                'pericias_bonus': json_dumps(['atletismo']),
+                'caracteristicas': json_dumps([
+                    'Atleta Natural: Proficiência em Atletismo',
+                    'Constituição de Gigante da Pedra: Resistência a frio',
+                    'Físico Poderoso: Conta como Grande para carga',
+                    'Resistência de Montanha: Reduz dano = 1d12 + CON (prof/descanso longo)'
+                ]),
+                'resistencias': json_dumps(['gélido']),
+            },
+            
+            # Harengon
+            {
+                'nome': 'Harengon',
+                'categoria': 'Monsters of the Multiverse',
+                'bonus_atributos': json_dumps({}),
+                'atributos_escolha': 3,
+                'velocidade': 9,
+                'tamanho': 'Médio ou Pequeno',
+                'idiomas': json_dumps(['Comum']),
+                'idiomas_escolha': 1,
+                'pericias_bonus': json_dumps(['percepcao']),
+                'caracteristicas': json_dumps([
+                    'Pulo de Coelho: Salto em distância como ação bônus = prof x 1,5m',
+                    'Intuição de Lebre: +bônus de prof em iniciativa',
+                    'Sorte de Lebre: Reação para adicionar d4 em salvaguarda'
+                ]),
+            },
+            
+            # Hobgoblin
+            {
+                'nome': 'Hobgoblin',
+                'categoria': 'Monsters of the Multiverse',
+                'bonus_atributos': json_dumps({}),
+                'atributos_escolha': 3,
+                'velocidade': 9,
+                'tamanho': 'Médio',
+                'idiomas': json_dumps(['Comum', 'Goblin']),
+                'caracteristicas': json_dumps([
+                    'Visão no Escuro (18m)',
+                    'Constituição Feérica: Vantagem contra encantamento, imune a sono mágico',
+                    'Presente da Legião Fantasma: Truque de ilusão/encantamento + Ajuda (prof/descanso longo)',
+                    'Fortuna dos Muitos: +d6 em ataque/salvaguarda/teste se aliado visível em 9m'
+                ]),
+            },
+            
+            # Kenku
+            {
+                'nome': 'Kenku',
+                'categoria': 'Monsters of the Multiverse',
+                'bonus_atributos': json_dumps({}),
+                'atributos_escolha': 3,
+                'velocidade': 9,
+                'tamanho': 'Médio ou Pequeno',
+                'idiomas': json_dumps(['Comum']),
+                'idiomas_escolha': 1,
+                'caracteristicas': json_dumps([
+                    'Recordação de Especialista: Proficiência em 2 perícias à escolha',
+                    'Imitação: Vantagem em testes para imitar sons',
+                    'Recital de Kenku: Pode usar Prestidigitação, Falar com Animais ou similares'
+                ]),
+                'pericias_escolha': 2,
+            },
+            
+            # Kobold
+            {
+                'nome': 'Kobold',
+                'categoria': 'Monsters of the Multiverse',
+                'bonus_atributos': json_dumps({}),
+                'atributos_escolha': 3,
+                'velocidade': 9,
+                'tamanho': 'Pequeno',
+                'idiomas': json_dumps(['Comum', 'Dracônico']),
+                'caracteristicas': json_dumps([
+                    'Visão no Escuro (18m)',
+                    'Rugido Dracônico: Aliados em 3m têm vantagem (prof/descanso longo)',
+                    'Legado Dracônico: Escolha uma característica dracônica',
+                    'Sorcaria Kobold: 1 truque de feiticeiro'
+                ]),
+            },
+            
+            # Lizardfolk
+            {
+                'nome': 'Povo-Lagarto',
+                'categoria': 'Monsters of the Multiverse',
+                'bonus_atributos': json_dumps({}),
+                'atributos_escolha': 3,
+                'velocidade': 9,
+                'tamanho': 'Médio',
+                'idiomas': json_dumps(['Comum']),
+                'idiomas_escolha': 1,
+                'caracteristicas': json_dumps([
+                    'Mordida: Ataque desarmado 1d6 + FOR perfurante',
+                    'Prender a Respiração: Até 15 minutos',
+                    'Mandíbulas Famintas: HP temp = prof (prof/descanso longo)',
+                    'Armadura Natural: CA = 13 + DES sem armadura',
+                    'Artesanato Natural: Pode criar escudo/arma de restos'
+                ]),
+            },
+            
+            # Minotaur
+            {
+                'nome': 'Minotauro',
+                'categoria': 'Monsters of the Multiverse',
+                'bonus_atributos': json_dumps({}),
+                'atributos_escolha': 3,
+                'velocidade': 9,
+                'tamanho': 'Médio',
+                'idiomas': json_dumps(['Comum']),
+                'idiomas_escolha': 1,
+                'caracteristicas': json_dumps([
+                    'Chifres: Ataque desarmado 1d6 + FOR perfurante',
+                    'Investida com Chifres: +2d6 após mover 6m em linha reta',
+                    'Marrada: Empurra como ação bônus após acertar com chifres',
+                    'Memória Labiríntica: Vantagem para lembrar caminhos'
+                ]),
+            },
+            
+            # Orc
+            {
+                'nome': 'Orc',
+                'categoria': 'Monsters of the Multiverse',
+                'bonus_atributos': json_dumps({}),
+                'atributos_escolha': 3,
+                'velocidade': 9,
+                'tamanho': 'Médio',
+                'idiomas': json_dumps(['Comum', 'Orc']),
+                'caracteristicas': json_dumps([
+                    'Visão no Escuro (18m)',
+                    'Adrenalina: Ação bônus para mover velocidade em direção a inimigo',
+                    'Resistência Implacável: 1x/descanso longo, ao cair para 0 HP, cai para 1 HP',
+                    'Físico Poderoso: Conta como Grande para carga'
+                ]),
+            },
+            
+            # Satyr
+            {
+                'nome': 'Sátiro',
+                'categoria': 'Monsters of the Multiverse',
+                'bonus_atributos': json_dumps({}),
+                'atributos_escolha': 3,
+                'velocidade': 10,
+                'tamanho': 'Médio',
+                'idiomas': json_dumps(['Comum']),
+                'idiomas_escolha': 1,
+                'caracteristicas': json_dumps([
+                    'Tipo Criatura: Feérico (não humanoide)',
+                    'Resistência Mágica: Vantagem em salvaguardas contra magia',
+                    'Salto de Miriti: Salto em distância extra',
+                    'Chifrada: Ataque desarmado 1d6 + FOR contundente',
+                    'Artista Revelador: Proficiência em Performance + 1 instrumento'
+                ]),
+            },
+            
+            # Sea Elf
+            {
+                'nome': 'Elfo do Mar',
+                'categoria': 'Monsters of the Multiverse',
+                'bonus_atributos': json_dumps({}),
+                'atributos_escolha': 3,
+                'velocidade': 9,
+                'tamanho': 'Médio',
+                'idiomas': json_dumps(['Comum', 'Élfico']),
+                'idiomas_escolha': 1,
+                'caracteristicas': json_dumps([
+                    'Visão no Escuro (18m)',
+                    'Ancestralidade Feérica: Vantagem contra encantamento, imune a sono',
+                    'Filho do Mar: Pode respirar água, natação = velocidade',
+                    'Amigo do Mar: Comunicação simples com bestas aquáticas',
+                    'Transe: 4h = 8h sono'
+                ]),
+            },
+            
+            # Shadar-kai
+            {
+                'nome': 'Shadar-kai',
+                'categoria': 'Monsters of the Multiverse',
+                'bonus_atributos': json_dumps({}),
+                'atributos_escolha': 3,
+                'velocidade': 9,
+                'tamanho': 'Médio',
+                'idiomas': json_dumps(['Comum', 'Élfico']),
+                'caracteristicas': json_dumps([
+                    'Visão no Escuro (18m)',
+                    'Ancestralidade Feérica: Vantagem contra encantamento, imune a sono',
+                    'Resistência Necrótica',
+                    'Bênção da Rainha Corvo: Teleporte 9m + resistência (prof/descanso longo)',
+                    'Transe: 4h = 8h sono'
+                ]),
+                'resistencias': json_dumps(['necrótico']),
+            },
+            
+            # Shifter
+            {
+                'nome': 'Shifter',
+                'categoria': 'Monsters of the Multiverse',
+                'bonus_atributos': json_dumps({}),
+                'atributos_escolha': 3,
+                'velocidade': 9,
+                'tamanho': 'Médio',
+                'idiomas': json_dumps(['Comum']),
+                'idiomas_escolha': 1,
+                'caracteristicas': json_dumps([
+                    'Visão no Escuro (18m)',
+                    'Instintos Bestiais: Proficiência em Acrobacia, Atletismo, Intuição ou Sobrevivência',
+                    'Mudar: HP temp + característica bestial (prof/descanso longo)'
+                ]),
+                'pericias_opcoes': json_dumps(['acrobacia', 'atletismo', 'intuicao', 'sobrevivencia']),
+            },
+            
+            # Tabaxi
+            {
+                'nome': 'Tabaxi',
+                'categoria': 'Monsters of the Multiverse',
+                'bonus_atributos': json_dumps({}),
+                'atributos_escolha': 3,
+                'velocidade': 9,
+                'tamanho': 'Médio ou Pequeno',
+                'idiomas': json_dumps(['Comum']),
+                'idiomas_escolha': 1,
+                'caracteristicas': json_dumps([
+                    'Visão no Escuro (18m)',
+                    'Garras de Gato: Ataque desarmado 1d6 + FOR cortante, escalada = velocidade',
+                    'Talento Felino: Proficiência em Percepção e Furtividade',
+                    'Agilidade Felina: Dobra velocidade até fim do turno (recarga)'
+                ]),
+                'pericias_bonus': json_dumps(['percepcao', 'furtividade']),
+            },
+            
+            # Tortle
+            {
+                'nome': 'Tortle',
+                'categoria': 'Monsters of the Multiverse',
+                'bonus_atributos': json_dumps({}),
+                'atributos_escolha': 3,
+                'velocidade': 9,
+                'tamanho': 'Médio ou Pequeno',
+                'idiomas': json_dumps(['Comum']),
+                'idiomas_escolha': 1,
+                'caracteristicas': json_dumps([
+                    'Garras: Ataque desarmado 1d6 + FOR cortante',
+                    'Prender Respiração: 1 hora',
+                    'Armadura Natural: CA 17 (não pode usar armadura)',
+                    'Defesa do Casco: +4 CA quando entra no casco (ação)'
+                ]),
+            },
+            
+            # Triton
+            {
+                'nome': 'Tritão',
+                'categoria': 'Monsters of the Multiverse',
+                'bonus_atributos': json_dumps({}),
+                'atributos_escolha': 3,
+                'velocidade': 9,
+                'tamanho': 'Médio',
+                'idiomas': json_dumps(['Comum']),
+                'idiomas_escolha': 1,
+                'caracteristicas': json_dumps([
+                    'Visão no Escuro (18m)',
+                    'Anfíbio: Respira ar e água',
+                    'Resistência a frio',
+                    'Emissário do Mar: Comunicação com criaturas aquáticas',
+                    'Guardião das Profundezas: Resistência a dano de profundidade',
+                    'Controle de Ar e Água: Névoa Obscurecente, Rajada de Vento (nv3), Caminhar na Água (nv5)'
+                ]),
+                'resistencias': json_dumps(['gélido']),
+            },
+            
+            # Yuan-ti
+            {
+                'nome': 'Yuan-ti',
+                'categoria': 'Monsters of the Multiverse',
+                'bonus_atributos': json_dumps({}),
+                'atributos_escolha': 3,
+                'velocidade': 9,
+                'tamanho': 'Médio ou Pequeno',
+                'idiomas': json_dumps(['Comum']),
+                'idiomas_escolha': 1,
+                'caracteristicas': json_dumps([
+                    'Visão no Escuro (18m)',
+                    'Resistência Mágica: Vantagem em salvaguardas contra magia',
+                    'Resistência a veneno, imunidade a condição envenenado',
+                    'Magia Serpentina: Veneno por Contato, Sugestão (nv3)'
+                ]),
+                'resistencias': json_dumps(['veneno']),
+            },
+            
+            # Owlin
+            {
+                'nome': 'Owlin',
+                'categoria': 'Monsters of the Multiverse',
+                'bonus_atributos': json_dumps({}),
+                'atributos_escolha': 3,
+                'velocidade': 9,
+                'tamanho': 'Médio ou Pequeno',
+                'idiomas': json_dumps(['Comum']),
+                'idiomas_escolha': 1,
+                'pericias_bonus': json_dumps(['furtividade']),
+                'caracteristicas': json_dumps([
+                    'Visão no Escuro (36m)',
+                    'Voo (velocidade igual à terrestre, não pode usar armadura média/pesada)',
+                    'Voo Silencioso: Proficiência em Furtividade'
+                ]),
+            },
         ]
         
         for raca in racas_data:
@@ -731,3 +1342,6 @@ def popular_regras_dnd():
         
         conn.commit()
         print("[DB] ✅ Regras D&D 5e carregadas com sucesso!")
+
+# Nota: A função popular_tipos_criatura() foi movida para app/modulos/regras/base.py
+# Use: from app.modulos.regras import popular_tipos_criatura

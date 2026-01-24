@@ -45,6 +45,28 @@ def dict_from_row(row) -> Optional[Dict]:
     return dict(row)
 
 
+def migrate_database():
+    """Executa migrações do banco de dados para adicionar novas colunas"""
+    with get_connection() as conn:
+        cursor = conn.cursor()
+        
+        # Verifica e adiciona coluna 'fonte' em racas
+        try:
+            cursor.execute("SELECT fonte FROM racas LIMIT 1")
+        except sqlite3.OperationalError:
+            print("[MIGRATION] Adicionando coluna 'fonte' em racas...")
+            cursor.execute("ALTER TABLE racas ADD COLUMN fonte TEXT DEFAULT 'PHB'")
+        
+        # Verifica e adiciona coluna 'fonte' em classes
+        try:
+            cursor.execute("SELECT fonte FROM classes LIMIT 1")
+        except sqlite3.OperationalError:
+            print("[MIGRATION] Adicionando coluna 'fonte' em classes...")
+            cursor.execute("ALTER TABLE classes ADD COLUMN fonte TEXT DEFAULT 'PHB'")
+        
+        conn.commit()
+
+
 def init_database():
     """Inicializa o banco de dados com todas as tabelas"""
     os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)
@@ -401,6 +423,7 @@ def init_database():
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 nome TEXT NOT NULL UNIQUE,
                 categoria TEXT DEFAULT 'Livro do Jogador',
+                fonte TEXT DEFAULT 'PHB',
                 
                 -- Bônus
                 bonus_atributos TEXT DEFAULT '{}',
@@ -440,6 +463,7 @@ def init_database():
             CREATE TABLE IF NOT EXISTS classes (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 nome TEXT NOT NULL UNIQUE,
+                fonte TEXT DEFAULT 'PHB',
                 
                 -- Dados de vida
                 dado_vida INTEGER NOT NULL,
@@ -492,6 +516,17 @@ def init_database():
             )
         """)
         
+        # ==================== TIPOS DE CRIATURA D&D 5e ====================
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS tipos_criatura (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                nome TEXT NOT NULL UNIQUE,
+                nome_display TEXT NOT NULL,
+                descricao TEXT,
+                exemplos TEXT
+            )
+        """)
+        
         # ==================== ANTECEDENTES D&D 5e ====================
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS antecedentes (
@@ -529,6 +564,7 @@ def init_database():
         cursor.execute("CREATE INDEX IF NOT EXISTS idx_racas_categoria ON racas(categoria)")
         cursor.execute("CREATE INDEX IF NOT EXISTS idx_classes_nome ON classes(nome)")
         cursor.execute("CREATE INDEX IF NOT EXISTS idx_pericias_atributo ON pericias(atributo_base)")
+        cursor.execute("CREATE INDEX IF NOT EXISTS idx_tipos_criatura_nome ON tipos_criatura(nome)")
         
         # Índices para buscas frequentes
         cursor.execute("CREATE INDEX IF NOT EXISTS idx_personagens_nome ON personagens(nome)")
@@ -619,6 +655,15 @@ def _executar_migracoes(cursor):
         print("[MIGRAÇÃO] Adicionando observacoes em monstros_instancias...")
         cursor.execute("ALTER TABLE monstros_instancias ADD COLUMN observacoes TEXT DEFAULT ''")
         print(f"[MIGRAÇÃO] observacoes adicionada em monstros_instancias")
+    
+    # ==================== MIGRAÇÃO: campo fonte em antecedentes ====================
+    cursor.execute("PRAGMA table_info(antecedentes)")
+    colunas_antecedentes = [col[1] for col in cursor.fetchall()]
+    
+    if 'fonte' not in colunas_antecedentes:
+        print("[MIGRAÇÃO] Adicionando fonte em antecedentes...")
+        cursor.execute("ALTER TABLE antecedentes ADD COLUMN fonte TEXT DEFAULT 'PHB'")
+        print(f"[MIGRAÇÃO] fonte adicionada em antecedentes")
 
 
 # ==================== HELPERS JSON ====================

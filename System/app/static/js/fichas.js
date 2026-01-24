@@ -1479,6 +1479,7 @@ function rolarDado(notacao) {
 
 /**
  * Adiciona um novo ataque à lista
+ * Campo de dados suporta tags: [for], [des], [con], [int], [sab], [car], [prf]
  */
 function adicionarAtaque() {
     const container = document.getElementById('lista-ataques');
@@ -1491,11 +1492,11 @@ function adicionarAtaque() {
     const novaLinha = document.createElement('tr');
     novaLinha.innerHTML = `
         <td><input type="text" placeholder="Nome da Arma/Magia" data-campo="armas.${index}.nome"></td>
-        <td><input type="text" placeholder="+0" data-campo="armas.${index}.bonus" class="input-bonus"></td>
+        <td><input type="text" placeholder="/f/p" data-campo="armas.${index}.bonus" class="input-bonus" title="Ex: +5, /f/p, /d/p&#10;Tags: /f /d /c /i /s /c /p"></td>
         <td class="td-dados">
             <div class="dados-container" data-index="${index}">
                 <div class="dado-linha">
-                    <input type="text" class="input-dado" placeholder="1d8+3">
+                    <input type="text" class="input-dado" placeholder="1d8/f" title="Ex: 1d6/f, 2d8/d/p&#10;Tags: /f /d /c /i /s /c /p">
                     <button type="button" class="btn-remover-dado" onclick="removerDado(this)">×</button>
                 </div>
             </div>
@@ -1526,6 +1527,7 @@ function adicionarAtaque() {
 
 /**
  * Adiciona um dado extra ao ataque (para múltiplos dados de dano)
+ * Suporta tags de modificadores: /f, /d, /c, /i, /s, /c, /p
  */
 function adicionarDado(btn) {
     const container = btn.previousElementSibling;
@@ -1534,7 +1536,7 @@ function adicionarDado(btn) {
     const novoDiv = document.createElement('div');
     novoDiv.className = 'dado-linha';
     novoDiv.innerHTML = `
-        <input type="text" class="input-dado" placeholder="1d6">
+        <input type="text" class="input-dado" placeholder="1d6/f" title="Ex: 1d6/f, 2d8/d/p&#10;Tags: /f /d /c /i /s /c /p">
         <button type="button" class="btn-remover-dado" onclick="removerDado(this)">×</button>
     `;
     container.appendChild(novoDiv);
@@ -1743,6 +1745,15 @@ function coletarDadosPersonagem() {
         moedas: { pc: 0, pp: 0, pe: 0, po: 0, pl: 0 }
     };
     
+    // Coleta valores de comboboxes (raça, classe, antecedente)
+    const comboboxCampos = ['raca', 'classe', 'antecedente'];
+    comboboxCampos.forEach(campo => {
+        const valor = getComboboxValue(campo);
+        if (valor !== null) {
+            dados[campo] = valor;
+        }
+    });
+    
     // Coleta armas com nova estrutura (nome, bonus, dados[], tipo)
     document.querySelectorAll('#lista-ataques tr').forEach((tr, index) => {
         const nome = tr.querySelector('[data-campo*=".nome"]')?.value || '';
@@ -1780,10 +1791,15 @@ function coletarDadosPersonagem() {
     document.querySelectorAll('[data-campo]').forEach(campo => {
         const nomeCampo = campo.dataset.campo;
         
-        // Pula campos já coletados explicitamente
+        // Pula campos já coletados explicitamente (armas, equipamentos, moedas)
         if (nomeCampo.startsWith('armas.') || 
             nomeCampo.startsWith('equipamentos.') ||
             nomeCampo.startsWith('moedas.')) {
+            return;
+        }
+        
+        // Pula campos de combobox (já coletados acima)
+        if (comboboxCampos.includes(nomeCampo) && campo.closest('.combobox-container')) {
             return;
         }
         
@@ -1808,7 +1824,10 @@ function coletarDadosPersonagem() {
         } else if (campo.type === 'number') {
             dados[nomeCampo] = parseInt(campo.value) || 0;
         } else {
-            dados[nomeCampo] = campo.value;
+            // Para campos que não são combobox, coleta normalmente
+            if (!comboboxCampos.includes(nomeCampo)) {
+                dados[nomeCampo] = campo.value;
+            }
         }
     });
     
@@ -1900,26 +1919,74 @@ function autoExpandTextarea(textarea) {
 
 /**
  * Inicializa listeners para seleção de raça e classe
+ * Funciona tanto com selects simples quanto com comboboxes
  */
 function inicializarSelecaoRacaClasse() {
     // Listener para mudança de raça - aplicação automática
-    const campoRaca = document.querySelector('[data-campo="raca"]');
-    if (campoRaca) {
-        campoRaca.addEventListener('change', function() {
-            if (this.value) {
-                aplicarRaca(this.value);
-            }
-        });
+    const containerRaca = document.querySelector('[data-combobox="raca"]');
+    if (containerRaca) {
+        const selectRaca = containerRaca.querySelector('[data-combobox-select]');
+        const inputRaca = containerRaca.querySelector('[data-combobox-input]');
+        
+        // Listener no select
+        if (selectRaca) {
+            selectRaca.addEventListener('change', function() {
+                if (this.value && this.value !== '__custom__') {
+                    aplicarRaca(this.value);
+                }
+            });
+        }
+        
+        // Listener no input (quando digitar raça personalizada)
+        if (inputRaca) {
+            inputRaca.addEventListener('blur', function() {
+                // Para raças personalizadas, não aplicamos bônus automáticos
+                // O usuário precisa configurar manualmente
+            });
+        }
+    } else {
+        // Fallback para select simples (sem combobox)
+        const campoRaca = document.querySelector('[data-campo="raca"]');
+        if (campoRaca) {
+            campoRaca.addEventListener('change', function() {
+                if (this.value) {
+                    aplicarRaca(this.value);
+                }
+            });
+        }
     }
     
     // Listener para mudança de classe - aplicação automática
-    const campoClasse = document.querySelector('[data-campo="classe"]');
-    if (campoClasse) {
-        campoClasse.addEventListener('change', function() {
-            if (this.value) {
-                aplicarClasse(this.value);
-            }
-        });
+    const containerClasse = document.querySelector('[data-combobox="classe"]');
+    if (containerClasse) {
+        const selectClasse = containerClasse.querySelector('[data-combobox-select]');
+        const inputClasse = containerClasse.querySelector('[data-combobox-input]');
+        
+        // Listener no select
+        if (selectClasse) {
+            selectClasse.addEventListener('change', function() {
+                if (this.value && this.value !== '__custom__') {
+                    aplicarClasse(this.value);
+                }
+            });
+        }
+        
+        // Listener no input (quando digitar classe personalizada)
+        if (inputClasse) {
+            inputClasse.addEventListener('blur', function() {
+                // Para classes personalizadas, não aplicamos configurações automáticas
+            });
+        }
+    } else {
+        // Fallback para select simples (sem combobox)
+        const campoClasse = document.querySelector('[data-campo="classe"]');
+        if (campoClasse) {
+            campoClasse.addEventListener('change', function() {
+                if (this.value) {
+                    aplicarClasse(this.value);
+                }
+            });
+        }
     }
     
     console.log('✅ Seleção automática de Raça/Classe inicializada');
@@ -1942,6 +2009,125 @@ function inicializarFiltros() {
 }
 
 // ==========================================================================
+// COMBOBOX - Select com opção de digitação personalizada
+// ==========================================================================
+
+/**
+ * Inicializa todos os componentes combobox na página
+ */
+function inicializarComboboxes() {
+    document.querySelectorAll('.combobox-container').forEach(container => {
+        const select = container.querySelector('[data-combobox-select]');
+        const input = container.querySelector('[data-combobox-input]');
+        const toggle = container.querySelector('[data-combobox-toggle]');
+        const campo = container.dataset.combobox;
+        
+        if (!select || !input || !toggle) return;
+        
+        // Verifica se o valor atual existe nas opções
+        const valorAtual = input.value || '';
+        const opcaoExiste = Array.from(select.options).some(opt => 
+            opt.value === valorAtual && opt.value !== '' && opt.value !== '__custom__'
+        );
+        
+        // Se valor existe nas opções, seleciona. Senão, ativa modo input
+        if (valorAtual && !opcaoExiste) {
+            container.classList.add('modo-input');
+        } else if (valorAtual && opcaoExiste) {
+            select.value = valorAtual;
+        }
+        
+        // Toggle entre modo select e input
+        toggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const isModoInput = container.classList.contains('modo-input');
+            
+            if (isModoInput) {
+                // Volta para modo select
+                container.classList.remove('modo-input');
+                // Tenta encontrar o valor do input no select
+                const valorInput = input.value;
+                const opcao = Array.from(select.options).find(opt => 
+                    opt.value === valorInput && opt.value !== '__custom__'
+                );
+                if (opcao) {
+                    select.value = valorInput;
+                } else {
+                    select.value = '';
+                }
+            } else {
+                // Vai para modo input
+                container.classList.add('modo-input');
+                // Copia valor do select para o input
+                if (select.value && select.value !== '__custom__') {
+                    input.value = select.value;
+                }
+                input.focus();
+            }
+        });
+        
+        // Quando selecionar "__custom__", muda para modo input
+        select.addEventListener('change', function() {
+            if (this.value === '__custom__') {
+                container.classList.add('modo-input');
+                input.value = '';
+                input.focus();
+            } else {
+                // Atualiza o input com o valor selecionado
+                input.value = this.value;
+            }
+        });
+        
+        // Sincroniza input com o data-campo para coleta
+        input.addEventListener('input', function() {
+            // Se não tiver um select correspondente ou valor custom, mantém modo input
+            const opcaoExiste = Array.from(select.options).some(opt => 
+                opt.value.toLowerCase() === this.value.toLowerCase() && 
+                opt.value !== '' && opt.value !== '__custom__'
+            );
+            
+            if (opcaoExiste) {
+                // Encontrou match exato, pode voltar pro select
+                const opcao = Array.from(select.options).find(opt => 
+                    opt.value.toLowerCase() === this.value.toLowerCase()
+                );
+                if (opcao) {
+                    this.value = opcao.value; // Corrige capitalização
+                }
+            }
+        });
+        
+        // Blur do input - persiste o valor
+        input.addEventListener('blur', function() {
+            // Dispara auto-save se aplicável
+            if (typeof autoSavePersonagem === 'function') {
+                autoSavePersonagem();
+            }
+        });
+    });
+    
+    console.log('✅ Comboboxes inicializados');
+}
+
+/**
+ * Obtém o valor de um combobox (seja do select ou do input)
+ */
+function getComboboxValue(campo) {
+    const container = document.querySelector(`[data-combobox="${campo}"]`);
+    if (!container) return null;
+    
+    const isModoInput = container.classList.contains('modo-input');
+    if (isModoInput) {
+        return container.querySelector('[data-combobox-input]')?.value || '';
+    } else {
+        const select = container.querySelector('[data-combobox-select]');
+        return (select?.value === '__custom__' ? '' : select?.value) || '';
+    }
+}
+
+// ==========================================================================
 // INICIALIZAÇÃO PRINCIPAL
 // ==========================================================================
 
@@ -1953,6 +2139,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     inicializarAutoSave();
     inicializarFiltros();
     inicializarAutomacao();
+    inicializarComboboxes();
     inicializarSelecaoRacaClasse();
     
     // Atualiza valores iniciais

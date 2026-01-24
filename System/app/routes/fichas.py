@@ -7,8 +7,60 @@ from ..modulos.repositories import (
     PersonagemRepository, MonstroRepository, 
     InstanciaMonstroRepository, NPCRepository
 )
+from ..modulos.database import get_connection, json_loads_safe
 
 fichas_bp = Blueprint('fichas', __name__)
+
+
+# ==================== FUNÇÕES AUXILIARES ====================
+
+def obter_dados_dnd():
+    """Busca raças, classes e antecedentes do banco para uso em templates"""
+    with get_connection() as conn:
+        # Raças agrupadas por fonte
+        cursor = conn.execute("""
+            SELECT nome, categoria, fonte FROM racas 
+            WHERE ativo = 1 ORDER BY fonte, categoria, nome
+        """)
+        racas_por_fonte = {}
+        for row in cursor.fetchall():
+            fonte = row['fonte'] or 'PHB'
+            if fonte not in racas_por_fonte:
+                racas_por_fonte[fonte] = []
+            racas_por_fonte[fonte].append({
+                'nome': row['nome'],
+                'categoria': row['categoria']
+            })
+        
+        # Classes agrupadas por fonte
+        cursor = conn.execute("""
+            SELECT nome, fonte FROM classes 
+            WHERE ativo = 1 ORDER BY fonte, nome
+        """)
+        classes_por_fonte = {}
+        for row in cursor.fetchall():
+            fonte = row['fonte'] or 'PHB'
+            if fonte not in classes_por_fonte:
+                classes_por_fonte[fonte] = []
+            classes_por_fonte[fonte].append(row['nome'])
+        
+        # Antecedentes agrupados por fonte
+        cursor = conn.execute("""
+            SELECT nome, fonte FROM antecedentes 
+            WHERE ativo = 1 ORDER BY fonte, nome
+        """)
+        antecedentes_por_fonte = {}
+        for row in cursor.fetchall():
+            fonte = row['fonte'] or 'PHB'
+            if fonte not in antecedentes_por_fonte:
+                antecedentes_por_fonte[fonte] = []
+            antecedentes_por_fonte[fonte].append(row['nome'])
+    
+    return {
+        'racas': racas_por_fonte,
+        'classes': classes_por_fonte,
+        'antecedentes': antecedentes_por_fonte
+    }
 
 
 # ==================== PÁGINAS HTML ====================
@@ -24,7 +76,8 @@ def lista_personagens():
 @fichas_bp.route('/personagem/novo')
 def novo_personagem():
     """Página para criar novo personagem"""
-    return render_template('fichas/personagem.html', personagem=None)
+    dados_dnd = obter_dados_dnd()
+    return render_template('fichas/personagem.html', personagem=None, **dados_dnd)
 
 
 @fichas_bp.route('/personagem/<int:id>')
@@ -33,7 +86,8 @@ def ver_personagem(id):
     personagem = PersonagemRepository.get_by_id(id)
     if not personagem:
         return render_template('erro.html', mensagem='Personagem não encontrado'), 404
-    return render_template('fichas/personagem.html', personagem=personagem)
+    dados_dnd = obter_dados_dnd()
+    return render_template('fichas/personagem.html', personagem=personagem, **dados_dnd)
 
 
 @fichas_bp.route('/personagem/<int:id>/editar')
@@ -42,7 +96,8 @@ def editar_personagem(id):
     personagem = PersonagemRepository.get_by_id(id)
     if not personagem:
         return render_template('erro.html', mensagem='Personagem não encontrado'), 404
-    return render_template('fichas/personagem.html', personagem=personagem, modo_edicao=True)
+    dados_dnd = obter_dados_dnd()
+    return render_template('fichas/personagem.html', personagem=personagem, modo_edicao=True, **dados_dnd)
 
 
 # --- MONSTROS ---

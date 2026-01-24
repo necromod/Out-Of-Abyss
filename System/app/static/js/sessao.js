@@ -241,6 +241,135 @@ const PERICIAS_POR_ATRIBUTO = {
 };
 
 // =========================================
+// Substituição de Modificadores em Dados
+// =========================================
+
+/**
+ * Mapeamento de tags para atributos
+ * Formato simplificado: /f, /d, /c, /i, /s, /c, /p
+ */
+const TAGS_MODIFICADORES = {
+    // Força
+    'f': 'forca',
+    // Destreza
+    'd': 'destreza',
+    // Constituição
+    'c': 'constituicao',
+    // Inteligência
+    'i': 'inteligencia',
+    // Sabedoria
+    's': 'sabedoria',
+    // Carisma
+    'c': 'carisma',
+    // Proficiência
+    'p': 'proficiencia'
+};
+
+/**
+ * Substitui tags de modificadores em uma expressão de dados
+ * @param {string} expressao - Expressão de dados (ex: "1d6/f", "2d8/d/p")
+ * @param {object} atributos - Objeto com valores de atributos (forca, destreza, etc)
+ * @param {number} bonusProficiencia - Bônus de proficiência (padrão 2)
+ * @returns {string} - Expressão com valores substituídos (ex: "1d6+3", "2d8+3+2")
+ */
+function substituirModificadores(expressao, atributos = {}, bonusProficiencia = 2) {
+    if (!expressao) return expressao;
+    
+    const calcMod = (val) => Math.floor(((val || 10) - 10) / 2);
+    
+    // Substitui cada tag /x encontrada
+    let resultado = String(expressao);
+    
+    // Processa todas as tags no formato /x (uma letra após /)
+    const regex = /\/([a-zA-Z])/gi;
+    let match;
+    
+    while ((match = regex.exec(expressao)) !== null) {
+        const tag = match[1].toLowerCase();
+        const atributo = TAGS_MODIFICADORES[tag];
+        
+        if (!atributo) {
+            console.warn(`Tag de modificador desconhecida: /${tag}`);
+            continue;
+        }
+        
+        let valor;
+        if (atributo === 'proficiencia') {
+            valor = bonusProficiencia;
+        } else {
+            valor = calcMod(atributos[atributo] || 10);
+        }
+        
+        // Substitui a tag pelo valor (com sinal)
+        const valorStr = valor >= 0 ? `+${valor}` : `${valor}`;
+        resultado = resultado.replace(match[0], valorStr);
+    }
+    
+    // Limpa sinais duplicados
+    resultado = resultado
+        .replace(/\+\+/g, '+')
+        .replace(/\+-/g, '-')
+        .replace(/-\+/g, '-')
+        .replace(/--/g, '+');
+    
+    // Remove + no início se existir (ex: +5 -> 5)
+    resultado = resultado.replace(/^\+/, '');
+    
+    return resultado;
+}
+
+/**
+ * Processa um array de dados substituindo modificadores
+ * @param {string[]} dadosArray - Array de expressões de dados
+ * @param {object} atributos - Objeto com valores de atributos
+ * @param {number} bonusProficiencia - Bônus de proficiência
+ * @returns {string[]} - Array com expressões processadas
+ */
+function processarDadosComModificadores(dadosArray, atributos, bonusProficiencia = 2) {
+    if (!dadosArray || !Array.isArray(dadosArray)) return dadosArray;
+    return dadosArray.map(expr => substituirModificadores(expr, atributos, bonusProficiencia));
+}
+
+/**
+ * Processa o bônus de ataque substituindo tags de modificadores
+ * @param {string} bonus - Bônus de ataque (ex: "+5", "/f/p", "/d/p")
+ * @param {object} atributos - Objeto com valores de atributos
+ * @param {number} bonusProficiencia - Bônus de proficiência
+ * @returns {string} - Bônus formatado (ex: "+7", "+5")
+ */
+function processarBonusAtaque(bonus, atributos, bonusProficiencia = 2) {
+    if (!bonus) return '+0';
+    
+    const bonusStr = String(bonus);
+    
+    // Se não tem tags (/x), retorna como está (garantindo formato +X ou -X)
+    if (!/\/[a-zA-Z]/i.test(bonusStr)) {
+        const num = parseInt(bonusStr.replace(/[^0-9-]/g, '')) || 0;
+        return num >= 0 ? `+${num}` : `${num}`;
+    }
+    
+    // Substitui as tags
+    let resultado = substituirModificadores(bonusStr, atributos, bonusProficiencia);
+    
+    // Calcula o valor total se tiver operações (ex: "5+2" => 7)
+    // Remove espaços e avalia a expressão matemática
+    try {
+        // Extrai todos os números com seus sinais
+        const numeros = resultado.match(/[+-]?\d+/g);
+        if (numeros) {
+            const total = numeros.reduce((acc, n) => acc + parseInt(n), 0);
+            return total >= 0 ? `+${total}` : `${total}`;
+        }
+    } catch (e) {
+        console.warn('Erro ao processar bônus de ataque:', bonus, e);
+    }
+    
+    // Fallback: retorna o resultado da substituição
+    const num = parseInt(resultado.replace(/[^0-9-]/g, '')) || 0;
+    return num >= 0 ? `+${num}` : `${num}`;
+}
+
+// =========================================
 // Sistema de Input Flutuante
 // =========================================
 
@@ -768,6 +897,7 @@ function gerarHTMLPersonagemWidget(p) {
     const modDes = calcMod(attrs.destreza);
     const modFor = calcMod(attrs.forca);
     const modSab = calcMod(attrs.sabedoria);
+    const bonusProf = p.bonus_proficiencia || 2;
     
     // Percepção Passiva: usa valor do banco ou calcula
     const percepcaoPassiva = p.percepcao_passiva || (10 + modSab);
@@ -776,16 +906,25 @@ function gerarHTMLPersonagemWidget(p) {
     const hpClass = hpPct <= 25 ? 'hp-critico' : hpPct <= 50 ? 'hp-baixo' : '';
     
     // Gera botões de ações/ataques (nova estrutura: nome, bonus, dados[], tipo)
+    // Suporta tags de modificadores: [for], [des], [con], [int], [sab], [car], [prf]
     const armas = p.armas || [];
     const acoesHTML = armas.length > 0 
         ? armas.map(a => {
             // Suporta estrutura antiga (dano) e nova (dados + tipo)
-            const dadosStr = a.dados && a.dados.length > 0 
-                ? JSON.stringify(a.dados).replace(/"/g, "'") 
-                : `['${a.dano || '1d4'}']`;
+            // Processa tags de modificadores nos dados e bônus
+            const dadosOriginais = a.dados && a.dados.length > 0 ? a.dados : [a.dano || '1d4'];
+            const dadosProcessados = processarDadosComModificadores(dadosOriginais, attrs, bonusProf);
+            const dadosStr = JSON.stringify(dadosProcessados).replace(/"/g, "'");
+            const bonusOriginal = a.bonus || '+0';
+            const bonusProcessado = processarBonusAtaque(bonusOriginal, attrs, bonusProf);
             const tipo = a.tipo || '';
-            const titulo = a.dados ? a.dados.join(' + ') + (tipo ? ` ${tipo}` : '') : (a.dano || '1d4');
-            return `<button class="btn btn-xs btn-acao" onclick="rolarAtaque(event, '${p.nome}', '${a.nome}', '${a.bonus || '+0'}', ${dadosStr}, '${tipo}')" title="${titulo}">${a.nome} ${a.bonus || ''}</button>`;
+            // Mostra expressão original no título para referência
+            const tituloOriginal = dadosOriginais.join(' + ') + (tipo ? ` ${tipo}` : '');
+            const tituloProcessado = dadosProcessados.join(' + ') + (tipo ? ` ${tipo}` : '');
+            const bonusTitulo = bonusOriginal !== bonusProcessado ? `Acerto: ${bonusOriginal} → ${bonusProcessado} | ` : '';
+            const danoTitulo = tituloOriginal !== tituloProcessado ? `${tituloOriginal} → ${tituloProcessado}` : tituloProcessado;
+            const titulo = bonusTitulo + danoTitulo;
+            return `<button class="btn btn-xs btn-acao" onclick="rolarAtaque(event, '${p.nome}', '${a.nome}', '${bonusProcessado}', ${dadosStr}, '${tipo}')" title="${titulo}">${a.nome} ${bonusProcessado}</button>`;
         }).join('')
         : `<button class="btn btn-xs btn-acao" onclick="rolarAtaque(event, '${p.nome}', 'Ataque Básico', '${formatMod(attrs.forca)}', ['1d4${modFor >= 0 ? '+' + modFor : modFor}'], '')" title="1d4${modFor >= 0 ? '+' + modFor : modFor}">Ataque Básico ${formatMod(attrs.forca)}</button>`;
     
@@ -2272,6 +2411,7 @@ function gerarHTMLNPCWidget(npc) {
     const calcMod = (val) => Math.floor((val - 10) / 2);
     const fmtMod = (val) => { const m = calcMod(val); return m >= 0 ? `+${m}` : `${m}`; };
     const modDes = calcMod(attrs.destreza || 10);
+    const bonusProf = npc.bonus_proficiencia || 2;
     
     // Atributos HTML
     const atributosHTML = `
@@ -2301,29 +2441,43 @@ function gerarHTMLNPCWidget(npc) {
     const magias = acoes.filter(a => a.tipo === 'magia');
     
     // Gera botões de ataque (com rolagem)
+    // Suporta tags de modificadores: [for], [des], [con], [int], [sab], [car], [prf]
     const ataquesHTML = ataques.length > 0 
         ? ataques.map(a => {
-            const dadosStr = a.dados && a.dados.length > 0 
-                ? JSON.stringify(a.dados).replace(/"/g, "'") 
-                : "['1d4']";
+            const dadosOriginais = a.dados && a.dados.length > 0 ? a.dados : ['1d4'];
+            const dadosProcessados = processarDadosComModificadores(dadosOriginais, attrs, bonusProf);
+            const dadosStr = JSON.stringify(dadosProcessados).replace(/"/g, "'");
+            const bonusOriginal = a.bonus || '+0';
+            const bonusProcessado = processarBonusAtaque(bonusOriginal, attrs, bonusProf);
             const tipo = a.tipo_dano || '';
-            const titulo = `${a.descricao || ''} | ${a.dados ? a.dados.join(' + ') : ''} ${tipo}`;
-            return `<button class="btn btn-xs btn-ataque" onclick="rolarAtaque(event, '${npc.nome}', '${a.nome}', '${a.bonus || '+0'}', ${dadosStr}, '${tipo}')" title="${titulo}">⚔️ ${a.nome} ${a.bonus || ''}</button>`;
+            const tituloOriginal = dadosOriginais.join(' + ') + (tipo ? ` ${tipo}` : '');
+            const tituloProcessado = dadosProcessados.join(' + ') + (tipo ? ` ${tipo}` : '');
+            const bonusTitulo = bonusOriginal !== bonusProcessado ? `Acerto: ${bonusOriginal} → ${bonusProcessado} | ` : '';
+            const titulo = `${a.descricao || ''} | ${bonusTitulo}${tituloOriginal !== tituloProcessado ? tituloOriginal + ' → ' + tituloProcessado : tituloProcessado}`;
+            return `<button class="btn btn-xs btn-ataque" onclick="rolarAtaque(event, '${npc.nome}', '${a.nome}', '${bonusProcessado}', ${dadosStr}, '${tipo}')" title="${titulo}">⚔️ ${a.nome} ${bonusProcessado}</button>`;
         }).join('')
         : '';
     
     // Gera botões de magia/habilidade
+    // Suporta tags de modificadores: [for], [des], [con], [int], [sab], [car], [prf]
     const magiasHTML = magias.length > 0 
         ? magias.map(m => {
             const temDano = m.dados && m.dados.length > 0;
-            const dadosStr = temDano ? JSON.stringify(m.dados).replace(/"/g, "'") : "[]";
+            const dadosOriginais = temDano ? m.dados : [];
+            const dadosProcessados = temDano ? processarDadosComModificadores(dadosOriginais, attrs, bonusProf) : [];
+            const dadosStr = temDano ? JSON.stringify(dadosProcessados).replace(/"/g, "'") : "[]";
+            const bonusOriginal = m.bonus || '';
+            const bonusProcessado = bonusOriginal ? processarBonusAtaque(bonusOriginal, attrs, bonusProf) : '';
             const tipo = m.tipo_dano || '';
             const cdText = m.cd ? `CD ${m.cd}` : '';
-            const titulo = `${m.descricao || ''} ${cdText} ${temDano ? '| ' + m.dados.join(' + ') : ''} ${tipo}`;
+            const tituloOriginal = temDano ? dadosOriginais.join(' + ') : '';
+            const tituloProcessado = temDano ? dadosProcessados.join(' + ') : '';
+            const tituloConversao = tituloOriginal !== tituloProcessado ? `${tituloOriginal} → ${tituloProcessado}` : tituloProcessado;
+            const titulo = `${m.descricao || ''} ${cdText} ${temDano ? '| ' + tituloConversao : ''} ${tipo}`;
             
-            if (temDano && m.bonus) {
+            if (temDano && bonusProcessado) {
                 // Magia com ataque
-                return `<button class="btn btn-xs btn-magia" onclick="rolarAtaque(event, '${npc.nome}', '${m.nome}', '${m.bonus}', ${dadosStr}, '${tipo}')" title="${titulo}">✨ ${m.nome}</button>`;
+                return `<button class="btn btn-xs btn-magia" onclick="rolarAtaque(event, '${npc.nome}', '${m.nome}', '${bonusProcessado}', ${dadosStr}, '${tipo}')" title="${titulo}">✨ ${m.nome}</button>`;
             } else if (temDano) {
                 // Magia/habilidade com dano direto (usa CD ou só rola dano)
                 return `<button class="btn btn-xs btn-magia" onclick="rolarMagiaNPC(event, '${npc.nome}', '${m.nome}', ${dadosStr}, '${tipo}', ${m.cd || 0})" title="${titulo}">✨ ${m.nome}${cdText ? ' ' + cdText : ''}</button>`;
@@ -2518,6 +2672,7 @@ function gerarHTMLInstanciaMonstroWidget(inst, nomeBase) {
     const modDes = calcMod(attrs.destreza);
     const modFor = calcMod(attrs.forca);
     const modSab = calcMod(attrs.sabedoria);
+    const bonusProf = inst.bonus_proficiencia || 2; // Monstros geralmente usam 2
     
     // Percepção Passiva: usa valor do monstro ou calcula
     const percepcaoPassiva = inst.percepcao_passiva || (10 + modSab);
@@ -2526,18 +2681,25 @@ function gerarHTMLInstanciaMonstroWidget(inst, nomeBase) {
     const hpClass = hpPct <= 25 ? 'hp-critico' : hpPct <= 50 ? 'hp-baixo' : '';
     
     // Gera botões de ações (suporta estrutura nova e antiga)
+    // Suporta tags de modificadores: [for], [des], [con], [int], [sab], [car], [prf]
     const acoes = inst.acoes || [];
     const ataqueBasico = { nome: 'Ataque Básico', ataque: formatMod(attrs.forca), dano: `1d4${modFor >= 0 ? '+' + modFor : modFor}` };
     const acoesHTML = acoes.length > 0 
         ? acoes.map(a => {
-            const atk = a.ataque || formatMod(attrs.forca);
+            const atkOriginal = a.ataque || formatMod(attrs.forca);
+            const atkProcessado = processarBonusAtaque(atkOriginal, attrs, bonusProf);
             // Suporta estrutura nova (dados[], tipo) ou antiga (dano)
-            const dadosStr = a.dados && a.dados.length > 0 
-                ? JSON.stringify(a.dados).replace(/"/g, "'") 
-                : `['${a.dano || '1d4'}']`;
+            // Processa tags de modificadores nos dados
+            const dadosOriginais = a.dados && a.dados.length > 0 ? a.dados : [a.dano || '1d4'];
+            const dadosProcessados = processarDadosComModificadores(dadosOriginais, attrs, bonusProf);
+            const dadosStr = JSON.stringify(dadosProcessados).replace(/"/g, "'");
             const tipo = a.tipo || '';
-            const titulo = a.dados ? a.dados.join(' + ') + (tipo ? ` ${tipo}` : '') : (a.dano || '1d4');
-            return `<button class="btn btn-xs btn-acao" onclick="rolarAtaque(event, '${inst.nome}', '${a.nome}', '${atk}', ${dadosStr}, '${tipo}')" title="${titulo}">${a.nome} ${atk}</button>`;
+            const tituloOriginal = dadosOriginais.join(' + ') + (tipo ? ` ${tipo}` : '');
+            const tituloProcessado = dadosProcessados.join(' + ') + (tipo ? ` ${tipo}` : '');
+            const bonusTitulo = atkOriginal !== atkProcessado ? `Acerto: ${atkOriginal} → ${atkProcessado} | ` : '';
+            const danoTitulo = tituloOriginal !== tituloProcessado ? `${tituloOriginal} → ${tituloProcessado}` : tituloProcessado;
+            const titulo = bonusTitulo + danoTitulo;
+            return `<button class="btn btn-xs btn-acao" onclick="rolarAtaque(event, '${inst.nome}', '${a.nome}', '${atkProcessado}', ${dadosStr}, '${tipo}')" title="${titulo}">${a.nome} ${atkProcessado}</button>`;
         }).join('')
         : `<button class="btn btn-xs btn-acao" onclick="rolarAtaque(event, '${inst.nome}', 'Ataque Básico', '${formatMod(attrs.forca)}', ['1d4${modFor >= 0 ? '+' + modFor : modFor}'], '')" title="1d4${modFor >= 0 ? '+' + modFor : modFor}">Ataque Básico ${formatMod(attrs.forca)}</button>`;
     
@@ -3034,7 +3196,8 @@ function adicionarNPCAoCombate(id, nome, modDestreza = 0) {
 }
 
 /**
- * Rola uma expressão de dados (ex: "1d6+3", "2d8", "+2")
+ * Rola uma expressão de dados (ex: "1d6+3", "2d8+6+2", "1d8+3-1", "+2")
+ * Suporta múltiplos modificadores: 1d6+6+2 = rola 1d6 e soma 8
  * Retorna objeto com { total, dados[], modificador }
  */
 function rolarExpressao(expressao) {
@@ -3046,16 +3209,26 @@ function rolarExpressao(expressao) {
         return { total: parseInt(expressao), dados: [], modificador: parseInt(expressao) };
     }
     
-    // Parse da expressão (ex: 2d6+3, 1d20-2, 3d8)
-    const match = expressao.match(/^(\d*)d(\d+)([+-]\d+)?$/);
-    if (!match) {
+    // Parse da expressão com suporte a múltiplos modificadores
+    // Ex: 2d6+3+2-1, 1d8+6+2
+    const matchDado = expressao.match(/^(\d*)d(\d+)/);
+    if (!matchDado) {
         console.warn('Expressão de dados inválida:', expressao);
         return { total: 0, dados: [], modificador: 0 };
     }
     
-    const quantidade = parseInt(match[1]) || 1;
-    const lados = parseInt(match[2]);
-    const modificador = parseInt(match[3]) || 0;
+    const quantidade = parseInt(matchDado[1]) || 1;
+    const lados = parseInt(matchDado[2]);
+    
+    // Extrai todos os modificadores após o dado (ex: +3+2-1)
+    const restoExpressao = expressao.slice(matchDado[0].length);
+    let modificadorTotal = 0;
+    
+    // Encontra todos os modificadores (+N ou -N)
+    const modificadores = restoExpressao.match(/[+-]\d+/g);
+    if (modificadores) {
+        modificadorTotal = modificadores.reduce((acc, mod) => acc + parseInt(mod), 0);
+    }
     
     const dados = [];
     let soma = 0;
@@ -3067,9 +3240,9 @@ function rolarExpressao(expressao) {
     }
     
     return {
-        total: soma + modificador,
+        total: soma + modificadorTotal,
         dados,
-        modificador,
+        modificador: modificadorTotal,
         expressao
     };
 }
