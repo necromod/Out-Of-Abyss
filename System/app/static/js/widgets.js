@@ -41,6 +41,7 @@ class Widget {
         header.innerHTML = `
             <span class="widget-title">${this.titulo}</span>
             <div class="widget-controls">
+                <button class="widget-control popout" title="Abrir em Janela Externa">↗️</button>
                 ${isFicha ? `
                     <button class="widget-control turnos" title="Adicionar aos Turnos" data-widget-id="${this.id}">⏱️</button>
                     <button class="widget-control ficha" title="Abrir Ficha Completa" data-widget-id="${this.id}">📋</button>
@@ -124,9 +125,15 @@ class Widget {
         const btnFechar = header.querySelector('.close');
         const btnTurnos = header.querySelector('.turnos');
         const btnFicha = header.querySelector('.ficha');
+        const btnPopout = header.querySelector('.popout');
         
         btnMinimizar.addEventListener('click', () => this.toggleMinimizar());
         btnFechar.addEventListener('click', () => this.fechar());
+        
+        // Botão de abrir em janela externa (pop-out)
+        if (btnPopout) {
+            btnPopout.addEventListener('click', () => this.abrirPopout());
+        }
         
         // Botão de adicionar aos turnos
         if (btnTurnos) {
@@ -214,6 +221,490 @@ class Widget {
         }
     }
     
+    /**
+     * Abre o widget em uma janela externa (pop-out)
+     * Permite visualizar o widget fora do navegador principal
+     */
+    abrirPopout() {
+        // Pega o conteúdo atual do widget
+        const body = this.element.querySelector('.widget-body');
+        const titulo = this.element.querySelector('.widget-title')?.textContent || this.titulo;
+        
+        if (!body) {
+            console.error('Widget sem body para pop-out');
+            return;
+        }
+        
+        // Dimensões da janela popup baseadas no widget atual
+        const width = Math.max(this.element.offsetWidth + 40, 380);
+        const height = Math.max(this.element.offsetHeight + 80, 450);
+        
+        // Posição central na tela
+        const left = (screen.width - width) / 2;
+        const top = (screen.height - height) / 2;
+        
+        // Abre a nova janela
+        const popup = window.open(
+            '', 
+            `widget_popup_${this.id}_${Date.now()}`, 
+            `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=yes`
+        );
+        
+        if (!popup) {
+            alert('Popup bloqueado! Por favor, permita popups para este site.');
+            return;
+        }
+        
+        // Salva referências importantes antes de gerar o HTML
+        const widgetId = this.id;
+        const widgetTipo = this.tipo;
+        const dadosCriatura = this.dadosCriatura;
+        const parentWindow = window;
+        
+        // Gera o HTML da janela popup
+        const htmlContent = this.gerarHTMLPopout(titulo, body.innerHTML, widgetId);
+        
+        popup.document.write(htmlContent);
+        popup.document.close();
+        
+        // Mantém referência à janela pai para comunicação
+        popup.widgetParent = parentWindow;
+        popup.widgetId = widgetId;
+        popup.widgetTipo = widgetTipo;
+        popup.dadosCriatura = dadosCriatura;
+        
+        // Configura funções wrapper no popup após carregar
+        popup.onload = () => {
+            this.configurarFuncoesPopup(popup);
+        };
+        
+        // Fallback se onload não disparar
+        setTimeout(() => {
+            if (popup && !popup.closed) {
+                this.configurarFuncoesPopup(popup);
+            }
+        }, 500);
+    }
+    
+    /**
+     * Configura funções wrapper no popup para comunicar com a janela pai
+     */
+    configurarFuncoesPopup(popup) {
+        if (!popup || popup.closed) return;
+        
+        const parent = popup.widgetParent;
+        if (!parent) return;
+        
+        // Define funções wrapper que chamam a janela pai
+        popup.rolarAtaque = function(...args) {
+            if (parent && !parent.closed && parent.rolarAtaque) {
+                parent.rolarAtaque(...args);
+            }
+        };
+        
+        // NOTA: abrirDanoRapido e abrirCuraRapida são tratadas localmente no popup
+        // para que o input apareça na janela popup, não na janela pai
+        
+        popup.toggleMenuResistencia = function(...args) {
+            if (parent && !parent.closed && parent.toggleMenuResistencia) {
+                parent.toggleMenuResistencia(...args);
+            }
+        };
+        
+        popup.abrirModalEfeito = function(...args) {
+            if (parent && !parent.closed && parent.abrirModalEfeito) {
+                parent.abrirModalEfeito(...args);
+            }
+        };
+        
+        popup.abrirSubmenuPericias = function(...args) {
+            if (parent && !parent.closed && parent.abrirSubmenuPericias) {
+                parent.abrirSubmenuPericias(...args);
+            }
+        };
+        
+        popup.rolarMagiaNPC = function(...args) {
+            if (parent && !parent.closed && parent.rolarMagiaNPC) {
+                parent.rolarMagiaNPC(...args);
+            }
+        };
+        
+        popup.usarHabilidadeNPC = function(...args) {
+            if (parent && !parent.closed && parent.usarHabilidadeNPC) {
+                parent.usarHabilidadeNPC(...args);
+            }
+        };
+        
+        popup.marcarTesteMorte = function(...args) {
+            if (parent && !parent.closed && parent.marcarTesteMorte) {
+                parent.marcarTesteMorte(...args);
+            }
+        };
+        
+        popup.adicionarLogCombate = function(...args) {
+            if (parent && !parent.closed && parent.adicionarLogCombate) {
+                parent.adicionarLogCombate(...args);
+            }
+        };
+        
+        popup.mostrarNotificacao = function(...args) {
+            if (parent && !parent.closed && parent.mostrarNotificacao) {
+                parent.mostrarNotificacao(...args);
+            }
+        };
+        
+        console.log('[Popup] Funções wrapper configuradas');
+    }
+    
+    /**
+     * Gera o HTML completo para a janela popup
+     */
+    gerarHTMLPopout(titulo, conteudo, widgetId) {
+        // Pega a URL base para os recursos
+        const baseUrl = window.location.origin;
+        
+        return `
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${titulo} - Out of the Abyss</title>
+    
+    <!-- CSS do Sistema -->
+    <link rel="stylesheet" href="${baseUrl}/static/css/base.css">
+    <link rel="stylesheet" href="${baseUrl}/static/css/widgets.css">
+    <link rel="stylesheet" href="${baseUrl}/static/css/fichas.css">
+    <link rel="stylesheet" href="${baseUrl}/static/css/sessao.css">
+    
+    <style>
+        /* Estilos específicos do popup */
+        body {
+            background: var(--bg-primary);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+        
+        .popup-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        .popup-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--spacing-sm) var(--spacing-md);
+            background: var(--bg-tertiary);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .popup-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+        
+        .popup-badge {
+            font-size: 0.65rem;
+            padding: 2px 6px;
+            background: var(--accent-info);
+            color: white;
+            border-radius: var(--radius-sm);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .popup-body {
+            flex: 1;
+            overflow-y: auto;
+            background: var(--bg-secondary);
+        }
+        
+        /* Ajustes para o conteúdo do widget no popup */
+        .popup-body > * {
+            border-radius: 0;
+        }
+        
+        .popup-body .widget-personagem-conteudo,
+        .popup-body .widget-monstro-conteudo,
+        .popup-body .widget-npc-conteudo {
+            padding: var(--spacing-md);
+        }
+        
+        /* Indicador de conexão */
+        .conexao-status {
+            position: fixed;
+            bottom: var(--spacing-sm);
+            right: var(--spacing-sm);
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: var(--radius-sm);
+            z-index: 101;
+        }
+        
+        .conexao-status.conectado {
+            background: var(--accent-success);
+            color: white;
+        }
+        
+        .conexao-status.desconectado {
+            background: var(--accent-danger);
+            color: white;
+        }
+    </style>
+</head>
+<body class="tema-abyss">
+    <div class="popup-container">
+        <div class="popup-header">
+            <span class="popup-title">${titulo}</span>
+            <span class="popup-badge">Externo</span>
+        </div>
+        <div class="popup-body">
+            ${conteudo}
+        </div>
+    </div>
+    
+    <div class="conexao-status conectado" id="conexao-status">● Conectado</div>
+    
+    <script>
+        // Verifica conexão com a janela pai periodicamente
+        let conexaoCheck = setInterval(function() {
+            const status = document.getElementById('conexao-status');
+            if (!window.widgetParent || window.widgetParent.closed) {
+                status.textContent = '● Desconectado';
+                status.className = 'conexao-status desconectado';
+            } else {
+                status.textContent = '● Conectado';
+                status.className = 'conexao-status conectado';
+            }
+        }, 2000);
+        
+        // Limpa interval ao fechar
+        window.addEventListener('beforeunload', function() {
+            clearInterval(conexaoCheck);
+        });
+        
+        // Notifica a janela pai sobre ações
+        document.addEventListener('click', function(e) {
+            // Verifica se clicou em um elemento com onclick
+            const target = e.target.closest('[onclick]');
+            if (!target) return;
+            
+            const onclickStr = target.getAttribute('onclick');
+            if (!onclickStr) return;
+            
+            // Lista de funções que devem ser executadas na janela pai
+            // NOTA: abrirDanoRapido e abrirCuraRapida são tratadas localmente no popup
+            const funcoesParent = [
+                'rolarAtaque',
+                'toggleMenuResistencia',
+                'abrirModalEfeito',
+                'abrirSubmenuPericias',
+                'rolarMagiaNPC',
+                'usarHabilidadeNPC',
+                'marcarTesteMorte',
+                'adicionarLogCombate'
+            ];
+            
+            // Verifica se a função deve ser redirecionada
+            const deveRedirecionar = funcoesParent.some(fn => onclickStr.includes(fn));
+            
+            if (deveRedirecionar && window.widgetParent && !window.widgetParent.closed) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                try {
+                    // Executa na janela pai
+                    window.widgetParent.eval(onclickStr);
+                } catch (err) {
+                    console.error('[Popup] Erro ao executar na janela pai:', err);
+                    // Tenta executar localmente como fallback
+                    try {
+                        eval(onclickStr);
+                    } catch (err2) {
+                        console.error('[Popup] Fallback também falhou:', err2);
+                    }
+                }
+            }
+        });
+        
+        console.log('[Popup] Widget ${widgetId} carregado');
+        
+        // =========================================
+        // Sistema local de Dano/Cura para Popup
+        // =========================================
+        
+        let inputFlutuantePopup = null;
+        
+        function fecharInputFlutuantePopup() {
+            if (inputFlutuantePopup) {
+                inputFlutuantePopup.remove();
+                inputFlutuantePopup = null;
+            }
+        }
+        
+        function criarInputFlutuantePopup(botao, tipo, callback) {
+            fecharInputFlutuantePopup();
+            
+            const rect = botao.getBoundingClientRect();
+            const container = document.createElement('div');
+            container.className = 'input-flutuante input-flutuante-' + tipo;
+            container.innerHTML = [
+                '<input type="number" class="input-flutuante-valor" placeholder="0" min="0" autofocus>',
+                '<button class="input-flutuante-confirmar">✓</button>',
+                '<button class="input-flutuante-cancelar">✕</button>'
+            ].join('');
+            
+            container.style.cssText = 'position: fixed; left: ' + rect.left + 'px; top: ' + (rect.bottom + 5) + 'px; z-index: 9999;';
+            
+            document.body.appendChild(container);
+            inputFlutuantePopup = container;
+            
+            const input = container.querySelector('.input-flutuante-valor');
+            const btnConfirmar = container.querySelector('.input-flutuante-confirmar');
+            const btnCancelar = container.querySelector('.input-flutuante-cancelar');
+            
+            setTimeout(function() { input.focus(); }, 10);
+            
+            input.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    const valor = parseInt(input.value) || 0;
+                    if (valor > 0) { callback(valor); fecharInputFlutuantePopup(); }
+                } else if (e.key === 'Escape') {
+                    fecharInputFlutuantePopup();
+                }
+            });
+            
+            btnConfirmar.addEventListener('click', function() {
+                const valor = parseInt(input.value) || 0;
+                if (valor > 0) { callback(valor); fecharInputFlutuantePopup(); }
+            });
+            
+            btnCancelar.addEventListener('click', fecharInputFlutuantePopup);
+            
+            setTimeout(function() {
+                document.addEventListener('click', function clickFora(e) {
+                    if (inputFlutuantePopup && !inputFlutuantePopup.contains(e.target)) {
+                        fecharInputFlutuantePopup();
+                        document.removeEventListener('click', clickFora);
+                    }
+                });
+            }, 100);
+        }
+        
+        // Função local de Dano
+        function abrirDanoRapido(event, id, nome, tipo) {
+            event.stopPropagation();
+            const botao = event.currentTarget;
+            
+            criarInputFlutuantePopup(botao, 'dano', async function(valor) {
+                try {
+                    let endpoint;
+                    if (tipo === 'personagem') {
+                        endpoint = '/api/personagens/' + id + '/dano';
+                    } else if (tipo === 'npc') {
+                        endpoint = '/api/npcs/' + id + '/dano';
+                    } else {
+                        endpoint = '/api/monstros/instancias/' + id + '/dano';
+                    }
+                    
+                    const response = await fetch(endpoint, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ dano: valor })
+                    });
+                    const resultado = await response.json();
+                    
+                    if (resultado && !resultado.erro) {
+                        // Notifica a janela pai para atualizar
+                        if (window.widgetParent && !window.widgetParent.closed) {
+                            window.widgetParent.adicionarLogCombate('<strong>' + nome + '</strong> -' + valor + ' HP', 'dano');
+                            window.widgetParent.atualizarWidgetCriatura(tipo, id, resultado);
+                        }
+                        // Atualiza HP local no popup
+                        atualizarHPLocal(resultado);
+                    }
+                } catch (error) {
+                    console.error('Erro ao aplicar dano:', error);
+                }
+            });
+        }
+        
+        // Função local de Cura
+        function abrirCuraRapida(event, id, nome, tipo) {
+            event.stopPropagation();
+            const botao = event.currentTarget;
+            
+            criarInputFlutuantePopup(botao, 'cura', async function(valor) {
+                try {
+                    let endpoint;
+                    if (tipo === 'personagem') {
+                        endpoint = '/api/personagens/' + id + '/curar';
+                    } else if (tipo === 'npc') {
+                        endpoint = '/api/npcs/' + id + '/curar';
+                    } else {
+                        endpoint = '/api/monstros/instancias/' + id + '/curar';
+                    }
+                    
+                    const response = await fetch(endpoint, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ quantidade: valor })
+                    });
+                    const resultado = await response.json();
+                    
+                    if (resultado && !resultado.erro) {
+                        // Notifica a janela pai para atualizar
+                        if (window.widgetParent && !window.widgetParent.closed) {
+                            window.widgetParent.adicionarLogCombate('<strong>' + nome + '</strong> +' + valor + ' HP', 'cura');
+                            window.widgetParent.atualizarWidgetCriatura(tipo, id, resultado);
+                        }
+                        // Atualiza HP local no popup
+                        atualizarHPLocal(resultado);
+                    }
+                } catch (error) {
+                    console.error('Erro ao aplicar cura:', error);
+                }
+            });
+        }
+        
+        // Atualiza a barra de HP no popup
+        function atualizarHPLocal(dados) {
+            const hpAtual = dados.hp_atual;
+            const hpMax = dados.hp_maximo;
+            const percent = Math.max(0, Math.min(100, (hpAtual / hpMax) * 100));
+            
+            // Atualiza texto de HP
+            const hpTexto = document.querySelector('.hp-atual');
+            if (hpTexto) hpTexto.textContent = hpAtual;
+            
+            // Atualiza barra visual
+            const hpFill = document.querySelector('.hp-fill');
+            if (hpFill) {
+                hpFill.style.width = percent + '%';
+                // Atualiza cor
+                let corClasse = 'hp-100';
+                if (percent <= 0) corClasse = 'hp-0';
+                else if (percent <= 25) corClasse = 'hp-25';
+                else if (percent <= 50) corClasse = 'hp-50';
+                else if (percent <= 75) corClasse = 'hp-75';
+                hpFill.className = 'hp-fill ' + corClasse;
+            }
+        }
+    </script>
+</body>
+</html>`;
+    }
+
     toggleMinimizar() {
         this.minimizado = !this.minimizado;
         this.element.classList.toggle('minimized', this.minimizado);

@@ -3,7 +3,7 @@
   "id": "2",
   "data": "2026-01-24",
   "criada_em": "2026-01-24T11:25:45.485892",
-  "atualizada_em": "2026-01-24T17:08:59.953696",
+  "atualizada_em": "2026-02-12T15:58:04.595197",
   "estado": {
     "mapa_atual": "Cenários/Caverna_Iluminada_1.png",
     "combate_ativo": false,
@@ -32,36 +32,7 @@
         "tipo": "instancia"
       }
     ],
-    "widgets": [
-      {
-        "id": "widget-1769284019982",
-        "tipo": "log_combate",
-        "titulo": "📜 Log de Combate",
-        "x": 1263,
-        "y": 80,
-        "width": 350,
-        "height": 350,
-        "minimizado": false,
-        "dadosCriatura": null
-      },
-      {
-        "id": "widget-1769284019983",
-        "tipo": "ficha_monstro",
-        "titulo": "👹 Drow Comum 1",
-        "x": 761,
-        "y": 109,
-        "width": 444,
-        "height": 523,
-        "minimizado": false,
-        "dadosCriatura": {
-          "tipo": "instancia",
-          "id": 66,
-          "nome": "Drow Comum 1",
-          "nomeBase": "Drow Comum",
-          "modDestreza": 2
-        }
-      }
-    ]
+    "widgets": []
   },
   "log": [
     {

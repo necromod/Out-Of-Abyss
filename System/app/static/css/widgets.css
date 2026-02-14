@@ -90,6 +90,11 @@
     color: white;
 }
 
+.widget-control.popout:hover {
+    background-color: var(--accent-info);
+    color: white;
+}
+
 /* =========================================
    Body do widget
    ========================================= */

@@ -11,18 +11,18 @@ if ($listeningProcess) {
 
 Write-Host "Iniciando Out of the Abyss System..." -ForegroundColor Cyan
 
-# Configurar caminhos do ambiente virtual
-$projectRoot = Split-Path $PSScriptRoot -Parent
-$venvScripts = Join-Path $projectRoot ".venv\Scripts"
+# Configurar caminhos do ambiente virtual (venv está dentro de System/)
+$systemDir = $PSScriptRoot
+$venvScripts = Join-Path $systemDir ".venv\Scripts"
 $venvPython = Join-Path $venvScripts "python.exe"
 
 if (Test-Path $venvPython) {
     Write-Host "Configurando ambiente virtual..." -ForegroundColor Green
     
     # Configura variáveis de ambiente
-    $env:VIRTUAL_ENV = Join-Path $projectRoot ".venv"
+    $env:VIRTUAL_ENV = Join-Path $systemDir ".venv"
     $env:PATH = "$venvScripts;$env:PATH"
-    $env:PYTHONPATH = $projectRoot
+    $env:PYTHONPATH = $systemDir
     
     Write-Host "Ambiente virtual ativado!" -ForegroundColor Green
 } else {

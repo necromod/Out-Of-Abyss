@@ -69,6 +69,7 @@ class Widget {
 - **Minimizar**: Botão − no header
 - **Fechar**: Botão × no header OU **middle-click no header**
 - **Trazer para frente**: Clicar no widget
+- **Pop-out (↗️)**: Abre o widget em janela externa do navegador (visível fora do sistema)
 
 ### Dados Armazenados no Widget
 
@@ -303,7 +304,59 @@ atualizarContadoresEfeitos()
 
 ---
 
-## 7. Sistema de Combate
+## 7. Sistema de Pop-out (Janela Externa)
+
+### Descrição
+
+O sistema de pop-out permite abrir qualquer widget em uma janela externa do navegador, independente da tela de sessão. Isso é útil para:
+- **Multi-monitor**: Manter widgets visíveis em outro monitor
+- **Consulta rápida**: Ver fichas enquanto usa outros programas
+- **Sessões presenciais**: Exibir informações em telas separadas
+
+### Funcionamento
+
+```javascript
+// Método da classe Widget
+abrirPopout()
+
+// Gera HTML completo com:
+gerarHTMLPopout(titulo, conteudo)
+```
+
+### Botão no Header
+
+- **Ícone**: ↗️
+- **Posição**: Primeiro botão, à esquerda dos demais
+- **Hover**: Background azul (--accent-info)
+- **Disponível**: Todos os tipos de widget
+
+### Comunicação entre Janelas
+
+```javascript
+// Popup mantém referências:
+popup.widgetParent = window;       // Janela pai
+popup.widgetId = this.id;          // ID do widget
+popup.widgetTipo = this.tipo;      // Tipo do widget
+popup.dadosCriatura = this.dadosCriatura; // Dados da criatura (se aplicável)
+
+// Ações de combate são redirecionadas para a janela pai:
+// - rolarAtaque()
+// - abrirDanoRapido()
+// - abrirCuraRapida()
+// - adicionarLogCombate()
+```
+
+### Características da Janela Popup
+
+- **Redimensionável**: Sim
+- **Scrollbars**: Sim
+- **Posição**: Centralizada na tela
+- **Tamanho**: Baseado nas dimensões atuais do widget (mínimo 350x400)
+- **Estilos**: Incluídos inline no HTML
+
+---
+
+## 8. Sistema de Combate
 
 ### Fluxo de Combate
 
@@ -340,7 +393,7 @@ editarIniciativa(event, index)
 
 ---
 
-## 7. Sistema de Ataques
+## 9. Sistema de Ataques
 
 ### Estrutura de Armas no Widget
 

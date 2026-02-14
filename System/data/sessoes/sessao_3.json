@@ -1,0 +1,75 @@
+{
+  "numero": 3,
+  "id": "3",
+  "data": "2026-02-12",
+  "criada_em": "2026-02-12T15:58:09.374639",
+  "atualizada_em": "2026-02-14T10:01:19.819355",
+  "estado": {
+    "mapa_atual": null,
+    "combate_ativo": false,
+    "turno_contador": 0,
+    "turno_atual": 0,
+    "ordem_turnos": [],
+    "widgets": [
+      {
+        "id": "widget-1771074019137",
+        "tipo": "log_combate",
+        "titulo": "📜 Log de Combate",
+        "x": 1317,
+        "y": 80,
+        "width": 350,
+        "height": 350,
+        "minimizado": false,
+        "dadosCriatura": null
+      },
+      {
+        "id": "widget-1771074019141",
+        "tipo": "ficha_personagem",
+        "titulo": "👤 Beny",
+        "x": 100,
+        "y": 80,
+        "width": 380,
+        "height": 473,
+        "minimizado": false,
+        "dadosCriatura": {
+          "tipo": "personagem",
+          "id": 63,
+          "nome": "Beny",
+          "modDestreza": 0
+        }
+      }
+    ]
+  },
+  "log": [
+    {
+      "timestamp": "2026-02-14T09:45:33.219172",
+      "tipo": "dano",
+      "mensagem": "<strong>Beny</strong> -6 HP",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-02-14T09:45:39.238129",
+      "tipo": "cura",
+      "mensagem": "<strong>Beny</strong> +7 HP",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-02-14T09:45:46.252537",
+      "tipo": "ataque",
+      "mensagem": "<strong>Beny</strong> usa <em>Foice curta</em> <span class=\"ataque-total \">11</span> <span class=\"ataque-detalhes\">(11+0)</span><br><span class=\"dano-linha\"><span class=\"dano\">3</span> dano <span class=\"tipo-dano\" data-tipo=\"Perfurante\">perfurante</span> <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-02-14T10:00:24.748512",
+      "tipo": "dano",
+      "mensagem": "<strong>Beny</strong> -7 HP",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-02-14T10:00:28.136127",
+      "tipo": "cura",
+      "mensagem": "<strong>Beny</strong> +5 HP",
+      "dados": {}
+    }
+  ]
+}
