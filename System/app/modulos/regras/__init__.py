@@ -56,4 +56,4 @@ def popular_todas_regras():
     popular_racas_suplementos() # Raças de outros suplementos
     popular_antecedentes()    # Antecedentes
     
-    print("[DB] ✅ Regras D&D 5e carregadas com sucesso!")
+    print("[DB] [OK] Regras D&D 5e carregadas com sucesso!")

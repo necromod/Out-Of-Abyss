@@ -627,7 +627,7 @@ def init_database():
         _executar_migracoes(cursor)
         
         conn.commit()
-        print("✅ Banco de dados inicializado com sucesso!")
+        print("[OK] Banco de dados inicializado com sucesso!")
 
 
 def _executar_migracoes(cursor):

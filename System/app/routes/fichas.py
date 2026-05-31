@@ -216,7 +216,7 @@ def api_atualizar_personagem(id):
     """Atualiza dados de um personagem"""
     data = request.get_json()
     # Debug: ver dados recebidos
-    print(f"📥 Recebido para personagem {id}:")
+    print(f"[INFO] Recebido para personagem {id}:")
     print(f"   armas: {data.get('armas')}")
     print(f"   equipamentos: {data.get('equipamentos')}")
     resultado = PersonagemRepository.atualizar(id, data)
@@ -286,7 +286,7 @@ def api_atualizar_monstro(id):
             return jsonify(resultado)
         return jsonify({'erro': 'Monstro não encontrado'}), 404
     except Exception as e:
-        print(f"❌ Erro ao atualizar monstro {id}: {e}")
+        print(f"[ERRO] Erro ao atualizar monstro {id}: {e}")
         return jsonify({'erro': str(e)}), 500
 
 

@@ -24,10 +24,10 @@ app = create_app()
 
 if __name__ == '__main__':
     print("=" * 50)
-    print("⚔️  OUT OF THE ABYSS - Sistema de Mestragem")
+    print("[SYSTEM] OUT OF THE ABYSS - Sistema de Mestragem")
     print("=" * 50)
-    print("🌐 Servidor iniciando em: http://127.0.0.1:5000")
-    print("📖 Pressione Ctrl+C para encerrar")
+    print("[INFO] Servidor iniciando em: http://127.0.0.1:5000")
+    print("[INFO] Pressione Ctrl+C para encerrar")
     print("=" * 50)
     
     app.run(

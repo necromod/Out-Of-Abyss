@@ -1341,7 +1341,7 @@ def popular_regras_dnd():
             ))
         
         conn.commit()
-        print("[DB] ✅ Regras D&D 5e carregadas com sucesso!")
+        print("[DB] [OK] Regras D&D 5e carregadas com sucesso!")
 
 # Nota: A função popular_tipos_criatura() foi movida para app/modulos/regras/base.py
 # Use: from app.modulos.regras import popular_tipos_criatura

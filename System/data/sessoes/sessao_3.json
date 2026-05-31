@@ -3,7 +3,7 @@
   "id": "3",
   "data": "2026-02-12",
   "criada_em": "2026-02-12T15:58:09.374639",
-  "atualizada_em": "2026-02-14T10:01:19.819355",
+  "atualizada_em": "2026-05-30T23:00:53.632852",
   "estado": {
     "mapa_atual": null,
     "combate_ativo": false,
@@ -12,31 +12,42 @@
     "ordem_turnos": [],
     "widgets": [
       {
-        "id": "widget-1771074019137",
+        "id": "widget-1780191763663",
         "tipo": "log_combate",
         "titulo": "📜 Log de Combate",
-        "x": 1317,
-        "y": 80,
+        "x": 1110,
+        "y": 266,
         "width": 350,
         "height": 350,
         "minimizado": false,
         "dadosCriatura": null
       },
       {
-        "id": "widget-1771074019141",
+        "id": "widget-1780191785762",
         "tipo": "ficha_personagem",
-        "titulo": "👤 Beny",
-        "x": 100,
-        "y": 80,
-        "width": 380,
-        "height": 473,
+        "titulo": "👤 Azazel Ireth",
+        "x": 10,
+        "y": 112,
+        "width": 320,
+        "height": 400,
         "minimizado": false,
         "dadosCriatura": {
           "tipo": "personagem",
-          "id": 63,
-          "nome": "Beny",
-          "modDestreza": 0
+          "id": 1,
+          "nome": "Azazel Ireth",
+          "modDestreza": 3
         }
+      },
+      {
+        "id": "widget-1780192817186",
+        "tipo": "dados",
+        "titulo": "🎲 Dados",
+        "x": 350,
+        "y": 80,
+        "width": 250,
+        "height": 200,
+        "minimizado": false,
+        "dadosCriatura": null
       }
     ]
   },
@@ -69,6 +80,30 @@
       "timestamp": "2026-02-14T10:00:28.136127",
       "tipo": "cura",
       "mensagem": "<strong>Beny</strong> +5 HP",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-30T22:43:11.404454",
+      "tipo": "dano",
+      "mensagem": "<strong>Azazel Ireth</strong> -18 HP",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-30T22:43:14.692103",
+      "tipo": "cura",
+      "mensagem": "<strong>Azazel Ireth</strong> +22 HP",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-30T22:43:20.111560",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Adaga</em> <span class=\"ataque-total \">9</span> <span class=\"ataque-detalhes\">(4+5)</span><br><span class=\"dano-linha\"><span class=\"dano\">7</span> dano <span class=\"tipo-dano\" data-tipo=\"Cortante\">cortante</span> <span class=\"dano-expressao\">(1d4+3)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-30T22:44:15.928021",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Raio de fogo</em> <span class=\"ataque-total \">13</span> <span class=\"ataque-detalhes\">(7+6)</span><br><span class=\"dano-linha\"><span class=\"dano\">10</span> dano <span class=\"tipo-dano\" data-tipo=\"Ígneo\">ígneo</span> <span class=\"dano-expressao\">(1d10)</span></span>",
       "dados": {}
     }
   ]
