@@ -1,0 +1,3029 @@
+{
+  "numero": 4,
+  "id": "4",
+  "data": "2026-05-30",
+  "criada_em": "2026-05-30T23:58:07.388683",
+  "atualizada_em": "2026-05-31T04:14:33.304052",
+  "estado": {
+    "mapa_atual": null,
+    "combate_ativo": false,
+    "turno_contador": 0,
+    "turno_atual": 0,
+    "ordem_turnos": [
+      {
+        "ativo": true,
+        "id": 72,
+        "iniciativa": 22,
+        "nome": "Salamandra 1",
+        "tipo": "instancia"
+      },
+      {
+        "ativo": true,
+        "id": 71,
+        "iniciativa": 21,
+        "nome": "Salamandra 2",
+        "tipo": "instancia"
+      },
+      {
+        "ativo": true,
+        "id": 75,
+        "iniciativa": 20,
+        "nome": "Elemental Myrmidon de Fogo 1",
+        "tipo": "instancia"
+      },
+      {
+        "ativo": true,
+        "id": 74,
+        "iniciativa": 19,
+        "nome": "Efreeti 1",
+        "tipo": "instancia"
+      },
+      {
+        "ativo": true,
+        "id": 73,
+        "iniciativa": 11,
+        "nome": "Efreeti 1",
+        "tipo": "instancia"
+      },
+      {
+        "ativo": true,
+        "id": 77,
+        "iniciativa": 11,
+        "nome": "Salamandra 1",
+        "tipo": "instancia"
+      },
+      {
+        "ativo": true,
+        "id": 76,
+        "iniciativa": 6,
+        "nome": "Efreeti 1",
+        "tipo": "instancia"
+      },
+      {
+        "ativo": true,
+        "id": 78,
+        "iniciativa": 3,
+        "nome": "Fortaleza do sultão Efreeti 1",
+        "tipo": "instancia"
+      }
+    ],
+    "widgets": [
+      {
+        "id": "widget-1780211673176",
+        "tipo": "log_combate",
+        "titulo": "📜 Log de Combate",
+        "x": 1081,
+        "y": 80,
+        "width": 350,
+        "height": 350,
+        "minimizado": false,
+        "dadosCriatura": null
+      },
+      {
+        "id": "widget-1780211673177",
+        "tipo": "ficha_personagem",
+        "titulo": "👤 Malachar",
+        "x": 2,
+        "y": 81,
+        "width": 320,
+        "height": 400,
+        "minimizado": false,
+        "dadosCriatura": {
+          "id": 66,
+          "modDestreza": -1,
+          "nome": "Malachar",
+          "tipo": "personagem"
+        }
+      },
+      {
+        "id": "widget-1780211673181",
+        "tipo": "ficha_monstro",
+        "titulo": "👹 Salamandra 1",
+        "x": 342,
+        "y": 80,
+        "width": 350,
+        "height": 450,
+        "minimizado": false,
+        "dadosCriatura": {
+          "tipo": "instancia",
+          "id": 77,
+          "nome": "Salamandra 1",
+          "nomeBase": "Salamandra",
+          "modDestreza": 2
+        }
+      }
+    ]
+  },
+  "log": [
+    {
+      "timestamp": "2026-05-30T23:58:12.888172",
+      "tipo": "info",
+      "mensagem": "<strong>Salamandra 2</strong> rolou iniciativa: 19+2 = 21",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-30T23:58:48.126459",
+      "tipo": "info",
+      "mensagem": "Efeito <strong>🔥 Ígneo</strong> removido",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-30T23:58:48.997395",
+      "tipo": "info",
+      "mensagem": "Efeito <strong>Agarrado</strong> removido",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-30T23:59:19.850233",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azazel Ireth</strong> usa <em>Raio de fogo</em> <span class=\"ataque-total \">22</span> <span class=\"ataque-detalhes\">(16+6)</span><br><span class=\"dano-linha\"><span class=\"dano\">4</span> dano <span class=\"tipo-dano\" data-tipo=\"Ígneo\">ígneo</span> <span class=\"dano-expressao\">(1d10)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:01:20.029164",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Lança 3m 6/18</em> <span class=\"ataque-total \">26</span> <span class=\"ataque-detalhes\">(19+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:01:22.807127",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Lança 3m 6/18</em> <span class=\"ataque-total \">15</span> <span class=\"ataque-detalhes\">(8+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:01:23.189138",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Lança 3m 6/18</em> <span class=\"ataque-total \">19</span> <span class=\"ataque-detalhes\">(12+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:01:23.389675",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Lança 3m 6/18</em> <span class=\"ataque-total \">25</span> <span class=\"ataque-detalhes\">(18+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:01:23.563385",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Lança 3m 6/18</em> <span class=\"ataque-total \">18</span> <span class=\"ataque-detalhes\">(11+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:01:55.567968",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Lança 3m 6/18</em> <span class=\"ataque-total \">21</span> <span class=\"ataque-detalhes\">(14+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:01:56.416730",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Lança 3m 6/18</em> <span class=\"ataque-total \">18</span> <span class=\"ataque-detalhes\">(11+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:01:57.468659",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Lança 3m 6/18</em> <span class=\"ataque-total \">22</span> <span class=\"ataque-detalhes\">(15+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:01:57.991178",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Lança 3m 6/18</em> <span class=\"ataque-total \">11</span> <span class=\"ataque-detalhes\">(4+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:01:58.696857",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Lança 3m 6/18</em> <span class=\"ataque-total \">20</span> <span class=\"ataque-detalhes\">(13+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:01:59.537634",
+      "tipo": "crit",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Lança 3m 6/18</em> <span class=\"ataque-total crit\">27</span> 🎯 <span class=\"ataque-detalhes\">(20+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:02:00.224421",
+      "tipo": "crit",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Lança 3m 6/18</em> <span class=\"ataque-total crit\">27</span> 🎯 <span class=\"ataque-detalhes\">(20+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:02:03.024880",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Lança 3m 6/18</em> <span class=\"ataque-total \">12</span> <span class=\"ataque-detalhes\">(5+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:02:03.379251",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Lança 3m 6/18</em> <span class=\"ataque-total \">15</span> <span class=\"ataque-detalhes\">(8+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:02:03.779495",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Lança 3m 6/18</em> <span class=\"ataque-total \">16</span> <span class=\"ataque-detalhes\">(9+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:02:03.984524",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Lança 3m 6/18</em> <span class=\"ataque-total \">12</span> <span class=\"ataque-detalhes\">(5+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:02:04.820428",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Resiste Concussão, cortante e Perfurante não mágico</em> <span class=\"ataque-total \">11</span> <span class=\"ataque-detalhes\">(7+4)</span><br><span class=\"dano-linha\"><span class=\"dano\">3</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:02:06.567256",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Vulnerável Frio</em> <span class=\"ataque-total \">6</span> <span class=\"ataque-detalhes\">(2+4)</span><br><span class=\"dano-linha\"><span class=\"dano\">3</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:02:08.770224",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Resiste Concussão, cortante e Perfurante não mágico</em> <span class=\"ataque-total \">20</span> <span class=\"ataque-detalhes\">(16+4)</span><br><span class=\"dano-linha\"><span class=\"dano\">3</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:02:09.922233",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Lança 3m 6/18</em> <span class=\"ataque-total \">9</span> <span class=\"ataque-detalhes\">(2+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">0</span> dano <span class=\"dano-expressao\">()</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:03:19.635353",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Lança 3m 6/18</em> <span class=\"ataque-total \">24</span> <span class=\"ataque-detalhes\">(17+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">19</span> dano <span class=\"dano-expressao\">(2d6+7)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:03:20.066284",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Lança 3m 6/18</em> <span class=\"ataque-total \">13</span> <span class=\"ataque-detalhes\">(6+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">18</span> dano <span class=\"dano-expressao\">(2d6+7)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:03:20.265729",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Lança 3m 6/18</em> <span class=\"ataque-total \">21</span> <span class=\"ataque-detalhes\">(14+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">14</span> dano <span class=\"dano-expressao\">(2d6+7)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:03:20.461102",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Lança 3m 6/18</em> <span class=\"ataque-total \">10</span> <span class=\"ataque-detalhes\">(3+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">15</span> dano <span class=\"dano-expressao\">(2d6+7)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:03:20.623275",
+      "tipo": "fumble",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Lança 3m 6/18</em> <span class=\"ataque-total fumble\">8</span> 💀 <span class=\"ataque-detalhes\">(1+7)</span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:03:20.809562",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Lança 3m 6/18</em> <span class=\"ataque-total \">17</span> <span class=\"ataque-detalhes\">(10+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">13</span> dano <span class=\"dano-expressao\">(2d6+7)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:03:20.985067",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Lança 3m 6/18</em> <span class=\"ataque-total \">18</span> <span class=\"ataque-detalhes\">(11+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">17</span> dano <span class=\"dano-expressao\">(2d6+7)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:03:21.194631",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Lança 3m 6/18</em> <span class=\"ataque-total \">23</span> <span class=\"ataque-detalhes\">(16+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">10</span> dano <span class=\"dano-expressao\">(2d6+7)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:03:21.371035",
+      "tipo": "crit",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Lança 3m 6/18</em> <span class=\"ataque-total crit\">27</span> 🎯 <span class=\"ataque-detalhes\">(20+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">20</span> dano <span class=\"dano-expressao\">(4d6+7)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:03:21.546415",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Lança 3m 6/18</em> <span class=\"ataque-total \">18</span> <span class=\"ataque-detalhes\">(11+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">16</span> dano <span class=\"dano-expressao\">(2d6+7)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:03:21.715404",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Lança 3m 6/18</em> <span class=\"ataque-total \">17</span> <span class=\"ataque-detalhes\">(10+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">15</span> dano <span class=\"dano-expressao\">(2d6+7)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:03:21.874776",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Lança 3m 6/18</em> <span class=\"ataque-total \">24</span> <span class=\"ataque-detalhes\">(17+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">14</span> dano <span class=\"dano-expressao\">(2d6+7)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:03:22.026620",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Lança 3m 6/18</em> <span class=\"ataque-total \">21</span> <span class=\"ataque-detalhes\">(14+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">18</span> dano <span class=\"dano-expressao\">(2d6+7)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:03:22.182732",
+      "tipo": "fumble",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Lança 3m 6/18</em> <span class=\"ataque-total fumble\">8</span> 💀 <span class=\"ataque-detalhes\">(1+7)</span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:03:22.341573",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Lança 3m 6/18</em> <span class=\"ataque-total \">22</span> <span class=\"ataque-detalhes\">(15+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">16</span> dano <span class=\"dano-expressao\">(2d6+7)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:03:22.481043",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Lança 3m 6/18</em> <span class=\"ataque-total \">11</span> <span class=\"ataque-detalhes\">(4+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">9</span> dano <span class=\"dano-expressao\">(2d6+7)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:03:22.613929",
+      "tipo": "fumble",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Lança 3m 6/18</em> <span class=\"ataque-total fumble\">8</span> 💀 <span class=\"ataque-detalhes\">(1+7)</span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:03:22.822239",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Lança 3m 6/18</em> <span class=\"ataque-total \">25</span> <span class=\"ataque-detalhes\">(18+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">14</span> dano <span class=\"dano-expressao\">(2d6+7)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:03:22.971739",
+      "tipo": "crit",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Lança 3m 6/18</em> <span class=\"ataque-total crit\">27</span> 🎯 <span class=\"ataque-detalhes\">(20+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">22</span> dano <span class=\"dano-expressao\">(4d6+7)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:04:47.242318",
+      "tipo": "crit",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Cauda 3m</em> <span class=\"ataque-total crit\">27</span> 🎯 <span class=\"ataque-detalhes\">(20+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">22</span> dano <span class=\"dano-expressao\">(4d6+4+4d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:04:53.011916",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Cauda 3m</em> <span class=\"ataque-total \">25</span> <span class=\"ataque-detalhes\">(18+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">14</span> dano <span class=\"dano-expressao\">(2d6+4+2d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:04:53.313283",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Cauda 3m</em> <span class=\"ataque-total \">21</span> <span class=\"ataque-detalhes\">(14+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">16</span> dano <span class=\"dano-expressao\">(2d6+4+2d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:04:53.497870",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Cauda 3m</em> <span class=\"ataque-total \">17</span> <span class=\"ataque-detalhes\">(10+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">16</span> dano <span class=\"dano-expressao\">(2d6+4+2d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:04:53.683389",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Cauda 3m</em> <span class=\"ataque-total \">22</span> <span class=\"ataque-detalhes\">(15+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">9</span> dano <span class=\"dano-expressao\">(2d6+4+2d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:04:53.898725",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Cauda 3m</em> <span class=\"ataque-total \">10</span> <span class=\"ataque-detalhes\">(3+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">13</span> dano <span class=\"dano-expressao\">(2d6+4+2d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:04:54.129241",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Cauda 3m</em> <span class=\"ataque-total \">23</span> <span class=\"ataque-detalhes\">(16+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">13</span> dano <span class=\"dano-expressao\">(2d6+4+2d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:04:54.393688",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Cauda 3m</em> <span class=\"ataque-total \">11</span> <span class=\"ataque-detalhes\">(4+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">13</span> dano <span class=\"dano-expressao\">(2d6+4+2d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:04:54.669679",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Cauda 3m</em> <span class=\"ataque-total \">20</span> <span class=\"ataque-detalhes\">(13+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">11</span> dano <span class=\"dano-expressao\">(2d6+4+2d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:04:54.955029",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Cauda 3m</em> <span class=\"ataque-total \">17</span> <span class=\"ataque-detalhes\">(10+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">9</span> dano <span class=\"dano-expressao\">(2d6+4+2d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:04:55.229841",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Cauda 3m</em> <span class=\"ataque-total \">15</span> <span class=\"ataque-detalhes\">(8+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">11</span> dano <span class=\"dano-expressao\">(2d6+4+2d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:04:55.590363",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Cauda 3m</em> <span class=\"ataque-total \">20</span> <span class=\"ataque-detalhes\">(13+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">10</span> dano <span class=\"dano-expressao\">(2d6+4+2d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:04:56.191727",
+      "tipo": "fumble",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Cauda 3m</em> <span class=\"ataque-total fumble\">8</span> 💀 <span class=\"ataque-detalhes\">(1+7)</span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:04:57.353611",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Cauda 3m</em> <span class=\"ataque-total \">23</span> <span class=\"ataque-detalhes\">(16+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">13</span> dano <span class=\"dano-expressao\">(2d6+4+2d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:05:00.565302",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Cauda 3m</em> <span class=\"ataque-total \">14</span> <span class=\"ataque-detalhes\">(7+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">17</span> dano <span class=\"dano-expressao\">(2d6+4+2d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:05:01.498749",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Cauda 3m</em> <span class=\"ataque-total \">12</span> <span class=\"ataque-detalhes\">(5+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">12</span> dano <span class=\"dano-expressao\">(2d6+4+2d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:05:08.266009",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Cauda 3m</em> <span class=\"ataque-total \">25</span> <span class=\"ataque-detalhes\">(18+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">12</span> dano <span class=\"dano-expressao\">(2d6+4+2d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:07:46.434211",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Cauda 3m cd14 agarrão</em> <span class=\"ataque-total \">24</span> <span class=\"ataque-detalhes\">(17+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">36</span> dano <span class=\"dano-expressao\">(8d6+4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:07:48.066970",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Lança 3m 6/18</em> <span class=\"ataque-total \">22</span> <span class=\"ataque-detalhes\">(15+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">30</span> dano <span class=\"dano-expressao\">(4d6+15)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:07:50.003497",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Lança 3m 6/18</em> <span class=\"ataque-total \">15</span> <span class=\"ataque-detalhes\">(8+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">31</span> dano <span class=\"dano-expressao\">(4d6+15)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:07:50.457492",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Lança 3m 6/18</em> <span class=\"ataque-total \">12</span> <span class=\"ataque-detalhes\">(5+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">28</span> dano <span class=\"dano-expressao\">(4d6+15)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:07:50.628056",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Lança 3m 6/18</em> <span class=\"ataque-total \">9</span> <span class=\"ataque-detalhes\">(2+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">26</span> dano <span class=\"dano-expressao\">(4d6+15)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:07:50.789001",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Lança 3m 6/18</em> <span class=\"ataque-total \">20</span> <span class=\"ataque-detalhes\">(13+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">30</span> dano <span class=\"dano-expressao\">(4d6+15)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:07:50.934565",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Lança 3m 6/18</em> <span class=\"ataque-total \">23</span> <span class=\"ataque-detalhes\">(16+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">31</span> dano <span class=\"dano-expressao\">(4d6+15)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:07:51.668163",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Cauda 3m cd14 agarrão</em> <span class=\"ataque-total \">9</span> <span class=\"ataque-detalhes\">(2+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">37</span> dano <span class=\"dano-expressao\">(8d6+4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:07:51.829103",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Cauda 3m cd14 agarrão</em> <span class=\"ataque-total \">23</span> <span class=\"ataque-detalhes\">(16+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">33</span> dano <span class=\"dano-expressao\">(8d6+4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:07:51.977621",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Cauda 3m cd14 agarrão</em> <span class=\"ataque-total \">23</span> <span class=\"ataque-detalhes\">(16+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">34</span> dano <span class=\"dano-expressao\">(8d6+4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:07:52.129036",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 2</strong> usa <em>Cauda 3m cd14 agarrão</em> <span class=\"ataque-total \">9</span> <span class=\"ataque-detalhes\">(2+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">21</span> dano <span class=\"dano-expressao\">(8d6+4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:08:09.618544",
+      "tipo": "info",
+      "mensagem": "<strong>Salamandra 1</strong> rolou iniciativa: 20+2 = 22",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:18:55.918140",
+      "tipo": "info",
+      "mensagem": "<strong>Efreeti 1</strong> rolou iniciativa: 10+1 = 11",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:01.477529",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total \">18</span> <span class=\"ataque-detalhes\">(11+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">34</span> dano <span class=\"dano-expressao\">(10d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:02.185592",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total \">12</span> <span class=\"ataque-detalhes\">(5+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">31</span> dano <span class=\"dano-expressao\">(10d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:02.356976",
+      "tipo": "crit",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total crit\">27</span> 🎯 <span class=\"ataque-detalhes\">(20+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">82</span> dano <span class=\"dano-expressao\">(20d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:02.697208",
+      "tipo": "crit",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total crit\">27</span> 🎯 <span class=\"ataque-detalhes\">(20+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">79</span> dano <span class=\"dano-expressao\">(20d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:03.986545",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total \">10</span> <span class=\"ataque-detalhes\">(3+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">49</span> dano <span class=\"dano-expressao\">(10d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:04.705126",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total \">14</span> <span class=\"ataque-detalhes\">(7+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">33</span> dano <span class=\"dano-expressao\">(10d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:04.998394",
+      "tipo": "crit",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total crit\">27</span> 🎯 <span class=\"ataque-detalhes\">(20+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">73</span> dano <span class=\"dano-expressao\">(20d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:05.377266",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total \">9</span> <span class=\"ataque-detalhes\">(2+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">37</span> dano <span class=\"dano-expressao\">(10d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:05.561083",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total \">24</span> <span class=\"ataque-detalhes\">(17+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">36</span> dano <span class=\"dano-expressao\">(10d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:05.761319",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total \">10</span> <span class=\"ataque-detalhes\">(3+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">39</span> dano <span class=\"dano-expressao\">(10d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:05.973046",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total \">13</span> <span class=\"ataque-detalhes\">(6+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">31</span> dano <span class=\"dano-expressao\">(10d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:06.160978",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total \">24</span> <span class=\"ataque-detalhes\">(17+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">36</span> dano <span class=\"dano-expressao\">(10d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:06.332205",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total \">15</span> <span class=\"ataque-detalhes\">(8+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">24</span> dano <span class=\"dano-expressao\">(10d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:06.518987",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total \">19</span> <span class=\"ataque-detalhes\">(12+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">30</span> dano <span class=\"dano-expressao\">(10d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:06.681118",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total \">17</span> <span class=\"ataque-detalhes\">(10+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">38</span> dano <span class=\"dano-expressao\">(10d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:06.872930",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total \">13</span> <span class=\"ataque-detalhes\">(6+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">37</span> dano <span class=\"dano-expressao\">(10d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:07.017030",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total \">26</span> <span class=\"ataque-detalhes\">(19+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">33</span> dano <span class=\"dano-expressao\">(10d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:07.176849",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total \">14</span> <span class=\"ataque-detalhes\">(7+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">34</span> dano <span class=\"dano-expressao\">(10d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:07.352723",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total \">11</span> <span class=\"ataque-detalhes\">(4+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">34</span> dano <span class=\"dano-expressao\">(10d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:07.532959",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total \">18</span> <span class=\"ataque-detalhes\">(11+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">44</span> dano <span class=\"dano-expressao\">(10d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:07.705733",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total \">17</span> <span class=\"ataque-detalhes\">(10+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">32</span> dano <span class=\"dano-expressao\">(10d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:07.866374",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total \">13</span> <span class=\"ataque-detalhes\">(6+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">32</span> dano <span class=\"dano-expressao\">(10d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:08.041710",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total \">13</span> <span class=\"ataque-detalhes\">(6+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">33</span> dano <span class=\"dano-expressao\">(10d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:08.217435",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total \">22</span> <span class=\"ataque-detalhes\">(15+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">31</span> dano <span class=\"dano-expressao\">(10d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:08.386730",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total \">13</span> <span class=\"ataque-detalhes\">(6+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">37</span> dano <span class=\"dano-expressao\">(10d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:08.560824",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total \">9</span> <span class=\"ataque-detalhes\">(2+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">38</span> dano <span class=\"dano-expressao\">(10d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:08.737562",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total \">16</span> <span class=\"ataque-detalhes\">(9+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">31</span> dano <span class=\"dano-expressao\">(10d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:08.912064",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total \">26</span> <span class=\"ataque-detalhes\">(19+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">34</span> dano <span class=\"dano-expressao\">(10d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:09.106121",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total \">19</span> <span class=\"ataque-detalhes\">(12+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">40</span> dano <span class=\"dano-expressao\">(10d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:09.254855",
+      "tipo": "fumble",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total fumble\">8</span> 💀 <span class=\"ataque-detalhes\">(1+7)</span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:09.442095",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total \">16</span> <span class=\"ataque-detalhes\">(9+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">34</span> dano <span class=\"dano-expressao\">(10d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:09.602039",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total \">18</span> <span class=\"ataque-detalhes\">(11+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">28</span> dano <span class=\"dano-expressao\">(10d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:10.146848",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total \">26</span> <span class=\"ataque-detalhes\">(19+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">32</span> dano <span class=\"dano-expressao\">(10d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:10.307546",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total \">22</span> <span class=\"ataque-detalhes\">(15+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">44</span> dano <span class=\"dano-expressao\">(10d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:10.472300",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total \">10</span> <span class=\"ataque-detalhes\">(3+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">29</span> dano <span class=\"dano-expressao\">(10d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:10.641580",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total \">9</span> <span class=\"ataque-detalhes\">(2+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">29</span> dano <span class=\"dano-expressao\">(10d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:10.802549",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total \">24</span> <span class=\"ataque-detalhes\">(17+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">37</span> dano <span class=\"dano-expressao\">(10d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:10.975369",
+      "tipo": "fumble",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total fumble\">8</span> 💀 <span class=\"ataque-detalhes\">(1+7)</span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:11.152436",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total \">10</span> <span class=\"ataque-detalhes\">(3+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">39</span> dano <span class=\"dano-expressao\">(10d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:11.312395",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total \">23</span> <span class=\"ataque-detalhes\">(16+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">41</span> dano <span class=\"dano-expressao\">(10d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:11.682250",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total \">26</span> <span class=\"ataque-detalhes\">(19+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">43</span> dano <span class=\"dano-expressao\">(10d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:11.857250",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total \">10</span> <span class=\"ataque-detalhes\">(3+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">38</span> dano <span class=\"dano-expressao\">(10d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:12.041713",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total \">11</span> <span class=\"ataque-detalhes\">(4+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">26</span> dano <span class=\"dano-expressao\">(10d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:12.214873",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total \">17</span> <span class=\"ataque-detalhes\">(10+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">37</span> dano <span class=\"dano-expressao\">(10d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:12.377325",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total \">16</span> <span class=\"ataque-detalhes\">(9+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">37</span> dano <span class=\"dano-expressao\">(10d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:12.538385",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total \">19</span> <span class=\"ataque-detalhes\">(12+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">35</span> dano <span class=\"dano-expressao\">(10d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:12.721374",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total \">9</span> <span class=\"ataque-detalhes\">(2+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">32</span> dano <span class=\"dano-expressao\">(10d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:12.895685",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total \">17</span> <span class=\"ataque-detalhes\">(10+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">37</span> dano <span class=\"dano-expressao\">(10d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:13.057825",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total \">15</span> <span class=\"ataque-detalhes\">(8+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">31</span> dano <span class=\"dano-expressao\">(10d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:13.235935",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total \">11</span> <span class=\"ataque-detalhes\">(4+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">39</span> dano <span class=\"dano-expressao\">(10d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:13.383062",
+      "tipo": "fumble",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total fumble\">8</span> 💀 <span class=\"ataque-detalhes\">(1+7)</span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:13.562602",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total \">24</span> <span class=\"ataque-detalhes\">(17+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">39</span> dano <span class=\"dano-expressao\">(10d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:13.737460",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total \">22</span> <span class=\"ataque-detalhes\">(15+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">26</span> dano <span class=\"dano-expressao\">(10d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:13.936271",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total \">23</span> <span class=\"ataque-detalhes\">(16+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">49</span> dano <span class=\"dano-expressao\">(10d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:21.410516",
+      "tipo": "crit",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total crit\">30</span> 🎯 <span class=\"ataque-detalhes\">(20+10)</span><br><span class=\"dano-linha\"><span class=\"dano\">67</span> dano <span class=\"dano-expressao\">(16d6+12)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:21.609687",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">19</span> <span class=\"ataque-detalhes\">(9+10)</span><br><span class=\"dano-linha\"><span class=\"dano\">42</span> dano <span class=\"dano-expressao\">(8d6+12)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:21.809671",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">22</span> <span class=\"ataque-detalhes\">(12+10)</span><br><span class=\"dano-linha\"><span class=\"dano\">33</span> dano <span class=\"dano-expressao\">(8d6+12)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:22.005310",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">14</span> <span class=\"ataque-detalhes\">(4+10)</span><br><span class=\"dano-linha\"><span class=\"dano\">36</span> dano <span class=\"dano-expressao\">(8d6+12)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:22.188148",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">23</span> <span class=\"ataque-detalhes\">(13+10)</span><br><span class=\"dano-linha\"><span class=\"dano\">32</span> dano <span class=\"dano-expressao\">(8d6+12)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:22.388107",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">15</span> <span class=\"ataque-detalhes\">(5+10)</span><br><span class=\"dano-linha\"><span class=\"dano\">43</span> dano <span class=\"dano-expressao\">(8d6+12)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:22.579146",
+      "tipo": "crit",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total crit\">30</span> 🎯 <span class=\"ataque-detalhes\">(20+10)</span><br><span class=\"dano-linha\"><span class=\"dano\">68</span> dano <span class=\"dano-expressao\">(16d6+12)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:22.754493",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">17</span> <span class=\"ataque-detalhes\">(7+10)</span><br><span class=\"dano-linha\"><span class=\"dano\">40</span> dano <span class=\"dano-expressao\">(8d6+12)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:22.930421",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">19</span> <span class=\"ataque-detalhes\">(9+10)</span><br><span class=\"dano-linha\"><span class=\"dano\">39</span> dano <span class=\"dano-expressao\">(8d6+12)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:23.098563",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">21</span> <span class=\"ataque-detalhes\">(11+10)</span><br><span class=\"dano-linha\"><span class=\"dano\">48</span> dano <span class=\"dano-expressao\">(8d6+12)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:23.273988",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">16</span> <span class=\"ataque-detalhes\">(6+10)</span><br><span class=\"dano-linha\"><span class=\"dano\">37</span> dano <span class=\"dano-expressao\">(8d6+12)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:23.827972",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">23</span> <span class=\"ataque-detalhes\">(13+10)</span><br><span class=\"dano-linha\"><span class=\"dano\">46</span> dano <span class=\"dano-expressao\">(8d6+12)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:23.987337",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">26</span> <span class=\"ataque-detalhes\">(16+10)</span><br><span class=\"dano-linha\"><span class=\"dano\">37</span> dano <span class=\"dano-expressao\">(8d6+12)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:24.146601",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">23</span> <span class=\"ataque-detalhes\">(13+10)</span><br><span class=\"dano-linha\"><span class=\"dano\">48</span> dano <span class=\"dano-expressao\">(8d6+12)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:24.315142",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">16</span> <span class=\"ataque-detalhes\">(6+10)</span><br><span class=\"dano-linha\"><span class=\"dano\">43</span> dano <span class=\"dano-expressao\">(8d6+12)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:24.486167",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">22</span> <span class=\"ataque-detalhes\">(12+10)</span><br><span class=\"dano-linha\"><span class=\"dano\">49</span> dano <span class=\"dano-expressao\">(8d6+12)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:24.634755",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">29</span> <span class=\"ataque-detalhes\">(19+10)</span><br><span class=\"dano-linha\"><span class=\"dano\">35</span> dano <span class=\"dano-expressao\">(8d6+12)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:24.791781",
+      "tipo": "fumble",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total fumble\">11</span> 💀 <span class=\"ataque-detalhes\">(1+10)</span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:24.979705",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">28</span> <span class=\"ataque-detalhes\">(18+10)</span><br><span class=\"dano-linha\"><span class=\"dano\">43</span> dano <span class=\"dano-expressao\">(8d6+12)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:25.144892",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">29</span> <span class=\"ataque-detalhes\">(19+10)</span><br><span class=\"dano-linha\"><span class=\"dano\">43</span> dano <span class=\"dano-expressao\">(8d6+12)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:25.314294",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">26</span> <span class=\"ataque-detalhes\">(16+10)</span><br><span class=\"dano-linha\"><span class=\"dano\">43</span> dano <span class=\"dano-expressao\">(8d6+12)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:25.499437",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">24</span> <span class=\"ataque-detalhes\">(14+10)</span><br><span class=\"dano-linha\"><span class=\"dano\">50</span> dano <span class=\"dano-expressao\">(8d6+12)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:25.689335",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">24</span> <span class=\"ataque-detalhes\">(14+10)</span><br><span class=\"dano-linha\"><span class=\"dano\">41</span> dano <span class=\"dano-expressao\">(8d6+12)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:25.874168",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">22</span> <span class=\"ataque-detalhes\">(12+10)</span><br><span class=\"dano-linha\"><span class=\"dano\">40</span> dano <span class=\"dano-expressao\">(8d6+12)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:26.031608",
+      "tipo": "fumble",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total fumble\">11</span> 💀 <span class=\"ataque-detalhes\">(1+10)</span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:26.209875",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">15</span> <span class=\"ataque-detalhes\">(5+10)</span><br><span class=\"dano-linha\"><span class=\"dano\">43</span> dano <span class=\"dano-expressao\">(8d6+12)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:26.383901",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">28</span> <span class=\"ataque-detalhes\">(18+10)</span><br><span class=\"dano-linha\"><span class=\"dano\">46</span> dano <span class=\"dano-expressao\">(8d6+12)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:26.541051",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">24</span> <span class=\"ataque-detalhes\">(14+10)</span><br><span class=\"dano-linha\"><span class=\"dano\">48</span> dano <span class=\"dano-expressao\">(8d6+12)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:26.689374",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">20</span> <span class=\"ataque-detalhes\">(10+10)</span><br><span class=\"dano-linha\"><span class=\"dano\">34</span> dano <span class=\"dano-expressao\">(8d6+12)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:27.031092",
+      "tipo": "fumble",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total fumble\">11</span> 💀 <span class=\"ataque-detalhes\">(1+10)</span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:27.210681",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">21</span> <span class=\"ataque-detalhes\">(11+10)</span><br><span class=\"dano-linha\"><span class=\"dano\">43</span> dano <span class=\"dano-expressao\">(8d6+12)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:27.386662",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">19</span> <span class=\"ataque-detalhes\">(9+10)</span><br><span class=\"dano-linha\"><span class=\"dano\">35</span> dano <span class=\"dano-expressao\">(8d6+12)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:27.580904",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">16</span> <span class=\"ataque-detalhes\">(6+10)</span><br><span class=\"dano-linha\"><span class=\"dano\">36</span> dano <span class=\"dano-expressao\">(8d6+12)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:27.745509",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">28</span> <span class=\"ataque-detalhes\">(18+10)</span><br><span class=\"dano-linha\"><span class=\"dano\">48</span> dano <span class=\"dano-expressao\">(8d6+12)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:27.929783",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">29</span> <span class=\"ataque-detalhes\">(19+10)</span><br><span class=\"dano-linha\"><span class=\"dano\">33</span> dano <span class=\"dano-expressao\">(8d6+12)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:28.130352",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">17</span> <span class=\"ataque-detalhes\">(7+10)</span><br><span class=\"dano-linha\"><span class=\"dano\">41</span> dano <span class=\"dano-expressao\">(8d6+12)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:28.320997",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">25</span> <span class=\"ataque-detalhes\">(15+10)</span><br><span class=\"dano-linha\"><span class=\"dano\">42</span> dano <span class=\"dano-expressao\">(8d6+12)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:28.503295",
+      "tipo": "fumble",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total fumble\">11</span> 💀 <span class=\"ataque-detalhes\">(1+10)</span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:28.681584",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">15</span> <span class=\"ataque-detalhes\">(5+10)</span><br><span class=\"dano-linha\"><span class=\"dano\">36</span> dano <span class=\"dano-expressao\">(8d6+12)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:29.523195",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total \">11</span> <span class=\"ataque-detalhes\">(4+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">40</span> dano <span class=\"dano-expressao\">(10d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:29.701361",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total \">14</span> <span class=\"ataque-detalhes\">(7+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">38</span> dano <span class=\"dano-expressao\">(10d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:29.865292",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total \">10</span> <span class=\"ataque-detalhes\">(3+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">35</span> dano <span class=\"dano-expressao\">(10d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:30.019084",
+      "tipo": "fumble",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total fumble\">8</span> 💀 <span class=\"ataque-detalhes\">(1+7)</span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:31.787167",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">9</span> <span class=\"ataque-detalhes\">(2+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">3</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:31.946192",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">25</span> <span class=\"ataque-detalhes\">(18+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">4</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:32.146234",
+      "tipo": "crit",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total crit\">27</span> 🎯 <span class=\"ataque-detalhes\">(20+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">7</span> dano <span class=\"dano-expressao\">(2d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:32.346175",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">25</span> <span class=\"ataque-detalhes\">(18+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">3</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:32.543067",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">25</span> <span class=\"ataque-detalhes\">(18+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">1</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:34.277553",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">19</span> <span class=\"ataque-detalhes\">(12+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">1</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:34.503704",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">19</span> <span class=\"ataque-detalhes\">(12+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">1</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:34.746812",
+      "tipo": "crit",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total crit\">27</span> 🎯 <span class=\"ataque-detalhes\">(20+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">5</span> dano <span class=\"dano-expressao\">(2d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:34.970524",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">21</span> <span class=\"ataque-detalhes\">(14+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">3</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:35.177999",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">14</span> <span class=\"ataque-detalhes\">(7+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">2</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:35.386660",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">15</span> <span class=\"ataque-detalhes\">(8+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">3</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:35.610710",
+      "tipo": "crit",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total crit\">27</span> 🎯 <span class=\"ataque-detalhes\">(20+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">6</span> dano <span class=\"dano-expressao\">(2d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:35.802609",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">14</span> <span class=\"ataque-detalhes\">(7+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">4</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:35.997165",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">20</span> <span class=\"ataque-detalhes\">(13+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">4</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:36.197301",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">25</span> <span class=\"ataque-detalhes\">(18+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">4</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:36.397840",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">17</span> <span class=\"ataque-detalhes\">(10+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">3</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:36.570929",
+      "tipo": "crit",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total crit\">27</span> 🎯 <span class=\"ataque-detalhes\">(20+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">5</span> dano <span class=\"dano-expressao\">(2d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:36.761989",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">26</span> <span class=\"ataque-detalhes\">(19+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">1</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:36.938339",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">22</span> <span class=\"ataque-detalhes\">(15+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">1</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:37.130519",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">20</span> <span class=\"ataque-detalhes\">(13+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">2</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:37.318499",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">12</span> <span class=\"ataque-detalhes\">(5+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">1</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:37.518016",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">21</span> <span class=\"ataque-detalhes\">(14+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">3</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:37.691620",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">17</span> <span class=\"ataque-detalhes\">(10+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">3</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:37.892850",
+      "tipo": "crit",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total crit\">27</span> 🎯 <span class=\"ataque-detalhes\">(20+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">8</span> dano <span class=\"dano-expressao\">(2d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:38.051041",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">12</span> <span class=\"ataque-detalhes\">(5+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">4</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:38.218502",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">23</span> <span class=\"ataque-detalhes\">(16+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">2</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:38.385848",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">12</span> <span class=\"ataque-detalhes\">(5+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">3</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:38.571758",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">17</span> <span class=\"ataque-detalhes\">(10+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">2</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:38.737333",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">12</span> <span class=\"ataque-detalhes\">(5+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">2</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:38.918855",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">18</span> <span class=\"ataque-detalhes\">(11+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">3</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:39.082182",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">13</span> <span class=\"ataque-detalhes\">(6+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">4</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:39.266006",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">19</span> <span class=\"ataque-detalhes\">(12+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">3</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:39.441985",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">10</span> <span class=\"ataque-detalhes\">(3+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">2</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:39.617928",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">11</span> <span class=\"ataque-detalhes\">(4+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">3</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:39.786176",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">18</span> <span class=\"ataque-detalhes\">(11+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">1</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:39.977888",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">12</span> <span class=\"ataque-detalhes\">(5+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">3</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:40.138354",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">17</span> <span class=\"ataque-detalhes\">(10+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">1</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:40.491186",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">13</span> <span class=\"ataque-detalhes\">(6+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">4</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:40.693020",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">10</span> <span class=\"ataque-detalhes\">(3+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">3</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:41.178113",
+      "tipo": "crit",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total crit\">27</span> 🎯 <span class=\"ataque-detalhes\">(20+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">7</span> dano <span class=\"dano-expressao\">(2d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:41.319738",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">16</span> <span class=\"ataque-detalhes\">(9+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">4</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:41.453243",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">21</span> <span class=\"ataque-detalhes\">(14+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">4</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:41.602070",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">20</span> <span class=\"ataque-detalhes\">(13+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">3</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:41.760225",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">13</span> <span class=\"ataque-detalhes\">(6+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">3</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:41.906829",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">20</span> <span class=\"ataque-detalhes\">(13+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">3</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:42.058734",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">12</span> <span class=\"ataque-detalhes\">(5+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">3</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:42.218033",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">24</span> <span class=\"ataque-detalhes\">(17+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">2</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:42.374075",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">26</span> <span class=\"ataque-detalhes\">(19+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">3</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:42.522425",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">14</span> <span class=\"ataque-detalhes\">(7+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">1</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:42.707746",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">22</span> <span class=\"ataque-detalhes\">(15+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">3</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:42.883269",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">10</span> <span class=\"ataque-detalhes\">(3+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">1</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:43.058983",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">12</span> <span class=\"ataque-detalhes\">(5+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">4</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:43.213757",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">18</span> <span class=\"ataque-detalhes\">(11+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">1</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:43.378193",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">19</span> <span class=\"ataque-detalhes\">(12+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">4</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:43.554033",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">9</span> <span class=\"ataque-detalhes\">(2+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">4</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:43.734079",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">26</span> <span class=\"ataque-detalhes\">(19+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">3</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:43.914440",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">19</span> <span class=\"ataque-detalhes\">(12+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">4</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:44.098067",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">21</span> <span class=\"ataque-detalhes\">(14+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">3</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:44.267133",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">14</span> <span class=\"ataque-detalhes\">(7+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">3</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:44.433810",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">26</span> <span class=\"ataque-detalhes\">(19+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">4</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:44.602571",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">10</span> <span class=\"ataque-detalhes\">(3+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">1</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:44.774632",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">22</span> <span class=\"ataque-detalhes\">(15+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">2</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:44.948025",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">21</span> <span class=\"ataque-detalhes\">(14+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">2</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:45.139465",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">15</span> <span class=\"ataque-detalhes\">(8+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">3</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:45.298335",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">13</span> <span class=\"ataque-detalhes\">(6+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">1</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:45.459192",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">21</span> <span class=\"ataque-detalhes\">(14+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">4</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:45.627492",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">23</span> <span class=\"ataque-detalhes\">(16+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">3</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:45.788116",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">18</span> <span class=\"ataque-detalhes\">(11+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">3</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:45.948098",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">11</span> <span class=\"ataque-detalhes\">(4+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">4</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:46.113531",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">26</span> <span class=\"ataque-detalhes\">(19+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">3</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:46.268290",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">21</span> <span class=\"ataque-detalhes\">(14+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">3</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:19:46.473393",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Aumentar/Reduzir 9m</em> <span class=\"ataque-total \">25</span> <span class=\"ataque-detalhes\">(18+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">1</span> dano <span class=\"dano-expressao\">(1d4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T00:47:00.218063",
+      "tipo": "info",
+      "mensagem": "<strong>Efreeti 1</strong> rolou iniciativa: 18+1 = 19",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:28:36.831807",
+      "tipo": "info",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> rolou iniciativa: 16+4 = 20",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:28:38.519799",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">22</span> <span class=\"ataque-detalhes\">(15+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">36</span> dano <span class=\"dano-expressao\">(5d6+15)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:28:39.100036",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">24</span> <span class=\"ataque-detalhes\">(17+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">31</span> dano <span class=\"dano-expressao\">(5d6+15)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:28:39.284422",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">15</span> <span class=\"ataque-detalhes\">(8+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">33</span> dano <span class=\"dano-expressao\">(5d6+15)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:28:39.454006",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">10</span> <span class=\"ataque-detalhes\">(3+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">34</span> dano <span class=\"dano-expressao\">(5d6+15)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:28:39.620951",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">17</span> <span class=\"ataque-detalhes\">(10+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">35</span> dano <span class=\"dano-expressao\">(5d6+15)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:28:39.788991",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">13</span> <span class=\"ataque-detalhes\">(6+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">26</span> dano <span class=\"dano-expressao\">(5d6+15)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:28:39.937882",
+      "tipo": "fumble",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total fumble\">8</span> 💀 <span class=\"ataque-detalhes\">(1+7)</span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:28:40.100694",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">18</span> <span class=\"ataque-detalhes\">(11+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">31</span> dano <span class=\"dano-expressao\">(5d6+15)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:28:40.280221",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">25</span> <span class=\"ataque-detalhes\">(18+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">25</span> dano <span class=\"dano-expressao\">(5d6+15)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:28:40.693758",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">22</span> <span class=\"ataque-detalhes\">(15+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">38</span> dano <span class=\"dano-expressao\">(5d6+15)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:28:40.840232",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">19</span> <span class=\"ataque-detalhes\">(12+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">38</span> dano <span class=\"dano-expressao\">(5d6+15)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:28:41.261035",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">12</span> <span class=\"ataque-detalhes\">(5+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">45</span> dano <span class=\"dano-expressao\">(5d6+29)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:28:41.453993",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">10</span> <span class=\"ataque-detalhes\">(3+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">50</span> dano <span class=\"dano-expressao\">(5d6+29)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:28:41.800191",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">10</span> <span class=\"ataque-detalhes\">(3+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">48</span> dano <span class=\"dano-expressao\">(5d6+29)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:28:41.980483",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">9</span> <span class=\"ataque-detalhes\">(2+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">47</span> dano <span class=\"dano-expressao\">(5d6+29)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:28:42.124658",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">17</span> <span class=\"ataque-detalhes\">(10+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">48</span> dano <span class=\"dano-expressao\">(5d6+29)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:28:42.294207",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">15</span> <span class=\"ataque-detalhes\">(8+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">44</span> dano <span class=\"dano-expressao\">(5d6+29)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:28:42.454539",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">26</span> <span class=\"ataque-detalhes\">(19+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">45</span> dano <span class=\"dano-expressao\">(5d6+29)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:28:42.600854",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">24</span> <span class=\"ataque-detalhes\">(17+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">43</span> dano <span class=\"dano-expressao\">(5d6+29)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:28:42.748787",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">12</span> <span class=\"ataque-detalhes\">(5+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">42</span> dano <span class=\"dano-expressao\">(5d6+29)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:28:42.882189",
+      "tipo": "fumble",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total fumble\">8</span> 💀 <span class=\"ataque-detalhes\">(1+7)</span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:28:43.054430",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">14</span> <span class=\"ataque-detalhes\">(7+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">53</span> dano <span class=\"dano-expressao\">(5d6+29)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:28:43.220741",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">26</span> <span class=\"ataque-detalhes\">(19+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">52</span> dano <span class=\"dano-expressao\">(5d6+29)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:28:43.540305",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">23</span> <span class=\"ataque-detalhes\">(16+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">42</span> dano <span class=\"dano-expressao\">(5d6+29)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:28:43.748517",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">22</span> <span class=\"ataque-detalhes\">(15+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">47</span> dano <span class=\"dano-expressao\">(5d6+29)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:28:43.920992",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">20</span> <span class=\"ataque-detalhes\">(13+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">51</span> dano <span class=\"dano-expressao\">(5d6+29)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:28:44.204730",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">22</span> <span class=\"ataque-detalhes\">(15+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">48</span> dano <span class=\"dano-expressao\">(5d6+29)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:28:44.376437",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">14</span> <span class=\"ataque-detalhes\">(7+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">42</span> dano <span class=\"dano-expressao\">(5d6+29)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:28:44.581288",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">20</span> <span class=\"ataque-detalhes\">(13+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">45</span> dano <span class=\"dano-expressao\">(5d6+29)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:28:44.764749",
+      "tipo": "crit",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total crit\">27</span> 🎯 <span class=\"ataque-detalhes\">(20+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">54</span> dano <span class=\"dano-expressao\">(10d6+29)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:28:45.389207",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">26</span> <span class=\"ataque-detalhes\">(19+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">35</span> dano <span class=\"dano-expressao\">(5d6+15)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:28:45.589710",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">18</span> <span class=\"ataque-detalhes\">(11+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">35</span> dano <span class=\"dano-expressao\">(5d6+15)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:28:45.804614",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">15</span> <span class=\"ataque-detalhes\">(8+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">35</span> dano <span class=\"dano-expressao\">(5d6+15)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:28:46.015972",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">17</span> <span class=\"ataque-detalhes\">(10+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">34</span> dano <span class=\"dano-expressao\">(5d6+15)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:28:46.229298",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">18</span> <span class=\"ataque-detalhes\">(11+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">32</span> dano <span class=\"dano-expressao\">(5d6+15)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:28:46.416746",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">24</span> <span class=\"ataque-detalhes\">(17+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">32</span> dano <span class=\"dano-expressao\">(5d6+15)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:28:46.580318",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">11</span> <span class=\"ataque-detalhes\">(4+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">31</span> dano <span class=\"dano-expressao\">(5d6+15)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:28:46.764691",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">18</span> <span class=\"ataque-detalhes\">(11+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">36</span> dano <span class=\"dano-expressao\">(5d6+15)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:28:46.940121",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">22</span> <span class=\"ataque-detalhes\">(15+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">36</span> dano <span class=\"dano-expressao\">(5d6+15)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:28:47.140242",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">9</span> <span class=\"ataque-detalhes\">(2+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">32</span> dano <span class=\"dano-expressao\">(5d6+15)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:28:47.336114",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">24</span> <span class=\"ataque-detalhes\">(17+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">31</span> dano <span class=\"dano-expressao\">(5d6+15)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:28:47.497765",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">21</span> <span class=\"ataque-detalhes\">(14+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">37</span> dano <span class=\"dano-expressao\">(5d6+15)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:28:47.656700",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">22</span> <span class=\"ataque-detalhes\">(15+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">40</span> dano <span class=\"dano-expressao\">(5d6+15)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:29:22.301556",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">13</span> <span class=\"ataque-detalhes\">(6+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">20</span> dano <span class=\"dano-expressao\">(5d6+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:29:22.482745",
+      "tipo": "crit",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total crit\">27</span> 🎯 <span class=\"ataque-detalhes\">(20+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">48</span> dano <span class=\"dano-expressao\">(10d6+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:29:22.644907",
+      "tipo": "crit",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total crit\">27</span> 🎯 <span class=\"ataque-detalhes\">(20+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">42</span> dano <span class=\"dano-expressao\">(10d6+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:29:22.816251",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">9</span> <span class=\"ataque-detalhes\">(2+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">30</span> dano <span class=\"dano-expressao\">(5d6+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:29:22.989355",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">19</span> <span class=\"ataque-detalhes\">(12+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">26</span> dano <span class=\"dano-expressao\">(5d6+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:29:23.156751",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">12</span> <span class=\"ataque-detalhes\">(5+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">21</span> dano <span class=\"dano-expressao\">(5d6+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:29:23.336396",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">11</span> <span class=\"ataque-detalhes\">(4+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">28</span> dano <span class=\"dano-expressao\">(5d6+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:29:23.517523",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">17</span> <span class=\"ataque-detalhes\">(10+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">25</span> dano <span class=\"dano-expressao\">(5d6+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:29:23.685030",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">14</span> <span class=\"ataque-detalhes\">(7+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">25</span> dano <span class=\"dano-expressao\">(5d6+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:29:23.876937",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">13</span> <span class=\"ataque-detalhes\">(6+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">23</span> dano <span class=\"dano-expressao\">(5d6+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:29:24.069559",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">24</span> <span class=\"ataque-detalhes\">(17+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">21</span> dano <span class=\"dano-expressao\">(5d6+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:29:24.257137",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">23</span> <span class=\"ataque-detalhes\">(16+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">28</span> dano <span class=\"dano-expressao\">(5d6+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:29:24.445224",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">12</span> <span class=\"ataque-detalhes\">(5+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">24</span> dano <span class=\"dano-expressao\">(5d6+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:29:24.636485",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">15</span> <span class=\"ataque-detalhes\">(8+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">23</span> dano <span class=\"dano-expressao\">(5d6+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:29:24.816352",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">23</span> <span class=\"ataque-detalhes\">(16+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">30</span> dano <span class=\"dano-expressao\">(5d6+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:29:25.005456",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">25</span> <span class=\"ataque-detalhes\">(18+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">24</span> dano <span class=\"dano-expressao\">(5d6+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:29:25.197151",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">11</span> <span class=\"ataque-detalhes\">(4+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">18</span> dano <span class=\"dano-expressao\">(5d6+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:29:25.377204",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">21</span> <span class=\"ataque-detalhes\">(14+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">26</span> dano <span class=\"dano-expressao\">(5d6+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:29:25.569904",
+      "tipo": "fumble",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total fumble\">8</span> 💀 <span class=\"ataque-detalhes\">(1+7)</span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:29:25.805072",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">22</span> <span class=\"ataque-detalhes\">(15+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">20</span> dano <span class=\"dano-expressao\">(5d6+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:29:26.365257",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">16</span> <span class=\"ataque-detalhes\">(9+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">25</span> dano <span class=\"dano-expressao\">(5d6+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:29:26.564843",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">10</span> <span class=\"ataque-detalhes\">(3+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">29</span> dano <span class=\"dano-expressao\">(5d6+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:29:26.765302",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">21</span> <span class=\"ataque-detalhes\">(14+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">24</span> dano <span class=\"dano-expressao\">(5d6+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:29:26.981011",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">16</span> <span class=\"ataque-detalhes\">(9+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">24</span> dano <span class=\"dano-expressao\">(5d6+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:29:27.778002",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">24</span> <span class=\"ataque-detalhes\">(17+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">43</span> dano <span class=\"dano-expressao\">(5d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:29:28.317224",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">21</span> <span class=\"ataque-detalhes\">(14+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">35</span> dano <span class=\"dano-expressao\">(5d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:29:28.511710",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">17</span> <span class=\"ataque-detalhes\">(10+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">40</span> dano <span class=\"dano-expressao\">(5d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:29:28.698673",
+      "tipo": "crit",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total crit\">27</span> 🎯 <span class=\"ataque-detalhes\">(20+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">56</span> dano <span class=\"dano-expressao\">(10d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:29:28.902264",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">14</span> <span class=\"ataque-detalhes\">(7+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">36</span> dano <span class=\"dano-expressao\">(5d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:29:29.117253",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">20</span> <span class=\"ataque-detalhes\">(13+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">36</span> dano <span class=\"dano-expressao\">(5d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:29:29.339131",
+      "tipo": "crit",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total crit\">27</span> 🎯 <span class=\"ataque-detalhes\">(20+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">55</span> dano <span class=\"dano-expressao\">(10d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:29:29.538998",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">17</span> <span class=\"ataque-detalhes\">(10+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">41</span> dano <span class=\"dano-expressao\">(5d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:29:29.716337",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">10</span> <span class=\"ataque-detalhes\">(3+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">39</span> dano <span class=\"dano-expressao\">(5d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:29:29.892714",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">11</span> <span class=\"ataque-detalhes\">(4+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">37</span> dano <span class=\"dano-expressao\">(5d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:29:30.061425",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">20</span> <span class=\"ataque-detalhes\">(13+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">36</span> dano <span class=\"dano-expressao\">(5d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:29:30.236719",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">23</span> <span class=\"ataque-detalhes\">(16+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">31</span> dano <span class=\"dano-expressao\">(5d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:29:30.420765",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">14</span> <span class=\"ataque-detalhes\">(7+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">34</span> dano <span class=\"dano-expressao\">(5d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:29:30.593147",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">12</span> <span class=\"ataque-detalhes\">(5+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">35</span> dano <span class=\"dano-expressao\">(5d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:29:30.741509",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">16</span> <span class=\"ataque-detalhes\">(9+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">38</span> dano <span class=\"dano-expressao\">(5d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:29:30.901303",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">11</span> <span class=\"ataque-detalhes\">(4+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">36</span> dano <span class=\"dano-expressao\">(5d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:29:31.078273",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">19</span> <span class=\"ataque-detalhes\">(12+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">37</span> dano <span class=\"dano-expressao\">(5d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:29:31.236845",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">25</span> <span class=\"ataque-detalhes\">(18+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">33</span> dano <span class=\"dano-expressao\">(5d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:29:31.378795",
+      "tipo": "fumble",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total fumble\">8</span> 💀 <span class=\"ataque-detalhes\">(1+7)</span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:29:31.636723",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">11</span> <span class=\"ataque-detalhes\">(4+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">34</span> dano <span class=\"dano-expressao\">(5d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:15.325887",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">19</span> <span class=\"ataque-detalhes\">(12+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">20</span> dano <span class=\"dano-expressao\">(3d6+10)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:15.629595",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">9</span> <span class=\"ataque-detalhes\">(2+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">18</span> dano <span class=\"dano-expressao\">(3d6+10)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:15.974422",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">17</span> <span class=\"ataque-detalhes\">(10+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">15</span> dano <span class=\"dano-expressao\">(3d6+10)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:16.160931",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">18</span> <span class=\"ataque-detalhes\">(11+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">18</span> dano <span class=\"dano-expressao\">(3d6+10)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:16.344213",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">25</span> <span class=\"ataque-detalhes\">(18+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">23</span> dano <span class=\"dano-expressao\">(3d6+10)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:16.525899",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">15</span> <span class=\"ataque-detalhes\">(8+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">17</span> dano <span class=\"dano-expressao\">(3d6+10)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:16.708989",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">26</span> <span class=\"ataque-detalhes\">(19+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">19</span> dano <span class=\"dano-expressao\">(3d6+10)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:17.061316",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">26</span> <span class=\"ataque-detalhes\">(19+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">22</span> dano <span class=\"dano-expressao\">(3d6+10)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:17.761823",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">10</span> <span class=\"ataque-detalhes\">(3+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">17</span> dano <span class=\"dano-expressao\">(3d6+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:18.357255",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">16</span> <span class=\"ataque-detalhes\">(9+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">17</span> dano <span class=\"dano-expressao\">(3d6+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:18.485167",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">19</span> <span class=\"ataque-detalhes\">(12+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">17</span> dano <span class=\"dano-expressao\">(3d6+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:18.683033",
+      "tipo": "fumble",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total fumble\">8</span> 💀 <span class=\"ataque-detalhes\">(1+7)</span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:18.901098",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">14</span> <span class=\"ataque-detalhes\">(7+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">22</span> dano <span class=\"dano-expressao\">(3d6+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:19.109551",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">17</span> <span class=\"ataque-detalhes\">(10+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">14</span> dano <span class=\"dano-expressao\">(3d6+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:19.325006",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">19</span> <span class=\"ataque-detalhes\">(12+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">16</span> dano <span class=\"dano-expressao\">(3d6+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:19.549658",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">24</span> <span class=\"ataque-detalhes\">(17+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">18</span> dano <span class=\"dano-expressao\">(3d6+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:19.742038",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">23</span> <span class=\"ataque-detalhes\">(16+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">12</span> dano <span class=\"dano-expressao\">(3d6+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:19.936337",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">13</span> <span class=\"ataque-detalhes\">(6+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">21</span> dano <span class=\"dano-expressao\">(3d6+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:20.136156",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">15</span> <span class=\"ataque-detalhes\">(8+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">21</span> dano <span class=\"dano-expressao\">(3d6+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:20.656535",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">14</span> <span class=\"ataque-detalhes\">(7+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">27</span> dano <span class=\"dano-expressao\">(3d6+10)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:21.136712",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">12</span> <span class=\"ataque-detalhes\">(5+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">19</span> dano <span class=\"dano-expressao\">(3d6+10)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:21.317039",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">24</span> <span class=\"ataque-detalhes\">(17+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">21</span> dano <span class=\"dano-expressao\">(3d6+10)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:21.509755",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">19</span> <span class=\"ataque-detalhes\">(12+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">23</span> dano <span class=\"dano-expressao\">(3d6+10)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:21.750577",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">22</span> <span class=\"ataque-detalhes\">(15+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">19</span> dano <span class=\"dano-expressao\">(3d6+10)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:21.998022",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">17</span> <span class=\"ataque-detalhes\">(10+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">21</span> dano <span class=\"dano-expressao\">(3d6+10)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:22.223538",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">9</span> <span class=\"ataque-detalhes\">(2+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">20</span> dano <span class=\"dano-expressao\">(3d6+10)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:42.905667",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">20</span> <span class=\"ataque-detalhes\">(13+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">30</span> dano <span class=\"dano-expressao\">(3d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:43.053158",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">25</span> <span class=\"ataque-detalhes\">(18+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">28</span> dano <span class=\"dano-expressao\">(3d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:43.229673",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">12</span> <span class=\"ataque-detalhes\">(5+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">32</span> dano <span class=\"dano-expressao\">(3d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:43.425119",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">26</span> <span class=\"ataque-detalhes\">(19+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">30</span> dano <span class=\"dano-expressao\">(3d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:43.573802",
+      "tipo": "crit",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total crit\">27</span> 🎯 <span class=\"ataque-detalhes\">(20+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">37</span> dano <span class=\"dano-expressao\">(6d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:43.744622",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">25</span> <span class=\"ataque-detalhes\">(18+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">30</span> dano <span class=\"dano-expressao\">(3d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:44.065352",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">10</span> <span class=\"ataque-detalhes\">(3+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">31</span> dano <span class=\"dano-expressao\">(3d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:44.229021",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">20</span> <span class=\"ataque-detalhes\">(13+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">26</span> dano <span class=\"dano-expressao\">(3d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:44.391407",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">23</span> <span class=\"ataque-detalhes\">(16+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">34</span> dano <span class=\"dano-expressao\">(3d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:44.545914",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">14</span> <span class=\"ataque-detalhes\">(7+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">27</span> dano <span class=\"dano-expressao\">(3d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:51.109774",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">26</span> <span class=\"ataque-detalhes\">(19+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">26</span> dano <span class=\"dano-expressao\">(3d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:51.281534",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">24</span> <span class=\"ataque-detalhes\">(17+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">34</span> dano <span class=\"dano-expressao\">(3d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:51.481544",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">12</span> <span class=\"ataque-detalhes\">(5+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">27</span> dano <span class=\"dano-expressao\">(3d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:51.646634",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">13</span> <span class=\"ataque-detalhes\">(6+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">30</span> dano <span class=\"dano-expressao\">(3d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:51.814668",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">15</span> <span class=\"ataque-detalhes\">(8+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">29</span> dano <span class=\"dano-expressao\">(3d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:51.990729",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">18</span> <span class=\"ataque-detalhes\">(11+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">31</span> dano <span class=\"dano-expressao\">(3d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:52.175223",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">24</span> <span class=\"ataque-detalhes\">(17+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">28</span> dano <span class=\"dano-expressao\">(3d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:52.366382",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">16</span> <span class=\"ataque-detalhes\">(9+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">27</span> dano <span class=\"dano-expressao\">(3d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:52.550823",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">9</span> <span class=\"ataque-detalhes\">(2+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">32</span> dano <span class=\"dano-expressao\">(3d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:52.722444",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">15</span> <span class=\"ataque-detalhes\">(8+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">32</span> dano <span class=\"dano-expressao\">(3d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:52.901547",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">12</span> <span class=\"ataque-detalhes\">(5+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">26</span> dano <span class=\"dano-expressao\">(3d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:53.125921",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">26</span> <span class=\"ataque-detalhes\">(19+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">23</span> dano <span class=\"dano-expressao\">(3d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:53.290553",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">12</span> <span class=\"ataque-detalhes\">(5+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">29</span> dano <span class=\"dano-expressao\">(3d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:53.482322",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">17</span> <span class=\"ataque-detalhes\">(10+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">29</span> dano <span class=\"dano-expressao\">(3d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:53.696048",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">18</span> <span class=\"ataque-detalhes\">(11+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">31</span> dano <span class=\"dano-expressao\">(3d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:53.882325",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">9</span> <span class=\"ataque-detalhes\">(2+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">27</span> dano <span class=\"dano-expressao\">(3d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:54.286603",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">14</span> <span class=\"ataque-detalhes\">(7+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">37</span> dano <span class=\"dano-expressao\">(3d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:54.462157",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">20</span> <span class=\"ataque-detalhes\">(13+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">31</span> dano <span class=\"dano-expressao\">(3d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:54.656596",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">15</span> <span class=\"ataque-detalhes\">(8+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">24</span> dano <span class=\"dano-expressao\">(3d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:54.882962",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">23</span> <span class=\"ataque-detalhes\">(16+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">30</span> dano <span class=\"dano-expressao\">(3d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:55.083616",
+      "tipo": "fumble",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total fumble\">8</span> 💀 <span class=\"ataque-detalhes\">(1+7)</span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:55.323116",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">22</span> <span class=\"ataque-detalhes\">(15+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">32</span> dano <span class=\"dano-expressao\">(3d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:55.526699",
+      "tipo": "crit",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total crit\">27</span> 🎯 <span class=\"ataque-detalhes\">(20+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">39</span> dano <span class=\"dano-expressao\">(6d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:58.422597",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">23</span> <span class=\"ataque-detalhes\">(16+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">32</span> dano <span class=\"dano-expressao\">(3d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:58.609506",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">11</span> <span class=\"ataque-detalhes\">(4+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">29</span> dano <span class=\"dano-expressao\">(3d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:58.831122",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">13</span> <span class=\"ataque-detalhes\">(6+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">27</span> dano <span class=\"dano-expressao\">(3d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:35:59.102078",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">9</span> <span class=\"ataque-detalhes\">(2+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">27</span> dano <span class=\"dano-expressao\">(3d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:36:00.047694",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">18</span> <span class=\"ataque-detalhes\">(11+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">30</span> dano <span class=\"dano-expressao\">(3d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:36:00.844914",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">14</span> <span class=\"ataque-detalhes\">(7+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">30</span> dano <span class=\"dano-expressao\">(3d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:36:01.458394",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">11</span> <span class=\"ataque-detalhes\">(4+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">35</span> dano <span class=\"dano-expressao\">(3d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:36:02.312386",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">13</span> <span class=\"ataque-detalhes\">(6+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">31</span> dano <span class=\"dano-expressao\">(3d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:36:02.859294",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">14</span> <span class=\"ataque-detalhes\">(7+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">31</span> dano <span class=\"dano-expressao\">(3d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:36:03.139348",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">14</span> <span class=\"ataque-detalhes\">(7+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">28</span> dano <span class=\"dano-expressao\">(3d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:36:03.619622",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">12</span> <span class=\"ataque-detalhes\">(5+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">28</span> dano <span class=\"dano-expressao\">(3d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:36:03.833218",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">11</span> <span class=\"ataque-detalhes\">(4+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">29</span> dano <span class=\"dano-expressao\">(3d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:36:04.038542",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">13</span> <span class=\"ataque-detalhes\">(6+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">36</span> dano <span class=\"dano-expressao\">(3d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:36:04.261802",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">18</span> <span class=\"ataque-detalhes\">(11+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">31</span> dano <span class=\"dano-expressao\">(3d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:36:04.465952",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">23</span> <span class=\"ataque-detalhes\">(16+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">30</span> dano <span class=\"dano-expressao\">(3d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:36:04.659721",
+      "tipo": "fumble",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total fumble\">8</span> 💀 <span class=\"ataque-detalhes\">(1+7)</span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:36:04.918473",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Dança de fogo</em> <span class=\"ataque-total \">15</span> <span class=\"ataque-detalhes\">(8+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">38</span> dano <span class=\"dano-expressao\">(3d6+20)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:36:24.294990",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">11</span> <span class=\"ataque-detalhes\">(4+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">19</span> dano <span class=\"dano-expressao\">(3d6+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:36:24.467074",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">13</span> <span class=\"ataque-detalhes\">(6+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">21</span> dano <span class=\"dano-expressao\">(3d6+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:36:24.646140",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">15</span> <span class=\"ataque-detalhes\">(8+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">13</span> dano <span class=\"dano-expressao\">(3d6+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:36:24.845917",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">26</span> <span class=\"ataque-detalhes\">(19+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">14</span> dano <span class=\"dano-expressao\">(3d6+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:36:25.240877",
+      "tipo": "ataque",
+      "mensagem": "<strong>Elemental Myrmidon de Fogo 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">25</span> <span class=\"ataque-detalhes\">(18+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">12</span> dano <span class=\"dano-expressao\">(3d6+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:37:44.713827",
+      "tipo": "info",
+      "mensagem": "<strong>Efreeti 1</strong> rolou iniciativa: 5+1 = 6",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:37:46.727077",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total \">20</span> <span class=\"ataque-detalhes\">(13+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">14</span> dano <span class=\"dano-expressao\">(5d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:37:46.911927",
+      "tipo": "crit",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total crit\">27</span> 🎯 <span class=\"ataque-detalhes\">(20+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">32</span> dano <span class=\"dano-expressao\">(10d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:37:47.111469",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total \">13</span> <span class=\"ataque-detalhes\">(6+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">23</span> dano <span class=\"dano-expressao\">(5d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:37:47.311690",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total \">21</span> <span class=\"ataque-detalhes\">(14+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">20</span> dano <span class=\"dano-expressao\">(5d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:37:47.511938",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total \">12</span> <span class=\"ataque-detalhes\">(5+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">24</span> dano <span class=\"dano-expressao\">(5d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:37:47.712043",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total \">17</span> <span class=\"ataque-detalhes\">(10+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">22</span> dano <span class=\"dano-expressao\">(5d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:37:47.927319",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total \">20</span> <span class=\"ataque-detalhes\">(13+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">17</span> dano <span class=\"dano-expressao\">(5d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:37:48.139035",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Arremessar Chamas 36m</em> <span class=\"ataque-total \">18</span> <span class=\"ataque-detalhes\">(11+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">18</span> dano <span class=\"dano-expressao\">(5d6)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:37:49.478351",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">12</span> <span class=\"ataque-detalhes\">(2+10)</span><br><span class=\"dano-linha\"><span class=\"dano\">28</span> dano <span class=\"dano-expressao\">(4d6+12)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:37:49.647025",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">19</span> <span class=\"ataque-detalhes\">(9+10)</span><br><span class=\"dano-linha\"><span class=\"dano\">28</span> dano <span class=\"dano-expressao\">(4d6+12)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:37:49.862382",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">21</span> <span class=\"ataque-detalhes\">(11+10)</span><br><span class=\"dano-linha\"><span class=\"dano\">30</span> dano <span class=\"dano-expressao\">(4d6+12)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:37:50.034216",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">17</span> <span class=\"ataque-detalhes\">(7+10)</span><br><span class=\"dano-linha\"><span class=\"dano\">31</span> dano <span class=\"dano-expressao\">(4d6+12)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:37:50.208264",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">14</span> <span class=\"ataque-detalhes\">(4+10)</span><br><span class=\"dano-linha\"><span class=\"dano\">28</span> dano <span class=\"dano-expressao\">(4d6+12)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:37:50.392344",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">26</span> <span class=\"ataque-detalhes\">(16+10)</span><br><span class=\"dano-linha\"><span class=\"dano\">30</span> dano <span class=\"dano-expressao\">(4d6+12)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:37:50.558044",
+      "tipo": "ataque",
+      "mensagem": "<strong>Efreeti 1</strong> usa <em>Cimitarra</em> <span class=\"ataque-total \">20</span> <span class=\"ataque-detalhes\">(10+10)</span><br><span class=\"dano-linha\"><span class=\"dano\">21</span> dano <span class=\"dano-expressao\">(4d6+12)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:37:55.583202",
+      "tipo": "info",
+      "mensagem": "<strong>Salamandra 1</strong> rolou iniciativa: 9+2 = 11",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:37:57.118931",
+      "tipo": "crit",
+      "mensagem": "<strong>Salamandra 1</strong> usa <em>Lança 3m 6/18</em> <span class=\"ataque-total crit\">27</span> 🎯 <span class=\"ataque-detalhes\">(20+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">34</span> dano <span class=\"dano-expressao\">(6d6+15)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:37:57.471555",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 1</strong> usa <em>Lança 3m 6/18</em> <span class=\"ataque-total \">15</span> <span class=\"ataque-detalhes\">(8+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">25</span> dano <span class=\"dano-expressao\">(3d6+15)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:37:57.636997",
+      "tipo": "fumble",
+      "mensagem": "<strong>Salamandra 1</strong> usa <em>Lança 3m 6/18</em> <span class=\"ataque-total fumble\">8</span> 💀 <span class=\"ataque-detalhes\">(1+7)</span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:37:57.848827",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 1</strong> usa <em>Lança 3m 6/18</em> <span class=\"ataque-total \">25</span> <span class=\"ataque-detalhes\">(18+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">21</span> dano <span class=\"dano-expressao\">(3d6+15)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:37:58.038370",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 1</strong> usa <em>Lança 3m 6/18</em> <span class=\"ataque-total \">13</span> <span class=\"ataque-detalhes\">(6+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">20</span> dano <span class=\"dano-expressao\">(3d6+15)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:37:58.235959",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 1</strong> usa <em>Lança 3m 6/18</em> <span class=\"ataque-total \">24</span> <span class=\"ataque-detalhes\">(17+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">26</span> dano <span class=\"dano-expressao\">(3d6+15)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:37:58.421002",
+      "tipo": "fumble",
+      "mensagem": "<strong>Salamandra 1</strong> usa <em>Lança 3m 6/18</em> <span class=\"ataque-total fumble\">8</span> 💀 <span class=\"ataque-detalhes\">(1+7)</span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:37:58.627347",
+      "tipo": "fumble",
+      "mensagem": "<strong>Salamandra 1</strong> usa <em>Lança 3m 6/18</em> <span class=\"ataque-total fumble\">8</span> 💀 <span class=\"ataque-detalhes\">(1+7)</span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:37:58.823326",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 1</strong> usa <em>Lança 3m 6/18</em> <span class=\"ataque-total \">21</span> <span class=\"ataque-detalhes\">(14+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">26</span> dano <span class=\"dano-expressao\">(3d6+15)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:37:59.014950",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 1</strong> usa <em>Lança 3m 6/18</em> <span class=\"ataque-total \">25</span> <span class=\"ataque-detalhes\">(18+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">26</span> dano <span class=\"dano-expressao\">(3d6+15)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:37:59.222472",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 1</strong> usa <em>Lança 3m 6/18</em> <span class=\"ataque-total \">16</span> <span class=\"ataque-detalhes\">(9+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">30</span> dano <span class=\"dano-expressao\">(3d6+15)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:38:00.024112",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 1</strong> usa <em>Cauda 3m cd14 agarrão</em> <span class=\"ataque-total \">10</span> <span class=\"ataque-detalhes\">(3+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">9</span> dano <span class=\"dano-expressao\">(2d6+4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:38:00.510115",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 1</strong> usa <em>Cauda 3m cd14 agarrão</em> <span class=\"ataque-total \">25</span> <span class=\"ataque-detalhes\">(18+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">8</span> dano <span class=\"dano-expressao\">(2d6+4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:38:00.703974",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 1</strong> usa <em>Cauda 3m cd14 agarrão</em> <span class=\"ataque-total \">11</span> <span class=\"ataque-detalhes\">(4+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">14</span> dano <span class=\"dano-expressao\">(2d6+4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:38:00.903798",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 1</strong> usa <em>Cauda 3m cd14 agarrão</em> <span class=\"ataque-total \">20</span> <span class=\"ataque-detalhes\">(13+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">10</span> dano <span class=\"dano-expressao\">(2d6+4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:38:01.094394",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 1</strong> usa <em>Cauda 3m cd14 agarrão</em> <span class=\"ataque-total \">16</span> <span class=\"ataque-detalhes\">(9+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">7</span> dano <span class=\"dano-expressao\">(2d6+4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:38:01.278384",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 1</strong> usa <em>Cauda 3m cd14 agarrão</em> <span class=\"ataque-total \">17</span> <span class=\"ataque-detalhes\">(10+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">13</span> dano <span class=\"dano-expressao\">(2d6+4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:38:01.478534",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 1</strong> usa <em>Cauda 3m cd14 agarrão</em> <span class=\"ataque-total \">21</span> <span class=\"ataque-detalhes\">(14+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">13</span> dano <span class=\"dano-expressao\">(2d6+4)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:38:02.027913",
+      "tipo": "fumble",
+      "mensagem": "<strong>Salamandra 1</strong> usa <em>Lança 3m 6/18</em> <span class=\"ataque-total fumble\">8</span> 💀 <span class=\"ataque-detalhes\">(1+7)</span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:38:02.198751",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 1</strong> usa <em>Lança 3m 6/18</em> <span class=\"ataque-total \">18</span> <span class=\"ataque-detalhes\">(11+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">22</span> dano <span class=\"dano-expressao\">(3d6+15)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:38:02.370243",
+      "tipo": "ataque",
+      "mensagem": "<strong>Salamandra 1</strong> usa <em>Lança 3m 6/18</em> <span class=\"ataque-total \">19</span> <span class=\"ataque-detalhes\">(12+7)</span><br><span class=\"dano-linha\"><span class=\"dano\">23</span> dano <span class=\"dano-expressao\">(3d6+15)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:54:26.017990",
+      "tipo": "info",
+      "mensagem": "<strong>Fortaleza do sultão Efreeti 1</strong> rolou iniciativa: 3+0 = 3",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:54:28.782001",
+      "tipo": "ataque",
+      "mensagem": "<strong>Fortaleza do sultão Efreeti 1</strong> usa <em>Ação Covil - Rios de magma 2d8 aplica queimando 1d6 turno</em> <span class=\"ataque-total \">4</span> <span class=\"ataque-detalhes\">(4+0)</span><br><span class=\"dano-linha\"><span class=\"dano\">20</span> dano <span class=\"dano-expressao\">(4d8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:54:35.581606",
+      "tipo": "ataque",
+      "mensagem": "<strong>Fortaleza do sultão Efreeti 1</strong> usa <em>Ação Covil - Rios de magma 2d8 aplica queimando 1d6 turno</em> <span class=\"ataque-total \">16</span> <span class=\"ataque-detalhes\">(16+0)</span><br><span class=\"dano-linha\"><span class=\"dano\">16</span> dano <span class=\"dano-expressao\">(4d8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:54:35.846218",
+      "tipo": "ataque",
+      "mensagem": "<strong>Fortaleza do sultão Efreeti 1</strong> usa <em>Ação Covil - Rios de magma 2d8 aplica queimando 1d6 turno</em> <span class=\"ataque-total \">13</span> <span class=\"ataque-detalhes\">(13+0)</span><br><span class=\"dano-linha\"><span class=\"dano\">18</span> dano <span class=\"dano-expressao\">(4d8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:54:36.102039",
+      "tipo": "ataque",
+      "mensagem": "<strong>Fortaleza do sultão Efreeti 1</strong> usa <em>Ação Covil - Rios de magma 2d8 aplica queimando 1d6 turno</em> <span class=\"ataque-total \">10</span> <span class=\"ataque-detalhes\">(10+0)</span><br><span class=\"dano-linha\"><span class=\"dano\">23</span> dano <span class=\"dano-expressao\">(4d8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:54:36.325971",
+      "tipo": "ataque",
+      "mensagem": "<strong>Fortaleza do sultão Efreeti 1</strong> usa <em>Ação Covil - Rios de magma 2d8 aplica queimando 1d6 turno</em> <span class=\"ataque-total \">4</span> <span class=\"ataque-detalhes\">(4+0)</span><br><span class=\"dano-linha\"><span class=\"dano\">22</span> dano <span class=\"dano-expressao\">(4d8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:59:40.503289",
+      "tipo": "info",
+      "mensagem": "<strong>Azer 1</strong> rolou iniciativa: 5+1 = 6",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:59:41.965636",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azer 1</strong> usa <em>Martelo de Guerra</em> <span class=\"ataque-total \">7</span> <span class=\"ataque-detalhes\">(2+5)</span><br><span class=\"dano-linha\"><span class=\"dano\">17</span> dano <span class=\"dano-expressao\">(1d10+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:59:42.325238",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azer 1</strong> usa <em>Martelo de Guerra</em> <span class=\"ataque-total \">20</span> <span class=\"ataque-detalhes\">(15+5)</span><br><span class=\"dano-linha\"><span class=\"dano\">11</span> dano <span class=\"dano-expressao\">(1d10+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:59:42.485261",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azer 1</strong> usa <em>Martelo de Guerra</em> <span class=\"ataque-total \">9</span> <span class=\"ataque-detalhes\">(4+5)</span><br><span class=\"dano-linha\"><span class=\"dano\">12</span> dano <span class=\"dano-expressao\">(1d10+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:59:42.652990",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azer 1</strong> usa <em>Martelo de Guerra</em> <span class=\"ataque-total \">16</span> <span class=\"ataque-detalhes\">(11+5)</span><br><span class=\"dano-linha\"><span class=\"dano\">15</span> dano <span class=\"dano-expressao\">(1d10+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:59:42.812975",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azer 1</strong> usa <em>Martelo de Guerra</em> <span class=\"ataque-total \">11</span> <span class=\"ataque-detalhes\">(6+5)</span><br><span class=\"dano-linha\"><span class=\"dano\">12</span> dano <span class=\"dano-expressao\">(1d10+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:59:42.964771",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azer 1</strong> usa <em>Martelo de Guerra</em> <span class=\"ataque-total \">14</span> <span class=\"ataque-detalhes\">(9+5)</span><br><span class=\"dano-linha\"><span class=\"dano\">12</span> dano <span class=\"dano-expressao\">(1d10+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:59:43.124445",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azer 1</strong> usa <em>Martelo de Guerra</em> <span class=\"ataque-total \">15</span> <span class=\"ataque-detalhes\">(10+5)</span><br><span class=\"dano-linha\"><span class=\"dano\">13</span> dano <span class=\"dano-expressao\">(1d10+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:59:43.294429",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azer 1</strong> usa <em>Martelo de Guerra</em> <span class=\"ataque-total \">10</span> <span class=\"ataque-detalhes\">(5+5)</span><br><span class=\"dano-linha\"><span class=\"dano\">10</span> dano <span class=\"dano-expressao\">(1d10+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:59:43.453014",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azer 1</strong> usa <em>Martelo de Guerra</em> <span class=\"ataque-total \">12</span> <span class=\"ataque-detalhes\">(7+5)</span><br><span class=\"dano-linha\"><span class=\"dano\">10</span> dano <span class=\"dano-expressao\">(1d10+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:59:43.613674",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azer 1</strong> usa <em>Martelo de Guerra</em> <span class=\"ataque-total \">12</span> <span class=\"ataque-detalhes\">(7+5)</span><br><span class=\"dano-linha\"><span class=\"dano\">17</span> dano <span class=\"dano-expressao\">(1d10+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:59:43.773242",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azer 1</strong> usa <em>Martelo de Guerra</em> <span class=\"ataque-total \">19</span> <span class=\"ataque-detalhes\">(14+5)</span><br><span class=\"dano-linha\"><span class=\"dano\">18</span> dano <span class=\"dano-expressao\">(1d10+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:59:43.932598",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azer 1</strong> usa <em>Martelo de Guerra</em> <span class=\"ataque-total \">10</span> <span class=\"ataque-detalhes\">(5+5)</span><br><span class=\"dano-linha\"><span class=\"dano\">15</span> dano <span class=\"dano-expressao\">(1d10+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:59:44.085928",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azer 1</strong> usa <em>Martelo de Guerra</em> <span class=\"ataque-total \">13</span> <span class=\"ataque-detalhes\">(8+5)</span><br><span class=\"dano-linha\"><span class=\"dano\">9</span> dano <span class=\"dano-expressao\">(1d10+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:59:44.268206",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azer 1</strong> usa <em>Martelo de Guerra</em> <span class=\"ataque-total \">7</span> <span class=\"ataque-detalhes\">(2+5)</span><br><span class=\"dano-linha\"><span class=\"dano\">12</span> dano <span class=\"dano-expressao\">(1d10+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:59:44.439135",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azer 1</strong> usa <em>Martelo de Guerra</em> <span class=\"ataque-total \">17</span> <span class=\"ataque-detalhes\">(12+5)</span><br><span class=\"dano-linha\"><span class=\"dano\">11</span> dano <span class=\"dano-expressao\">(1d10+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:59:44.613157",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azer 1</strong> usa <em>Martelo de Guerra</em> <span class=\"ataque-total \">18</span> <span class=\"ataque-detalhes\">(13+5)</span><br><span class=\"dano-linha\"><span class=\"dano\">18</span> dano <span class=\"dano-expressao\">(1d10+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:59:44.789080",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azer 1</strong> usa <em>Martelo de Guerra</em> <span class=\"ataque-total \">9</span> <span class=\"ataque-detalhes\">(4+5)</span><br><span class=\"dano-linha\"><span class=\"dano\">11</span> dano <span class=\"dano-expressao\">(1d10+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:59:44.964994",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azer 1</strong> usa <em>Martelo de Guerra</em> <span class=\"ataque-total \">7</span> <span class=\"ataque-detalhes\">(2+5)</span><br><span class=\"dano-linha\"><span class=\"dano\">13</span> dano <span class=\"dano-expressao\">(1d10+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:59:45.149286",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azer 1</strong> usa <em>Martelo de Guerra</em> <span class=\"ataque-total \">11</span> <span class=\"ataque-detalhes\">(6+5)</span><br><span class=\"dano-linha\"><span class=\"dano\">18</span> dano <span class=\"dano-expressao\">(1d10+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:59:45.306283",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azer 1</strong> usa <em>Martelo de Guerra</em> <span class=\"ataque-total \">21</span> <span class=\"ataque-detalhes\">(16+5)</span><br><span class=\"dano-linha\"><span class=\"dano\">18</span> dano <span class=\"dano-expressao\">(1d10+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:59:45.465853",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azer 1</strong> usa <em>Martelo de Guerra</em> <span class=\"ataque-total \">24</span> <span class=\"ataque-detalhes\">(19+5)</span><br><span class=\"dano-linha\"><span class=\"dano\">10</span> dano <span class=\"dano-expressao\">(1d10+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:59:45.629394",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azer 1</strong> usa <em>Martelo de Guerra</em> <span class=\"ataque-total \">9</span> <span class=\"ataque-detalhes\">(4+5)</span><br><span class=\"dano-linha\"><span class=\"dano\">11</span> dano <span class=\"dano-expressao\">(1d10+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:59:45.816419",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azer 1</strong> usa <em>Martelo de Guerra</em> <span class=\"ataque-total \">8</span> <span class=\"ataque-detalhes\">(3+5)</span><br><span class=\"dano-linha\"><span class=\"dano\">18</span> dano <span class=\"dano-expressao\">(1d10+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:59:45.989112",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azer 1</strong> usa <em>Martelo de Guerra</em> <span class=\"ataque-total \">11</span> <span class=\"ataque-detalhes\">(6+5)</span><br><span class=\"dano-linha\"><span class=\"dano\">10</span> dano <span class=\"dano-expressao\">(1d10+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:59:46.159405",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azer 1</strong> usa <em>Martelo de Guerra</em> <span class=\"ataque-total \">9</span> <span class=\"ataque-detalhes\">(4+5)</span><br><span class=\"dano-linha\"><span class=\"dano\">18</span> dano <span class=\"dano-expressao\">(1d10+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:59:46.333124",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azer 1</strong> usa <em>Martelo de Guerra</em> <span class=\"ataque-total \">13</span> <span class=\"ataque-detalhes\">(8+5)</span><br><span class=\"dano-linha\"><span class=\"dano\">11</span> dano <span class=\"dano-expressao\">(1d10+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:59:46.509819",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azer 1</strong> usa <em>Martelo de Guerra</em> <span class=\"ataque-total \">11</span> <span class=\"ataque-detalhes\">(6+5)</span><br><span class=\"dano-linha\"><span class=\"dano\">13</span> dano <span class=\"dano-expressao\">(1d10+8)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-31T02:59:46.666557",
+      "tipo": "ataque",
+      "mensagem": "<strong>Azer 1</strong> usa <em>Martelo de Guerra</em> <span class=\"ataque-total \">16</span> <span class=\"ataque-detalhes\">(11+5)</span><br><span class=\"dano-linha\"><span class=\"dano\">16</span> dano <span class=\"dano-expressao\">(1d10+8)</span></span>",
+      "dados": {}
+    }
+  ]
+}

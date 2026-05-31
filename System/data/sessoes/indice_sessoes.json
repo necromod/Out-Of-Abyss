@@ -1,5 +1,5 @@
 {
-  "sessao_atual": "3",
+  "sessao_atual": "4",
   "sessoes": [
     {
       "numero": 1,
@@ -18,6 +18,12 @@
       "id": "3",
       "data": "2026-02-12",
       "titulo": "Sessão 3"
+    },
+    {
+      "numero": 4,
+      "id": "4",
+      "data": "2026-05-30",
+      "titulo": "Sessão 4"
     }
   ]
 }

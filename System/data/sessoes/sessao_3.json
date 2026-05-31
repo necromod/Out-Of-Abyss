@@ -3,7 +3,7 @@
   "id": "3",
   "data": "2026-02-12",
   "criada_em": "2026-02-12T15:58:09.374639",
-  "atualizada_em": "2026-05-30T23:00:53.632852",
+  "atualizada_em": "2026-05-30T23:58:04.884335",
   "estado": {
     "mapa_atual": null,
     "combate_ativo": false,
@@ -12,7 +12,7 @@
     "ordem_turnos": [],
     "widgets": [
       {
-        "id": "widget-1780191763663",
+        "id": "widget-1780196274920",
         "tipo": "log_combate",
         "titulo": "📜 Log de Combate",
         "x": 1110,
@@ -23,7 +23,7 @@
         "dadosCriatura": null
       },
       {
-        "id": "widget-1780191785762",
+        "id": "widget-1780196274921",
         "tipo": "ficha_personagem",
         "titulo": "👤 Azazel Ireth",
         "x": 10,
@@ -39,15 +39,21 @@
         }
       },
       {
-        "id": "widget-1780192817186",
-        "tipo": "dados",
-        "titulo": "🎲 Dados",
+        "id": "widget-1780196277471",
+        "tipo": "ficha_monstro",
+        "titulo": "👹 Salamandra 1",
         "x": 350,
         "y": 80,
-        "width": 250,
-        "height": 200,
+        "width": 350,
+        "height": 450,
         "minimizado": false,
-        "dadosCriatura": null
+        "dadosCriatura": {
+          "tipo": "instancia",
+          "id": 70,
+          "nome": "Salamandra 1",
+          "nomeBase": "Salamandra",
+          "modDestreza": 2
+        }
       }
     ]
   },
@@ -104,6 +110,42 @@
       "timestamp": "2026-05-30T22:44:15.928021",
       "tipo": "ataque",
       "mensagem": "<strong>Azazel Ireth</strong> usa <em>Raio de fogo</em> <span class=\"ataque-total \">13</span> <span class=\"ataque-detalhes\">(7+6)</span><br><span class=\"dano-linha\"><span class=\"dano\">10</span> dano <span class=\"tipo-dano\" data-tipo=\"Ígneo\">ígneo</span> <span class=\"dano-expressao\">(1d10)</span></span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-30T23:56:34.147163",
+      "tipo": "info",
+      "mensagem": "<strong>Salamandra 1</strong> rolou iniciativa: 9+2 = 11",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-30T23:56:44.169376",
+      "tipo": "info",
+      "mensagem": "<strong>Salamandra 2</strong> rolou iniciativa: 13+2 = 15",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-30T23:56:48.887488",
+      "tipo": "info",
+      "mensagem": "<strong>Salamandra 2</strong> Resist de FOR <span class=\"ataque-total info\">22</span> <span class=\"ataque-detalhes\">(d20: 18+4)</span>",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-30T23:57:13.601735",
+      "tipo": "info",
+      "mensagem": "<strong>Salamandra 1</strong> rolou iniciativa: 16+2 = 18",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-30T23:57:59.185723",
+      "tipo": "info",
+      "mensagem": "<strong>Salamandra 1</strong> rolou iniciativa: 6+2 = 8",
+      "dados": {}
+    },
+    {
+      "timestamp": "2026-05-30T23:58:04.322147",
+      "tipo": "info",
+      "mensagem": "🛡️ <strong>Batalha encerrada!</strong>",
       "dados": {}
     }
   ]
