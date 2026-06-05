@@ -4258,13 +4258,6 @@ async function abrirNota(notaId) {
  * Cria um widget de nota
  */
 function criarWidgetNota(nota) {
-    console.log('[criarWidgetNota] Criando widget para nota:', nota);
-    
-    // Garante que as funções de teste estão globais
-    if (!window.testeAdicionarCampo) {
-        console.error('[criarWidgetNota] Funções de teste não estão globais!');
-    }
-    
     const widget = new Widget({
         id: `nota_${nota.id}`,
         tipo: 'nota',
@@ -4284,17 +4277,21 @@ function criarWidgetNota(nota) {
         }
     });
     
-    console.log('[criarWidgetNota] Widget criado:', widget);
-    console.log('[criarWidgetNota] Dados do widget:', widget.dados);
-    
+    // Substitui o popout genérico por abertura da página dedicada de nota
+    widget.abrirPopout = function () {
+        const w = 520, h = 650;
+        const left = Math.round((screen.width  - w) / 2);
+        const top  = Math.round((screen.height - h) / 2);
+        window.open(
+            `/notas/${nota.id}`,
+            `nota_${nota.id}`,
+            `width=${w},height=${h},left=${left},top=${top},resizable=yes,scrollbars=yes`
+        );
+    };
+
     // Adiciona ao estado ANTES de tentar manipular o DOM
     SessaoState.widgets.push(widget);
-    
-    console.log('[criarWidgetNota] Widget adicionado ao estado. Total widgets:', SessaoState.widgets.length);
-    console.log('[criarWidgetNota] Dados do widget criado:', widget.dados);
-    console.log('[criarWidgetNota] ID da nota nos dados:', widget.dados?.id);
-    console.log('[criarWidgetNota] Todos os widgets no estado:', SessaoState.widgets.map(w => ({ tipo: w.tipo, dados: w.dados })));
-    
+
     // Aguarda próximo frame para garantir que o DOM está renderizado
     setTimeout(() => {
         // Adiciona botão de links no header
@@ -4342,16 +4339,13 @@ function criarWidgetNota(nota) {
  */
 function gerarHTMLNota(nota) {
     const campos = nota.campos || [{ texto: '' }];
-    
-    console.log('[gerarHTMLNota] Gerando HTML para nota:', nota.id, 'com', campos.length, 'campos');
-    
+
     return `
         <div class="widget-nota-content">
             <input type="text" class="nota-titulo" value="${nota.titulo || ''}" placeholder="Título da nota...">
-            
+
             <div class="campos-container" data-nota-id="${nota.id}">
                 ${campos.map((campo, index) => {
-                    console.log(`[gerarHTMLNota] Gerando campo ${index}:`, campo);
                     return `
                         <div class="campo-wrapper">
                             <div class="controles-fonte-campo">

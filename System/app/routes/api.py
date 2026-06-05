@@ -461,9 +461,9 @@ def obter_npc(id):
 def atualizar_npc(id):
     """Atualiza campos de um NPC"""
     from ..modulos.repositories import NPCRepository
-    
+
     data = request.get_json()
-    NPCRepository.update(id, data)
+    NPCRepository.atualizar(id, data)
     return jsonify(NPCRepository.get_by_id(id))
 
 
@@ -644,68 +644,6 @@ def estatisticas_personagem(personagem_id):
     return jsonify(stats)
 
 
-# ==================== API DE FICHAS ====================
-# Rotas de compatibilidade para os templates
-
-@api_bp.route('/personagens', methods=['GET'])
-def api_personagens():
-    """Lista todos os personagens"""
-    from ..modulos.repositories import PersonagemRepository
-    personagens = PersonagemRepository.get_all()
-    return jsonify(personagens)
-
-
-@api_bp.route('/monstros', methods=['GET'])
-def api_monstros():
-    """Lista todos os monstros"""
-    from ..modulos.repositories import MonstroRepository
-    monstros = MonstroRepository.get_all()
-    return jsonify(monstros)
-
-
-@api_bp.route('/npcs', methods=['GET'])
-def api_npcs():
-    """Lista todos os NPCs"""
-    from ..modulos.repositories import NPCRepository
-    
-    conhecidos = request.args.get('conhecidos')
-    if conhecidos == '1':
-        npcs = NPCRepository.get_conhecidos()
-    else:
-        npcs = NPCRepository.get_all()
-    return jsonify(npcs)
-
-
-@api_bp.route('/npcs/<int:id>', methods=['GET'])
-def api_obter_npc(id):
-    """Obtém um NPC pelo ID"""
-    from ..modulos.repositories import NPCRepository
-    npc = NPCRepository.get_by_id(id)
-    if npc:
-        return jsonify(npc)
-    return jsonify({'erro': 'NPC não encontrado'}), 404
-
-
-@api_bp.route('/npcs/<int:id>', methods=['PUT', 'PATCH'])
-def api_atualizar_npc(id):
-    """Atualiza um NPC"""
-    from ..modulos.repositories import NPCRepository
-    data = request.get_json()
-    NPCRepository.update(id, data)
-    npc = NPCRepository.get_by_id(id)
-    return jsonify(npc)
-
-
-@api_bp.route('/npcs', methods=['POST'])
-def api_criar_npc():
-    """Cria um novo NPC"""
-    from ..modulos.repositories import NPCRepository
-    data = request.get_json()
-    id = NPCRepository.insert(data)
-    npc = NPCRepository.get_by_id(id)
-    return jsonify(npc)
-
-
 # ========== NOTAS DE SESSÃO ==========
 
 @api_bp.route('/notas', methods=['GET'])
@@ -759,15 +697,8 @@ def atualizar_nota(id):
         NotasSessaoRepository.atualizar_links(id, data['links'])
     
     if 'posicao_x' in data or 'posicao_y' in data or 'largura' in data or 'altura' in data:
-        posicao_data = {
-            'posicao_x': data.get('posicao_x'),
-            'posicao_y': data.get('posicao_y'),
-            'largura': data.get('largura'),
-            'altura': data.get('altura')
-        }
-        # Remove None values
-        posicao_data = {k: v for k, v in posicao_data.items() if v is not None}
-        NotasSessaoRepository.atualizar_posicao(id, posicao_data)
+        posicao_fields = {k: data[k] for k in ('posicao_x', 'posicao_y', 'largura', 'altura') if k in data}
+        NotasSessaoRepository.update(id, posicao_fields)
     
     return jsonify(NotasSessaoRepository.get_by_id(id))
 

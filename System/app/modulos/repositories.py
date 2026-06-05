@@ -377,6 +377,19 @@ class NPCRepository(BaseRepository):
         return cls.get_all(where="conhecido = 1 AND vivo = 1")
     
     @classmethod
+    def atualizar(cls, id: int, dados: Dict) -> Dict:
+        """Atualiza NPC serializando campos JSON"""
+        json_fields = ['atributos', 'acoes']
+        prepared = {}
+        for k, v in dados.items():
+            if k in json_fields and not isinstance(v, str):
+                prepared[k] = json_dumps(v)
+            else:
+                prepared[k] = v
+        cls.update(id, prepared)
+        return cls.get_by_id(id)
+
+    @classmethod
     def get_por_localizacao(cls, local: str) -> List[Dict]:
         """Busca NPCs por localização"""
         return cls.get_all(where="localizacao LIKE ?", params=(f"%{local}%",))

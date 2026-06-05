@@ -3,7 +3,7 @@
   "id": "4",
   "data": "2026-05-30",
   "criada_em": "2026-05-30T23:58:07.388683",
-  "atualizada_em": "2026-05-31T04:14:33.304052",
+  "atualizada_em": "2026-06-05T15:40:45.876028",
   "estado": {
     "mapa_atual": null,
     "combate_ativo": false,
@@ -69,7 +69,7 @@
     ],
     "widgets": [
       {
-        "id": "widget-1780211673176",
+        "id": "widget-1780684845779",
         "tipo": "log_combate",
         "titulo": "📜 Log de Combate",
         "x": 1081,
@@ -80,7 +80,7 @@
         "dadosCriatura": null
       },
       {
-        "id": "widget-1780211673177",
+        "id": "widget-1780684845780",
         "tipo": "ficha_personagem",
         "titulo": "👤 Malachar",
         "x": 2,
@@ -89,14 +89,14 @@
         "height": 400,
         "minimizado": false,
         "dadosCriatura": {
+          "tipo": "personagem",
           "id": 66,
-          "modDestreza": -1,
           "nome": "Malachar",
-          "tipo": "personagem"
+          "modDestreza": 3
         }
       },
       {
-        "id": "widget-1780211673181",
+        "id": "widget-1780684845781",
         "tipo": "ficha_monstro",
         "titulo": "👹 Salamandra 1",
         "x": 342,

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ nota.titulo or 'Nota' }} — Out of the Abyss</title>
+    <link rel="stylesheet" href="/static/css/base.css">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* ── Header ── */
+        .nota-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            background: var(--bg-tertiary);
+            border-bottom: 1px solid var(--border-color);
+            flex-shrink: 0;
+        }
+
+        .nota-titulo-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid transparent;
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 2px 4px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .nota-titulo-input:focus {
+            border-bottom-color: var(--accent-primary);
+        }
+        .nota-titulo-input::placeholder { color: var(--text-muted); font-weight: 400; }
+
+        .status-pill {
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+            white-space: nowrap;
+            transition: all 0.3s;
+        }
+        .status-pill.idle     { background: var(--bg-secondary); color: var(--text-muted); }
+        .status-pill.saving   { background: var(--accent-info);    color: #fff; }
+        .status-pill.saved    { background: var(--accent-success);  color: #fff; }
+        .status-pill.error    { background: var(--accent-danger);   color: #fff; }
+
+        /* ── Campos ── */
+        .campos-scroll {
+            flex: 1;
+            overflow-y: auto;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .campo-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .controles-fonte {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+        }
+
+        .btn-fonte {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            border-radius: 4px;
+            padding: 2px 7px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+        .btn-fonte:hover { background: var(--bg-hover); color: var(--text-primary); }
+
+        .campo-nota-input {
+            width: 100%;
+            min-height: 80px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-size: 14px;
+            padding: 8px 10px;
+            resize: vertical;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .campo-nota-input:focus { border-color: var(--accent-primary); }
+
+        /* ── Footer ── */
+        .nota-footer {
+            padding: 8px 12px;
+            border-top: 1px solid var(--border-color);
+            background: var(--bg-tertiary);
+            flex-shrink: 0;
+        }
+
+        .btn-adicionar {
+            background: var(--bg-secondary);
+            border: 1px dashed var(--border-color);
+            color: var(--text-secondary);
+            border-radius: 6px;
+            padding: 6px 14px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.2s;
+        }
+        .btn-adicionar:hover {
+            background: var(--bg-hover);
+            color: var(--text-primary);
+            border-color: var(--accent-primary);
+        }
+    </style>
+</head>
+<body class="tema-abyss">
+
+    <div class="nota-header">
+        <input
+            id="nota-titulo"
+            class="nota-titulo-input"
+            type="text"
+            value="{{ nota.titulo or '' }}"
+            placeholder="Título da nota..."
+            autocomplete="off"
+        >
+        <span id="status" class="status-pill idle">●</span>
+    </div>
+
+    <div class="campos-scroll" id="campos-container">
+        {% for campo in nota.campos %}
+        <div class="campo-wrapper" data-index="{{ loop.index0 }}">
+            <div class="controles-fonte">
+                <button class="btn-fonte" data-action="diminuir" data-index="{{ loop.index0 }}">A−</button>
+                <button class="btn-fonte" data-action="aumentar" data-index="{{ loop.index0 }}">A+</button>
+            </div>
+            <textarea
+                class="campo-nota-input"
+                data-index="{{ loop.index0 }}"
+                style="font-size: {{ campo.fontSize or 14 }}px;"
+                placeholder="Digite suas anotações..."
+            >{{ campo.texto or '' }}</textarea>
+        </div>
+        {% else %}
+        <div class="campo-wrapper" data-index="0">
+            <div class="controles-fonte">
+                <button class="btn-fonte" data-action="diminuir" data-index="0">A−</button>
+                <button class="btn-fonte" data-action="aumentar" data-index="0">A+</button>
+            </div>
+            <textarea
+                class="campo-nota-input"
+                data-index="0"
+                style="font-size: 14px;"
+                placeholder="Digite suas anotações..."
+            ></textarea>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="nota-footer">
+        <button class="btn-adicionar" id="btn-adicionar-campo">+ Adicionar Campo</button>
+    </div>
+
+    <script>
+    (function () {
+        const NOTA_ID = {{ nota.id }};
+        const API_URL = `/api/notas/${NOTA_ID}`;
+
+        const statusEl   = document.getElementById('status');
+        const tituloEl   = document.getElementById('nota-titulo');
+        const container  = document.getElementById('campos-container');
+        const btnAdicionar = document.getElementById('btn-adicionar-campo');
+
+        let saveTimer = null;
+        let pendingTitle = null;
+
+        // ── Status helpers ──────────────────────────────────────
+        function setStatus(state, text) {
+            statusEl.className = `status-pill ${state}`;
+            statusEl.textContent = text;
+        }
+
+        // ── API save ────────────────────────────────────────────
+        async function salvar(payload) {
+            setStatus('saving', 'Salvando…');
+            try {
+                const res = await fetch(API_URL, {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                if (!res.ok) throw new Error(res.status);
+                setStatus('saved', '✓ Salvo');
+                setTimeout(() => setStatus('idle', '●'), 2000);
+            } catch (e) {
+                setStatus('error', '✗ Erro');
+            }
+        }
+
+        // ── Collect all campos from DOM ─────────────────────────
+        function coletarCampos() {
+            const campos = [];
+            container.querySelectorAll('.campo-nota-input').forEach(el => {
+                campos.push({
+                    texto: el.value,
+                    fontSize: parseInt(el.style.fontSize) || 14
+                });
+            });
+            return campos;
+        }
+
+        function agendarSalvamentoCampos() {
+            clearTimeout(saveTimer);
+            saveTimer = setTimeout(() => {
+                salvar({ campos: coletarCampos() });
+            }, 1200);
+        }
+
+        // ── Título ──────────────────────────────────────────────
+        let tituloTimer = null;
+        tituloEl.addEventListener('input', () => {
+            clearTimeout(tituloTimer);
+            tituloTimer = setTimeout(() => {
+                salvar({ titulo: tituloEl.value });
+                document.title = `${tituloEl.value || 'Nota'} — Out of the Abyss`;
+            }, 1000);
+        });
+
+        // ── Campos: delegação de eventos ─────────────────────────
+        container.addEventListener('input', e => {
+            if (e.target.classList.contains('campo-nota-input')) {
+                agendarSalvamentoCampos();
+            }
+        });
+
+        container.addEventListener('click', e => {
+            const btn = e.target.closest('.btn-fonte');
+            if (!btn) return;
+
+            const index  = parseInt(btn.dataset.index);
+            const action = btn.dataset.action;
+            const textarea = container.querySelector(`.campo-nota-input[data-index="${index}"]`);
+            if (!textarea) return;
+
+            const current = parseInt(textarea.style.fontSize) || 14;
+            if (action === 'aumentar' && current < 24) textarea.style.fontSize = (current + 1) + 'px';
+            if (action === 'diminuir' && current > 10) textarea.style.fontSize = (current - 1) + 'px';
+
+            agendarSalvamentoCampos();
+        });
+
+        // ── Adicionar campo ──────────────────────────────────────
+        btnAdicionar.addEventListener('click', () => {
+            const newIndex = container.querySelectorAll('.campo-wrapper').length;
+            const wrapper = document.createElement('div');
+            wrapper.className = 'campo-wrapper';
+            wrapper.dataset.index = newIndex;
+            wrapper.innerHTML = `
+                <div class="controles-fonte">
+                    <button class="btn-fonte" data-action="diminuir" data-index="${newIndex}">A−</button>
+                    <button class="btn-fonte" data-action="aumentar" data-index="${newIndex}">A+</button>
+                </div>
+                <textarea
+                    class="campo-nota-input"
+                    data-index="${newIndex}"
+                    style="font-size: 14px;"
+                    placeholder="Digite suas anotações..."
+                ></textarea>
+            `;
+            container.appendChild(wrapper);
+            wrapper.querySelector('textarea').focus();
+            salvar({ campos: coletarCampos() });
+        });
+
+        // ── Sincroniza título inicial na aba ─────────────────────
+        if (tituloEl.value) {
+            document.title = `${tituloEl.value} — Out of the Abyss`;
+        }
+    })();
+    </script>
+</body>
+</html>

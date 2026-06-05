@@ -686,12 +686,8 @@ class TestAPIRest(unittest.TestCase):
         data = response.json()
         self.assertIn('id', data)
         
-        # Limpa
-        if 'id' in data:
-            requests.delete(
-                f"{BASE_URL}/fichas/api/monstro/instancia/{data['id']}", 
-                timeout=TIMEOUT
-            )
+        # Limpa (sem DELETE — rota não existe; instância é descartada ao fechar sessão)
+        pass
     
     def test_api_sessao_atual(self):
         """GET /sessao/api/atual deve retornar sessão"""

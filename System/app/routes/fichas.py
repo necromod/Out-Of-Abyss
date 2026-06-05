@@ -308,6 +308,8 @@ def api_criar_instancia_monstro():
     sessao_id = data.get('sessao_id')
     
     resultado = InstanciaMonstroRepository.criar_instancia(monstro_id, nome, sessao_id)
+    if not resultado:
+        return jsonify({'erro': 'Monstro base não encontrado'}), 404
     return jsonify(resultado)
 
 
